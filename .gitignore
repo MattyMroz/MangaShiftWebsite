@@ -1,49 +1,65 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# ── Dependencies ──────────────────────────────────────────────────────────────
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
+node_modules/
+# NOTE: bun.lock SHOULD be committed
 
-# testing
-/coverage
 
-# next.js
-/.next/
-/out/
+# ── Next.js Build ─────────────────────────────────────────────────────────────
 
-# production
-/build
+.next/
+out/
+build/
+.turbo/
+.vercel/
 
-# misc
-.DS_Store
-*.pem
 
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-bun-debug.log*
+# ── TypeScript ────────────────────────────────────────────────────────────────
 
-# env files (can opt-in for committing if needed)
-.env*
-
-# vercel
-.vercel
-
-# typescript
 *.tsbuildinfo
 next-env.d.ts
 
-# external datasets (Hugging Face)
-/external
 
-# claude code — lokalne, per-maszyna (zawiera lokalne ścieżki/uprawnienia)
+# ── Testing & Coverage ────────────────────────────────────────────────────────
+
+coverage/
+
+
+# ── Secrets ───────────────────────────────────────────────────────────────────
+
+.env
+.env.local
+.env.*.local
+!.env.example
+
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+bun-debug.log*
+
+
+# ── Claude Code ───────────────────────────────────────────────────────────────
+# Lokalne, per-maszyna (ścieżki/uprawnienia) — config i skille SĄ commitowane
+
 .claude/settings.local.json
 .claude/scheduled_tasks.lock
+
+
+# ── IDE & Editor ──────────────────────────────────────────────────────────────
+
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+
+
+# ── OS Generated ──────────────────────────────────────────────────────────────
+
+.DS_Store
+Thumbs.db
+desktop.ini

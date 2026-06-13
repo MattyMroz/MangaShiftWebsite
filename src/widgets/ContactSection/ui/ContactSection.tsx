@@ -7,9 +7,13 @@ import { SmartText } from '@/shared/ui/SmartText/SmartText';
 import { Button } from '@/shared/ui/Button/Button';
 import GlassSurface from '@/shared/ui/GlassSurface/GlassSurface';
 
-// TODO: podmień na własny endpoint po założeniu konta na https://formspree.io
-//       (Dashboard → New form → skopiuj URL postaci https://formspree.io/f/xxxxxxx)
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/REPLACE_WITH_YOUR_ID';
+// ── Google Forms ──────────────────────────────────────────────────────────────
+// Maile lądują w arkuszu Google Sheets podpiętym do formularza. Darmowe, bez limitu.
+const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLScyTs1gTH1kmVC8EHkB_pdPsdrWwEtGIwLvQYu4StRfSkVYpA/formResponse';
+const GOOGLE_FORM_EMAIL_ENTRY = 'entry.69848106';
+// Zgoda RODO — formularz wymaga jej do przyjęcia wpisu; user akceptuje przez nasz checkbox.
+const GOOGLE_FORM_CONSENT_ENTRY = 'entry.980875902';
+const GOOGLE_FORM_CONSENT_VALUE = 'Yes, I agree';
 
 type SubmitState = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -40,6 +44,7 @@ const contactMethods = [
 
 export const ContactSection = () => {
     const [email, setEmail] = useState('');
+    const [consent, setConsent] = useState(false);
     const [status, setStatus] = useState<SubmitState>('idle');
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -52,17 +57,20 @@ export const ContactSection = () => {
 
         setStatus('submitting');
         try {
-            const res = await fetch(FORMSPREE_ENDPOINT, {
-                method: 'POST',
-                headers: { Accept: 'application/json' },
-                body: JSON.stringify({ email }),
+            const body = new URLSearchParams({
+                [GOOGLE_FORM_EMAIL_ENTRY]: email,
+                [GOOGLE_FORM_CONSENT_ENTRY]: GOOGLE_FORM_CONSENT_VALUE,
             });
-            if (res.ok) {
-                setStatus('success');
-                setEmail('');
-            } else {
-                setStatus('error');
-            }
+            // Google Forms zwraca opaque response (no-cors) — brak wyjątku traktujemy jako sukces.
+            await fetch(GOOGLE_FORM_ACTION, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body,
+            });
+            setStatus('success');
+            setEmail('');
+            setConsent(false);
         } catch {
             setStatus('error');
         }
@@ -156,6 +164,23 @@ export const ContactSection = () => {
                                 className="w-full bg-transparent outline-none text-[length:var(--normal-font-size)] text-[var(--text-primary)] placeholder:text-[var(--text-secondary)] disabled:opacity-60"
                             />
                         </GlassSurface>
+
+                        <label className="flex items-start gap-3 cursor-pointer text-left max-w-md">
+                            <input
+                                type="checkbox"
+                                name="consent"
+                                checked={consent}
+                                onChange={(e) => setConsent(e.target.checked)}
+                                required
+                                disabled={isLocked}
+                                className="mt-1 shrink-0 w-4 h-4 accent-[var(--text-primary)] cursor-pointer disabled:opacity-60"
+                            />
+                            <SmartText>
+                                <span className="text-[length:var(--normal-font-size)] text-[var(--text-secondary)] leading-snug">
+                                    I agree to be contacted by email about the beta test.
+                                </span>
+                            </SmartText>
+                        </label>
 
                         <Button type="submit" variant="primary" disabled={isLocked}>
                             {status === 'submitting' ? 'Joining…' : status === 'success' ? 'You’re in!' : 'Join the Beta'}
