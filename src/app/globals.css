@@ -1,0 +1,505 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #ff4500;
+  --primary-hover: #ff6347;
+  --secondary: #ff1493;
+  --secondary-hover: #ff69b4;
+  --accent-primary: #525252;
+
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #171717;
+  --bg-tertiary: #262626;
+
+  --text-primary: #fafafa;
+  --text-secondary: #c4c4c4;
+  --text-tertiary: #8a8a8a;
+
+  --border-primary: #2a2a2a;
+  --border-secondary: #404040;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4);
+
+  --title-font-size: 16rem;
+  --subtitle-font-size: 3rem;
+  --japanese-text-font-size: 1.4rem;
+  --section-title-font-size: 5rem;
+  --section-subtitle-font-size: 2.2rem;
+  --h1-font-size: 3.2rem;
+  --h2-font-size: 2.4rem;
+  --h3-font-size: 1.872rem;
+  --normal-font-size: 1.6rem;
+  --small-font-size: 1.328rem;
+  --tiny-font-size: 1.072rem;
+
+  --text-xs: 1.2rem;
+  --text-sm: 1.4rem;
+  --text-base: 1.6rem;
+  --text-lg: 1.8rem;
+  --text-xl: 2rem;
+  --text-2xl: 2.4rem;
+  --text-3xl: 3rem;
+  --text-4xl: 3.6rem;
+  --text-5xl: 4.8rem;
+
+  --container-width: 120rem;
+  --container-padding: 1.5rem;
+  --section-margin-bottom: 10rem;
+  --section-padding-top: 10rem;
+  --section-padding-bottom: 10rem;
+
+  --section-gap-horizontal: 0;
+  --section-gap-vertical: 8rem;
+
+  --section-padding-x-mobile: 1.5rem;
+  --section-padding-x-tablet: 3rem;
+  --section-padding-x-desktop-sm: 6rem;
+  --section-padding-x-desktop-lg: 6rem;
+
+  --section-padding-y-mobile: 8rem;
+  --section-padding-y-tablet: 24rem;
+  --section-padding-y-desktop-sm: 16rem;
+  --section-padding-y-desktop-lg: 36rem;
+
+  --card-padding-mobile: 2rem;
+  --card-padding-desktop: 3.2rem;
+
+  --card-gap: 2rem;
+
+  --spacing-xs: 0.4rem;
+  --spacing-sm: 0.8rem;
+  --spacing-md: 1.6rem;
+  --spacing-lg: 2.4rem;
+  --spacing-xl: 3.2rem;
+  --spacing-2xl: 4.8rem;
+
+  --radius-sm: 0.4rem;
+  --radius-md: 0.8rem;
+  --radius-lg: 1.2rem;
+  --radius-xl: 1.6rem;
+  --radius-full: 9999px;
+}
+
+[data-theme="light"] {
+  --primary: #dc2626;
+  --primary-hover: #b91c1c;
+  --secondary: #ec4899;
+  --secondary-hover: #db2777;
+
+  --bg-primary: #fcfcfc;
+  --bg-secondary: #f5f5f5;
+  --bg-tertiary: #e5e5e5;
+
+  --text-primary: #1a1a1a;
+  --text-secondary: #525252;
+  --text-tertiary: #a3a3a3;
+
+  --border-primary: #e5e5e5;
+  --border-secondary: #d4d4d8;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+@media screen and (max-width: 992px) {
+  html {
+    font-size: 55%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  :root {
+    --title-font-size: 11.5rem;
+    --subtitle-font-size: 2.3rem;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  :root {
+    --title-font-size: 8rem;
+    --subtitle-font-size: 1.75rem;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  :root {
+    --title-font-size: 7rem;
+    --h1-font-size: 2.4rem;
+    --h2-font-size: 1.8rem;
+    --h3-font-size: 1.5rem;
+    --japanese-text-font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  :root {
+    --title-font-size: 6.5rem;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  :root {
+    --title-font-size: 5.5rem;
+  }
+}
+
+*,
+*::before,
+*::after {
+  transition: 0s ease;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  background-color: #0a0a0a;
+  color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  background-color: #fcfcfc;
+  color-scheme: light;
+}
+
+body {
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.6;
+  color: var(--text-primary, #fafafa);
+  background-color: var(--bg-primary, #0a0a0a);
+  position: relative;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button {
+  font-family: var(--font-montserrat), system-ui, -apple-system, sans-serif;
+}
+
+input,
+button,
+textarea {
+  font-size: inherit;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+body::-webkit-scrollbar {
+  width: .8rem;
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--text-secondary);
+  border-radius: 5rem;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text-primary);
+}
+
+.fixed.inset-0::-webkit-scrollbar {
+  width: 0rem;
+}
+
+.fixed.inset-0::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.fixed.inset-0::-webkit-scrollbar-thumb {
+  background-color: var(--text-secondary);
+  border-radius: 5rem;
+}
+
+.fixed.inset-0::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text-primary);
+}
+
+.burger {
+  position: relative;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 62.5px;
+  height: 62.5px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: currentColor;
+  transition: none;
+}
+
+.burger:focus {
+  outline: none;
+}
+
+#burger-svg {
+  width: 62.5px;
+  height: 62.5px;
+  pointer-events: none;
+}
+
+.burger-svg__bars rect {
+  transform-origin: center;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0.25rem;
+  background: var(--text-primary);
+  transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-link:hover::before {
+    left: 0;
+    right: auto;
+    width: 100%;
+  }
+}
+
+.theme-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5rem;
+  height: 5rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  transition: color 0.3s ease;
+}
+
+.theme-toggle:hover {
+  color: var(--text-primary);
+}
+
+.theme-toggle svg {
+  width: 2.7rem;
+  height: 2.7rem;
+}
+
+@media (max-width: 1024px) {
+  .fixed.inset-0 .theme-toggle {
+    width: 8rem;
+    height: 8rem;
+  }
+
+  .fixed.inset-0 .theme-toggle svg {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+
+/* LightRays - canvas domyślnie ukryty, JS pokazuje po inicjalizacji */
+.light-rays-container {
+  background: transparent !important;
+}
+
+.light-rays-container canvas {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  background: transparent !important;
+  transition: none;
+}
+
+.light-rays-container canvas.light-rays-ready {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transition: opacity 0.2s ease-out, visibility 0s;
+}
+
+/* SplashCursor - canvas domyślnie ukryty, JS pokazuje po inicjalizacji */
+.splash-cursor-container {
+  background: transparent !important;
+}
+
+.splash-cursor-container canvas {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  background: transparent !important;
+  transition: none;
+}
+
+.splash-cursor-container canvas.splash-cursor-ready {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transition: opacity 0.2s ease-out, visibility 0s;
+}
+
+/* ========================================
+   PLYR VIDEO PLAYER - Black & White Theme
+   ======================================== */
+
+/* Plyr CSS Variables - Black & White Theme */
+.plyr {
+  --plyr-color-main: rgb(255, 255, 255);
+  --plyr-video-background: rgb(15, 15, 15);
+  --plyr-tab-focus-color: var(--plyr-color-main);
+  
+  /* Badge colors */
+  --plyr-badge-background: rgba(255, 255, 255, 0.9);
+  --plyr-badge-text-color: #000000;
+  --plyr-badge-border-radius: 2px;
+  
+  /* Captions */
+  --plyr-captions-background: rgba(0, 0, 0, 0.4);
+  --plyr-captions-text-color: #ffffff;
+  
+  /* Controls */
+  --plyr-control-icon-size: 18px;
+  --plyr-control-spacing: 10px;
+  --plyr-control-padding: calc(var(--plyr-control-spacing) * 0.7);
+  --plyr-control-radius: 8px;
+  --plyr-control-toggle-checked-background: rgba(0, 0, 0, 1);
+  
+  /* Video controls background gradient */
+  --plyr-video-controls-background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75));
+  
+  /* Icon colors */
+  --plyr-video-control-color: rgba(255, 255, 255, 0.9);
+  --plyr-video-control-color-hover: #ffffff;
+  --plyr-video-control-background-hover: rgba(0, 0, 0, 0.6);
+  
+  /* Audio controls */
+  --plyr-audio-controls-background: rgba(0, 0, 0, 0.6);
+  --plyr-audio-control-color: rgba(255, 255, 255, 0.9);
+  --plyr-audio-control-color-hover: #ffffff;
+  --plyr-audio-control-background-hover: rgba(0, 0, 0, 0.6);
+  
+  /* Menu */
+  --plyr-menu-background: rgba(0, 0, 0, 0.7);
+  --plyr-menu-color: #ffffff;
+  --plyr-menu-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --plyr-menu-border-radius: 4px;
+  --plyr-menu-arrow-size: 6px;
+  --plyr-menu-arrow-color: rgba(255, 255, 255, 0.75);
+  --plyr-menu-item-arrow-size: 4px;
+  --plyr-menu-border-color: #dcdfe5;
+  --plyr-menu-border-shadow-color: #ffffff;
+  
+  /* Progress bar */
+  --plyr-progress-loading-size: 25px;
+  --plyr-progress-loading-background: rgba(2, 5, 9, 0.6);
+  --plyr-video-progress-buffered-background: rgba(255, 255, 255, 0.25);
+  --plyr-audio-progress-buffered-background: rgba(255, 255, 255, 0.25);
+  
+  /* Range slider */
+  --plyr-range-thumb-height: 13px;
+  --plyr-range-thumb-background: #ffffff;
+  --plyr-range-thumb-shadow: 0 1px 1px rgb(255, 255, 255), 0 0 0 1px rgb(255, 255, 255);
+  --plyr-range-thumb-active-shadow-width: 3px;
+  --plyr-range-track-height: 5px;
+  --plyr-range-fill-background: var(--plyr-color-main);
+  --plyr-video-range-track-background: var(--plyr-video-progress-buffered-background);
+  --plyr-video-range-thumb-active-shadow-color: rgba(255, 255, 255, 0.5);
+  --plyr-audio-range-track-background: var(--plyr-video-progress-buffered-background);
+  --plyr-audio-range-thumb-active-shadow-color: rgb(255, 255, 255);
+  
+  /* Tooltip */
+  --plyr-tooltip-background: rgba(255, 255, 255, 0.9);
+  --plyr-tooltip-color: #4a5464;
+  --plyr-tooltip-padding: calc(var(--plyr-control-spacing) / 2);
+  --plyr-tooltip-arrow-size: 4px;
+  --plyr-tooltip-radius: 3px;
+  --plyr-tooltip-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  
+  /* Typography */
+  --plyr-font-size-base: 15px;
+  --plyr-font-size-small: 13px;
+  --plyr-font-size-large: 18px;
+  --plyr-font-size-xlarge: 21px;
+  --plyr-font-size-time: var(--plyr-font-size-small);
+  --plyr-font-size-menu: var(--plyr-font-size-small);
+  --plyr-font-size-badge: 9px;
+  --plyr-font-weight-regular: 400;
+  --plyr-font-weight-bold: 600;
+  --plyr-line-height: 1.7;
+}
+
+/* Menu radio button styling */
+.plyr__menu__container .plyr__control[role=menuitemradio]:before {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.plyr__menu__container .plyr__control[role=menuitemradio]:hover:before {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* Make plyr fill its container */
+.plyr,
+.plyr__video-wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+.plyr video {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+/* Rounded corners for video */
+.plyr--video {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+/* Caption styling */
+.plyr__caption {
+  font-size: clamp(14px, 2vw, 24px);
+  line-height: 1.5;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Large play button */
+.plyr__control--overlaid {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.plyr__control--overlaid:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .plyr {
+    --plyr-control-icon-size: 16px;
+    --plyr-control-spacing: 8px;
+    --plyr-font-size-base: 13px;
+    --plyr-font-size-small: 11px;
+  }
+  
+  .plyr__caption {
+    font-size: 14px;
+  }
+}

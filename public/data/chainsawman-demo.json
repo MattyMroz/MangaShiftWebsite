@@ -1,0 +1,34 @@
+{
+  "title": "Chainsawman Chapter 1 - Demo Showcase",
+  "description": "Demo prezentujące synchronizację paneli manga z audio narracją",
+  "panels": [
+    {
+      "id": 1,
+      "image": "/images/chainsawman/panel-01.jpg",
+      "text": "To jest placeholder. Dodaj prawdziwe panele manga tutaj.",
+      "audioTimestamp": 0,
+      "duration": 3.0
+    },
+    {
+      "id": 2,
+      "image": "/images/chainsawman/panel-02.jpg",
+      "text": "Każdy panel ma swój timestamp i czas trwania.",
+      "audioTimestamp": 3.0,
+      "duration": 3.5
+    },
+    {
+      "id": 3,
+      "image": "/images/chainsawman/panel-03.jpg",
+      "text": "Player automatycznie przełączy się na następny panel.",
+      "audioTimestamp": 6.5,
+      "duration": 4.0
+    }
+  ],
+  "audio": "/audio/chainsawman-demo.mp3",
+  "totalDuration": 10.5,
+  "metadata": {
+    "chapter": 1,
+    "language": "pl",
+    "createdAt": "2025-11-23"
+  }
+}
