@@ -10,7 +10,7 @@ import GlassSurface from '@/shared/ui/GlassSurface/GlassSurface';
 // ── Google Forms ──────────────────────────────────────────────────────────────
 // Maile lądują w arkuszu Google Sheets podpiętym do formularza. Darmowe, bez limitu.
 const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLScyTs1gTH1kmVC8EHkB_pdPsdrWwEtGIwLvQYu4StRfSkVYpA/formResponse';
-const GOOGLE_FORM_EMAIL_ENTRY = 'entry.69848106';
+const GOOGLE_FORM_EMAIL_ENTRY = 'entry.1654989478';
 // Zgoda RODO — formularz wymaga jej do przyjęcia wpisu; user akceptuje przez nasz checkbox.
 const GOOGLE_FORM_CONSENT_ENTRY = 'entry.980875902';
 const GOOGLE_FORM_CONSENT_VALUE = 'Yes, I agree';
