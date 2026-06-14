@@ -4,234 +4,149 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Button } from '@/shared/ui/Button/Button';
-import { SecRule } from '@/shared/ui/SecRule/SecRule';
+import { Container } from '@/shared/ui/Container/Container';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
-import { cn } from '@/shared/lib/utils/cn';
 
-const fadeUp = {
+const highlights = [
+    ['01', 'Panel-aware pacing'],
+    ['02', 'Character narration'],
+    ['03', 'Ready-to-share video'],
+] as const;
+
+const reveal = {
     initial: { opacity: 0, y: 24 },
     animate: { opacity: 1, y: 0 },
 };
 
-const stamps = [
-    { roman: 'I', value: '100+', label: 'pages / run', meta: 'capacity' },
-    { roman: 'II', value: 'AI', label: 'narration voices', meta: 'audio' },
-    { roman: 'III', value: '1-click', label: 'video export', meta: 'output' },
-];
-
-const PlayGlyph = () => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="h-5 w-5"
-        aria-hidden="true"
-    >
-        <circle cx="12" cy="12" r="9" />
-        <polygon points="11 9 16 12 11 15 11 9" fill="currentColor" />
-    </svg>
-);
-
-const Corner = ({ position }: { position: 'tl' | 'tr' | 'bl' | 'br' }) => {
-    const base = 'absolute h-7 w-7 border-[var(--accent)]';
-    const map = {
-        tl: 'left-3 top-3 border-l-2 border-t-2',
-        tr: 'right-3 top-3 border-r-2 border-t-2',
-        bl: 'left-3 bottom-3 border-l-2 border-b-2',
-        br: 'right-3 bottom-3 border-r-2 border-b-2',
-    } as const;
-    return <span aria-hidden="true" className={cn(base, map[position])} />;
-};
-
-const Stamp = ({
-    roman,
-    value,
-    label,
-    meta,
-    index,
-}: (typeof stamps)[number] & { index: number }) => (
-    <motion.div
-        className="group flex items-center gap-4"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.6, delay: index * 0.1 }}
-    >
-        <div className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-[var(--line-strong)]">
-            <span className="absolute inset-1 rounded-full border border-dashed border-[var(--line)]" />
-            <em className="serif text-[1.6rem] leading-none text-[var(--accent-text)]">
-                {roman}
-            </em>
-        </div>
-        <div className="min-w-0">
-            <p className="text-[2rem] font-extrabold leading-none tracking-tight text-[var(--text)]">
-                {value}
-            </p>
-            <p className="mt-1.5 font-mono text-[1.05rem] uppercase tracking-[0.16em] text-[var(--text-faint)]">
-                {label}
-            </p>
-        </div>
-        <span className="ml-auto hidden font-mono text-[1rem] uppercase tracking-[0.2em] text-[var(--text-faint)] sm:block">
-            {meta}
-        </span>
-    </motion.div>
-);
-
 export const Hero = () => {
-    const handleScrollLink = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        const href = e.currentTarget.getAttribute('href');
-        if (href && smoothScrollTo(href)) e.preventDefault();
+    const scrollTo = (event: React.MouseEvent<HTMLAnchorElement>) => {
+        const href = event.currentTarget.getAttribute('href');
+        if (href && smoothScrollTo(href)) event.preventDefault();
     };
 
     return (
-        <section
-            id="home"
-            className="relative min-h-screen overflow-hidden px-[var(--section-padding-x-mobile)] pb-[10rem] pt-[16rem] md:px-[var(--section-padding-x-tablet)] lg:px-[var(--section-padding-x-desktop-sm)] lg:pb-[14rem]"
-        >
-            <div className="relative z-10 mx-auto w-full max-w-[120rem]">
-                <motion.div {...fadeUp} transition={{ duration: 0.6 }}>
-                    <SecRule
-                        roman="I."
-                        meta="The MangaShift Pipeline — Manga to Motion"
-                        page="001 / 008"
-                    />
-                </motion.div>
-
-                <div className="mt-[5rem] max-w-[24ch] lg:mt-[7rem]">
-                    <motion.div
-                        className="flex items-center gap-4"
-                        {...fadeUp}
-                        transition={{ duration: 0.6, delay: 0.05 }}
-                    >
-                        <span className="h-px w-10 bg-[var(--accent)]" />
-                        <span className="eyebrow">Nº 01 — Static panels, set in motion</span>
-                    </motion.div>
-
-                    <motion.h1
-                        className="display display-dot mt-10 text-[clamp(3.4rem,8.5vw,9.5rem)]"
-                        {...fadeUp}
-                        transition={{ duration: 0.85, delay: 0.12 }}
-                    >
-                        Turn manga into{' '}
-                        <em className="text-[var(--accent-text)]">living</em> video
-                    </motion.h1>
+        <section id="home" className="relative overflow-hidden pb-20 pt-32 md:pb-24 md:pt-40">
+            <Container>
+                <div
+                    className="editorial-rule"
+                    data-index="I."
+                    data-page="001 / 006"
+                >
+                    <span className="truncate">MangaShift · private beta · 2026</span>
                 </div>
 
-                <div className="mt-[7rem] grid grid-cols-1 gap-[3rem] lg:mt-[9rem] lg:grid-cols-[1fr_auto] lg:items-end lg:gap-[5rem]">
-                    <motion.p
-                        className="max-w-[44ch] text-[length:var(--h3-font-size)] leading-relaxed text-[var(--text-muted)] lg:ml-auto lg:max-w-[40ch] lg:text-right"
-                        {...fadeUp}
-                        transition={{ duration: 0.8, delay: 0.24 }}
-                    >
-                        MangaShift reads your pages panel by panel, then directs them —
-                        <span className="text-[var(--text)]"> AI narration, paced cuts, motion</span>.
-                        A static chapter becomes a watchable video, in a single pass.
-                    </motion.p>
-
-                    <motion.div
-                        className="flex flex-col items-stretch gap-5 sm:flex-row sm:items-center lg:order-first"
-                        {...fadeUp}
-                        transition={{ duration: 0.8, delay: 0.32 }}
-                    >
-                        <Link href="#beta" onClick={handleScrollLink} className="contents">
-                            <Button variant="hero" size="md">
-                                Join the Beta
-                            </Button>
-                        </Link>
-                        <Link href="#demo" onClick={handleScrollLink} className="contents">
-                            <Button variant="outline" size="md">
-                                <span className="flex items-center gap-2">
-                                    <PlayGlyph />
-                                    See the demo
-                                </span>
-                            </Button>
-                        </Link>
-                    </motion.div>
-                </div>
-
-                <div className="mt-[10rem] grid grid-cols-1 items-start gap-[6rem] lg:mt-[13rem] lg:grid-cols-[1fr_1.15fr] lg:gap-[7rem]">
-                    <div className="flex flex-col gap-7 lg:pt-[3rem]">
+                <div className="mt-10 grid items-center gap-14 lg:mt-14 lg:grid-cols-12 lg:gap-10">
+                    <div className="lg:col-span-7 lg:pr-8">
                         <motion.p
-                            className="numero font-mono text-[1.05rem] uppercase tracking-[0.18em] text-[var(--text-faint)]"
-                            {...fadeUp}
-                            transition={{ duration: 0.6 }}
+                            className="section-kicker"
+                            {...reveal}
+                            transition={{ duration: 0.55 }}
                         >
-                            <span className="text-[var(--accent-text)]">02</span> — What one
-                            pass delivers
+                            Manga to narrated video
                         </motion.p>
-                        <div className="flex flex-col gap-7 border-t border-[var(--line)] pt-10">
-                            {stamps.map((s, i) => (
-                                <Stamp key={s.roman} {...s} index={i} />
+
+                        <motion.h1
+                            className="display mt-7 max-w-[11ch] text-[clamp(5.2rem,7.3vw,9.4rem)]"
+                            {...reveal}
+                            transition={{ duration: 0.78, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+                        >
+                            Turn manga into a story you can{' '}
+                            <em className="text-[var(--accent-text)]">watch</em>.
+                        </motion.h1>
+
+                        <motion.p
+                            className="mt-8 max-w-[58ch] text-[1.8rem] leading-[1.65] text-[var(--text-muted)] md:text-[2rem]"
+                            {...reveal}
+                            transition={{ duration: 0.7, delay: 0.18 }}
+                        >
+                            MangaShift reads every panel, follows the original flow, adds narration
+                            and motion, then renders a finished video. No timeline. No manual cut.
+                        </motion.p>
+
+                        <motion.div
+                            className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center"
+                            {...reveal}
+                            transition={{ duration: 0.7, delay: 0.26 }}
+                        >
+                            <Link href="#beta" onClick={scrollTo} className="contents">
+                                <Button variant="hero" size="md">
+                                    Join the private beta
+                                    <span aria-hidden="true">↗</span>
+                                </Button>
+                            </Link>
+                            <Link href="#demo" onClick={scrollTo} className="contents">
+                                <Button variant="outline" size="md">
+                                    Watch the sample
+                                    <span aria-hidden="true">↓</span>
+                                </Button>
+                            </Link>
+                        </motion.div>
+
+                        <motion.dl
+                            className="mt-12 grid max-w-[66rem] gap-px overflow-hidden border-y border-[var(--line)] bg-[var(--line)] sm:grid-cols-3"
+                            {...reveal}
+                            transition={{ duration: 0.75, delay: 0.34 }}
+                        >
+                            {highlights.map(([number, label]) => (
+                                <div key={number} className="bg-[var(--bg)] px-4 py-5">
+                                    <dt className="font-mono text-[1rem] tracking-[0.18em] text-[var(--accent-text)]">
+                                        {number}
+                                    </dt>
+                                    <dd className="mt-2 text-[1.35rem] font-medium leading-snug text-[var(--text)]">
+                                        {label}
+                                    </dd>
+                                </div>
                             ))}
-                        </div>
+                        </motion.dl>
                     </div>
 
                     <motion.figure
-                        className="relative mx-auto w-full max-w-[42rem] lg:max-w-none"
-                        initial={{ opacity: 0, y: 32 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: '-80px' }}
-                        transition={{ duration: 0.9 }}
+                        className="relative mx-auto w-full max-w-[56rem] lg:col-span-5"
+                        initial={{ opacity: 0, x: 24 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.85, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
                     >
-                        <div className="mb-4 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 font-mono text-[1.05rem] uppercase tracking-[0.18em] text-[var(--text-faint)]">
-                            <span className="text-[var(--accent-text)]">Plate Nº 01</span>
-                            <span className="hidden sm:inline">Beta · 2026 cohort</span>
-                            <span className="tabular-nums">35.6895° N · 139.69° E</span>
-                        </div>
+                        <span
+                            aria-hidden="true"
+                            className="absolute -right-10 -top-8 h-44 w-44 rounded-full bg-[var(--accent)] opacity-90 md:h-56 md:w-56"
+                        />
+                        <span
+                            aria-hidden="true"
+                            className="absolute -bottom-8 -left-8 h-28 w-28 rounded-full border border-[var(--accent-2)] bg-[var(--surface-2)]"
+                        />
 
-                        <div className="relative aspect-[2/3] w-full overflow-hidden rounded-[var(--radius-md)] border border-[var(--line)] bg-[var(--surface)] shadow-[var(--shadow-lg)]">
-                            <Image
-                                src="/images/chainsawman/RezeArc.webp"
-                                alt="Manga page composition processed by the MangaShift pipeline"
-                                fill
-                                priority
-                                sizes="(max-width: 1024px) 90vw, 40rem"
-                                className="object-cover"
-                            />
-
-                            <span
-                                aria-hidden="true"
-                                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--bg-alpha)] via-transparent to-transparent"
-                            />
-
-                            <Corner position="tl" />
-                            <Corner position="tr" />
-                            <Corner position="bl" />
-                            <Corner position="br" />
-
-                            <div className="pointer-events-none absolute bottom-4 left-4 right-4 flex items-end justify-between">
-                                <span className="rounded-full bg-[var(--bg)]/85 px-3 py-1.5 font-mono text-[1rem] uppercase tracking-[0.16em] text-[var(--text)] backdrop-blur-sm">
-                                    Frame 0001 — Reze Arc
-                                </span>
-                                <span className="font-mono text-[1rem] uppercase tracking-[0.16em] text-[var(--accent-text)]">
-                                    ● REC
-                                </span>
+                        <div className="relative overflow-hidden rounded-[2.4rem] border border-[var(--line-strong)] bg-[#101012] p-3 shadow-[var(--shadow-lg)]">
+                            <div className="relative aspect-[4/5] overflow-hidden rounded-[1.7rem]">
+                                <Image
+                                    src="/images/chainsawman/RezeArc.webp"
+                                    alt="Manga artwork prepared for the MangaShift video pipeline"
+                                    fill
+                                    priority
+                                    sizes="(max-width: 1024px) 90vw, 42vw"
+                                    className="object-cover object-top"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/5" />
+                                <div className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-4 text-white">
+                                    <div>
+                                        <p className="font-mono text-[1rem] uppercase tracking-[0.2em] text-white/60">
+                                            Preview · frame 001
+                                        </p>
+                                        <p className="mt-1 text-[1.8rem] font-semibold">Reze Arc sample</p>
+                                    </div>
+                                    <span className="grid h-12 w-12 place-items-center rounded-full border border-white/40 bg-white/10 text-[1.5rem] backdrop-blur">
+                                        ▶
+                                    </span>
+                                </div>
                             </div>
                         </div>
 
-                        <figcaption className="mt-4 flex items-baseline justify-between border-t border-[var(--line)] pt-3 font-mono text-[1.05rem] uppercase tracking-[0.18em] text-[var(--text-faint)]">
-                            <span>Source · static panel</span>
-                            <em className="serif tracking-normal text-[var(--accent-text)]">
-                                → motion
-                            </em>
+                        <figcaption className="mt-4 flex items-center justify-between border-t border-[var(--line)] pt-3 font-mono text-[1rem] uppercase tracking-[0.18em] text-[var(--text-faint)]">
+                            <span>Static page</span>
+                            <span className="text-[var(--accent-text)]">→ narrated motion</span>
                         </figcaption>
                     </motion.figure>
                 </div>
-            </div>
-
-            <div
-                aria-hidden="true"
-                className="pointer-events-none absolute bottom-10 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-3 lg:flex"
-            >
-                <span className="font-mono text-[1rem] uppercase tracking-[0.3em] text-[var(--text-faint)]">
-                    Scroll
-                </span>
-                <span className="h-12 w-px bg-gradient-to-b from-[var(--line-strong)] to-transparent" />
-            </div>
+            </Container>
         </section>
     );
 };

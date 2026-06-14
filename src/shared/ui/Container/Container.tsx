@@ -10,7 +10,7 @@ interface ContainerProps {
 export const Container = ({ as: Tag = 'div', className, children }: ContainerProps) => (
     <Tag
         className={cn(
-            'mx-auto w-full max-w-[120rem] px-6 md:px-10 lg:px-12',
+            'mx-auto w-full max-w-[128rem] px-6 md:px-10 lg:px-14',
             className,
         )}
     >
