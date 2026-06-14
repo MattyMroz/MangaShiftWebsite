@@ -15,8 +15,6 @@ const eslintConfig = defineConfig([
     // Materiały referencyjne / robocze (nie kod aplikacji).
     "docs/**",
     "temp/**",
-    // Wgrane demo suminagashi (tło) — biblioteka, nie kod aplikacji.
-    "public/suminagashi/**",
   ]),
 ]);
 

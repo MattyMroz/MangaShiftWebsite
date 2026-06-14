@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Inter_Tight, Playfair_Display, Inter, JetBrains_Mono } from "next/font/google";
 import { Header } from "@/widgets/Header/ui/Header";
-import { InkBackground } from "@/shared/ui/InkBackground/InkBackground";
-import { SideRails } from "@/shared/ui/SideRails/SideRails";
+import { CursorHalo } from "@/shared/ui/CursorHalo/CursorHalo";
 import "./globals.css";
 
 const display = Inter_Tight({ variable: "--font-display", subsets: ["latin"], weight: ["500", "600", "700", "800", "900"] });
@@ -65,7 +64,7 @@ const themeInitScript = `
       var theme = localStorage.getItem('theme') || 'light';
       var effects = localStorage.getItem('effects');
       var root = document.documentElement;
-      var bg = theme === 'dark' ? '#14131a' : '#efeae0';
+      var bg = theme === 'dark' ? '#141416' : '#f1ede5';
       root.setAttribute('data-theme', theme);
       root.setAttribute('data-effects', effects === 'false' ? 'disabled' : 'enabled');
       root.style.colorScheme = theme;
@@ -89,16 +88,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="overflow-x-hidden" style={{ backgroundColor: '#efeae0' }}>
+    <html lang="en" suppressHydrationWarning className="overflow-x-hidden" style={{ backgroundColor: '#f1ede5' }}>
       <head>
-        <meta name="theme-color" content="#efeae0" />
+        <meta name="theme-color" content="#f1ede5" />
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body
         className={`${display.variable} ${serif.variable} ${body.variable} ${mono.variable} antialiased overflow-x-hidden select-none`}
       >
-        <InkBackground />
-        <SideRails />
+        <CursorHalo />
         <Header />
         {children}
       </body>

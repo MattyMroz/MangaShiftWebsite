@@ -1,206 +1,103 @@
 'use client';
 
-import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { cn } from '@/shared/lib/utils/cn';
+import { Container } from '@/shared/ui/Container/Container';
 
-type Step = {
-    n: string;
-    roman: string;
-    title: string;
-    text: string;
-    coord: string;
-    image: string;
-    alt: string;
-};
-
-const steps: Step[] = [
+const steps = [
     {
-        n: '01',
-        roman: 'I',
+        number: '01',
         title: 'Upload',
-        text: 'Drop a chapter, a single page, or a whole volume. MangaShift ingests manga, manhwa and webtoons — any resolution, any reading direction — and tidies the raw scans for the pipeline.',
-        coord: '35.6762° N',
-        image: '/images/inspiration/method-1.png',
-        alt: 'Raw manga pages being ingested into the pipeline',
+        eyebrow: 'Source',
+        text: 'Add a page, chapter or vertical webtoon. MangaShift accepts the artwork as it is.',
     },
     {
-        n: '02',
-        roman: 'II',
-        title: 'Detect',
-        text: 'Vision models read the page the way you do — segmenting panels, tracing reading order, and lifting every speech bubble and caption with character-aware attribution.',
-        coord: '139.6503° E',
-        image: '/images/inspiration/method-2.png',
-        alt: 'AI detecting panels and speech bubbles on a page',
+        number: '02',
+        title: 'Understand',
+        eyebrow: 'Vision',
+        text: 'The pipeline finds panels, reading direction, speech bubbles and scene changes.',
     },
     {
-        n: '03',
-        roman: 'III',
-        title: 'Narrate',
-        text: 'Dialogue and narration are translated, then performed — distinct, directed voices per character, paced to the beat of each panel for a script that actually sounds alive.',
-        coord: '34.0522° N',
-        image: '/images/inspiration/method-3.png',
-        alt: 'Translation and voice synthesis turning panels into narration',
+        number: '03',
+        title: 'Direct',
+        eyebrow: 'Voice + motion',
+        text: 'Dialogue gets a cast, narration gets timing, and each panel receives a camera move.',
     },
     {
-        n: '04',
-        roman: 'IV',
+        number: '04',
         title: 'Render',
-        text: 'Panels, motion and audio are composited into a finished, shareable video — subtitles, chapter markers and clean exports included, ready for the feed.',
-        coord: '48.8566° N',
-        image: '/images/inspiration/method-4.png',
-        alt: 'Finished narrated video being rendered from the manga',
+        eyebrow: 'Output',
+        text: 'Video, audio and subtitles are composed into a finished file ready to publish.',
     },
-];
-
-const fadeUp = {
-    initial: { opacity: 0, y: 24 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, margin: '-80px' },
-};
-
-const CornerBrackets = () => (
-    <>
-        <span aria-hidden className="pointer-events-none absolute left-0 top-0 h-3 w-3 border-l border-t border-[var(--line-strong)]" />
-        <span aria-hidden className="pointer-events-none absolute right-0 top-0 h-3 w-3 border-r border-t border-[var(--line-strong)]" />
-        <span aria-hidden className="pointer-events-none absolute bottom-0 left-0 h-3 w-3 border-b border-l border-[var(--line-strong)]" />
-        <span aria-hidden className="pointer-events-none absolute bottom-0 right-0 h-3 w-3 border-b border-r border-[var(--line-strong)]" />
-    </>
-);
+] as const;
 
 export const HowSection = () => (
-    <section
-        id="how"
-        className="relative py-[11rem] lg:py-[13rem] px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:px-[var(--section-padding-x-desktop-sm)]"
-    >
-        <div className="relative z-10 mx-auto max-w-[120rem]">
-            <motion.div
-                className="flex items-baseline justify-between gap-4 border-t border-[var(--line)] pt-3 font-mono text-[10.5px] uppercase tracking-[0.18em] text-[var(--text-faint)]"
-                {...fadeUp}
-                transition={{ duration: 0.6 }}
-            >
-                <em className="serif shrink-0 text-[1.5em] not-italic leading-none tracking-normal text-[var(--accent-text)]">
-                    II.
-                </em>
-                <span className="hidden truncate sm:block">The Method — Manga to Video</span>
-                <span className="shrink-0 tabular-nums">003 / 008</span>
-            </motion.div>
+    <section id="how" className="section-shell border-y border-[var(--line)] bg-[var(--surface)]">
+        <Container>
+            <div className="editorial-rule" data-index="III." data-page="003 / 006">
+                <span>How it works</span>
+            </div>
 
-            <div className="mt-12 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
-                <motion.div {...fadeUp} transition={{ duration: 0.7, delay: 0.05 }}>
-                    <div className="flex items-center gap-4">
-                        <span className="h-px w-10 bg-[var(--accent)]" />
-                        <span className="eyebrow">Nº 03 — How it works</span>
-                    </div>
-                    <h2 className="mt-6 max-w-[18ch] text-[clamp(3rem,5vw,5.4rem)] font-extrabold leading-[1.04] tracking-tight text-[var(--text)]">
-                        Four passes from <span className="serif text-[var(--accent-text)]">static</span> page to narrated film.
+            <div className="mt-12 grid gap-8 lg:grid-cols-12 lg:items-end">
+                <motion.div
+                    className="lg:col-span-7"
+                    initial={false}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-80px' }}
+                    transition={{ duration: 0.7 }}
+                >
+                    <p className="section-kicker">One clear pipeline</p>
+                    <h2 className="display mt-7 max-w-[12ch] text-[clamp(4rem,5.8vw,7rem)]">
+                        From silent page to narrated{' '}
+                        <em className="text-[var(--accent-text)]">scene</em>.
                     </h2>
                 </motion.div>
-
                 <motion.p
-                    className="max-w-[40ch] text-[length:var(--normal-font-size)] leading-relaxed text-[var(--text-muted)] lg:pb-2"
-                    {...fadeUp}
-                    transition={{ duration: 0.7, delay: 0.15 }}
+                    className="max-w-[46ch] text-[1.65rem] leading-[1.7] text-[var(--text-muted)] lg:col-span-5 lg:justify-self-end"
+                    initial={false}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-80px' }}
+                    transition={{ duration: 0.7, delay: 0.1 }}
                 >
-                    A single, opinionated pipeline — no editing suite, no timeline, no busywork.
-                    Hand it the panels; collect the cut.
+                    Four stages replace the usual editing timeline. You keep control of the source;
+                    MangaShift handles the repetitive production work.
                 </motion.p>
             </div>
 
-            <div className="relative mt-24">
-                <span
-                    aria-hidden
-                    className="absolute left-0 right-0 top-[2.6rem] hidden h-px bg-[var(--line-strong)] lg:block"
-                />
-
-                <div className="grid grid-cols-1 gap-x-px gap-y-20 sm:grid-cols-2 lg:grid-cols-4 lg:gap-y-0">
-                    {steps.map((step, i) => (
-                        <motion.article
-                            key={step.n}
-                            className={cn(
-                                'group relative flex flex-col px-0 lg:px-7',
-                                i !== 0 && 'lg:border-l lg:border-[var(--line)]',
-                            )}
-                            {...fadeUp}
-                            transition={{ duration: 0.6, delay: i * 0.09 }}
-                        >
-                            <div className="relative mb-9 flex h-[5.2rem] items-center lg:justify-start">
-                                <span className="relative z-10 bg-[var(--bg)] pr-5 lg:pr-6">
-                                    <span className="serif block text-[clamp(6rem,7vw,7.8rem)] leading-[0.8] text-[var(--accent-text)]">
-                                        {step.n}
-                                    </span>
-                                </span>
-                                <span className="serif absolute right-1 top-0 z-10 hidden bg-[var(--bg)] pl-3 text-[1.4rem] not-italic leading-none text-[var(--text-faint)] lg:block">
-                                    {step.roman}
-                                </span>
-                            </div>
-
-                            <h3 className="flex items-center gap-3 text-[length:var(--h2-font-size)] font-bold text-[var(--text)]">
+            <ol className="mt-16 grid border-l border-t border-[var(--line-strong)] sm:grid-cols-2 lg:grid-cols-4">
+                {steps.map((step, index) => (
+                    <motion.li
+                        key={step.number}
+                        className="group relative min-h-[31rem] border-b border-r border-[var(--line-strong)] p-7 transition-colors duration-300 hover:bg-[var(--bg)] md:p-8"
+                        initial={false}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: '-60px' }}
+                        transition={{ duration: 0.58, delay: index * 0.08 }}
+                    >
+                        <div className="flex items-start justify-between">
+                            <span className="serif text-[5.2rem] italic leading-none text-[var(--accent-text)]">
+                                {step.number}
+                            </span>
+                            <span className="font-mono text-[1rem] uppercase tracking-[0.18em] text-[var(--text-faint)]">
+                                {step.eyebrow}
+                            </span>
+                        </div>
+                        <div className="mt-24">
+                            <h3 className="text-[2.4rem] font-bold tracking-tight text-[var(--text)]">
                                 {step.title}
-                                <span
-                                    aria-hidden
-                                    className="text-[var(--accent-text)] transition-transform duration-300 ease-out group-hover:translate-x-1"
-                                >
-                                    →
-                                </span>
                             </h3>
-
-                            <p className="mt-4 text-[length:var(--small-font-size)] leading-relaxed text-[var(--text-muted)]">
+                            <p className="mt-4 text-[1.45rem] leading-[1.65] text-[var(--text-muted)]">
                                 {step.text}
                             </p>
-
-                            <figure className="relative mt-9 aspect-square overflow-hidden rounded-[var(--radius-md)] border border-[var(--line)] bg-[var(--surface)]">
-                                <Image
-                                    src={step.image}
-                                    alt={step.alt}
-                                    fill
-                                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                                />
-                                <span
-                                    aria-hidden
-                                    className="absolute left-2 top-2 rounded-sm bg-[var(--bg-alpha)] px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--text-faint)] backdrop-blur-sm"
-                                >
-                                    Fig. {step.n}
-                                </span>
-                                <CornerBrackets />
-                            </figure>
-
-                            <span className="mt-3 font-mono text-[9.5px] uppercase tracking-[0.22em] text-[var(--text-faint)]">
-                                {step.coord} · STEP {step.n}/04
-                            </span>
-                        </motion.article>
-                    ))}
-                </div>
-            </div>
-
-            <motion.div
-                className="mt-24 flex flex-col items-start justify-between gap-8 border-t border-[var(--line)] pt-6 sm:flex-row sm:items-center"
-                {...fadeUp}
-                transition={{ duration: 0.6 }}
-            >
-                <div className="flex items-center gap-5">
-                    <span
-                        aria-hidden
-                        className="relative grid h-16 w-16 shrink-0 place-items-center rounded-full border border-[var(--line-strong)] text-center"
-                    >
-                        <span className="font-mono text-[8px] uppercase leading-tight tracking-[0.1em] text-[var(--text-faint)]">
-                            Auto
-                            <br />
-                            Pipeline
+                        </div>
+                        <span
+                            aria-hidden="true"
+                            className="absolute bottom-7 right-7 text-[2rem] text-[var(--line-strong)] transition-transform duration-300 group-hover:translate-x-1 group-hover:text-[var(--accent-text)]"
+                        >
+                            →
                         </span>
-                    </span>
-                    <p className="max-w-[44ch] text-[length:var(--small-font-size)] leading-relaxed text-[var(--text-muted)]">
-                        Every pass runs unattended. Average chapter turnaround in beta:
-                        <span className="text-[var(--text)]"> under ten minutes</span>, from upload to export.
-                    </p>
-                </div>
-
-                <span className="inline-flex shrink-0 items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--surface)] px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--text-faint)]">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
-                    Pipeline v0.1 · Beta
-                </span>
-            </motion.div>
-        </div>
+                    </motion.li>
+                ))}
+            </ol>
+        </Container>
     </section>
 );
