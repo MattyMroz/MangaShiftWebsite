@@ -29,7 +29,7 @@ export const Footer = () => {
     };
 
     return (
-        <footer className="overflow-hidden border-t border-white/15 bg-[#171715] text-[#f3efe6]">
+        <footer className="on-dark overflow-hidden border-t border-white/15 bg-[#171715] text-[#f3efe6]">
             <Container className="pt-[clamp(7rem,9vw,12rem)]">
                 <div className="grid gap-12 border-b border-white/15 pb-[clamp(6rem,8vw,10rem)] lg:grid-cols-12 lg:items-end">
                     <div className="lg:col-span-8">

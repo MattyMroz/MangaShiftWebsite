@@ -100,7 +100,7 @@ export const FeaturesSection = () => (
                         key={number}
                         className={
                             large
-                                ? 'group relative min-h-[43rem] overflow-hidden rounded-[2.4rem] bg-[var(--text)] p-8 text-[var(--bg)] lg:col-span-7 lg:row-span-2 md:p-10'
+                                ? 'on-dark group relative min-h-[43rem] overflow-hidden rounded-[2.4rem] bg-[var(--text)] p-8 text-[var(--bg)] lg:col-span-7 lg:row-span-2 md:p-10'
                                 : 'group relative min-h-[20rem] rounded-[2.4rem] border border-[var(--line-strong)] bg-[var(--surface)] p-7 lg:col-span-5 md:p-8'
                         }
                         initial={false}

@@ -22,6 +22,7 @@
   --accent-fg: #ffffff;
   --accent-2: #b9903f;
   --blush: #f0a088;
+  --accent-on-dark: #cf5f48;
 
   --line: rgba(25, 24, 21, 0.14);
   --line-strong: rgba(25, 24, 21, 0.32);
@@ -252,7 +253,11 @@ em {
   font-style: italic;
 }
 
-/* Eyebrow / meta — mono uppercase z letter-spacing (atelier-zero) */
+.on-dark {
+  --accent: var(--accent-on-dark);
+  --accent-text: var(--accent-on-dark);
+}
+
 .eyebrow {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: var(--tiny-font-size);
