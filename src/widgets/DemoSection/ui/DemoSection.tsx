@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Button } from '@/shared/ui/Button/Button';
 import { Container } from '@/shared/ui/Container/Container';
+import { assetPath } from '@/shared/lib/utils/assetPath';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
 
 export const DemoSection = () => {
@@ -27,7 +28,7 @@ export const DemoSection = () => {
                         className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[var(--accent)] opacity-15 blur-3xl"
                     />
 
-                    <div className="editorial-rule border-white/15 text-white/45" data-index="V." data-page="005 / 006">
+                    <div className="editorial-rule border-white/15 text-white/45" data-index="VII." data-page="007 / 008">
                         <span>Demo output</span>
                     </div>
 
@@ -69,7 +70,7 @@ export const DemoSection = () => {
                         <div className="relative lg:col-span-8">
                             <div className="relative aspect-video overflow-hidden rounded-[2rem] border border-white/15 bg-black">
                                 <Image
-                                    src="/assets/demo/spare-me-great-lord.gif"
+                                    src={assetPath('/assets/demo/spare-me-great-lord.gif')}
                                     alt="Animated manga to video sample"
                                     fill
                                     unoptimized

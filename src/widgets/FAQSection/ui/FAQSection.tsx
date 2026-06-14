@@ -34,7 +34,7 @@ export const FaqSection = () => {
     return (
         <section id="faq" className="section-shell">
             <Container>
-                <div className="editorial-rule" data-index="VI." data-page="006 / 006">
+                <div className="editorial-rule" data-index="VIII." data-page="008 / 008">
                     <span>Frequently asked</span>
                 </div>
 
@@ -68,22 +68,28 @@ export const FaqSection = () => {
                                             onClick={() => setOpen(isOpen ? -1 : index)}
                                             aria-expanded={isOpen}
                                             aria-controls={`faq-answer-${index}`}
-                                            className="group flex w-full items-start gap-5 py-7 text-left"
+                                            className="group grid w-full grid-cols-[3.2rem_minmax(0,1fr)_4.4rem] items-center gap-4 py-7 text-left sm:grid-cols-[4rem_minmax(0,1fr)_4.8rem] sm:gap-5"
                                         >
-                                            <span className="mt-1 font-mono text-[1rem] tracking-[0.18em] text-[var(--accent-text)]">
+                                            <span className="font-mono text-[1rem] tracking-[0.18em] text-[var(--accent-text)]">
                                                 {String(index + 1).padStart(2, '0')}
                                             </span>
-                                            <span className="flex-1 text-[clamp(1.8rem,2.2vw,2.4rem)] font-semibold leading-tight text-[var(--text)]">
+                                            <span className="min-w-0 text-[clamp(1.8rem,2.2vw,2.4rem)] font-semibold leading-tight text-[var(--text)]">
                                                 {item.question}
                                             </span>
                                             <span
                                                 className={cn(
-                                                    'grid h-10 w-10 shrink-0 place-items-center rounded-full border border-[var(--line-strong)] text-[2rem] text-[var(--accent-text)] transition-transform duration-200',
-                                                    isOpen && 'rotate-45 bg-[var(--accent)] text-white',
+                                                    'relative grid h-10 w-10 place-self-center rounded-full border border-[var(--line-strong)] text-[var(--accent-text)] transition-[color,background-color,border-color,transform] duration-300 group-hover:-translate-y-0.5 group-hover:border-[var(--accent)] sm:h-11 sm:w-11',
+                                                    isOpen && 'border-[var(--accent)] bg-[var(--accent)] text-white',
                                                 )}
                                                 aria-hidden="true"
                                             >
-                                                +
+                                                <span className="absolute left-1/2 top-1/2 h-[1.5px] w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-current" />
+                                                <span
+                                                    className={cn(
+                                                        'absolute left-1/2 top-1/2 h-4 w-[1.5px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-current transition-transform duration-300',
+                                                        isOpen && 'scale-y-0',
+                                                    )}
+                                                />
                                             </span>
                                         </button>
                                     </h3>
@@ -98,9 +104,11 @@ export const FaqSection = () => {
                                                 transition={{ duration: 0.24 }}
                                                 className="overflow-hidden"
                                             >
-                                                <p className="max-w-[62ch] pb-8 pl-[4.5rem] pr-12 text-[1.5rem] leading-[1.7] text-[var(--text-muted)]">
-                                                    {item.answer}
-                                                </p>
+                                                <div className="grid grid-cols-[3.2rem_minmax(0,1fr)_4.4rem] gap-4 pb-8 sm:grid-cols-[4rem_minmax(0,1fr)_4.8rem] sm:gap-5">
+                                                    <p className="col-start-2 max-w-[62ch] text-[1.5rem] leading-[1.7] text-[var(--text-muted)]">
+                                                        {item.answer}
+                                                    </p>
+                                                </div>
                                             </motion.div>
                                         )}
                                     </AnimatePresence>

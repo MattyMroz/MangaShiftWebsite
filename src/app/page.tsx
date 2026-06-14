@@ -3,6 +3,8 @@ import { TickerSection } from "@/widgets/TickerSection/ui/TickerSection";
 import { AboutSection } from "@/widgets/AboutSection/ui/AboutSection";
 import { HowSection } from "@/widgets/HowSection/ui/HowSection";
 import { FeaturesSection } from "@/widgets/FeaturesSection/ui/FeaturesSection";
+import { UseCasesSection } from "@/widgets/UseCasesSection/ui/UseCasesSection";
+import { GallerySection } from "@/widgets/GallerySection/ui/GallerySection";
 import { DemoSection } from "@/widgets/DemoSection/ui/DemoSection";
 import { FaqSection } from "@/widgets/FAQSection/ui/FAQSection";
 import { BetaSection } from "@/widgets/ContactSection/ui/ContactSection";
@@ -17,6 +19,8 @@ export default function Home() {
         <AboutSection />
         <HowSection />
         <FeaturesSection />
+        <UseCasesSection />
+        <GallerySection />
         <DemoSection />
         <FaqSection />
         <BetaSection />

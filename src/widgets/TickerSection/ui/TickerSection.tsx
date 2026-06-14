@@ -12,7 +12,10 @@ const items = [
 ] as const;
 
 export const TickerSection = () => (
-    <section aria-label="MangaShift capabilities" className="border-y border-[var(--line-strong)] bg-[var(--text)] text-[var(--bg)]">
+    <section
+        aria-label="MangaShift capabilities"
+        className="border-y border-[var(--line-strong)] bg-[var(--text)] text-[var(--bg)]"
+    >
         <Container className="flex min-h-20 items-stretch overflow-hidden px-0 md:px-0 lg:px-0">
             <div className="flex shrink-0 items-center gap-3 border-r border-white/15 px-6 font-mono text-[1rem] uppercase tracking-[0.2em] md:px-8">
                 <span className="relative flex h-2 w-2">
