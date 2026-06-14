@@ -39,16 +39,12 @@ export const LanguageSwitcher = () => {
 
     useEffect(() => {
         if (!isOpen) return;
-
         const handlePointerDown = (e: PointerEvent) => {
-            if (rootRef.current && !rootRef.current.contains(e.target as Node)) {
-                setIsOpen(false);
-            }
+            if (rootRef.current && !rootRef.current.contains(e.target as Node)) setIsOpen(false);
         };
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === "Escape") setIsOpen(false);
         };
-
         document.addEventListener("pointerdown", handlePointerDown);
         document.addEventListener("keydown", handleKeyDown);
         return () => {
@@ -57,13 +53,16 @@ export const LanguageSwitcher = () => {
         };
     }, [isOpen]);
 
-    const handleSelect = useCallback((option: LanguageOption) => {
-        if (!option.enabled) return;
-        setIsOpen(false);
-        if (option.code === locale) return;
-        localStorage.setItem(LOCALE_STORAGE_KEY, option.code);
-        window.location.reload();
-    }, [locale]);
+    const handleSelect = useCallback(
+        (option: LanguageOption) => {
+            if (!option.enabled) return;
+            setIsOpen(false);
+            if (option.code === locale) return;
+            localStorage.setItem(LOCALE_STORAGE_KEY, option.code);
+            window.location.reload();
+        },
+        [locale],
+    );
 
     const current = LANGUAGES.find((l) => l.code === locale) ?? LANGUAGES[0];
 
@@ -72,15 +71,18 @@ export const LanguageSwitcher = () => {
             <button
                 type="button"
                 onClick={() => setIsOpen((prev) => !prev)}
-                className="flex items-center gap-1.5 py-1 font-[family-name:var(--font-mono)] text-[1.4rem] tracking-wide text-[var(--text-muted)] hover:text-[var(--text)] transition-colors duration-300 cursor-pointer"
+                className="group flex items-center gap-2 font-[family-name:var(--font-mono)] text-[1.2rem] uppercase tracking-[0.14em] text-[var(--text-muted)] transition-colors duration-300 hover:text-[var(--text)] cursor-pointer"
                 aria-haspopup="listbox"
                 aria-expanded={isOpen}
                 aria-label="Select language"
             >
-                {current.label}
+                <span className="text-[var(--text-faint)] transition-colors duration-300 group-hover:text-[var(--text-muted)]">
+                    Lang
+                </span>
+                <span className="font-semibold text-[var(--text)]">{current.label}</span>
                 <motion.svg
-                    width="12"
-                    height="12"
+                    width="11"
+                    height="11"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -90,6 +92,7 @@ export const LanguageSwitcher = () => {
                     aria-hidden="true"
                     animate={{ rotate: isOpen ? 180 : 0 }}
                     transition={{ duration: 0.2 }}
+                    className="opacity-70"
                 >
                     <path d="m6 9 6 6 6-6" />
                 </motion.svg>
@@ -100,11 +103,11 @@ export const LanguageSwitcher = () => {
                     <motion.ul
                         role="listbox"
                         aria-label="Languages"
-                        initial={{ opacity: 0, y: -6, scale: 0.96 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -6, scale: 0.96 }}
-                        transition={{ duration: 0.18, ease: "easeOut" }}
-                        className="absolute right-0 top-full mt-2 min-w-[14rem] list-none rounded-2xl border border-[var(--line)] bg-[var(--bg-alpha)] backdrop-blur-md shadow-[var(--shadow-md)] p-1.5 z-50"
+                        initial={{ opacity: 0, y: -6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -6 }}
+                        transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
+                        className="absolute right-0 top-[calc(100%+1.4rem)] z-50 grid grid-cols-[13rem_13rem] gap-x-2 gap-y-1 rounded-2xl border border-[var(--line-strong)] bg-[var(--surface)] p-3 shadow-[var(--shadow-lg)] list-none"
                     >
                         {LANGUAGES.map((option) => {
                             const isActive = option.code === current.code;
@@ -115,26 +118,34 @@ export const LanguageSwitcher = () => {
                                         disabled={!option.enabled}
                                         onClick={() => handleSelect(option)}
                                         className={cn(
-                                            "flex w-full items-center justify-between gap-4 rounded-xl px-3 py-2 text-left transition-colors duration-200",
+                                            "flex w-full items-baseline gap-3 rounded-xl px-3 py-2.5 text-left transition-colors duration-200",
                                             option.enabled
                                                 ? "cursor-pointer hover:bg-[var(--surface-2)]"
-                                                : "cursor-not-allowed opacity-40",
-                                            isActive ? "text-[var(--text)]" : "text-[var(--text-muted)]"
+                                                : "cursor-not-allowed opacity-45",
+                                            isActive && "bg-[var(--surface-2)]",
                                         )}
                                     >
-                                        <span className="flex items-center gap-2.5">
-                                            <span className="font-[family-name:var(--font-mono)] text-[1.3rem] tracking-wide w-7">
-                                                {option.label}
-                                            </span>
-                                            <span className="text-[1.5rem]">{option.native}</span>
+                                        <span
+                                            className={cn(
+                                                "w-7 shrink-0 font-[family-name:var(--font-mono)] text-[1.15rem] font-semibold uppercase tracking-[0.08em]",
+                                                isActive ? "text-[var(--accent)]" : "text-[var(--text)]",
+                                            )}
+                                        >
+                                            {option.label}
                                         </span>
-                                        {isActive ? (
-                                            <span className="text-[var(--accent)]" aria-hidden="true">•</span>
-                                        ) : !option.enabled ? (
-                                            <span className="font-[family-name:var(--font-mono)] text-[1.05rem] uppercase tracking-[0.18em] text-[var(--text-faint)]">
+                                        <span
+                                            className={cn(
+                                                "min-w-0 flex-1 truncate text-[1.4rem]",
+                                                isActive ? "text-[var(--text)]" : "text-[var(--text-muted)]",
+                                            )}
+                                        >
+                                            {option.native}
+                                        </span>
+                                        {!option.enabled && (
+                                            <span className="shrink-0 font-[family-name:var(--font-mono)] text-[0.9rem] uppercase tracking-[0.16em] text-[var(--text-faint)]">
                                                 soon
                                             </span>
-                                        ) : null}
+                                        )}
                                     </button>
                                 </li>
                             );

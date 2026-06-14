@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Hamburger } from '@/shared/ui/Hamburger/Hamburger';
-import { ThemeSwitcher } from '@/shared/ui/ThemeSwitcher/ThemeSwitcher';
 import { LanguageSwitcher } from '@/shared/ui/LanguageSwitcher/LanguageSwitcher';
 import { Button } from '@/shared/ui/Button/Button';
 import { Container } from '@/shared/ui/Container/Container';
@@ -103,7 +102,7 @@ export const Header = () => {
                                     <Link
                                         href={link.href}
                                         onClick={nav}
-                                        className="relative z-10 block px-4 py-2 text-[1.4rem] font-medium text-[var(--text-muted)] transition-colors duration-200 hover:text-[var(--text)]"
+                                        className="relative z-10 block px-4 py-2 font-[family-name:var(--font-mono)] text-[1.15rem] font-medium uppercase tracking-[0.14em] text-[var(--text-muted)] transition-colors duration-200 hover:text-[var(--text)]"
                                     >
                                         {link.name}
                                     </Link>
@@ -112,16 +111,15 @@ export const Header = () => {
                         </ul>
                     </nav>
 
-                    <div className="flex items-center gap-5">
-                        <div className="hidden items-center gap-6 lg:flex">
+                    <div className="flex items-center gap-4 sm:gap-7 lg:gap-10">
+                        <div className="hidden items-center lg:flex">
                             <LanguageSwitcher />
-                            <ThemeSwitcher />
                         </div>
                         <Button
-                            variant="primary"
+                            variant="hero"
                             size="sm"
                             onClick={joinBeta}
-                            className="hidden h-11 min-h-0 px-5 py-0 text-[1.25rem] leading-none sm:inline-flex"
+                            className="hidden px-6 text-[1.3rem] sm:inline-flex"
                         >
                             {t('nav.beta')}
                         </Button>
@@ -160,13 +158,12 @@ export const Header = () => {
                             ))}
                         </ul>
                         <div className="mt-10 flex justify-center">
-                            <Button variant="primary" size="md" onClick={joinBeta}>
+                            <Button variant="hero" size="md" onClick={joinBeta}>
                                 {t('nav.beta')}
                             </Button>
                         </div>
-                        <div className="mt-auto flex items-center justify-center gap-8 pt-12">
+                        <div className="mt-auto flex items-center justify-center pt-12">
                             <LanguageSwitcher />
-                            <ThemeSwitcher />
                         </div>
                     </motion.div>
                 )}
