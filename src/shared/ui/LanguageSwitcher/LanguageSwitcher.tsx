@@ -27,14 +27,15 @@ const LANGUAGES: LanguageOption[] = [
 
 export const LanguageSwitcher = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [locale] = useState(() => {
-        if (typeof window === "undefined") return DEFAULT_LOCALE;
-        const stored = localStorage.getItem(LOCALE_STORAGE_KEY);
-        return stored && LANGUAGES.some((l) => l.code === stored && l.enabled)
-            ? stored
-            : DEFAULT_LOCALE;
-    });
+    const [locale, setLocale] = useState(DEFAULT_LOCALE);
     const rootRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const stored = localStorage.getItem(LOCALE_STORAGE_KEY);
+        if (stored && LANGUAGES.some((l) => l.code === stored && l.enabled)) {
+            setLocale(stored);
+        }
+    }, []);
 
     useEffect(() => {
         if (!isOpen) return;
