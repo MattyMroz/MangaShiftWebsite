@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter_Tight, Playfair_Display, Inter, JetBrains_Mono } from "next/font/google";
 import { Header } from "@/widgets/Header/ui/Header";
 import { CursorHalo } from "@/shared/ui/CursorHalo/CursorHalo";
@@ -91,9 +92,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className="overflow-x-hidden" style={{ backgroundColor: '#f3efe6' }}>
       <head>
         <meta name="theme-color" content="#f3efe6" />
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <Script id="theme-init" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body
+        suppressHydrationWarning
         className={`${display.variable} ${serif.variable} ${body.variable} ${mono.variable} antialiased overflow-x-hidden select-none`}
       >
         <CursorHalo />
