@@ -8,27 +8,39 @@ import { Container } from '@/shared/ui/Container/Container';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
-import { cn } from '@/shared/lib/utils/cn';
 
 const cards = [
     {
         image: assetPath('/images/inspiration/method-1.png'),
-        eyebrow: 'Source input',
-        index: '01 / 02',
+        eyebrow: 'Source',
         title: 'The static page',
-        note: 'Panel order, speech bubbles and reading direction are parsed straight from the artwork you upload.',
-        foot: '2026 · Manga',
-        tag: 'Input',
+        foot: '01 · Manga',
+    },
+    {
+        image: assetPath('/images/inspiration/method-2.png'),
+        eyebrow: 'Read',
+        title: 'Panel order',
+        foot: '02 · Layout',
     },
     {
         image: assetPath('/images/inspiration/method-3.png'),
-        eyebrow: 'Rendered output',
-        index: '02 / 02',
-        title: 'The narrated cut',
-        note: 'Framing, voices, motion and subtitles export into one watchable video, ready to share.',
-        foot: '2026 · Video',
-        tag: 'Output',
+        eyebrow: 'Direct',
+        title: 'Voice & motion',
+        foot: '03 · Scene',
     },
+    {
+        image: assetPath('/images/inspiration/method-4.png'),
+        eyebrow: 'Output',
+        title: 'The narrated cut',
+        foot: '04 · Video',
+    },
+] as const;
+
+const fan = [
+    { rotate: -13, y: 46, x: 6, scale: 0.82, z: 10 },
+    { rotate: -5, y: 8, x: 2, scale: 0.95, z: 20 },
+    { rotate: 5, y: 8, x: -2, scale: 0.95, z: 20 },
+    { rotate: 13, y: 46, x: -6, scale: 0.82, z: 10 },
 ] as const;
 
 export const DemoSection = () => {
@@ -123,68 +135,54 @@ export const DemoSection = () => {
                                 </span>
                             </div>
                             <span className="hidden font-mono text-[0.95rem] uppercase tracking-[0.18em] text-white/30 sm:block">
-                                Input → Output
+                                Four frames
                             </span>
                         </div>
 
-                        <div className="mx-auto mt-10 grid max-w-[44rem] items-start gap-6 [perspective:1400px] md:max-w-[88rem] md:grid-cols-[1fr_0.82fr] md:gap-8">
-                            {cards.map(({ image, eyebrow, index, title, note, foot, tag }, i) => (
-                                <motion.article
+                        <div className="group/fan mt-14 flex flex-wrap justify-center gap-5 [perspective:1800px] md:mt-20 md:flex-nowrap md:gap-0">
+                            {cards.map(({ image, eyebrow, title, foot }, i) => (
+                                <motion.figure
                                     key={title}
-                                    className={cn(
-                                        'group flex flex-col rounded-[1.8rem] border border-[var(--line-strong)] bg-[var(--bg)] p-6 text-[var(--text)] shadow-[var(--shadow-lg)] [transform-style:preserve-3d] hover:z-10 md:p-8',
-                                        i === 0 ? 'md:origin-bottom-right' : 'md:origin-bottom-left md:mt-7',
-                                    )}
-                                    initial={{ opacity: 0, y: 28, rotate: i === 0 ? -3 : 3 }}
+                                    className="group/card relative w-[17rem] shrink-0 origin-bottom rounded-[1.6rem] border border-[var(--line-strong)] bg-[var(--bg)] p-3.5 text-[var(--text)] shadow-[var(--shadow-lg)] [transform-style:preserve-3d] hover:!z-30 md:w-[27rem] md:p-4 md:[margin-inline:-1.8rem] md:hover:[transform:translateY(-2.8rem)_rotate(0deg)_scale(1.08)]"
+                                    style={{ zIndex: fan[i].z }}
+                                    initial={{ opacity: 0, y: 60, rotate: fan[i].rotate * 1.6 }}
                                     whileInView={{
                                         opacity: 1,
-                                        y: [0, i === 0 ? -8 : -12, 0],
-                                        rotate: i === 0 ? -1.5 : 1.5,
+                                        rotate: fan[i].rotate,
+                                        x: fan[i].x,
+                                        y: [fan[i].y, fan[i].y - (10 - i * 1.5), fan[i].y],
+                                        scale: fan[i].scale,
                                     }}
-                                    whileHover={{ rotate: 0, y: -10, scale: 1.02 }}
-                                    viewport={{ once: true, margin: '-40px' }}
+                                    viewport={{ once: true, margin: '-60px' }}
                                     transition={{
                                         opacity: { duration: 0.6, delay: i * 0.1 },
-                                        rotate: { duration: 0.7, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] },
-                                        y: { duration: 7 + i * 1.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.4 },
-                                        default: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+                                        rotate: { duration: 0.8, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] },
+                                        x: { duration: 0.8, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] },
+                                        scale: { duration: 0.8, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] },
+                                        y: { duration: 6 + i, repeat: Infinity, ease: 'easeInOut', delay: i * 0.5 },
                                     }}
                                 >
-                                    <div className="flex items-center justify-between">
-                                        <span className="font-mono text-[0.85rem] font-semibold uppercase tracking-[0.2em] text-[var(--accent-text)]">
-                                            {eyebrow}
-                                        </span>
-                                        <span className="font-mono text-[0.85rem] uppercase tracking-[0.16em] text-[var(--text-faint)]">
-                                            {index}
-                                        </span>
-                                    </div>
-
-                                    <h3 className="mt-5 text-[2.6rem] font-extrabold leading-[1.05] tracking-[-0.03em]">
-                                        {title}
-                                    </h3>
-                                    <p className="mt-3 max-w-[40ch] text-[1.4rem] leading-[1.6] text-[var(--text-muted)]">
-                                        {note}
-                                    </p>
-
-                                    <div className="relative mt-5 aspect-[16/9] overflow-hidden rounded-[1.1rem] border border-[var(--line)]">
+                                    <div className="relative aspect-[4/5] overflow-hidden rounded-[1rem] border border-[var(--line)]">
                                         <Image
                                             src={image}
                                             alt=""
                                             fill
-                                            sizes="(max-width: 768px) 90vw, 34vw"
-                                            className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                                            sizes="(max-width: 768px) 45vw, 22vw"
+                                            className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/card:scale-[1.05]"
                                         />
-                                    </div>
-
-                                    <div className="mt-5 flex items-center justify-between border-t border-[var(--line)] pt-4">
-                                        <span className="font-mono text-[0.85rem] uppercase tracking-[0.16em] text-[var(--accent-text)]">
-                                            {foot}
-                                        </span>
-                                        <span className="rounded-md bg-[var(--text)] px-2.5 py-1 font-mono text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[var(--bg)]">
-                                            {tag}
+                                        <span className="absolute left-3 top-3 rounded-full bg-[var(--bg-alpha)] px-2.5 py-1 font-mono text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-[var(--accent-text)] backdrop-blur">
+                                            {eyebrow}
                                         </span>
                                     </div>
-                                </motion.article>
+                                    <figcaption className="flex items-center justify-between px-1 pb-1 pt-3.5">
+                                        <h3 className="text-[1.6rem] font-bold leading-tight tracking-tight text-[var(--text)]">
+                                            {title}
+                                        </h3>
+                                        <span className="shrink-0 pl-2 font-mono text-[0.78rem] uppercase tracking-[0.14em] text-[var(--text-faint)]">
+                                            {foot.split(' · ')[0]}
+                                        </span>
+                                    </figcaption>
+                                </motion.figure>
                             ))}
                         </div>
                     </div>
