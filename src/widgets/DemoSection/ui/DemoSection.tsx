@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, animate } from 'framer-motion';
 import { Button } from '@/shared/ui/Button/Button';
 import { Container } from '@/shared/ui/Container/Container';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
@@ -23,6 +23,7 @@ export const DemoSection = () => {
     const [active, setActive] = useState(2);
     const total = cards.length;
     const dragged = useRef(false);
+    const dragX = useMotionValue(0);
     const go = (dir: number) => setActive((prev) => (prev + dir + total) % total);
 
     const scrollToBeta = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -142,14 +143,19 @@ export const DemoSection = () => {
                         <motion.div
                             className="relative mt-10 h-[34rem] cursor-grab select-none [perspective:2000px] active:cursor-grabbing md:h-[40rem]"
                             drag="x"
-                            dragSnapToOrigin
+                            style={{ x: dragX }}
                             dragConstraints={{ left: 0, right: 0 }}
-                            dragElastic={0.18}
+                            dragElastic={0.25}
                             dragMomentum={false}
                             onDragStart={() => { dragged.current = true; }}
                             onDragEnd={(_, info) => {
-                                if (info.offset.x < -50 || info.velocity.x < -400) go(1);
-                                else if (info.offset.x > 50 || info.velocity.x > 400) go(-1);
+                                const moved = info.offset.x < -50 || info.velocity.x < -400
+                                    ? 1
+                                    : info.offset.x > 50 || info.velocity.x > 400
+                                        ? -1
+                                        : 0;
+                                animate(dragX, 0, { duration: 0.55, ease: [0.22, 1, 0.36, 1] });
+                                if (moved) go(moved);
                                 window.setTimeout(() => { dragged.current = false; }, 50);
                             }}
                         >
