@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/shared/ui/Button/Button';
 import { Container } from '@/shared/ui/Container/Container';
+import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 
 const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLScyTs1gTH1kmVC8EHkB_pdPsdrWwEtGIwLvQYu4StRfSkVYpA/formResponse';
 const GOOGLE_FORM_EMAIL_ENTRY = 'entry.1654989478';
@@ -47,7 +48,8 @@ export const BetaSection = () => {
     const locked = status === 'submitting' || status === 'success';
 
     return (
-        <section id="beta" className="section-shell border-t border-[var(--line-strong)] bg-[var(--surface)]">
+        <section id="beta" className="section-shell relative border-t border-[var(--line-strong)] bg-[var(--surface)]">
+            <SideLabel side="right">Nº 09 — Private beta</SideLabel>
             <Container>
                 <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
                     <motion.div

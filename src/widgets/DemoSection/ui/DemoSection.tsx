@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Button } from '@/shared/ui/Button/Button';
 import { Container } from '@/shared/ui/Container/Container';
+import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
 
@@ -35,7 +36,8 @@ export const DemoSection = () => {
     };
 
     return (
-        <section id="demo" className="section-shell pt-4">
+        <section id="demo" className="section-shell relative pt-4">
+            <SideLabel side="left">Nº 07 — Demo output</SideLabel>
             <Container>
                 <motion.div
                     className="on-dark relative overflow-hidden rounded-[3rem] bg-[#121214] px-6 py-8 text-[#f1ede5] shadow-[var(--shadow-lg)] md:px-10 md:py-12 lg:px-14"

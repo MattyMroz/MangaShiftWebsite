@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Container } from '@/shared/ui/Container/Container';
+import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
 
 type IconProps = { className?: string };
@@ -68,7 +69,8 @@ const features = [
 ] as const;
 
 export const FeaturesSection = () => (
-    <section id="features" className="section-shell">
+    <section id="features" className="section-shell relative">
+        <SideLabel side="left">Nº 04 — Capabilities</SideLabel>
         <Container>
             <div className="editorial-rule" data-index="IV." data-page="004 / 008">
                 <span>Capabilities</span>

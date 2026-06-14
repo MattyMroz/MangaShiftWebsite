@@ -1,10 +1,8 @@
 'use client';
 
-import { ElementType } from 'react';
 import { HTMLMotionProps, motion, useReducedMotion } from 'framer-motion';
 
 type RevealProps = HTMLMotionProps<'div'> & {
-    as?: ElementType;
     delay?: number;
     y?: number;
     duration?: number;
@@ -14,7 +12,6 @@ type RevealProps = HTMLMotionProps<'div'> & {
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 export const Reveal = ({
-    as = 'div',
     delay = 0,
     y = 24,
     duration = 0.7,
@@ -23,10 +20,9 @@ export const Reveal = ({
     ...props
 }: RevealProps) => {
     const reduce = useReducedMotion();
-    const Motion = motion(as as 'div');
 
     return (
-        <Motion
+        <motion.div
             initial={reduce ? false : { opacity: 0, y }}
             whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once, margin: '-80px' }}
@@ -34,6 +30,6 @@ export const Reveal = ({
             {...props}
         >
             {children}
-        </Motion>
+        </motion.div>
     );
 };

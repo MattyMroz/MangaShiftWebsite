@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Container } from '@/shared/ui/Container/Container';
+import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
 
 const principles = [
@@ -12,55 +13,64 @@ const principles = [
 ] as const;
 
 export const AboutSection = () => (
-    <section id="about" className="section-shell">
-        <Container>
+    <section id="about" className="section-shell relative">
+        <SideLabel side="left">Nº 02 — Why MangaShift</SideLabel>
+        <Container className="relative">
             <div className="editorial-rule" data-index="II." data-page="002 / 008">
                 <span>Why MangaShift</span>
             </div>
 
-            <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:items-start">
+            <div className="mt-12 grid gap-x-20 gap-y-12 lg:grid-cols-[1.05fr_1fr] lg:items-start">
                 <motion.div
-                    className="lg:col-span-7"
-                    initial={false}
+                    initial={{ opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-80px' }}
-                    transition={{ duration: 0.72 }}
+                    transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
                 >
                     <p className="section-kicker">The idea</p>
                     <h2 className="display mt-7 max-w-[12ch] text-[clamp(4rem,6vw,7.4rem)]">
                         Keep the art. Add{' '}
                         <em className="text-[var(--accent-text)]">voice</em>, pacing and motion.
                     </h2>
-                    <p className="mt-8 max-w-[58ch] text-[1.75rem] leading-[1.7] text-[var(--text-muted)]">
+                    <p className="mt-8 max-w-[54ch] text-[1.75rem] leading-[1.7] text-[var(--text-muted)]">
                         MangaShift is not an image generator. It is a production pipeline for
                         artwork that already exists. The page remains the source; AI handles the
                         repetitive work between scan and screen.
                     </p>
 
-                    <dl className="mt-12 border-t border-[var(--line-strong)]">
+                    <dl className="mt-14 border-t border-[var(--line-strong)]">
                         {principles.map(([title, text], index) => (
-                            <div
+                            <motion.div
                                 key={title}
-                                className="grid gap-3 border-b border-[var(--line)] py-6 sm:grid-cols-[4rem_1fr_1.4fr] sm:items-baseline"
+                                className="group grid items-baseline gap-3 border-b border-[var(--line)] py-7 sm:grid-cols-[3.4rem_1fr_1.5fr]"
+                                initial={{ opacity: 0, y: 16 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: '-40px' }}
+                                transition={{ duration: 0.5, delay: 0.1 + index * 0.08 }}
                             >
-                                <dt className="font-mono text-[1rem] tracking-[0.18em] text-[var(--accent-text)]">
-                                    0{index + 1}
+                                <dt className="serif text-[2.4rem] italic leading-none text-[var(--accent-text)]">
+                                    {String(index + 1).padStart(2, '0')}
                                 </dt>
-                                <dd className="text-[1.7rem] font-semibold text-[var(--text)]">{title}</dd>
+                                <dd className="text-[1.7rem] font-semibold tracking-tight text-[var(--text)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1">
+                                    {title}
+                                </dd>
                                 <dd className="text-[1.4rem] leading-relaxed text-[var(--text-muted)]">{text}</dd>
-                            </div>
+                            </motion.div>
                         ))}
                     </dl>
                 </motion.div>
 
                 <motion.figure
-                    className="relative lg:col-span-5 lg:mt-20"
-                    initial={false}
+                    className="relative lg:mt-24"
+                    initial={{ opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-80px' }}
-                    transition={{ duration: 0.82, delay: 0.12 }}
+                    transition={{ duration: 0.82, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
                 >
-                    <div className="relative aspect-[5/4] overflow-hidden rounded-[2rem] border border-[var(--line-strong)] bg-[var(--surface)]">
+                    <span aria-hidden="true" className="absolute -left-4 -top-4 h-7 w-7 border-l border-t border-[var(--line-strong)]" />
+                    <span aria-hidden="true" className="absolute -bottom-4 -right-4 h-7 w-7 border-b border-r border-[var(--line-strong)]" />
+
+                    <div className="relative aspect-[5/6] overflow-hidden rounded-[2rem] border border-[var(--line-strong)] bg-[var(--surface)]">
                         <Image
                             src={assetPath('/images/inspiration/about.png')}
                             alt="Editorial collage representing the MangaShift visual direction"
@@ -73,12 +83,16 @@ export const AboutSection = () => (
                             <span className="font-mono text-[1rem] uppercase tracking-[0.2em] text-white/65">
                                 Source frame
                             </span>
-                            <span className="serif text-[2rem] italic text-[var(--accent)]">01</span>
+                            <span className="serif text-[2.4rem] italic text-[var(--accent)]">01</span>
                         </div>
                     </div>
-                    <figcaption className="mt-4 max-w-[44ch] text-[1.35rem] leading-relaxed text-[var(--text-muted)]">
-                        The artwork stays recognizable. Motion and audio support the reading rhythm
-                        instead of covering it up.
+
+                    <figcaption className="mt-6 flex items-start gap-4">
+                        <span aria-hidden="true" className="mt-3 h-px w-9 shrink-0 bg-[var(--accent)]" />
+                        <p className="max-w-[40ch] text-[1.35rem] leading-relaxed text-[var(--text-muted)]">
+                            The artwork stays recognizable. Motion and audio support the reading rhythm
+                            instead of covering it up.
+                        </p>
                     </figcaption>
                 </motion.figure>
             </div>
