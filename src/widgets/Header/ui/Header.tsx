@@ -38,6 +38,14 @@ export const Header = () => {
         };
     }, [isOpen]);
 
+    useEffect(() => {
+        const onResize = () => {
+            if (window.innerWidth >= 1024) setIsOpen(false);
+        };
+        window.addEventListener('resize', onResize);
+        return () => window.removeEventListener('resize', onResize);
+    }, []);
+
     const nav = (e: React.MouseEvent<HTMLAnchorElement>) => {
         const href = e.currentTarget.getAttribute('href');
         if (isOpen) setIsOpen(false);
