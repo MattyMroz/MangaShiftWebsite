@@ -203,7 +203,9 @@ body {
   font-size: 1.6rem;
   line-height: 1.6;
   color: var(--text, #1a1a1f);
-  background-color: var(--bg, #efeae0);
+  /* Tło rysuje canvas InkBackground (papier + tusz) pod spodem; body przezroczyste,
+     żeby tusz prześwitywał. html ma papierowy fallback gdyby WebGL nie wstał. */
+  background-color: transparent;
   position: relative;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
@@ -237,13 +239,17 @@ em {
   color: var(--accent-text);
 }
 
+/* Reset tylko dla pól formularza. UWAGA: NIE resetujemy `button` selektorem elementu —
+   zwykły CSS wygrywa z @layer utilities Tailwinda v4 i nadpisywałby bg-[var(--accent)]. */
 input,
-button,
 textarea {
   font-size: inherit;
   background-color: transparent;
-  border: none;
   outline: none;
+}
+
+button {
+  font-size: inherit;
   cursor: pointer;
 }
 
