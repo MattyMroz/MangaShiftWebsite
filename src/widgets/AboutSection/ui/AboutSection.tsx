@@ -14,7 +14,6 @@ const fadeUp = {
     viewport: { once: true, margin: '-80px' },
 };
 
-// Narożny nawias (corner bracket) — editorialny detal ramki.
 const Corner = ({ className }: { className?: string }) => (
     <span
         aria-hidden="true"
@@ -38,7 +37,6 @@ export const AboutSection = () => {
                 <SecRule roman="I." meta="About · Vision" page="002 / 008" />
 
                 <div className="mt-[5rem] grid items-start gap-x-[6rem] gap-y-[6rem] lg:grid-cols-[1.05fr_1fr] lg:gap-x-[7rem]">
-                    {/* ── Lewa kolumna: manifest ─────────────────────────────── */}
                     <div className="relative lg:pt-6">
                         <motion.div
                             className="flex items-center gap-4"
@@ -80,7 +78,6 @@ export const AboutSection = () => {
                             <em className="serif text-[var(--text)]">sounds</em>.
                         </motion.p>
 
-                        {/* Trzy filary manifestu — meta-lista mono */}
                         <motion.ul
                             className="mt-12 grid max-w-[44ch] grid-cols-3 gap-px overflow-hidden rounded-[2px] border border-[var(--line)] bg-[var(--line)] text-center"
                             {...fadeUp}
@@ -131,7 +128,6 @@ export const AboutSection = () => {
                         </motion.div>
                     </div>
 
-                    {/* ── Prawa kolumna: obraz w ramce (magazyn) ─────────────── */}
                     <motion.figure
                         className="relative"
                         initial={{ opacity: 0, y: 36 }}
@@ -139,7 +135,6 @@ export const AboutSection = () => {
                         viewport={{ once: true, margin: '-80px' }}
                         transition={{ duration: 0.9, delay: 0.15 }}
                     >
-                        {/* Side-note — pionowy podpis jak na marginesie magazynu */}
                         <span
                             aria-hidden="true"
                             className="absolute -left-10 top-0 hidden font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--text-faint)] lg:block"
@@ -148,7 +143,6 @@ export const AboutSection = () => {
                             Plate I — From panel to picture
                         </span>
 
-                        {/* Współrzędne / index w narożniku */}
                         <div className="mb-4 flex items-baseline justify-between font-mono text-[1.05rem] uppercase tracking-[0.18em] text-[var(--text-faint)]">
                             <span>Fig. 01</span>
                             <span className="tabular-nums">35.6762° N · 139.6503° E</span>
@@ -168,7 +162,6 @@ export const AboutSection = () => {
                                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                             />
 
-                            {/* Pieczątka-koło (stamp) */}
                             <div className="absolute right-5 top-5 flex h-[6.5rem] w-[6.5rem] items-center justify-center rounded-full border border-[var(--accent)] bg-[var(--bg-alpha)] backdrop-blur-sm">
                                 <span className="font-mono text-[9px] uppercase leading-tight tracking-[0.18em] text-[var(--accent-text)]">
                                     Manga
@@ -179,7 +172,6 @@ export const AboutSection = () => {
                                 </span>
                             </div>
 
-                            {/* Ribbon — etykieta w dolnym pasku */}
                             <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-4 border-t border-[var(--line)] bg-[var(--bg-alpha)] px-5 py-4 backdrop-blur-sm">
                                 <span className="text-[length:var(--small-font-size)] font-medium text-[var(--text)]">
                                     The silent page, given a voice.
@@ -190,7 +182,6 @@ export const AboutSection = () => {
                             </figcaption>
                         </div>
 
-                        {/* Caption pod ramką */}
                         <p className="mt-5 max-w-[44ch] text-[length:var(--small-font-size)] leading-relaxed text-[var(--text-muted)]">
                             <em className="serif text-[var(--text)]">Fig. 01.</em> One panel, four
                             transformations — pacing, camera, voice, and score, composed by the

@@ -1,13 +1,9 @@
 'use client';
 
 interface VideoLoaderProps {
-    /** Whether the loader is visible */
     isLoading: boolean;
 }
 
-/**
- * Spinning loader displayed while video is loading
- */
 export const VideoLoader = ({ isLoading }: VideoLoaderProps) => {
     if (!isLoading) return null;
 

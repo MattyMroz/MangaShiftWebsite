@@ -13,9 +13,7 @@ interface ButtonProps extends HTMLMotionProps<'button'> {
     children: React.ReactNode;
 }
 
-// Warianty na semantycznych tokenach (paleta papier+tusz). Akcent = --accent (modyfikowalny).
 const variants: Record<ButtonVariant, string> = {
-    // „classy" — duży pill, mocny akcent. Ruch (spring) dodany niżej. Bez glass.
     hero: 'rounded-full bg-[var(--accent)] text-[var(--accent-fg)] font-semibold shadow-[var(--shadow-md)] hover:bg-[var(--accent-hover)]',
     primary: 'rounded-full bg-[var(--accent)] text-[var(--accent-fg)] font-medium hover:bg-[var(--accent-hover)]',
     secondary: 'rounded-full bg-[var(--surface)] text-[var(--text)] font-medium border border-[var(--line)] hover:bg-[var(--surface-2)]',
@@ -48,9 +46,8 @@ export const Button: React.FC<ButtonProps> = ({
                 isLink ? '' : sizes[resolvedSize],
                 className,
             )}
-            whileHover={isLink ? undefined : { scale: variant === 'hero' ? 1.05 : 1.03 }}
-            whileTap={isLink ? undefined : { scale: 0.96 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+            whileTap={isLink ? undefined : { opacity: 0.85 }}
+            transition={{ duration: 0.15 }}
             {...props}
         >
             {children}

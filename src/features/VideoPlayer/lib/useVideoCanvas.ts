@@ -1,16 +1,10 @@
 import { useEffect, useRef } from 'react';
 
 interface UseVideoCanvasOptions {
-    /** Target FPS for canvas updates (default: 30) */
     targetFps?: number;
-    /** Whether the canvas should be active */
     isActive?: boolean;
 }
 
-/**
- * Hook to copy video frames to canvas with blur effect
- * Creates ambient light effect behind the video player
- */
 export const useVideoCanvas = (
     videoRef: React.RefObject<HTMLVideoElement | null>,
     canvasRef: React.RefObject<HTMLCanvasElement | null>,
@@ -21,7 +15,6 @@ export const useVideoCanvas = (
     const lastDrawTimeRef = useRef<number>(0);
     const isFullscreenRef = useRef<boolean>(false);
 
-    // Handle fullscreen changes - pause canvas drawing in fullscreen
     useEffect(() => {
         const handleFullscreenChange = () => {
             isFullscreenRef.current = !!document.fullscreenElement;
@@ -36,7 +29,6 @@ export const useVideoCanvas = (
         };
     }, []);
 
-    // Start/stop animation loop
     useEffect(() => {
         if (!isActive) return;
 
@@ -54,7 +46,6 @@ export const useVideoCanvas = (
                 return;
             }
 
-            // Throttle to target FPS
             const frameInterval = 1000 / targetFps;
             const elapsed = timestamp - lastDrawTimeRef.current;
 
@@ -67,9 +58,7 @@ export const useVideoCanvas = (
                 });
 
                 if (ctx && currentVideo.readyState >= 2) {
-                    // Clear canvas first
                     ctx.clearRect(0, 0, currentCanvas.width, currentCanvas.height);
-                    // Draw video frame to canvas
                     ctx.drawImage(currentVideo, 0, 0, currentCanvas.width, currentCanvas.height);
                 }
             }

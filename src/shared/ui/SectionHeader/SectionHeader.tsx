@@ -9,7 +9,6 @@ interface SectionHeaderProps {
     align?: 'left' | 'center';
 }
 
-// Nagłówek sekcji w stylu edytorialnym: hairline + eyebrow (mono) + tytuł (display).
 export const SectionHeader = ({ eyebrow, title, lead, align = 'left' }: SectionHeaderProps) => (
     <motion.div
         className={align === 'center' ? 'flex flex-col items-center text-center' : ''}

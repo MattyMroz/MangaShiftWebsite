@@ -1,52 +1,40 @@
 import type { Options } from 'plyr';
 
-/**
- * Plyr configuration - black & white theme, English i18n
- * Volume on the left side (after mute button)
- */
 export const plyrOptions: Options = {
-    // iOS native fullscreen for better compatibility
     fullscreen: { iosNative: true },
 
-    // Show tooltips on hover
     tooltips: { controls: true, seek: true },
 
-    // Auto-hide controls
     hideControls: true,
 
-    // Global keyboard shortcuts
     keyboard: { focused: false, global: true },
 
-    // Seek time in seconds
     seekTime: 5,
 
-    // Quality options
     quality: {
         default: 1080,
         options: [4320, 2880, 2160, 1440, 1080, 720, 576, 480, 360, 240, 144]
     },
 
-    // Controls layout - volume on LEFT side (mute, volume before captions)
     controls: [
-        'play-large',    // Large play button in center
-        'restart',       // Restart playback
-        'rewind',        // Rewind by seekTime
-        'play',          // Play/pause
-        'fast-forward',  // Fast forward by seekTime
-        'progress',      // Progress bar
-        'current-time',  // Current time display
-        'duration',      // Duration display
-        'mute',          // Mute toggle
-        'volume',        // Volume slider (LEFT side - after mute)
-        'captions',      // Captions toggle
-        'settings',      // Settings menu
-        'pip',           // Picture-in-picture
-        'airplay',       // AirPlay (Safari)
-        'download',      // Download button
-        'fullscreen',    // Fullscreen toggle
+        'play-large',
+        'restart',
+        'rewind',
+        'play',
+        'fast-forward',
+        'progress',
+        'current-time',
+        'duration',
+        'mute',
+        'volume',
+        'captions',
+        'settings',
+        'pip',
+        'airplay',
+        'download',
+        'fullscreen',
     ],
 
-    // English i18n
     i18n: {
         restart: 'Restart',
         rewind: 'Rewind {seektime}s',
@@ -96,25 +84,6 @@ export const plyrOptions: Options = {
     },
 };
 
-/**
- * Video source configuration (ORIGINAL - commented out)
- * 4K 60FPS anime opening from HuggingFace
- */
-// export const demoVideoSource = {
-//     type: 'video' as const,
-//     sources: [
-//         {
-//             src: 'https://huggingface.co/MattyMroz/ANIME/resolve/main/Spare%20Me%2C%20Great%20Lord!%20-%20Opening%204K%2060FPS.mkv?raw=true',
-//             type: 'video/mp4',
-//             size: 2160,
-//         },
-//     ],
-//     poster: '/assets/demo/spare-me-great-lord.gif',
-// };
-
-/**
- * Video source configuration - Example with standard MP4
- */
 export const demoVideoSource = {
     type: 'video' as const,
     sources: [

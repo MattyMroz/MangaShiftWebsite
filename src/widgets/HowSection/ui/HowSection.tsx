@@ -74,7 +74,6 @@ export const HowSection = () => (
         className="relative py-[11rem] lg:py-[13rem] px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:px-[var(--section-padding-x-desktop-sm)]"
     >
         <div className="relative z-10 mx-auto max-w-[120rem]">
-            {/* Sec-rule: cyfra rzymska · meta · numeracja stron (atelier-zero) */}
             <motion.div
                 className="flex items-baseline justify-between gap-4 border-t border-[var(--line)] pt-3 font-mono text-[10.5px] uppercase tracking-[0.18em] text-[var(--text-faint)]"
                 {...fadeUp}
@@ -87,7 +86,6 @@ export const HowSection = () => (
                 <span className="shrink-0 tabular-nums">003 / 008</span>
             </motion.div>
 
-            {/* Nagłówek */}
             <div className="mt-12 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
                 <motion.div {...fadeUp} transition={{ duration: 0.7, delay: 0.05 }}>
                     <div className="flex items-center gap-4">
@@ -109,9 +107,7 @@ export const HowSection = () => (
                 </motion.p>
             </div>
 
-            {/* Grid kroków: repeat(4,1fr), hairline przecinająca u góry */}
             <div className="relative mt-24">
-                {/* Pozioma linia przecinająca rząd cyfr */}
                 <span
                     aria-hidden
                     className="absolute left-0 right-0 top-[2.6rem] hidden h-px bg-[var(--line-strong)] lg:block"
@@ -128,7 +124,6 @@ export const HowSection = () => (
                             {...fadeUp}
                             transition={{ duration: 0.6, delay: i * 0.09 }}
                         >
-                            {/* GIGANTYCZNA cyfra Playfair italic coral, na chipie papieru przerywająca linię */}
                             <div className="relative mb-9 flex h-[5.2rem] items-center lg:justify-start">
                                 <span className="relative z-10 bg-[var(--bg)] pr-5 lg:pr-6">
                                     <span className="serif block text-[clamp(6rem,7vw,7.8rem)] leading-[0.8] text-[var(--accent-text)]">
@@ -140,7 +135,6 @@ export const HowSection = () => (
                                 </span>
                             </div>
 
-                            {/* H4 ze strzałką */}
                             <h3 className="flex items-center gap-3 text-[length:var(--h2-font-size)] font-bold text-[var(--text)]">
                                 {step.title}
                                 <span
@@ -155,7 +149,6 @@ export const HowSection = () => (
                                 {step.text}
                             </p>
 
-                            {/* Mały obraz 1/1 + corner brackets + współrzędne */}
                             <figure className="relative mt-9 aspect-square overflow-hidden rounded-[var(--radius-md)] border border-[var(--line)] bg-[var(--surface)]">
                                 <Image
                                     src={step.image}
@@ -181,14 +174,12 @@ export const HowSection = () => (
                 </div>
             </div>
 
-            {/* Stopka sekcji: meta + pieczątka-koło + ribbon */}
             <motion.div
                 className="mt-24 flex flex-col items-start justify-between gap-8 border-t border-[var(--line)] pt-6 sm:flex-row sm:items-center"
                 {...fadeUp}
                 transition={{ duration: 0.6 }}
             >
                 <div className="flex items-center gap-5">
-                    {/* Pieczątka-koło */}
                     <span
                         aria-hidden
                         className="relative grid h-16 w-16 shrink-0 place-items-center rounded-full border border-[var(--line-strong)] text-center"
@@ -205,7 +196,6 @@ export const HowSection = () => (
                     </p>
                 </div>
 
-                {/* Ribbon / meta */}
                 <span className="inline-flex shrink-0 items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--surface)] px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--text-faint)]">
                     <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
                     Pipeline v0.1 · Beta

@@ -184,7 +184,6 @@ export const GallerySection = () => {
             <div className="relative z-10 mx-auto max-w-[120rem]">
                 <SecRule roman="IV." meta="Gallery · Labs · 51.5072° N, 0.1276° W" page="005 / 008" />
 
-                {/* Header row: eyebrow + title + filters + stamp */}
                 <div className="mt-12 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
                     <motion.div
                         initial={{ opacity: 0, y: 24 }}
@@ -224,7 +223,6 @@ export const GallerySection = () => {
                     </motion.div>
                 </div>
 
-                {/* Filter pills */}
                 <motion.div
                     className="mt-12 flex flex-wrap items-center gap-3 border-t border-[var(--line)] pt-6"
                     initial={{ opacity: 0, y: 16 }}
@@ -248,7 +246,6 @@ export const GallerySection = () => {
                     </span>
                 </motion.div>
 
-                {/* Grid: repeat(5,1fr) on xl, graceful below */}
                 <motion.div
                     layout
                     className="mt-12 grid grid-cols-2 gap-x-5 gap-y-12 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
@@ -260,7 +257,6 @@ export const GallerySection = () => {
                     </AnimatePresence>
                 </motion.div>
 
-                {/* Foot: progress bar (ticks) + count + CTA */}
                 <motion.div
                     className="mt-20 flex flex-col gap-8 border-t border-[var(--line)] pt-8 md:flex-row md:items-center md:justify-between"
                     initial={{ opacity: 0, y: 20 }}

@@ -28,7 +28,6 @@ interface SideRailsProps {
     right?: string;
 }
 
-// Dwie pionowe szyny przy krawędziach okna (atelier-zero). Tylko ≥1280px, niezależne od treści.
 export const SideRails = ({
     left = 'MANGA · VIDEO · AI · NARRATION · BETA',
     right = 'MangaShift — Vol. 01 · Issue Nº 01 · 2026',

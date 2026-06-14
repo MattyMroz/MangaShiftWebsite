@@ -1,120 +1,120 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-import { Hamburger } from "@/shared/ui/Hamburger/Hamburger";
-import { ThemeSwitcher } from "@/shared/ui/ThemeSwitcher/ThemeSwitcher";
-import { smoothScrollTo } from "@/shared/lib/utils/smoothScroll";
-import { t } from "@/shared/i18n";
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Hamburger } from '@/shared/ui/Hamburger/Hamburger';
+import { ThemeSwitcher } from '@/shared/ui/ThemeSwitcher/ThemeSwitcher';
+import { LanguageSwitcher } from '@/shared/ui/LanguageSwitcher/LanguageSwitcher';
+import { Button } from '@/shared/ui/Button/Button';
+import { Container } from '@/shared/ui/Container/Container';
+import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
+import { t } from '@/shared/i18n';
+
+const navLinks = [
+    { name: t('nav.about'), href: '#about' },
+    { name: t('nav.how'), href: '#how' },
+    { name: t('nav.features'), href: '#features' },
+    { name: t('nav.demo'), href: '#demo' },
+    { name: t('nav.faq'), href: '#faq' },
+];
 
 export const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
 
     useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 20);
-        };
-
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
+        const onScroll = () => setIsScrolled(window.scrollY > 12);
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
     }, []);
 
     useEffect(() => {
-        if (isOpen) {
-            document.body.classList.add("no-scroll");
-        } else {
-            document.body.classList.remove("no-scroll");
-        }
-        return () => document.body.classList.remove("no-scroll");
-    }, [isOpen]);
-
-    useEffect(() => {
-        const handleResize = () => {
-            if (isOpen) {
-                setIsOpen(false);
-            }
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+        return () => {
+            document.body.style.overflow = '';
         };
-
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
     }, [isOpen]);
 
-    const toggleMenu = () => setIsOpen(!isOpen);
-
-    const handleNavLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const nav = (e: React.MouseEvent<HTMLAnchorElement>) => {
         const href = e.currentTarget.getAttribute('href');
-        if (!href) return;
-
-        if (isOpen) {
-            setIsOpen(false);
-        }
-
-        const scrolled = smoothScrollTo(href);
-        if (scrolled) {
-            e.preventDefault();
-        }
+        if (isOpen) setIsOpen(false);
+        if (href && smoothScrollTo(href)) e.preventDefault();
     };
 
-    const navLinks = [
-        { name: t("nav.about"), href: "#about" },
-        { name: t("nav.how"), href: "#how" },
-        { name: t("nav.features"), href: "#features" },
-        { name: t("nav.demo"), href: "#demo" },
-        { name: t("nav.faq"), href: "#faq" },
-    ];
+    const joinBeta = () => {
+        if (isOpen) setIsOpen(false);
+        smoothScrollTo('#beta');
+    };
 
     return (
         <>
-            <header
-                className="fixed top-0 left-0 w-full z-[1030] flex items-center justify-center px-4 md:px-12"
+            <motion.header
+                initial={{ y: -28, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="fixed inset-x-0 top-0 z-[1030] border-b"
+                style={{
+                    backgroundColor: isScrolled ? 'var(--bg-alpha)' : 'transparent',
+                    borderColor: isScrolled ? 'var(--line)' : 'transparent',
+                    backdropFilter: isScrolled ? 'blur(12px)' : 'none',
+                    WebkitBackdropFilter: isScrolled ? 'blur(12px)' : 'none',
+                    transition:
+                        'background-color 0.35s ease, border-color 0.35s ease, backdrop-filter 0.35s ease',
+                }}
             >
-                <div
-                    className={`w-full max-w-[140rem] my-4 md:my-6 px-6 md:px-10 rounded-full transition-all duration-300 ${isScrolled
-                        ? 'bg-[var(--bg-alpha)] backdrop-blur-md border border-[var(--line)] shadow-[var(--shadow-md)]'
-                        : 'bg-transparent border border-transparent'
-                        }`}
-                >
-                    <nav className="relative flex items-center justify-between w-full h-[7rem] md:h-[8rem]">
+                <Container className="flex h-[6.5rem] items-center justify-between md:h-[7.5rem]">
+                    <Link
+                        href="#home"
+                        onClick={nav}
+                        className="shrink-0 font-[family-name:var(--font-display)] text-[2.1rem] font-extrabold tracking-tight text-[var(--text)] md:text-[2.3rem]"
+                    >
+                        MangaShift<span className="text-[var(--accent)]">.</span>
+                    </Link>
 
-                        <Link
-                            href="#home"
-                            onClick={handleNavLinkClick}
-                            className="z-[1030] whitespace-nowrap cursor-pointer"
-                        >
-                            <span className="text-[2.4rem] md:text-[2.8rem] font-extrabold text-[var(--text)] tracking-tight font-[family-name:var(--font-display)]">
-                                MangaShift<span className="text-[var(--accent)]">.</span>
-                            </span>
-                        </Link>
-
-                        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:block">
-                            <ul className="flex items-center gap-12 list-none">
-                                {navLinks.map((link) => (
-                                    <li key={link.name}>
+                    <nav className="absolute left-1/2 hidden -translate-x-1/2 lg:block">
+                        <ul className="flex items-center gap-10 list-none">
+                            {navLinks.map((link) => (
+                                <li key={link.name}>
+                                    <motion.span
+                                        className="inline-block"
+                                        whileHover={{ y: -1 }}
+                                        transition={{ duration: 0.18 }}
+                                    >
                                         <Link
                                             href={link.href}
-                                            onClick={handleNavLinkClick}
-                                            className="nav-link relative inline-block py-2 text-[1.7rem] font-semibold text-[var(--text-muted)] hover:text-[var(--text)] transition-colors duration-300"
+                                            onClick={nav}
+                                            className="text-[1.55rem] font-medium text-[var(--text-muted)] hover:text-[var(--text)]"
+                                            style={{ transition: 'color 0.2s ease' }}
                                         >
                                             {link.name}
                                         </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        <div className="flex items-center gap-6 z-[1030]">
-                            <div className="hidden lg:flex items-center justify-center">
-                                <ThemeSwitcher />
-                            </div>
-                            <div className="lg:hidden">
-                                <Hamburger isOpen={isOpen} toggle={toggleMenu} />
-                            </div>
-                        </div>
+                                    </motion.span>
+                                </li>
+                            ))}
+                        </ul>
                     </nav>
-                </div>
-            </header>
+
+                    <div className="flex items-center gap-5">
+                        <div className="hidden items-center gap-6 lg:flex">
+                            <LanguageSwitcher />
+                            <ThemeSwitcher />
+                        </div>
+                        <Button
+                            variant="primary"
+                            size="sm"
+                            onClick={joinBeta}
+                            className="hidden sm:inline-flex"
+                        >
+                            {t('nav.beta')}
+                        </Button>
+                        <div className="lg:hidden">
+                            <Hamburger isOpen={isOpen} toggle={() => setIsOpen(!isOpen)} />
+                        </div>
+                    </div>
+                </Container>
+            </motion.header>
 
             <AnimatePresence>
                 {isOpen && (
@@ -122,35 +122,36 @@ export const Header = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="fixed inset-0 z-[1020] bg-[var(--bg-alpha)] backdrop-blur-xl pt-[18rem] px-12 pb-12 overflow-y-auto flex flex-col"
+                        transition={{ duration: 0.25 }}
+                        className="fixed inset-0 z-[1020] flex flex-col bg-[var(--bg-alpha)] px-10 pb-12 pt-[12rem] backdrop-blur-xl lg:hidden"
                     >
-                        <ul className="flex flex-col items-center gap-6 mb-2 list-none">
-                            {navLinks.map((link, index) => (
+                        <ul className="flex flex-col items-center gap-7 list-none">
+                            {navLinks.map((link, i) => (
                                 <motion.li
                                     key={link.name}
-                                    initial={{ opacity: 0, y: 20 }}
+                                    initial={{ opacity: 0, y: 16 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: index * 0.05 + 0.1 }}
+                                    transition={{ delay: i * 0.05 + 0.05 }}
                                 >
                                     <Link
                                         href={link.href}
-                                        onClick={handleNavLinkClick}
-                                        className="block text-[2.8rem] font-bold text-[var(--text)] hover:text-[var(--accent)] transition-colors duration-300"
+                                        onClick={nav}
+                                        className="text-[2.6rem] font-bold text-[var(--text)] transition-colors duration-200 hover:text-[var(--accent)]"
                                     >
                                         {link.name}
                                     </Link>
                                 </motion.li>
                             ))}
                         </ul>
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.4 }}
-                            className="flex justify-center mt-auto"
-                        >
+                        <div className="mt-10 flex justify-center">
+                            <Button variant="primary" size="md" onClick={joinBeta}>
+                                {t('nav.beta')}
+                            </Button>
+                        </div>
+                        <div className="mt-auto flex items-center justify-center gap-8 pt-12">
+                            <LanguageSwitcher />
                             <ThemeSwitcher />
-                        </motion.div>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>

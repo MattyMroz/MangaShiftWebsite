@@ -212,6 +212,12 @@ body {
   width: 100%;
 }
 
+input,
+textarea {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
 h1,
 h2,
 h3,
@@ -241,25 +247,8 @@ em {
 
 /* ── Edytorialne wzbogacenie (atelier-zero × yohaku) ────────────────────────── */
 
-/* GRAIN / tekstura papieru — overlay nad tłem-canvas (-z-10), pod treścią (z-10). */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.55;
-  mix-blend-mode: multiply;
-  background-image:
-    radial-gradient(60rem 50rem at 18% 12%, rgba(26, 26, 31, 0.05), transparent 70%),
-    radial-gradient(70rem 60rem at 88% 82%, rgba(22, 64, 122, 0.045), transparent 72%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.9'/%3E%3C/svg%3E");
-  background-repeat: no-repeat, no-repeat, repeat;
-}
-[data-theme="dark"] body::before {
-  mix-blend-mode: screen;
-  opacity: 0.45;
-}
+/* GRAIN USUNIĘTY — demo suminagashi (iframe) ma własną teksturę papieru w canvasie;
+   nakładka feTurbulence z mix-blend multiply brudziła/przyciemniała papier. */
 
 /* .display — mega-nagłówek: Inter Tight 800 + <em> Playfair italic + koralowa kropka */
 .display {

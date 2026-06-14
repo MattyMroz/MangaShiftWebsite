@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Button } from '@/shared/ui/Button/Button';
+import { SecRule } from '@/shared/ui/SecRule/SecRule';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
 import { cn } from '@/shared/lib/utils/cn';
 
@@ -58,7 +59,7 @@ const Stamp = ({
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.6, delay: 0.55 + index * 0.1 }}
+        transition={{ duration: 0.6, delay: index * 0.1 }}
     >
         <div className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-[var(--line-strong)]">
             <span className="absolute inset-1 rounded-full border border-dashed border-[var(--line)]" />
@@ -74,7 +75,7 @@ const Stamp = ({
                 {label}
             </p>
         </div>
-        <span className="ml-auto hidden font-mono text-[1rem] uppercase tracking-[0.2em] text-[var(--text-faint)] sm:block lg:hidden xl:block">
+        <span className="ml-auto hidden font-mono text-[1rem] uppercase tracking-[0.2em] text-[var(--text-faint)] sm:block">
             {meta}
         </span>
     </motion.div>
@@ -89,84 +90,80 @@ export const Hero = () => {
     return (
         <section
             id="home"
-            className="relative min-h-screen overflow-hidden px-[var(--section-padding-x-mobile)] pb-[10rem] pt-[18rem] md:px-[var(--section-padding-x-tablet)] lg:px-[var(--section-padding-x-desktop-sm)] lg:pb-[13rem]"
+            className="relative min-h-screen overflow-hidden px-[var(--section-padding-x-mobile)] pb-[10rem] pt-[16rem] md:px-[var(--section-padding-x-tablet)] lg:px-[var(--section-padding-x-desktop-sm)] lg:pb-[14rem]"
         >
             <div className="relative z-10 mx-auto w-full max-w-[120rem]">
-                <motion.div
-                    className="flex items-baseline justify-between gap-4 border-t border-[var(--line)] pt-3 text-[1.05rem] uppercase tracking-[0.18em] text-[var(--text-faint)]"
-                    {...fadeUp}
-                    transition={{ duration: 0.6 }}
-                >
-                    <em className="serif shrink-0 text-[1.5em] leading-none tracking-normal text-[var(--accent-text)]">
-                        I
-                    </em>
-                    <span className="truncate font-mono">
-                        The MangaShift Pipeline — Manga to Motion
-                    </span>
-                    <span className="shrink-0 font-mono tabular-nums">001 / 008</span>
+                <motion.div {...fadeUp} transition={{ duration: 0.6 }}>
+                    <SecRule
+                        roman="I."
+                        meta="The MangaShift Pipeline — Manga to Motion"
+                        page="001 / 008"
+                    />
                 </motion.div>
 
-                <div className="mt-[6rem] grid grid-cols-1 items-start gap-[6rem] lg:grid-cols-[1.55fr_1fr] lg:gap-[5rem] xl:gap-[7rem]">
-                    <div className="lg:pt-[2rem]">
-                        <motion.div
-                            className="flex items-center gap-4"
-                            {...fadeUp}
-                            transition={{ duration: 0.6, delay: 0.05 }}
-                        >
-                            <span className="h-px w-10 bg-[var(--accent)]" />
-                            <span className="eyebrow">Nº 01 — Static panels, set in motion</span>
-                        </motion.div>
+                <div className="mt-[5rem] max-w-[24ch] lg:mt-[7rem]">
+                    <motion.div
+                        className="flex items-center gap-4"
+                        {...fadeUp}
+                        transition={{ duration: 0.6, delay: 0.05 }}
+                    >
+                        <span className="h-px w-10 bg-[var(--accent)]" />
+                        <span className="eyebrow">Nº 01 — Static panels, set in motion</span>
+                    </motion.div>
 
-                        <motion.h1
-                            className="mt-9 max-w-[15ch] text-[clamp(4rem,7vw,9rem)] font-extrabold leading-[1.0] tracking-tight text-[var(--text)]"
-                            {...fadeUp}
-                            transition={{ duration: 0.8, delay: 0.12 }}
-                        >
-                            Turn manga into{' '}
-                            <span className="relative whitespace-nowrap">
-                                <em className="serif font-normal text-[var(--accent-text)]">
-                                    living
-                                </em>
-                                <span
-                                    aria-hidden="true"
-                                    className="ml-1 inline-block h-[0.42em] w-[0.42em] translate-y-[-0.05em] rounded-full bg-[var(--accent)] align-baseline"
-                                />
-                            </span>{' '}
-                            video.
-                        </motion.h1>
+                    <motion.h1
+                        className="display display-dot mt-10 text-[clamp(3.4rem,8.5vw,9.5rem)]"
+                        {...fadeUp}
+                        transition={{ duration: 0.85, delay: 0.12 }}
+                    >
+                        Turn manga into{' '}
+                        <em className="text-[var(--accent-text)]">living</em> video
+                    </motion.h1>
+                </div>
 
+                <div className="mt-[7rem] grid grid-cols-1 gap-[3rem] lg:mt-[9rem] lg:grid-cols-[1fr_auto] lg:items-end lg:gap-[5rem]">
+                    <motion.p
+                        className="max-w-[44ch] text-[length:var(--h3-font-size)] leading-relaxed text-[var(--text-muted)] lg:ml-auto lg:max-w-[40ch] lg:text-right"
+                        {...fadeUp}
+                        transition={{ duration: 0.8, delay: 0.24 }}
+                    >
+                        MangaShift reads your pages panel by panel, then directs them —
+                        <span className="text-[var(--text)]"> AI narration, paced cuts, motion</span>.
+                        A static chapter becomes a watchable video, in a single pass.
+                    </motion.p>
+
+                    <motion.div
+                        className="flex flex-col items-stretch gap-5 sm:flex-row sm:items-center lg:order-first"
+                        {...fadeUp}
+                        transition={{ duration: 0.8, delay: 0.32 }}
+                    >
+                        <Link href="#beta" onClick={handleScrollLink} className="contents">
+                            <Button variant="hero" size="md">
+                                Join the Beta
+                            </Button>
+                        </Link>
+                        <Link href="#demo" onClick={handleScrollLink} className="contents">
+                            <Button variant="outline" size="md">
+                                <span className="flex items-center gap-2">
+                                    <PlayGlyph />
+                                    See the demo
+                                </span>
+                            </Button>
+                        </Link>
+                    </motion.div>
+                </div>
+
+                <div className="mt-[10rem] grid grid-cols-1 items-start gap-[6rem] lg:mt-[13rem] lg:grid-cols-[1fr_1.15fr] lg:gap-[7rem]">
+                    <div className="flex flex-col gap-7 lg:pt-[3rem]">
                         <motion.p
-                            className="mt-10 max-w-[46ch] text-[length:var(--h3-font-size)] leading-relaxed text-[var(--text-muted)]"
+                            className="numero font-mono text-[1.05rem] uppercase tracking-[0.18em] text-[var(--text-faint)]"
                             {...fadeUp}
-                            transition={{ duration: 0.8, delay: 0.24 }}
+                            transition={{ duration: 0.6 }}
                         >
-                            MangaShift reads your pages panel by panel, then directs them —
-                            <span className="text-[var(--text)]"> AI narration, paced cuts, and motion</span> —
-                            into a finished, watchable video. From a static chapter to a moving
-                            story, in one pass.
+                            <span className="text-[var(--accent-text)]">02</span> — What one
+                            pass delivers
                         </motion.p>
-
-                        <motion.div
-                            className="mt-14 flex flex-col items-stretch gap-5 sm:flex-row sm:items-center"
-                            {...fadeUp}
-                            transition={{ duration: 0.8, delay: 0.36 }}
-                        >
-                            <Link href="#beta" onClick={handleScrollLink} className="contents">
-                                <Button variant="hero" size="md">
-                                    Join the Beta
-                                </Button>
-                            </Link>
-                            <Link href="#demo" onClick={handleScrollLink} className="contents">
-                                <Button variant="outline" size="md">
-                                    <span className="flex items-center gap-2">
-                                        <PlayGlyph />
-                                        See the demo
-                                    </span>
-                                </Button>
-                            </Link>
-                        </motion.div>
-
-                        <div className="mt-[5.5rem] flex flex-col gap-7 border-t border-[var(--line)] pt-10">
+                        <div className="flex flex-col gap-7 border-t border-[var(--line)] pt-10">
                             {stamps.map((s, i) => (
                                 <Stamp key={s.roman} {...s} index={i} />
                             ))}
@@ -178,11 +175,12 @@ export const Hero = () => {
                         initial={{ opacity: 0, y: 32 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: '-80px' }}
-                        transition={{ duration: 0.9, delay: 0.2 }}
+                        transition={{ duration: 0.9 }}
                     >
-                        <div className="mb-4 flex items-baseline justify-between font-mono text-[1.05rem] uppercase tracking-[0.18em] text-[var(--text-faint)]">
+                        <div className="mb-4 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 font-mono text-[1.05rem] uppercase tracking-[0.18em] text-[var(--text-faint)]">
                             <span className="text-[var(--accent-text)]">Plate Nº 01</span>
-                            <span className="tabular-nums">35.6895° N · 139.6917° E</span>
+                            <span className="hidden sm:inline">Beta · 2026 cohort</span>
+                            <span className="tabular-nums">35.6895° N · 139.69° E</span>
                         </div>
 
                         <div className="relative aspect-[2/3] w-full overflow-hidden rounded-[var(--radius-md)] border border-[var(--line)] bg-[var(--surface)] shadow-[var(--shadow-lg)]">
@@ -191,7 +189,7 @@ export const Hero = () => {
                                 alt="Manga page composition processed by the MangaShift pipeline"
                                 fill
                                 priority
-                                sizes="(max-width: 1024px) 90vw, 36rem"
+                                sizes="(max-width: 1024px) 90vw, 40rem"
                                 className="object-cover"
                             />
 
@@ -221,13 +219,6 @@ export const Hero = () => {
                                 → motion
                             </em>
                         </figcaption>
-
-                        <span
-                            aria-hidden="true"
-                            className="absolute -right-3 -top-3 hidden rotate-6 rounded-full border border-[var(--accent)] px-4 py-1.5 font-mono text-[1rem] uppercase tracking-[0.2em] text-[var(--accent-text)] lg:block"
-                        >
-                            Beta · 2026
-                        </span>
                     </motion.figure>
                 </div>
             </div>

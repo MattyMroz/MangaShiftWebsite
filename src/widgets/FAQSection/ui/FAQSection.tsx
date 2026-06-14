@@ -7,8 +7,6 @@ import { SecRule } from '@/shared/ui/SecRule/SecRule';
 import { Button } from '@/shared/ui/Button/Button';
 import { cn } from '@/shared/lib/utils/cn';
 
-// ── Treść (PL i18n podłączymy później — teraz bogactwo + wygląd) ────────────────
-// Klucze koncepcyjne pod i18n: faq.eyebrow / faq.title / faq.items[n].{q,a,tag} / faq.aside.*
 type FaqItem = { q: string; a: string; tag: string };
 
 const FAQ_ITEMS: FaqItem[] = [
@@ -55,7 +53,6 @@ export const FaqSection = () => {
             id="faq"
             className="relative py-[11rem] md:py-[13rem] px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:px-[var(--section-padding-x-desktop-sm)]"
         >
-            {/* współrzędne — meta w rogu (premium magazyn) */}
             <span
                 aria-hidden
                 className="pointer-events-none absolute right-[var(--section-padding-x-mobile)] md:right-[var(--section-padding-x-tablet)] lg:right-[var(--section-padding-x-desktop-sm)] top-[5rem] font-mono text-[10px] uppercase tracking-[0.32em] text-[var(--text-faint)]"
@@ -66,7 +63,6 @@ export const FaqSection = () => {
             <div className="relative z-10 max-w-[120rem] mx-auto">
                 <SecRule roman="VI." meta="Frequently Asked · Reader Manual" page="007 / 008" />
 
-                {/* ── Header: serif „Frequently asked." + aside ───────────────────────── */}
                 <div className="mt-14 grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-12">
                     <motion.div
                         className="lg:col-span-7"
@@ -90,7 +86,6 @@ export const FaqSection = () => {
                         </p>
                     </motion.div>
 
-                    {/* aside: kolaż obraz + pieczątka-koło + ribbon */}
                     <motion.aside
                         className="lg:col-span-5 lg:pt-2"
                         initial={{ opacity: 0, y: 32 }}
@@ -99,7 +94,6 @@ export const FaqSection = () => {
                         transition={{ duration: 0.8, delay: 0.1 }}
                     >
                         <div className="relative">
-                            {/* corner brackets */}
                             <span aria-hidden className="absolute -left-2 -top-2 h-6 w-6 border-l border-t border-[var(--line-strong)]" />
                             <span aria-hidden className="absolute -right-2 -bottom-2 h-6 w-6 border-r border-b border-[var(--line-strong)]" />
 
@@ -114,17 +108,14 @@ export const FaqSection = () => {
                                     sizes="(max-width: 1024px) 100vw, 40vw"
                                     className="object-cover"
                                 />
-                                {/* ribbon */}
                                 <span className="absolute left-0 top-6 bg-[var(--accent)] px-4 py-1 font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--accent-fg)]">
                                     Plate Nº VI
                                 </span>
-                                {/* numeracja kadru */}
                                 <span className="absolute bottom-3 right-4 font-mono text-[10px] uppercase tracking-[0.24em] text-[var(--bg)] mix-blend-difference">
                                     Fig. 06 — page → motion
                                 </span>
                             </div>
 
-                            {/* pieczątka-koło nachodząca na obraz */}
                             <div className="absolute -bottom-7 -left-7 h-[8.5rem] w-[8.5rem] hidden sm:grid place-items-center">
                                 <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full text-[var(--accent)]" aria-hidden>
                                     <motion.path
@@ -156,7 +147,6 @@ export const FaqSection = () => {
                     </motion.aside>
                 </div>
 
-                {/* ── Accordion ──────────────────────────────────────────────────────── */}
                 <div className="mt-20 grid grid-cols-1 lg:grid-cols-12 gap-x-16">
                     <div className="hidden lg:block lg:col-span-3">
                         <div className="sticky top-[8rem]">
@@ -230,7 +220,6 @@ export const FaqSection = () => {
                                                     </span>
                                                 </span>
 
-                                                {/* toggle koło: „+" → rotate 45° → „×" z inwersją koloru */}
                                                 <motion.span
                                                     aria-hidden
                                                     animate={{
@@ -274,7 +263,6 @@ export const FaqSection = () => {
                             })}
                         </div>
 
-                        {/* stopka sekcji: kontakt + numeracja stron */}
                         <motion.div
                             className="mt-14 flex flex-col sm:flex-row sm:items-center justify-between gap-6"
                             initial={{ opacity: 0, y: 16 }}
