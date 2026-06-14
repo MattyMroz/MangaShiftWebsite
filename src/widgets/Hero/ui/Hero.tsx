@@ -129,16 +129,30 @@ export const Hero = () => {
                                 />
                             </div>
 
-                            <div className="mt-3 grid grid-cols-[1fr_1fr_1fr_2fr] gap-2">
-                                <span className="h-12 rounded-[0.8rem] bg-[var(--text)]" />
-                                <span className="h-12 rounded-[0.8rem] border border-[var(--line)] bg-[var(--surface-2)]" />
-                                <span className="h-12 rounded-[0.8rem] bg-[color-mix(in_srgb,var(--accent)_24%,var(--surface))]" />
-                                <span className="relative h-12 overflow-hidden rounded-[0.8rem] bg-[var(--accent)]">
-                                    <svg viewBox="0 0 120 40" className="absolute inset-0 h-full w-full text-white/55" aria-hidden="true">
-                                        <path d="M0 24c18-18 34 12 52-3s31-8 68 5" fill="none" stroke="currentColor" strokeWidth="1.2" />
-                                        <path d="M0 31c22-14 35 8 56-2s38-8 64 1" fill="none" stroke="currentColor" strokeWidth="1.2" />
-                                    </svg>
-                                </span>
+                            <div className="mt-3 grid grid-cols-[1fr_1fr_1fr_1.6fr] gap-2" aria-hidden="true">
+                                {[
+                                    { label: 'Page', cls: 'bg-[var(--text)]' },
+                                    { label: 'Panels', cls: 'border border-[var(--line-strong)] bg-[var(--surface-2)]' },
+                                    { label: 'Voice', cls: 'bg-[color-mix(in_srgb,var(--accent)_22%,var(--surface))]' },
+                                ].map(({ label, cls }) => (
+                                    <div key={label}>
+                                        <span className={`block h-9 rounded-[0.7rem] ${cls}`} />
+                                        <span className="mt-1.5 block font-mono text-[0.72rem] uppercase tracking-[0.14em] text-[var(--text-faint)]">
+                                            {label}
+                                        </span>
+                                    </div>
+                                ))}
+                                <div>
+                                    <span className="relative block h-9 overflow-hidden rounded-[0.7rem] bg-[var(--accent)]">
+                                        <svg viewBox="0 0 120 36" className="absolute inset-0 h-full w-full text-white/55" aria-hidden="true">
+                                            <path d="M0 22c18-16 34 10 52-3s31-7 68 5" fill="none" stroke="currentColor" strokeWidth="1.4" />
+                                            <path d="M0 28c22-12 35 7 56-2s38-7 64 1" fill="none" stroke="currentColor" strokeWidth="1.4" />
+                                        </svg>
+                                    </span>
+                                    <span className="mt-1.5 block text-right font-mono text-[0.72rem] uppercase tracking-[0.14em] text-[var(--accent-text)]">
+                                        Video
+                                    </span>
+                                </div>
                             </div>
                         </div>
 

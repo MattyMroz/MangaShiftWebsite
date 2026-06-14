@@ -27,44 +27,28 @@ const questions = [
         answer: 'Invites will be sent in small waves. Joining the list is the best way to receive an access email when a new beta cohort opens.',
     },
     {
-        question: 'Placeholder question 06',
-        answer: 'Placeholder answer. Replace this with real copy later.',
+        question: 'What kind of pages work best?',
+        answer: 'Clear, legible scans of manga or vertical manhwa. The pipeline reads panel layout and speech bubbles, so high-resolution pages with readable lettering give the most reliable framing and narration.',
     },
     {
-        question: 'Placeholder question 07',
-        answer: 'Placeholder answer. Replace this with real copy later.',
+        question: 'How does it handle right-to-left reading?',
+        answer: 'Reading direction is detected per title. Traditional manga is followed right-to-left and top-to-bottom, while vertical manhwa is read as a continuous scroll, so the camera moves in the order a human reader would.',
     },
     {
-        question: 'Placeholder question 08',
-        answer: 'Placeholder answer. Replace this with real copy later.',
+        question: 'Where do the voices come from?',
+        answer: 'Narration and dialogue use text-to-speech tuned to scene context. The goal is a consistent cast and pacing that supports the page, not a literal read-out of every line.',
     },
     {
-        question: 'Placeholder question 09',
-        answer: 'Placeholder answer. Replace this with real copy later.',
+        question: 'Can I edit the result?',
+        answer: 'The beta returns a finished video rather than an editing timeline. Control over framing, voices and timing is expanding as the pipeline matures; early users help decide which controls land first.',
     },
     {
-        question: 'Placeholder question 10',
-        answer: 'Placeholder answer. Replace this with real copy later.',
+        question: 'What formats does it export?',
+        answer: 'A standard video file in horizontal or vertical aspect, with synchronized subtitles. The same chapter can be rendered for a widescreen player or a vertical short.',
     },
     {
-        question: 'Placeholder question 11',
-        answer: 'Placeholder answer. Replace this with real copy later.',
-    },
-    {
-        question: 'Placeholder question 12',
-        answer: 'Placeholder answer. Replace this with real copy later.',
-    },
-    {
-        question: 'Placeholder question 13',
-        answer: 'Placeholder answer. Replace this with real copy later.',
-    },
-    {
-        question: 'Placeholder question 14',
-        answer: 'Placeholder answer. Replace this with real copy later.',
-    },
-    {
-        question: 'Placeholder question 15',
-        answer: 'Placeholder answer. Replace this with real copy later.',
+        question: 'Do I keep the rights to my work?',
+        answer: 'Yes. You only grant what is needed to process the pages you upload and generate your video. MangaShift does not claim ownership of your artwork or the rendered output.',
     },
 ] as const;
 
@@ -95,9 +79,16 @@ export const FaqSection = () => {
                             MangaShift is still in active development. These answers describe the
                             beta direction without pretending unfinished parts are already final.
                         </p>
-                        <p className="mt-7 font-mono text-[1rem] uppercase tracking-[0.18em] text-[var(--text-faint)]">
-                            {String(questions.length).padStart(2, '0')} questions
-                        </p>
+                        <div className="mt-12 flex items-end gap-5 border-t border-[var(--line-strong)] pt-6">
+                            <span className="serif text-[clamp(6rem,7vw,9rem)] italic leading-[0.8] text-[var(--accent-text)]">
+                                {String(questions.length).padStart(2, '0')}
+                            </span>
+                            <span className="pb-2 font-mono text-[1rem] uppercase leading-[1.5] tracking-[0.18em] text-[var(--text-faint)]">
+                                questions
+                                <br />
+                                answered
+                            </span>
+                        </div>
                     </motion.div>
 
                     <div className="border-t border-[var(--line-strong)] lg:col-span-8">
