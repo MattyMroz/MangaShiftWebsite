@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from '@/shared/ui/Button/Button';
 import { Container } from '@/shared/ui/Container/Container';
+import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
 
@@ -51,7 +52,8 @@ export const UseCasesSection = () => {
     };
 
     return (
-        <section id="usecases" className="section-shell border-y border-[var(--line)] bg-[var(--surface)]">
+        <section id="usecases" className="section-shell relative border-y border-[var(--line)] bg-[var(--surface)]">
+            <SideLabel side="right">Nº 05 — Who it is for</SideLabel>
             <Container>
                 <div className="editorial-rule" data-index="V." data-page="005 / 008">
                     <span>Who it is for</span>
@@ -145,7 +147,12 @@ export const UseCasesSection = () => {
                             <span className="absolute left-8 top-8 rounded-full bg-[var(--accent)] px-3 py-1.5 font-mono text-[0.95rem] uppercase tracking-[0.18em] text-white">
                                 {active.code}
                             </span>
-                            <div className="dot-grid absolute bottom-8 right-8 h-16 w-24 opacity-35" />
+                            <div className="absolute bottom-8 right-8 flex items-end gap-3">
+                                <div className="dot-grid h-12 w-16 opacity-40" />
+                                <span className="rounded-full bg-[var(--bg-alpha)] px-3 py-1.5 font-mono text-[0.85rem] uppercase tracking-[0.16em] text-[var(--text)] backdrop-blur">
+                                    {active.label}
+                                </span>
+                            </div>
                         </div>
 
                         <div className="relative flex flex-col p-7 md:p-10 lg:col-span-5 lg:p-12">

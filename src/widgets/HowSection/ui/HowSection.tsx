@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Container } from '@/shared/ui/Container/Container';
+import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
 
 const steps = [
@@ -37,7 +38,8 @@ const steps = [
 ] as const;
 
 export const HowSection = () => (
-    <section id="how" className="section-shell border-y border-[var(--line)] bg-[var(--surface)]">
+    <section id="how" className="section-shell relative border-y border-[var(--line)] bg-[var(--surface)]">
+        <SideLabel side="right">Nº 03 — One pipeline</SideLabel>
         <Container>
             <div className="editorial-rule" data-index="III." data-page="003 / 008">
                 <span>How it works</span>
@@ -69,11 +71,15 @@ export const HowSection = () => (
                 </motion.p>
             </div>
 
-            <ol className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <ol className="relative mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <span
+                    aria-hidden="true"
+                    className="absolute left-[12.5%] right-[12.5%] top-0 hidden h-px bg-[var(--line-strong)] lg:block"
+                />
                 {steps.map((step, index) => (
                     <motion.li
                         key={step.number}
-                        className="group overflow-hidden rounded-[2rem] border border-[var(--line-strong)] bg-[var(--bg)]"
+                        className="group relative overflow-hidden rounded-[2rem] border border-[var(--line-strong)] bg-[var(--bg)]"
                         initial={{ opacity: 0, y: 28 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         whileHover={{ y: -6 }}

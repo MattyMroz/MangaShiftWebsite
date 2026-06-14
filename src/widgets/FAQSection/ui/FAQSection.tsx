@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Container } from '@/shared/ui/Container/Container';
+import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { cn } from '@/shared/lib/utils/cn';
 
 const questions = [
@@ -56,7 +57,8 @@ export const FaqSection = () => {
     const [open, setOpen] = useState(0);
 
     return (
-        <section id="faq" className="section-shell">
+        <section id="faq" className="section-shell relative">
+            <SideLabel side="left">Nº 08 — Frequently asked</SideLabel>
             <Container>
                 <div className="editorial-rule" data-index="VIII." data-page="008 / 008">
                     <span>Frequently asked</span>

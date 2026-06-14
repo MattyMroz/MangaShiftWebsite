@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Container } from '@/shared/ui/Container/Container';
+import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
 
 const studies = [
@@ -14,7 +15,8 @@ const studies = [
 ] as const;
 
 export const GallerySection = () => (
-    <section id="gallery" className="section-shell">
+    <section id="gallery" className="section-shell relative">
+        <SideLabel side="left">Nº 06 — Visual studies</SideLabel>
         <Container>
             <div className="editorial-rule" data-index="VI." data-page="006 / 008">
                 <span>Visual studies</span>
