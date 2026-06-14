@@ -7,7 +7,7 @@ import { isMobile } from 'react-device-detect';
 
 const THEME_STORAGE_KEY = "theme";
 const EFFECTS_STORAGE_KEY = "effects";
-const DEFAULT_THEME: ThemeMode = "dark";
+const DEFAULT_THEME: ThemeMode = "light";
 const DEFAULT_EFFECTS = false;
 
 type ThemeMode = "light" | "dark";
