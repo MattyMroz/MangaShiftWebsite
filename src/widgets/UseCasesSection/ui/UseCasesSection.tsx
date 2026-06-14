@@ -121,7 +121,7 @@ export const UseCasesSection = () => {
                     <div
                         id="usecase-panel"
                         role="tabpanel"
-                        className="mt-3 grid min-h-[54rem] overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[var(--surface)] lg:grid-cols-12"
+                        className="mt-3 grid overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[var(--surface)] lg:h-[58rem] lg:grid-cols-12"
                     >
                         <div className="relative min-h-[38rem] overflow-hidden border-b border-[var(--line)] lg:col-span-7 lg:min-h-full lg:border-b-0 lg:border-r">
                             <AnimatePresence mode="wait">
