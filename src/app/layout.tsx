@@ -1,25 +1,34 @@
 import type { Metadata } from "next";
-import { Montserrat, Inter, Noto_Sans_JP } from "next/font/google";
+// ── Typografia: 3 pary do wyboru. AKTYWNA = para 1 (zmień import + .variable niżej).
+//    Para 1 (domyślna): Inter Tight (display) + Playfair Display (serif emfaza) + Inter (body) + JetBrains Mono
+//    Para 2: Noto Serif JP + Noto Sans JP + JetBrains Mono   (japoński, manga)
+//    Para 3: Cormorant Garamond + Inter + IBM Plex Mono      (luksusowy książkowy)
+import { Inter_Tight, Playfair_Display, Inter, JetBrains_Mono } from "next/font/google";
 import { Header } from "@/widgets/Header/ui/Header";
 import { JapaneseBackground } from "@/shared/ui/JapaneseBackground/JapaneseBackground";
 import SplashCursor from "@/shared/ui/SplashCursor/SplashCursor";
 import LightRays from "@/shared/ui/LightRays/LightRays";
 import "./globals.css";
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
-  subsets: ["latin"],
-});
+// ── PARA 1 (aktywna) ──────────────────────────────────────────────────────────
+const display = Inter_Tight({ variable: "--font-display", subsets: ["latin"], weight: ["500", "600", "700", "800", "900"] });
+const serif = Playfair_Display({ variable: "--font-serif", subsets: ["latin"], style: ["italic", "normal"], weight: ["400", "500", "600"] });
+const body = Inter({ variable: "--font-body", subsets: ["latin"], weight: ["300", "400", "500", "600"] });
+const mono = JetBrains_Mono({ variable: "--font-mono", subsets: ["latin"], weight: ["400", "500"] });
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
+// ── PARA 2 (zakomentowana — japońska, yohaku) ─────────────────────────────────
+// import { Noto_Serif_JP, Noto_Sans_JP, JetBrains_Mono } from "next/font/google";
+// const display = Noto_Serif_JP({ variable: "--font-display", subsets: ["latin"], weight: ["600","700","900"] });
+// const serif   = Noto_Serif_JP({ variable: "--font-serif",   subsets: ["latin"], weight: ["500","600"] });
+// const body    = Noto_Sans_JP({  variable: "--font-body",    subsets: ["latin"], weight: ["300","400","500"] });
+// const mono    = JetBrains_Mono({ variable: "--font-mono",   subsets: ["latin"], weight: ["400","500"] });
 
-const notoSansJP = Noto_Sans_JP({
-  variable: "--font-noto-sans-jp",
-  subsets: ["latin"],
-});
+// ── PARA 3 (zakomentowana — luksusowy książkowy, eguide) ──────────────────────
+// import { Cormorant_Garamond, Inter, IBM_Plex_Mono } from "next/font/google";
+// const display = Cormorant_Garamond({ variable: "--font-display", subsets: ["latin"], weight: ["500","600","700"] });
+// const serif   = Cormorant_Garamond({ variable: "--font-serif",   subsets: ["latin"], style: ["italic"], weight: ["500","600"] });
+// const body    = Inter({ variable: "--font-body", subsets: ["latin"], weight: ["300","400","500"] });
+// const mono    = IBM_Plex_Mono({ variable: "--font-mono", subsets: ["latin"], weight: ["400","500"] });
 
 export const metadata: Metadata = {
   title: {
@@ -74,10 +83,10 @@ export const metadata: Metadata = {
 const themeInitScript = `
   (function() {
     try {
-      var theme = localStorage.getItem('theme') || 'dark';
+      var theme = localStorage.getItem('theme') || 'light';
       var effects = localStorage.getItem('effects');
       var root = document.documentElement;
-      var bg = theme === 'dark' ? '#0a0a0a' : '#fcfcfc';
+      var bg = theme === 'dark' ? '#14131a' : '#efeae0';
       root.setAttribute('data-theme', theme);
       root.setAttribute('data-effects', effects === 'false' ? 'disabled' : 'enabled');
       root.style.colorScheme = theme;
@@ -101,13 +110,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="overflow-x-hidden" style={{ backgroundColor: '#0a0a0a' }}>
+    <html lang="en" suppressHydrationWarning className="overflow-x-hidden" style={{ backgroundColor: '#efeae0' }}>
       <head>
-        <meta name="theme-color" content="#0a0a0a" />
+        <meta name="theme-color" content="#efeae0" />
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body
-        className={`${montserrat.variable} ${inter.variable} ${notoSansJP.variable} antialiased overflow-x-hidden`}
+        className={`${display.variable} ${serif.variable} ${body.variable} ${mono.variable} antialiased overflow-x-hidden`}
       >
         <SplashCursor
           SIM_RESOLUTION={128}
