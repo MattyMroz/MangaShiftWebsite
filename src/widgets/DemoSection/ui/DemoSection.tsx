@@ -9,24 +9,24 @@ import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
 
-const pipeline = [
+const cards = [
     {
         image: assetPath('/images/inspiration/method-1.png'),
-        step: '1',
-        label: 'Read the page',
-        note: 'Panel order, bubbles and reading direction are parsed first.',
-    },
-    {
-        image: assetPath('/images/inspiration/method-2.png'),
-        step: '2',
-        label: 'Direct the scene',
-        note: 'Framing, narration timing and voices are composed per panel.',
+        eyebrow: 'Source input',
+        index: '01 / 02',
+        title: 'The static page',
+        note: 'Panel order, speech bubbles and reading direction are parsed straight from the artwork you upload.',
+        foot: '2026 · Manga',
+        tag: 'Input',
     },
     {
         image: assetPath('/images/inspiration/method-3.png'),
-        step: '3',
-        label: 'Render the cut',
-        note: 'Motion, audio and subtitles export into one watchable video.',
+        eyebrow: 'Rendered output',
+        index: '02 / 02',
+        title: 'The narrated cut',
+        note: 'Framing, voices, motion and subtitles export into one watchable video, ready to share.',
+        foot: '2026 · Video',
+        tag: 'Output',
     },
 ] as const;
 
@@ -122,50 +122,56 @@ export const DemoSection = () => {
                                 </span>
                             </div>
                             <span className="hidden font-mono text-[0.95rem] uppercase tracking-[0.18em] text-white/30 sm:block">
-                                Three stages
+                                Input → Output
                             </span>
                         </div>
 
-                        <div className="relative mt-7 grid gap-4 sm:grid-cols-3">
-                            <span
-                                aria-hidden="true"
-                                className="absolute left-[16.6%] right-[16.6%] top-[15%] hidden h-px bg-white/12 sm:block"
-                            />
-                            {pipeline.map(({ image, step, label, note }, index) => (
-                                <motion.figure
-                                    key={step}
-                                    className="group relative overflow-hidden rounded-[1.4rem] border border-white/12 bg-white/[0.03] transition-colors duration-500 hover:border-white/25"
-                                    initial={{ opacity: 0, y: 22 }}
+                        <div className="mt-7 grid gap-5 md:grid-cols-2">
+                            {cards.map(({ image, eyebrow, index, title, note, foot, tag }, i) => (
+                                <motion.article
+                                    key={title}
+                                    className="group flex flex-col rounded-[2rem] border border-[var(--line-strong)] bg-[var(--bg)] p-6 text-[var(--text)] shadow-[var(--shadow-lg)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:p-8"
+                                    initial={{ opacity: 0, y: 24 }}
                                     whileInView={{ opacity: 1, y: 0 }}
-                                    whileHover={{ y: -6 }}
+                                    whileHover={{ y: -8 }}
                                     viewport={{ once: true, margin: '-40px' }}
-                                    transition={{ duration: 0.55, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                                    transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
                                 >
-                                    <div className="relative aspect-[16/10] overflow-hidden">
+                                    <div className="flex items-start justify-between">
+                                        <span className="font-mono text-[0.95rem] font-semibold uppercase tracking-[0.2em] text-[var(--accent-text)]">
+                                            {eyebrow}
+                                        </span>
+                                        <span className="font-mono text-[0.95rem] uppercase tracking-[0.16em] text-[var(--text-faint)]">
+                                            {index}
+                                        </span>
+                                    </div>
+
+                                    <h3 className="mt-6 text-[clamp(2.6rem,3vw,3.6rem)] font-extrabold leading-[1] tracking-[-0.03em]">
+                                        {title}
+                                    </h3>
+                                    <p className="mt-4 max-w-[40ch] text-[1.4rem] leading-[1.65] text-[var(--text-muted)]">
+                                        {note}
+                                    </p>
+
+                                    <div className="relative mt-7 aspect-[16/11] overflow-hidden rounded-[1.4rem] border border-[var(--line)]">
                                         <Image
                                             src={image}
                                             alt=""
                                             fill
-                                            sizes="(max-width: 640px) 100vw, 30vw"
-                                            className="object-cover opacity-90 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
+                                            sizes="(max-width: 768px) 100vw, 44vw"
+                                            className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
                                         />
-                                        <span className="absolute inset-0 bg-gradient-to-t from-[#0c0c0e]/85 via-[#0c0c0e]/10 to-transparent" />
-                                        <span className="absolute right-4 top-3 select-none font-serif text-[4.4rem] italic leading-none text-white/85">
-                                            {step}
+                                    </div>
+
+                                    <div className="mt-6 flex items-center justify-between border-t border-[var(--line)] pt-5">
+                                        <span className="font-mono text-[0.95rem] uppercase tracking-[0.16em] text-[var(--accent-text)]">
+                                            {foot}
                                         </span>
-                                        <span className="absolute bottom-3 left-4 font-mono text-[0.82rem] uppercase tracking-[0.18em] text-white/55">
-                                            Stage {step} / 3
+                                        <span className="rounded-md bg-[var(--text)] px-2.5 py-1 font-mono text-[0.85rem] font-semibold uppercase tracking-[0.16em] text-[var(--bg)]">
+                                            {tag}
                                         </span>
                                     </div>
-                                    <figcaption className="px-5 pb-6 pt-5">
-                                        <h3 className="text-[1.7rem] font-bold leading-tight tracking-tight text-white/90">
-                                            {label}
-                                        </h3>
-                                        <p className="mt-2 text-[1.2rem] leading-[1.6] text-white/50">
-                                            {note}
-                                        </p>
-                                    </figcaption>
-                                </motion.figure>
+                                </motion.article>
                             ))}
                         </div>
                     </div>
