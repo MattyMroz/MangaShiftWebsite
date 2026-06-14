@@ -1,73 +1,137 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { Renderer, Program, Triangle, Mesh } from "ogl";
+import { Renderer, Program, Triangle, Mesh, RenderTarget, type OGLRenderingContext } from "ogl";
 
-// Animowane tło „suminagashi" — domain-warped fbm (rozlewający się tusz) na ogl.
-// Jeden fullscreen fragment shader (tani, bez wielopassowego fluid solvera).
-// Light/dark przez uniform, pauza poza widokiem/karta nieaktywna, reduced-motion = statyczna klatka.
+// Tło „suminagashi" — prawdziwa symulacja płynów (Stam / Navier-Stokes) na ogl.
+// advection -> divergence -> pressure (Jacobi) -> gradient subtract -> splat dye, ping-pong FBO.
+// Mysz/dotyk dodaje splat (velocity + dye), auto-splaty utrzymują tusz przy życiu, kolory z palety atramentów.
+// data-theme steruje kolorem papieru, reduced-motion = kilka statycznych splatów bez pętli.
 
-const vert = `
+const SIM_RES = 192;
+const DYE_RES = 384;
+const PRESSURE_ITERATIONS = 20;
+const DENSITY_DISSIPATION = 0.985;
+const VELOCITY_DISSIPATION = 0.985;
+const SPLAT_RADIUS = 0.004;
+const AUTO_SPLAT_INTERVAL = 1.8;
+
+const baseVert = `
 attribute vec2 position;
 varying vec2 vUv;
+varying vec2 vL;
+varying vec2 vR;
+varying vec2 vT;
+varying vec2 vB;
+uniform vec2 uTexel;
 void main() {
   vUv = position * 0.5 + 0.5;
+  vL = vUv - vec2(uTexel.x, 0.0);
+  vR = vUv + vec2(uTexel.x, 0.0);
+  vT = vUv + vec2(0.0, uTexel.y);
+  vB = vUv - vec2(0.0, uTexel.y);
   gl_Position = vec4(position, 0.0, 1.0);
 }`;
 
-const frag = `precision highp float;
+const clearFrag = `precision highp float;
 varying vec2 vUv;
+uniform sampler2D uTexture;
+uniform float uValue;
+void main() {
+  gl_FragColor = uValue * texture2D(uTexture, vUv);
+}`;
 
-uniform float uTime;
-uniform vec2  uResolution;
-uniform float uDark;        // 0 = light, 1 = dark
-uniform vec3  uPaper;
-uniform vec3  uInk1;        // granat
-uniform vec3  uInk2;        // czerwień
-uniform vec3  uInk3;        // zieleń
+const splatFrag = `precision highp float;
+varying vec2 vUv;
+uniform sampler2D uTarget;
+uniform float uAspect;
+uniform vec3 uColor;
+uniform vec2 uPoint;
+uniform float uRadius;
+void main() {
+  vec2 p = vUv - uPoint;
+  p.x *= uAspect;
+  vec3 splat = exp(-dot(p, p) / uRadius) * uColor;
+  vec3 base = texture2D(uTarget, vUv).xyz;
+  gl_FragColor = vec4(base + splat, 1.0);
+}`;
 
-// value noise + fbm
-float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123); }
-float noise(vec2 p){
-  vec2 i = floor(p); vec2 f = fract(p);
-  vec2 u = f*f*(3.0-2.0*f);
-  return mix(mix(hash(i), hash(i+vec2(1.0,0.0)), u.x),
-             mix(hash(i+vec2(0.0,1.0)), hash(i+vec2(1.0,1.0)), u.x), u.y);
-}
-float fbm(vec2 p){
-  float v = 0.0; float a = 0.5;
-  for(int i=0;i<5;i++){ v += a*noise(p); p *= 2.0; a *= 0.5; }
-  return v;
-}
+const advectionFrag = `precision highp float;
+varying vec2 vUv;
+uniform sampler2D uVelocity;
+uniform sampler2D uSource;
+uniform vec2 uTexel;
+uniform float uDt;
+uniform float uDissipation;
+void main() {
+  vec2 coord = vUv - uDt * texture2D(uVelocity, vUv).xy * uTexel;
+  gl_FragColor = uDissipation * texture2D(uSource, coord);
+}`;
 
-void main(){
-  vec2 uv = vUv;
-  uv.x *= uResolution.x / uResolution.y;
-  float t = uTime * 0.04;
+const divergenceFrag = `precision highp float;
+varying vec2 vUv;
+varying vec2 vL;
+varying vec2 vR;
+varying vec2 vT;
+varying vec2 vB;
+uniform sampler2D uVelocity;
+void main() {
+  float L = texture2D(uVelocity, vL).x;
+  float R = texture2D(uVelocity, vR).x;
+  float T = texture2D(uVelocity, vT).y;
+  float B = texture2D(uVelocity, vB).y;
+  float div = 0.5 * (R - L + T - B);
+  gl_FragColor = vec4(div, 0.0, 0.0, 1.0);
+}`;
 
-  // domain warping — atramentowe smugi
-  vec2 q = vec2(fbm(uv*1.4 + vec2(0.0, t)), fbm(uv*1.4 + vec2(5.2, -t)));
-  vec2 r = vec2(fbm(uv*1.4 + 3.0*q + vec2(1.7, 9.2) + t*0.5),
-                fbm(uv*1.4 + 3.0*q + vec2(8.3, 2.8) - t*0.5));
-  float f = fbm(uv*1.4 + 3.5*r);
+const pressureFrag = `precision highp float;
+varying vec2 vUv;
+varying vec2 vL;
+varying vec2 vR;
+varying vec2 vT;
+varying vec2 vB;
+uniform sampler2D uPressure;
+uniform sampler2D uDivergence;
+void main() {
+  float L = texture2D(uPressure, vL).x;
+  float R = texture2D(uPressure, vR).x;
+  float T = texture2D(uPressure, vT).x;
+  float B = texture2D(uPressure, vB).x;
+  float div = texture2D(uDivergence, vUv).x;
+  float pressure = (L + R + B + T - div) * 0.25;
+  gl_FragColor = vec4(pressure, 0.0, 0.0, 1.0);
+}`;
 
-  // warstwy tuszu — różne progi mieszania
-  vec3 col = uPaper;
-  float ink1 = smoothstep(0.55, 0.85, f + 0.15*r.x);
-  float ink2 = smoothstep(0.62, 0.92, length(r));
-  float ink3 = smoothstep(0.50, 0.80, f*q.y + 0.2);
+const gradientSubtractFrag = `precision highp float;
+varying vec2 vUv;
+varying vec2 vL;
+varying vec2 vR;
+varying vec2 vT;
+varying vec2 vB;
+uniform sampler2D uPressure;
+uniform sampler2D uVelocity;
+void main() {
+  float L = texture2D(uPressure, vL).x;
+  float R = texture2D(uPressure, vR).x;
+  float T = texture2D(uPressure, vT).x;
+  float B = texture2D(uPressure, vB).x;
+  vec2 velocity = texture2D(uVelocity, vUv).xy;
+  velocity.xy -= vec2(R - L, T - B) * 0.5;
+  gl_FragColor = vec4(velocity, 0.0, 1.0);
+}`;
 
-  // intensywność tuszu — w light delikatny, w dark mocniejszy jako poświata
-  float strength = mix(0.22, 0.42, uDark);
-  col = mix(col, uInk1, ink1 * strength);
-  col = mix(col, uInk2, ink2 * strength * 0.85);
-  col = mix(col, uInk3, ink3 * strength * 0.6);
-
-  // ziarno papieru
-  float grain = (hash(vUv * uResolution.xy * 0.5) - 0.5) * 0.025;
-  col += grain;
-
-  gl_FragColor = vec4(col, 1.0);
+const displayFrag = `precision highp float;
+varying vec2 vUv;
+uniform sampler2D uDye;
+uniform vec3 uPaper;
+uniform float uDark;
+void main() {
+  vec3 ink = texture2D(uDye, vUv).rgb;
+  float amount = clamp(length(ink), 0.0, 1.0);
+  float strength = mix(0.9, 1.0, uDark);
+  vec3 col = mix(uPaper, ink, clamp(amount * strength, 0.0, 1.0));
+  float grain = (fract(sin(dot(vUv, vec2(127.1, 311.7))) * 43758.5453) - 0.5) * 0.02;
+  gl_FragColor = vec4(col + grain, 1.0);
 }`;
 
 const hexToRgb = (hex: string): [number, number, number] => {
@@ -77,12 +141,44 @@ const hexToRgb = (hex: string): [number, number, number] => {
 
 const PAPER_LIGHT = "#efeae0";
 const PAPER_DARK = "#14131a";
-const INK_NAVY = "#16407a";
-const INK_RED = "#c8372d";
-const INK_GREEN = "#2e6e52";
+const INK_COLORS: ReadonlyArray<[number, number, number]> = [
+  hexToRgb("#16407a"), // ai — granat
+  hexToRgb("#c8372d"), // shu — czerwień
+  hexToRgb("#2e6e52"), // matsuba — zieleń
+  hexToRgb("#1a1a1f"), // sumi — czerń
+];
 
 const readReducedMotion = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+type FBO = { read: RenderTarget; write: RenderTarget; swap: () => void };
+
+const createFBO = (
+  gl: OGLRenderingContext,
+  size: number,
+  type: number,
+): FBO => {
+  const opts = {
+    width: size,
+    height: size,
+    type,
+    format: gl.RGBA,
+    internalFormat: (gl as WebGL2RenderingContext).RGBA16F ?? gl.RGBA,
+    minFilter: gl.LINEAR,
+    magFilter: gl.LINEAR,
+    depth: false,
+  };
+  const fbo: FBO = {
+    read: new RenderTarget(gl, opts),
+    write: new RenderTarget(gl, opts),
+    swap() {
+      const t = this.read;
+      this.read = this.write;
+      this.write = t;
+    },
+  };
+  return fbo;
+};
 
 export const InkBackground = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -99,7 +195,11 @@ export const InkBackground = () => {
     const container = containerRef.current;
     if (!container) return;
 
-    const renderer = new Renderer({ dpr: Math.min(window.devicePixelRatio, 1.5), alpha: false });
+    const renderer = new Renderer({
+      dpr: Math.min(window.devicePixelRatio, 1.5),
+      alpha: false,
+      antialias: false,
+    });
     const gl = renderer.gl;
     const canvas = gl.canvas as HTMLCanvasElement;
     canvas.style.width = "100%";
@@ -107,61 +207,246 @@ export const InkBackground = () => {
     canvas.style.display = "block";
     container.appendChild(canvas);
 
+    // float / half-float textures wymagane do symulacji
+    const isWebGL2 = "RGBA16F" in gl;
+    let texType = gl.UNSIGNED_BYTE as number;
+    if (isWebGL2) {
+      gl.getExtension("EXT_color_buffer_float");
+      texType = (gl as WebGL2RenderingContext).HALF_FLOAT;
+    } else {
+      const ext = gl.getExtension("OES_texture_half_float");
+      gl.getExtension("OES_texture_half_float_linear");
+      if (ext) texType = ext.HALF_FLOAT_OES;
+    }
+
     const isDark = () => document.documentElement.getAttribute("data-theme") === "dark";
 
-    const uniforms = {
-      uTime: { value: 0 },
-      uResolution: { value: [1, 1] as [number, number] },
-      uDark: { value: isDark() ? 1 : 0 },
-      uPaper: { value: hexToRgb(isDark() ? PAPER_DARK : PAPER_LIGHT) },
-      uInk1: { value: hexToRgb(INK_NAVY) },
-      uInk2: { value: hexToRgb(INK_RED) },
-      uInk3: { value: hexToRgb(INK_GREEN) },
-    };
-
-    const mesh = new Mesh(gl, {
-      geometry: new Triangle(gl),
-      program: new Program(gl, { vertex: vert, fragment: frag, uniforms }),
+    const velocity = createFBO(gl, SIM_RES, texType);
+    const dye = createFBO(gl, DYE_RES, texType);
+    const divergence = new RenderTarget(gl, {
+      width: SIM_RES, height: SIM_RES, type: texType, format: gl.RGBA,
+      internalFormat: (gl as WebGL2RenderingContext).RGBA16F ?? gl.RGBA,
+      minFilter: gl.NEAREST, magFilter: gl.NEAREST, depth: false,
     });
+    const pressure = createFBO(gl, SIM_RES, texType);
+
+    const triangle = new Triangle(gl);
+    const simTexel: [number, number] = [1 / SIM_RES, 1 / SIM_RES];
+
+    const makeMesh = (fragment: string, uniforms: Record<string, { value: unknown }>) =>
+      new Mesh(gl, {
+        geometry: triangle,
+        program: new Program(gl, { vertex: baseVert, fragment, uniforms, depthTest: false, depthWrite: false }),
+      });
+
+    const clearMesh = makeMesh(clearFrag, {
+      uTexel: { value: simTexel },
+      uTexture: { value: pressure.read.texture },
+      uValue: { value: 0.8 },
+    });
+    const splatMesh = makeMesh(splatFrag, {
+      uTexel: { value: simTexel },
+      uTarget: { value: velocity.read.texture },
+      uAspect: { value: 1 },
+      uColor: { value: [0, 0, 0] },
+      uPoint: { value: [0.5, 0.5] },
+      uRadius: { value: SPLAT_RADIUS },
+    });
+    const advectionMesh = makeMesh(advectionFrag, {
+      uTexel: { value: simTexel },
+      uVelocity: { value: velocity.read.texture },
+      uSource: { value: velocity.read.texture },
+      uDt: { value: 0.016 },
+      uDissipation: { value: VELOCITY_DISSIPATION },
+    });
+    const divergenceMesh = makeMesh(divergenceFrag, {
+      uTexel: { value: simTexel },
+      uVelocity: { value: velocity.read.texture },
+    });
+    const pressureMesh = makeMesh(pressureFrag, {
+      uTexel: { value: simTexel },
+      uPressure: { value: pressure.read.texture },
+      uDivergence: { value: divergence.texture },
+    });
+    const gradientMesh = makeMesh(gradientSubtractFrag, {
+      uTexel: { value: simTexel },
+      uPressure: { value: pressure.read.texture },
+      uVelocity: { value: velocity.read.texture },
+    });
+    const displayMesh = makeMesh(displayFrag, {
+      uTexel: { value: simTexel },
+      uDye: { value: dye.read.texture },
+      uPaper: { value: hexToRgb(isDark() ? PAPER_DARK : PAPER_LIGHT) },
+      uDark: { value: isDark() ? 1 : 0 },
+    });
+
+    const aspect = () => container.clientWidth / Math.max(container.clientHeight, 1);
 
     const resize = () => {
       renderer.setSize(container.clientWidth, container.clientHeight);
-      uniforms.uResolution.value = [gl.canvas.width, gl.canvas.height];
     };
     window.addEventListener("resize", resize);
     resize();
 
-    // reaguj na zmianę motywu (ThemeSwitcher zmienia data-theme)
+    const splat = (x: number, y: number, dx: number, dy: number, color: [number, number, number]) => {
+      const a = aspect();
+      const radius = SPLAT_RADIUS * (a > 1 ? a : 1);
+
+      splatMesh.program.uniforms.uAspect.value = a;
+      splatMesh.program.uniforms.uPoint.value = [x, y];
+      splatMesh.program.uniforms.uRadius.value = radius;
+
+      splatMesh.program.uniforms.uTarget.value = velocity.read.texture;
+      splatMesh.program.uniforms.uColor.value = [dx, dy, 0];
+      renderer.render({ scene: splatMesh, target: velocity.write });
+      velocity.swap();
+
+      splatMesh.program.uniforms.uTarget.value = dye.read.texture;
+      splatMesh.program.uniforms.uColor.value = color;
+      renderer.render({ scene: splatMesh, target: dye.write });
+      dye.swap();
+    };
+
+    const randomColor = () => INK_COLORS[(Math.random() * INK_COLORS.length) | 0];
+    const autoSplat = () => {
+      const x = 0.15 + Math.random() * 0.7;
+      const y = 0.15 + Math.random() * 0.7;
+      const angle = Math.random() * Math.PI * 2;
+      const force = 1000 + Math.random() * 1500;
+      splat(x, y, Math.cos(angle) * force, Math.sin(angle) * force, randomColor());
+    };
+
+    // reduced-motion: kilka statycznych plam, jedna klatka, koniec
+    if (reduced) {
+      for (let i = 0; i < 5; i++) autoSplat();
+      displayMesh.program.uniforms.uDye.value = dye.read.texture;
+      renderer.render({ scene: displayMesh });
+
+      window.removeEventListener("resize", resize);
+      return () => {
+        const ext = gl.getExtension("WEBGL_lose_context");
+        if (ext) ext.loseContext();
+        if (canvas.parentNode) canvas.parentNode.removeChild(canvas);
+      };
+    }
+
+    // wskaźnik (mysz / dotyk)
+    const pointer = { x: 0.5, y: 0.5, dx: 0, dy: 0, moved: false, color: randomColor() };
+    let recolorTimer = 0;
+    const onMove = (clientX: number, clientY: number) => {
+      const rect = container.getBoundingClientRect();
+      const x = (clientX - rect.left) / rect.width;
+      const y = 1 - (clientY - rect.top) / rect.height;
+      pointer.dx = (x - pointer.x) * 5500;
+      pointer.dy = (y - pointer.y) * 5500;
+      pointer.x = x;
+      pointer.y = y;
+      pointer.moved = true;
+      recolorTimer += 1;
+      if (recolorTimer > 40) {
+        pointer.color = randomColor();
+        recolorTimer = 0;
+      }
+    };
+    const onMouseMove = (e: MouseEvent) => onMove(e.clientX, e.clientY);
+    const onTouchMove = (e: TouchEvent) => {
+      const t = e.touches[0];
+      if (t) onMove(t.clientX, t.clientY);
+    };
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
+
     const themeObserver = new MutationObserver(() => {
-      uniforms.uDark.value = isDark() ? 1 : 0;
-      uniforms.uPaper.value = hexToRgb(isDark() ? PAPER_DARK : PAPER_LIGHT);
+      displayMesh.program.uniforms.uPaper.value = hexToRgb(isDark() ? PAPER_DARK : PAPER_LIGHT);
+      displayMesh.program.uniforms.uDark.value = isDark() ? 1 : 0;
     });
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
-    let raf = 0;
     let visible = true;
     const io = new IntersectionObserver((e) => { visible = e[0].isIntersecting; }, { threshold: 0 });
     io.observe(container);
 
-    const renderStatic = () => renderer.render({ scene: mesh });
+    // start: kilka splatów, żeby tusz żył od razu
+    for (let i = 0; i < 4; i++) autoSplat();
 
-    const loop = (tMs: number) => {
-      if (visible && document.visibilityState === "visible") {
-        uniforms.uTime.value = tMs * 0.001;
-        renderer.render({ scene: mesh });
+    let raf = 0;
+    let last = performance.now();
+    let autoTimer = 0;
+
+    const step = (dt: number) => {
+      // 1. advect velocity
+      advectionMesh.program.uniforms.uVelocity.value = velocity.read.texture;
+      advectionMesh.program.uniforms.uSource.value = velocity.read.texture;
+      advectionMesh.program.uniforms.uDt.value = dt;
+      advectionMesh.program.uniforms.uDissipation.value = VELOCITY_DISSIPATION;
+      renderer.render({ scene: advectionMesh, target: velocity.write });
+      velocity.swap();
+
+      // 2. advect dye
+      advectionMesh.program.uniforms.uVelocity.value = velocity.read.texture;
+      advectionMesh.program.uniforms.uSource.value = dye.read.texture;
+      advectionMesh.program.uniforms.uDissipation.value = DENSITY_DISSIPATION;
+      renderer.render({ scene: advectionMesh, target: dye.write });
+      dye.swap();
+
+      // pointer splat
+      if (pointer.moved) {
+        splat(pointer.x, pointer.y, pointer.dx, pointer.dy, pointer.color);
+        pointer.dx = 0;
+        pointer.dy = 0;
+        pointer.moved = false;
       }
-      raf = requestAnimationFrame(loop);
+
+      // 3. divergence
+      divergenceMesh.program.uniforms.uVelocity.value = velocity.read.texture;
+      renderer.render({ scene: divergenceMesh, target: divergence });
+
+      // 4. clear pressure (decay)
+      clearMesh.program.uniforms.uTexture.value = pressure.read.texture;
+      clearMesh.program.uniforms.uValue.value = 0.8;
+      renderer.render({ scene: clearMesh, target: pressure.write });
+      pressure.swap();
+
+      // 5. pressure solve (Jacobi)
+      pressureMesh.program.uniforms.uDivergence.value = divergence.texture;
+      for (let i = 0; i < PRESSURE_ITERATIONS; i++) {
+        pressureMesh.program.uniforms.uPressure.value = pressure.read.texture;
+        renderer.render({ scene: pressureMesh, target: pressure.write });
+        pressure.swap();
+      }
+
+      // 6. gradient subtract
+      gradientMesh.program.uniforms.uPressure.value = pressure.read.texture;
+      gradientMesh.program.uniforms.uVelocity.value = velocity.read.texture;
+      renderer.render({ scene: gradientMesh, target: velocity.write });
+      velocity.swap();
     };
 
-    if (reduced) {
-      renderStatic();
-    } else {
+    const loop = (now: number) => {
       raf = requestAnimationFrame(loop);
-    }
+      const elapsed = Math.min((now - last) / 1000, 0.05);
+      last = now;
+
+      if (!visible || document.hidden) return;
+
+      autoTimer += elapsed;
+      if (autoTimer >= AUTO_SPLAT_INTERVAL) {
+        autoSplat();
+        autoTimer = 0;
+      }
+
+      step(elapsed * 60);
+
+      displayMesh.program.uniforms.uDye.value = dye.read.texture;
+      renderer.render({ scene: displayMesh });
+    };
+    raf = requestAnimationFrame(loop);
 
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("touchmove", onTouchMove);
       io.disconnect();
       themeObserver.disconnect();
       const ext = gl.getExtension("WEBGL_lose_context");

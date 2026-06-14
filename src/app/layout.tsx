@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import { Inter_Tight, Playfair_Display, Inter, JetBrains_Mono } from "next/font/google";
 import { Header } from "@/widgets/Header/ui/Header";
 import { InkBackground } from "@/shared/ui/InkBackground/InkBackground";
+import { SideRails } from "@/shared/ui/SideRails/SideRails";
 import "./globals.css";
 
 // ── PARA 1 (aktywna) ──────────────────────────────────────────────────────────
@@ -117,6 +118,7 @@ export default function RootLayout({
         className={`${display.variable} ${serif.variable} ${body.variable} ${mono.variable} antialiased overflow-x-hidden`}
       >
         <InkBackground />
+        <SideRails />
         <Header />
         <main className="min-h-screen relative z-10 overflow-hidden">
           {children}
