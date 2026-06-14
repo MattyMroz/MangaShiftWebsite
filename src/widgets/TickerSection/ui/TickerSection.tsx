@@ -9,6 +9,12 @@ const rowTop = [
     'Character voices',
     'Subtitles',
     'Video export',
+    'Speech bubble parsing',
+    'Frame interpolation',
+    'Color grading',
+    'Auto chapters',
+    'Voice cloning',
+    'Lip-sync timing',
 ] as const;
 
 const rowBottom = [
@@ -18,16 +24,26 @@ const rowBottom = [
     'Scene pacing',
     'Sound design',
     'Auto-cut',
+    'Motion tracking',
+    'Depth parallax',
+    'Ambient score',
+    'Subtitle styling',
+    'Export presets',
+    'Batch render',
 ] as const;
+
+const GROUP_REPEAT = 3;
 
 const Group = ({ items }: { items: readonly string[] }) => (
     <ul className="wire-group" aria-hidden="false">
-        {items.map((item, index) => (
-            <li key={`${item}-${index}`} className="wire-item">
-                {item}
-                <span className="wire-dot">●</span>
-            </li>
-        ))}
+        {Array.from({ length: GROUP_REPEAT }, (_, repeat) =>
+            items.map((item, index) => (
+                <li key={`${item}-${repeat}-${index}`} className="wire-item">
+                    <span className="wire-dot" aria-hidden="true">●</span>
+                    {item}
+                </li>
+            )),
+        )}
     </ul>
 );
 
@@ -146,12 +162,12 @@ export const TickerSection = () => (
                 gap: 0;
                 width: max-content;
                 white-space: nowrap;
-                animation: wire-x 52s linear infinite;
+                animation: wire-x 60s linear infinite;
                 will-change: transform;
             }
             .wire-track.reverse {
                 animation-direction: reverse;
-                animation-duration: 64s;
+                animation-duration: 95s;
             }
             .wire-row:hover .wire-track {
                 animation-play-state: paused;
@@ -159,8 +175,8 @@ export const TickerSection = () => (
             .wire-group {
                 display: flex;
                 align-items: center;
-                gap: 36px;
-                padding-right: 36px;
+                gap: 22px;
+                padding-right: 22px;
                 list-style: none;
                 margin: 0;
                 flex-shrink: 0;
@@ -168,7 +184,7 @@ export const TickerSection = () => (
             .wire-item {
                 display: inline-flex;
                 align-items: center;
-                gap: 8px;
+                gap: 22px;
                 flex-shrink: 0;
                 font-size: 1.3rem;
                 font-weight: 500;
