@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Container } from '@/shared/ui/Container/Container';
+import { assetPath } from '@/shared/lib/utils/assetPath';
 
 const principles = [
     ['Keep the composition', 'The camera follows the artist’s panel order instead of inventing a new scene.'],
@@ -13,7 +14,7 @@ const principles = [
 export const AboutSection = () => (
     <section id="about" className="section-shell">
         <Container>
-            <div className="editorial-rule" data-index="II." data-page="002 / 006">
+            <div className="editorial-rule" data-index="II." data-page="002 / 008">
                 <span>Why MangaShift</span>
             </div>
 
@@ -61,11 +62,11 @@ export const AboutSection = () => (
                 >
                     <div className="relative aspect-[5/4] overflow-hidden rounded-[2rem] border border-[var(--line-strong)] bg-[var(--surface)]">
                         <Image
-                            src="/images/chainsawman/RezeArc.webp"
-                            alt="Cropped manga artwork used as a MangaShift source frame"
+                            src={assetPath('/images/inspiration/about.png')}
+                            alt="Editorial collage representing the MangaShift visual direction"
                             fill
                             sizes="(max-width: 1024px) 100vw, 42vw"
-                            className="object-cover object-[50%_28%]"
+                            className="object-cover"
                         />
                         <span className="absolute inset-0 bg-[var(--accent-2)]/10 mix-blend-multiply" />
                         <div className="absolute bottom-0 left-0 right-0 flex items-end justify-between bg-gradient-to-t from-black/80 to-transparent p-6 text-white">

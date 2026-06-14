@@ -1,4 +1,4 @@
-export const smoothScrollTo = (href: string, offset: number = 100): boolean => {
+export const smoothScrollTo = (href: string, offset?: number): boolean => {
     let id = href;
 
     if (href.startsWith('#')) {
@@ -19,8 +19,10 @@ export const smoothScrollTo = (href: string, offset: number = 100): boolean => {
     const targetElement = document.getElementById(id);
 
     if (targetElement) {
+        const header = document.querySelector('header');
+        const resolvedOffset = offset ?? (header?.getBoundingClientRect().height ?? 0) + 20;
         const elementPosition = targetElement.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.scrollY - offset;
+        const offsetPosition = elementPosition + window.scrollY - resolvedOffset;
 
         window.scrollTo({
             top: Math.max(0, offsetPosition),

@@ -13,7 +13,7 @@ import { t } from '@/shared/i18n';
 
 const navLinks = [
     { name: t('nav.about'), href: '#about' },
-    { name: t('nav.how'), href: '#how' },
+    { name: 'How', href: '#how' },
     { name: t('nav.features'), href: '#features' },
     { name: t('nav.demo'), href: '#demo' },
     { name: t('nav.faq'), href: '#faq' },
@@ -22,6 +22,7 @@ const navLinks = [
 export const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+    const [hoveredNav, setHoveredNav] = useState<string | null>(null);
 
     useEffect(() => {
         const onScroll = () => setIsScrolled(window.scrollY > 12);
@@ -74,23 +75,30 @@ export const Header = () => {
                     </Link>
 
                     <nav className="absolute left-1/2 hidden -translate-x-1/2 lg:block">
-                        <ul className="flex items-center gap-10 list-none">
+                        <ul
+                            className="flex items-center gap-1 rounded-full border border-transparent p-1 list-none"
+                            onMouseLeave={() => setHoveredNav(null)}
+                        >
                             {navLinks.map((link) => (
-                                <li key={link.name}>
-                                    <motion.span
-                                        className="inline-block"
-                                        whileHover={{ y: -1 }}
-                                        transition={{ duration: 0.18 }}
+                                <li
+                                    key={link.name}
+                                    className="relative"
+                                    onMouseEnter={() => setHoveredNav(link.name)}
+                                >
+                                    {hoveredNav === link.name && (
+                                        <motion.span
+                                            layoutId="header-nav-hover"
+                                            className="absolute inset-0 rounded-full border border-[var(--line)] bg-[var(--surface)] shadow-[var(--shadow-sm)]"
+                                            transition={{ type: 'spring', stiffness: 420, damping: 36 }}
+                                        />
+                                    )}
+                                    <Link
+                                        href={link.href}
+                                        onClick={nav}
+                                        className="relative z-10 block px-4 py-2 text-[1.4rem] font-medium text-[var(--text-muted)] transition-colors duration-200 hover:text-[var(--text)]"
                                     >
-                                        <Link
-                                            href={link.href}
-                                            onClick={nav}
-                                            className="text-[1.55rem] font-medium text-[var(--text-muted)] hover:text-[var(--text)]"
-                                            style={{ transition: 'color 0.2s ease' }}
-                                        >
-                                            {link.name}
-                                        </Link>
-                                    </motion.span>
+                                        {link.name}
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
@@ -105,7 +113,7 @@ export const Header = () => {
                             variant="primary"
                             size="sm"
                             onClick={joinBeta}
-                            className="hidden sm:inline-flex"
+                            className="hidden h-11 min-h-0 px-5 py-0 text-[1.25rem] leading-none sm:inline-flex"
                         >
                             {t('nav.beta')}
                         </Button>

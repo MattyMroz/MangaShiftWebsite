@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     description: "Transform manga and manhwa into immersive audiovisual experiences with AI-powered technology.",
     images: [
       {
-        url: "/images/chainsawman/RezeArc.webp",
+        url: "/MangaShiftWebsite/images/chainsawman/RezeArc.webp",
         width: 644,
         height: 1024,
         alt: "MangaShift - Chainsaw Man Demo"
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "MangaShift - Automatic Manga to Video Generator",
     description: "Transform manga and manhwa into immersive audiovisual experiences with AI-powered technology.",
-    images: ["/images/chainsawman/RezeArc.webp"]
+    images: ["/MangaShiftWebsite/images/chainsawman/RezeArc.webp"]
   },
   robots: {
     index: true,
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     }
   },
   icons: {
-    icon: "/favicon.ico"
+    icon: "/MangaShiftWebsite/favicon.ico"
   }
 };
 
@@ -64,7 +64,7 @@ const themeInitScript = `
       var theme = localStorage.getItem('theme') || 'light';
       var effects = localStorage.getItem('effects');
       var root = document.documentElement;
-      var bg = theme === 'dark' ? '#141416' : '#f1ede5';
+      var bg = theme === 'dark' ? '#171715' : '#f3efe6';
       root.setAttribute('data-theme', theme);
       root.setAttribute('data-effects', effects === 'false' ? 'disabled' : 'enabled');
       root.style.colorScheme = theme;
@@ -88,9 +88,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="overflow-x-hidden" style={{ backgroundColor: '#f1ede5' }}>
+    <html lang="en" suppressHydrationWarning className="overflow-x-hidden" style={{ backgroundColor: '#f3efe6' }}>
       <head>
-        <meta name="theme-color" content="#f1ede5" />
+        <meta name="theme-color" content="#f3efe6" />
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body

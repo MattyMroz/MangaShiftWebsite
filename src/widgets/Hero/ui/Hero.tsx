@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Button } from '@/shared/ui/Button/Button';
 import { Container } from '@/shared/ui/Container/Container';
+import { assetPath } from '@/shared/lib/utils/assetPath';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
 
 const highlights = [
@@ -27,21 +28,13 @@ export const Hero = () => {
     return (
         <section id="home" className="relative overflow-hidden pb-20 pt-32 md:pb-24 md:pt-40">
             <Container>
-                <div
-                    className="editorial-rule"
-                    data-index="I."
-                    data-page="001 / 006"
-                >
-                    <span className="truncate">MangaShift · private beta · 2026</span>
+                <div className="editorial-rule" data-index="I." data-page="001 / 008">
+                    <span className="truncate">MangaShift / private beta / 2026</span>
                 </div>
 
-                <div className="mt-10 grid items-center gap-14 lg:mt-14 lg:grid-cols-12 lg:gap-10">
+                <div className="mt-10 grid items-center gap-16 lg:mt-14 lg:grid-cols-12 lg:gap-10">
                     <div className="lg:col-span-7 lg:pr-8">
-                        <motion.p
-                            className="section-kicker"
-                            {...reveal}
-                            transition={{ duration: 0.55 }}
-                        >
+                        <motion.p className="section-kicker" {...reveal} transition={{ duration: 0.55 }}>
                             Manga to narrated video
                         </motion.p>
 
@@ -101,49 +94,83 @@ export const Hero = () => {
                     </div>
 
                     <motion.figure
-                        className="relative mx-auto w-full max-w-[56rem] lg:col-span-5"
+                        className="relative mx-auto w-full max-w-[60rem] pb-10 lg:col-span-5"
                         initial={{ opacity: 0, x: 24 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.85, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
                     >
                         <span
                             aria-hidden="true"
-                            className="absolute -right-10 -top-8 h-44 w-44 rounded-full bg-[var(--accent)] opacity-90 md:h-56 md:w-56"
-                        />
-                        <span
-                            aria-hidden="true"
-                            className="absolute -bottom-8 -left-8 h-28 w-28 rounded-full border border-[var(--accent-2)] bg-[var(--surface-2)]"
+                            className="absolute -right-8 top-12 h-40 w-40 rounded-full bg-[var(--accent)] opacity-85 md:h-52 md:w-52"
                         />
 
-                        <div className="relative overflow-hidden rounded-[2.4rem] border border-[var(--line-strong)] bg-[#101012] p-3 shadow-[var(--shadow-lg)]">
-                            <div className="relative aspect-[4/5] overflow-hidden rounded-[1.7rem]">
-                                <Image
-                                    src="/images/chainsawman/RezeArc.webp"
-                                    alt="Manga artwork prepared for the MangaShift video pipeline"
-                                    fill
-                                    priority
-                                    sizes="(max-width: 1024px) 90vw, 42vw"
-                                    className="object-cover object-top"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/5" />
-                                <div className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-4 text-white">
-                                    <div>
-                                        <p className="font-mono text-[1rem] uppercase tracking-[0.2em] text-white/60">
-                                            Preview · frame 001
-                                        </p>
-                                        <p className="mt-1 text-[1.8rem] font-semibold">Reze Arc sample</p>
-                                    </div>
-                                    <span className="grid h-12 w-12 place-items-center rounded-full border border-white/40 bg-white/10 text-[1.5rem] backdrop-blur">
-                                        ▶
+                        <div className="diagram-card relative ml-auto w-[88%] p-3 md:p-4">
+                            <div className="flex items-center justify-between border-b border-[var(--line)] px-2 pb-3">
+                                <div className="flex items-center gap-2">
+                                    <span className="h-4 w-4 rounded-full bg-[var(--accent)]" />
+                                    <span className="font-mono text-[0.9rem] uppercase tracking-[0.17em] text-[var(--text-faint)]">
+                                        Motion study / 01
                                     </span>
                                 </div>
+                                <span className="font-mono text-[1.4rem] tracking-[0.14em] text-[var(--text)]">
+                                    ≡
+                                </span>
+                            </div>
+
+                            <div className="relative mt-3 aspect-[4/5] overflow-hidden rounded-[1.5rem] border border-[var(--line)] bg-[var(--surface-2)]">
+                                <span className="absolute right-8 top-8 h-28 w-28 rounded-full bg-[var(--accent)] opacity-80" />
+                                <Image
+                                    src={assetPath('/images/inspiration/hero-angel.png')}
+                                    alt="Editorial collage representing MangaShift motion direction"
+                                    fill
+                                    priority
+                                    sizes="(max-width: 1024px) 88vw, 38vw"
+                                    className="relative z-10 object-contain object-bottom"
+                                />
+                            </div>
+
+                            <div className="mt-3 grid grid-cols-[1fr_1fr_1fr_2fr] gap-2">
+                                <span className="h-12 rounded-[0.8rem] bg-[var(--text)]" />
+                                <span className="h-12 rounded-[0.8rem] border border-[var(--line)] bg-[var(--surface-2)]" />
+                                <span className="h-12 rounded-[0.8rem] bg-[color-mix(in_srgb,var(--accent)_24%,var(--surface))]" />
+                                <span className="relative h-12 overflow-hidden rounded-[0.8rem] bg-[var(--accent)]">
+                                    <svg viewBox="0 0 120 40" className="absolute inset-0 h-full w-full text-white/55" aria-hidden="true">
+                                        <path d="M0 24c18-18 34 12 52-3s31-8 68 5" fill="none" stroke="currentColor" strokeWidth="1.2" />
+                                        <path d="M0 31c22-14 35 8 56-2s38-8 64 1" fill="none" stroke="currentColor" strokeWidth="1.2" />
+                                    </svg>
+                                </span>
                             </div>
                         </div>
 
-                        <figcaption className="mt-4 flex items-center justify-between border-t border-[var(--line)] pt-3 font-mono text-[1rem] uppercase tracking-[0.18em] text-[var(--text-faint)]">
-                            <span>Static page</span>
-                            <span className="text-[var(--accent-text)]">→ narrated motion</span>
-                        </figcaption>
+                        <motion.div
+                            className="diagram-card absolute bottom-0 left-0 w-[42%] p-2.5"
+                            animate={{ y: [0, -6, 0] }}
+                            transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
+                        >
+                            <div className="relative aspect-[4/3] overflow-hidden rounded-[1.1rem]">
+                                <Image
+                                    src={assetPath('/images/chainsawman/RezeArc.webp')}
+                                    alt="Source manga frame"
+                                    fill
+                                    sizes="220px"
+                                    className="object-cover object-top grayscale"
+                                />
+                                <span className="absolute left-3 top-3 h-5 w-5 rounded-full bg-[var(--accent)]" />
+                            </div>
+                            <div className="mt-2 flex items-center justify-between font-mono text-[0.8rem] uppercase tracking-[0.14em] text-[var(--text-faint)]">
+                                <span>Source</span>
+                                <span>Panel 001</span>
+                            </div>
+                        </motion.div>
+
+                        <span
+                            aria-hidden="true"
+                            className="absolute bottom-[7.2rem] left-[39%] h-px w-[12%] bg-[var(--text)]"
+                        />
+                        <span
+                            aria-hidden="true"
+                            className="absolute bottom-[6.85rem] left-[50%] h-2 w-2 rounded-full bg-[var(--accent)]"
+                        />
                     </motion.figure>
                 </div>
             </Container>

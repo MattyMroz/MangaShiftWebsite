@@ -1,7 +1,9 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Container } from '@/shared/ui/Container/Container';
+import { assetPath } from '@/shared/lib/utils/assetPath';
 
 type IconProps = { className?: string };
 
@@ -68,7 +70,7 @@ const features = [
 export const FeaturesSection = () => (
     <section id="features" className="section-shell">
         <Container>
-            <div className="editorial-rule" data-index="IV." data-page="004 / 006">
+            <div className="editorial-rule" data-index="IV." data-page="004 / 008">
                 <span>Capabilities</span>
             </div>
 
@@ -120,7 +122,20 @@ export const FeaturesSection = () => (
                             <Icon className={large ? 'h-12 w-12 text-[var(--accent)]' : 'h-10 w-10 text-[var(--accent-text)]'} />
                         </div>
 
-                        <div className={large ? 'relative mt-40 max-w-[52rem]' : 'relative mt-12'}>
+                        {large && (
+                            <div className="relative mt-8 aspect-[16/8] max-w-[54rem] overflow-hidden rounded-[1.6rem] border border-white/15">
+                                <Image
+                                    src={assetPath('/images/inspiration/capabilities.png')}
+                                    alt=""
+                                    fill
+                                    sizes="(max-width: 1024px) 100vw, 58vw"
+                                    className="object-cover"
+                                />
+                                <span className="absolute inset-0 bg-[#171719]/10" />
+                            </div>
+                        )}
+
+                        <div className={large ? 'relative mt-8 max-w-[52rem]' : 'relative mt-12'}>
                             <h3 className={large ? 'text-[clamp(3rem,4vw,5rem)] font-bold leading-[1.02] tracking-tight' : 'text-[2.2rem] font-bold leading-tight tracking-tight text-[var(--text)]'}>
                                 {title}
                             </h3>
