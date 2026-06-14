@@ -46,6 +46,11 @@ export const Footer = () => {
                     </div>
 
                     <div className="lg:col-span-4 lg:pb-2">
+                        <div className="mb-7 flex items-center gap-4 font-mono text-[0.92rem] uppercase tracking-[0.2em] text-white/35">
+                            <span>Est. 2026</span>
+                            <span aria-hidden="true" className="h-px flex-1 bg-white/15" />
+                            <span>Wrocław</span>
+                        </div>
                         <p className="max-w-[42ch] text-[1.55rem] leading-[1.75] text-white/58">
                             MangaShift is building a direct path from static manga and manhwa to
                             narrated video, while keeping the original composition at the center.
@@ -160,9 +165,12 @@ export const Footer = () => {
                         href="#home"
                         onClick={scrollTo}
                         aria-label="Back to the top"
-                        className="block text-center text-[clamp(6.8rem,13.2vw,18rem)] font-black leading-[0.88] tracking-[-0.07em] text-[#f3efe6]"
+                        className="group block text-center text-[clamp(6.8rem,13.2vw,18rem)] font-black leading-[0.88] tracking-[-0.07em] text-[#f3efe6]"
                     >
-                        MangaShift<span className="text-[var(--accent)]">.</span>
+                        MangaShift
+                        <span className="inline-block text-[var(--accent)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-[0.12em] group-hover:scale-110">
+                            .
+                        </span>
                     </Link>
                 </motion.div>
             </Container>
