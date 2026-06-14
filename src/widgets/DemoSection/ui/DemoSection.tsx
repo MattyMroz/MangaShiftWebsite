@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -22,6 +22,7 @@ const cards = [
 export const DemoSection = () => {
     const [active, setActive] = useState(2);
     const total = cards.length;
+    const dragged = useRef(false);
     const go = (dir: number) => setActive((prev) => (prev + dir + total) % total);
 
     const scrollToBeta = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -119,29 +120,37 @@ export const DemoSection = () => {
                                     type="button"
                                     onClick={() => go(-1)}
                                     aria-label="Previous frame"
-                                    className="grid h-11 w-11 place-items-center rounded-full border border-white/20 text-[1.6rem] text-white/70 transition-colors duration-300 hover:border-white/50 hover:text-white"
+                                    className="grid h-11 w-11 place-items-center rounded-full border border-white/20 text-white/70 transition-colors duration-300 hover:border-white/50 hover:text-white"
                                 >
-                                    ←
+                                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                        <path d="M15 5l-7 7 7 7" />
+                                    </svg>
                                 </button>
                                 <button
                                     type="button"
                                     onClick={() => go(1)}
                                     aria-label="Next frame"
-                                    className="grid h-11 w-11 place-items-center rounded-full border border-white/20 text-[1.6rem] text-white/70 transition-colors duration-300 hover:border-white/50 hover:text-white"
+                                    className="grid h-11 w-11 place-items-center rounded-full border border-white/20 text-white/70 transition-colors duration-300 hover:border-white/50 hover:text-white"
                                 >
-                                    →
+                                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                        <path d="M9 5l7 7-7 7" />
+                                    </svg>
                                 </button>
                             </div>
                         </div>
 
                         <motion.div
-                            className="relative mt-10 h-[34rem] cursor-grab touch-pan-y [perspective:2000px] active:cursor-grabbing md:h-[40rem]"
+                            className="relative mt-10 h-[34rem] cursor-grab select-none [perspective:2000px] active:cursor-grabbing md:h-[40rem]"
                             drag="x"
+                            dragSnapToOrigin
                             dragConstraints={{ left: 0, right: 0 }}
-                            dragElastic={0.2}
+                            dragElastic={0.18}
+                            dragMomentum={false}
+                            onDragStart={() => { dragged.current = true; }}
                             onDragEnd={(_, info) => {
-                                if (info.offset.x < -60) go(1);
-                                else if (info.offset.x > 60) go(-1);
+                                if (info.offset.x < -50 || info.velocity.x < -400) go(1);
+                                else if (info.offset.x > 50 || info.velocity.x > 400) go(-1);
+                                window.setTimeout(() => { dragged.current = false; }, 50);
                             }}
                         >
                             {cards.map(({ image, eyebrow, title, foot }, i) => {
@@ -150,25 +159,28 @@ export const DemoSection = () => {
                                 const abs = Math.abs(offset);
                                 const isActive = offset === 0;
                                 return (
-                                    <motion.figure
+                                    <motion.div
                                         key={title}
-                                        onClick={() => setActive(i)}
-                                        className="absolute left-1/2 top-1/2 w-[24rem] origin-center rounded-[1.8rem] border border-[var(--line-strong)] bg-[var(--bg)] p-4 text-[var(--text)] shadow-[var(--shadow-lg)] md:w-[30rem]"
+                                        onClick={() => {
+                                            if (dragged.current) return;
+                                            if (!isActive) setActive(i);
+                                        }}
+                                        className="absolute left-1/2 top-1/2 w-[24rem] md:w-[30rem]"
                                         initial={false}
                                         animate={{
-                                            x: `calc(-50% + ${offset * 58}%)`,
+                                            x: `calc(-50% + ${offset * 52}%)`,
                                             y: '-50%',
-                                            scale: isActive ? 1 : 0.8 - (abs - 1) * 0.07,
-                                            rotate: offset * -5,
-                                            opacity: abs > 2 ? 0 : 1 - abs * 0.08,
-                                            zIndex: total - abs,
+                                            scale: isActive ? 1 : 0.82 - (abs - 1) * 0.06,
+                                            rotate: offset * -4,
+                                            opacity: abs > 2 ? 0 : 1,
                                         }}
-                                        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                                        style={{ pointerEvents: abs > 2 ? 'none' : 'auto' }}
+                                        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                                        style={{ zIndex: total - abs, pointerEvents: abs > 2 ? 'none' : 'auto', cursor: isActive ? 'grab' : 'pointer' }}
                                     >
-                                        <motion.div
-                                            animate={{ y: [0, -10, 0] }}
-                                            transition={{ duration: 6 + abs, repeat: Infinity, ease: 'easeInOut', delay: i * 0.4 }}
+                                        <motion.figure
+                                            className="rounded-[1.8rem] border border-[var(--line-strong)] bg-[var(--bg)] p-4 text-[var(--text)] shadow-[var(--shadow-lg)]"
+                                            animate={{ y: [0, -12, 0] }}
+                                            transition={{ duration: 6 + i, repeat: Infinity, repeatType: 'loop', ease: 'easeInOut', delay: i * 0.5 }}
                                         >
                                             <div className="relative aspect-[4/5] overflow-hidden rounded-[1.2rem] border border-[var(--line)]">
                                                 <Image
@@ -191,13 +203,13 @@ export const DemoSection = () => {
                                                     {foot}
                                                 </span>
                                             </figcaption>
-                                        </motion.div>
-                                    </motion.figure>
+                                        </motion.figure>
+                                    </motion.div>
                                 );
                             })}
                         </motion.div>
 
-                        <div className="mt-2 flex justify-center gap-2.5">
+                        <div className="mt-10 flex justify-center gap-2.5">
                             {cards.map(({ title }, i) => (
                                 <button
                                     key={title}
