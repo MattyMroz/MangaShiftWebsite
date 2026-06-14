@@ -1,11 +1,17 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/shared/lib/utils/cn";
 
 const LOCALE_STORAGE_KEY = "locale";
 const DEFAULT_LOCALE = "en";
+
+const subscribeLocale = (onChange: () => void) => {
+    window.addEventListener("storage", onChange);
+    return () => window.removeEventListener("storage", onChange);
+};
+const readLocale = () => localStorage.getItem(LOCALE_STORAGE_KEY) ?? DEFAULT_LOCALE;
 
 interface LanguageOption {
     code: string;
@@ -27,15 +33,9 @@ const LANGUAGES: LanguageOption[] = [
 
 export const LanguageSwitcher = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [locale, setLocale] = useState(DEFAULT_LOCALE);
+    const stored = useSyncExternalStore(subscribeLocale, readLocale, () => DEFAULT_LOCALE);
+    const locale = LANGUAGES.some((l) => l.code === stored && l.enabled) ? stored : DEFAULT_LOCALE;
     const rootRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const stored = localStorage.getItem(LOCALE_STORAGE_KEY);
-        if (stored && LANGUAGES.some((l) => l.code === stored && l.enabled)) {
-            setLocale(stored);
-        }
-    }, []);
 
     useEffect(() => {
         if (!isOpen) return;

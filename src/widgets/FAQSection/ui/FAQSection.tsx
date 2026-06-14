@@ -26,6 +26,46 @@ const questions = [
         question: 'When will I get access?',
         answer: 'Invites will be sent in small waves. Joining the list is the best way to receive an access email when a new beta cohort opens.',
     },
+    {
+        question: 'Placeholder question 06',
+        answer: 'Placeholder answer. Replace this with real copy later.',
+    },
+    {
+        question: 'Placeholder question 07',
+        answer: 'Placeholder answer. Replace this with real copy later.',
+    },
+    {
+        question: 'Placeholder question 08',
+        answer: 'Placeholder answer. Replace this with real copy later.',
+    },
+    {
+        question: 'Placeholder question 09',
+        answer: 'Placeholder answer. Replace this with real copy later.',
+    },
+    {
+        question: 'Placeholder question 10',
+        answer: 'Placeholder answer. Replace this with real copy later.',
+    },
+    {
+        question: 'Placeholder question 11',
+        answer: 'Placeholder answer. Replace this with real copy later.',
+    },
+    {
+        question: 'Placeholder question 12',
+        answer: 'Placeholder answer. Replace this with real copy later.',
+    },
+    {
+        question: 'Placeholder question 13',
+        answer: 'Placeholder answer. Replace this with real copy later.',
+    },
+    {
+        question: 'Placeholder question 14',
+        answer: 'Placeholder answer. Replace this with real copy later.',
+    },
+    {
+        question: 'Placeholder question 15',
+        answer: 'Placeholder answer. Replace this with real copy later.',
+    },
 ] as const;
 
 export const FaqSection = () => {
@@ -38,9 +78,9 @@ export const FaqSection = () => {
                     <span>Frequently asked</span>
                 </div>
 
-                <div className="mt-12 grid gap-12 lg:grid-cols-12">
+                <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:items-start">
                     <motion.div
-                        className="lg:col-span-5"
+                        className="lg:col-span-4 lg:sticky lg:top-28"
                         initial={false}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: '-80px' }}
@@ -55,9 +95,12 @@ export const FaqSection = () => {
                             MangaShift is still in active development. These answers describe the
                             beta direction without pretending unfinished parts are already final.
                         </p>
+                        <p className="mt-7 font-mono text-[1rem] uppercase tracking-[0.18em] text-[var(--text-faint)]">
+                            {String(questions.length).padStart(2, '0')} questions
+                        </p>
                     </motion.div>
 
-                    <div className="border-t border-[var(--line-strong)] lg:col-span-7">
+                    <div className="border-t border-[var(--line-strong)] lg:col-span-8">
                         {questions.map((item, index) => {
                             const isOpen = open === index;
                             return (
@@ -68,12 +111,12 @@ export const FaqSection = () => {
                                             onClick={() => setOpen(isOpen ? -1 : index)}
                                             aria-expanded={isOpen}
                                             aria-controls={`faq-answer-${index}`}
-                                            className="group grid w-full grid-cols-[3.2rem_minmax(0,1fr)_4.4rem] items-center gap-4 py-7 text-left sm:grid-cols-[4rem_minmax(0,1fr)_4.8rem] sm:gap-5"
+                                            className="group grid w-full grid-cols-[3.2rem_minmax(0,1fr)_4.4rem] items-center gap-4 py-6 text-left sm:grid-cols-[4rem_minmax(0,1fr)_4.8rem] sm:gap-5"
                                         >
                                             <span className="font-mono text-[1rem] tracking-[0.18em] text-[var(--accent-text)]">
                                                 {String(index + 1).padStart(2, '0')}
                                             </span>
-                                            <span className="min-w-0 text-[clamp(1.8rem,2.2vw,2.4rem)] font-semibold leading-tight text-[var(--text)]">
+                                            <span className="min-w-0 text-[clamp(1.6rem,1.9vw,2.1rem)] font-semibold leading-tight text-[var(--text)]">
                                                 {item.question}
                                             </span>
                                             <span
@@ -104,7 +147,7 @@ export const FaqSection = () => {
                                                 transition={{ duration: 0.24 }}
                                                 className="overflow-hidden"
                                             >
-                                                <div className="grid grid-cols-[3.2rem_minmax(0,1fr)_4.4rem] gap-4 pb-8 sm:grid-cols-[4rem_minmax(0,1fr)_4.8rem] sm:gap-5">
+                                                <div className="grid grid-cols-[3.2rem_minmax(0,1fr)_4.4rem] gap-4 pb-7 sm:grid-cols-[4rem_minmax(0,1fr)_4.8rem] sm:gap-5">
                                                     <p className="col-start-2 max-w-[62ch] text-[1.5rem] leading-[1.7] text-[var(--text-muted)]">
                                                         {item.answer}
                                                     </p>
