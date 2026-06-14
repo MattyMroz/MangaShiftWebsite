@@ -114,20 +114,32 @@ export const DemoSection = () => {
                     </div>
 
                     <div className="relative mt-12 border-t border-white/12 pt-9">
-                        <div className="flex items-center justify-between gap-4 font-mono text-[0.95rem] uppercase tracking-[0.18em] text-white/40">
-                            <span>From page to sequence</span>
-                            <span className="hidden sm:block">Three stages</span>
+                        <div className="flex items-end justify-between gap-4">
+                            <div className="flex items-center gap-4">
+                                <span aria-hidden="true" className="h-px w-10 bg-[var(--accent)]" />
+                                <span className="font-mono text-[0.95rem] uppercase tracking-[0.18em] text-white/45">
+                                    From page to sequence
+                                </span>
+                            </div>
+                            <span className="hidden font-mono text-[0.95rem] uppercase tracking-[0.18em] text-white/30 sm:block">
+                                Three stages
+                            </span>
                         </div>
 
-                        <div className="mt-6 grid gap-4 sm:grid-cols-3">
+                        <div className="relative mt-7 grid gap-4 sm:grid-cols-3">
+                            <span
+                                aria-hidden="true"
+                                className="absolute left-[16.6%] right-[16.6%] top-[15%] hidden h-px bg-white/12 sm:block"
+                            />
                             {pipeline.map(({ image, step, label, note }, index) => (
                                 <motion.figure
                                     key={step}
-                                    className="group relative overflow-hidden rounded-[1.4rem] border border-white/12 bg-white/[0.03]"
+                                    className="group relative overflow-hidden rounded-[1.4rem] border border-white/12 bg-white/[0.03] transition-colors duration-500 hover:border-white/25"
                                     initial={{ opacity: 0, y: 22 }}
                                     whileInView={{ opacity: 1, y: 0 }}
+                                    whileHover={{ y: -6 }}
                                     viewport={{ once: true, margin: '-40px' }}
-                                    transition={{ duration: 0.55, delay: index * 0.08 }}
+                                    transition={{ duration: 0.55, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
                                 >
                                     <div className="relative aspect-[16/10] overflow-hidden">
                                         <Image
@@ -137,16 +149,19 @@ export const DemoSection = () => {
                                             sizes="(max-width: 640px) 100vw, 30vw"
                                             className="object-cover opacity-90 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
                                         />
-                                        <span className="absolute inset-0 bg-gradient-to-t from-[#0c0c0e]/80 via-transparent to-transparent" />
-                                        <span className="absolute left-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-[var(--accent)] font-mono text-[0.9rem] font-semibold text-white">
+                                        <span className="absolute inset-0 bg-gradient-to-t from-[#0c0c0e]/85 via-[#0c0c0e]/10 to-transparent" />
+                                        <span className="absolute right-4 top-3 select-none font-serif text-[4.4rem] italic leading-none text-white/85">
                                             {step}
                                         </span>
+                                        <span className="absolute bottom-3 left-4 font-mono text-[0.82rem] uppercase tracking-[0.18em] text-white/55">
+                                            Stage {step} / 3
+                                        </span>
                                     </div>
-                                    <figcaption className="px-5 pb-5 pt-4">
-                                        <h3 className="text-[1.5rem] font-bold leading-tight tracking-tight text-white/90">
+                                    <figcaption className="px-5 pb-6 pt-5">
+                                        <h3 className="text-[1.7rem] font-bold leading-tight tracking-tight text-white/90">
                                             {label}
                                         </h3>
-                                        <p className="mt-1.5 text-[1.15rem] leading-[1.6] text-white/50">
+                                        <p className="mt-2 text-[1.2rem] leading-[1.6] text-white/50">
                                             {note}
                                         </p>
                                     </figcaption>
