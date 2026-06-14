@@ -8,6 +8,27 @@ import { Container } from '@/shared/ui/Container/Container';
 import { assetPath } from '@/shared/lib/utils/assetPath';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
 
+const pipeline = [
+    {
+        image: assetPath('/images/inspiration/method-1.png'),
+        step: '1',
+        label: 'Read the page',
+        note: 'Panel order, bubbles and reading direction are parsed first.',
+    },
+    {
+        image: assetPath('/images/inspiration/method-2.png'),
+        step: '2',
+        label: 'Direct the scene',
+        note: 'Framing, narration timing and voices are composed per panel.',
+    },
+    {
+        image: assetPath('/images/inspiration/method-3.png'),
+        step: '3',
+        label: 'Render the cut',
+        note: 'Motion, audio and subtitles export into one watchable video.',
+    },
+] as const;
+
 export const DemoSection = () => {
     const scrollToBeta = (event: React.MouseEvent<HTMLAnchorElement>) => {
         if (smoothScrollTo('#beta')) event.preventDefault();
@@ -87,6 +108,48 @@ export const DemoSection = () => {
                                 <span>Source · static panels</span>
                                 <span className="text-[var(--accent)]">Output · narrated motion</span>
                             </div>
+                        </div>
+                    </div>
+
+                    <div className="relative mt-12 border-t border-white/12 pt-9">
+                        <div className="flex items-center justify-between gap-4 font-mono text-[0.95rem] uppercase tracking-[0.18em] text-white/40">
+                            <span>From page to sequence</span>
+                            <span className="hidden sm:block">Three stages</span>
+                        </div>
+
+                        <div className="mt-6 grid gap-4 sm:grid-cols-3">
+                            {pipeline.map(({ image, step, label, note }, index) => (
+                                <motion.figure
+                                    key={step}
+                                    className="group relative overflow-hidden rounded-[1.4rem] border border-white/12 bg-white/[0.03]"
+                                    initial={{ opacity: 0, y: 22 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: '-40px' }}
+                                    transition={{ duration: 0.55, delay: index * 0.08 }}
+                                >
+                                    <div className="relative aspect-[16/10] overflow-hidden">
+                                        <Image
+                                            src={image}
+                                            alt=""
+                                            fill
+                                            sizes="(max-width: 640px) 100vw, 30vw"
+                                            className="object-cover opacity-90 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
+                                        />
+                                        <span className="absolute inset-0 bg-gradient-to-t from-[#0c0c0e]/80 via-transparent to-transparent" />
+                                        <span className="absolute left-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-[var(--accent)] font-mono text-[0.9rem] font-semibold text-white">
+                                            {step}
+                                        </span>
+                                    </div>
+                                    <figcaption className="px-5 pb-5 pt-4">
+                                        <h3 className="text-[1.5rem] font-bold leading-tight tracking-tight text-white/90">
+                                            {label}
+                                        </h3>
+                                        <p className="mt-1.5 text-[1.15rem] leading-[1.6] text-white/50">
+                                            {note}
+                                        </p>
+                                    </figcaption>
+                                </motion.figure>
+                            ))}
                         </div>
                     </div>
                 </motion.div>
