@@ -55,9 +55,9 @@ export const Button: React.FC<ButtonProps> = ({
                 isLink ? '' : sizes[resolvedSize],
                 className,
             )}
-            whileHover={isLink ? undefined : { y: -2 }}
-            whileTap={isLink ? undefined : { scale: 0.98 }}
-            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={isLink ? undefined : { scale: 1.04 }}
+            whileTap={isLink ? undefined : { scale: 0.93 }}
+            transition={{ type: 'spring', stiffness: 420, damping: 24 }}
             {...props}
         >
             {!isLink && (
