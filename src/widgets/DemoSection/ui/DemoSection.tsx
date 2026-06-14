@@ -8,6 +8,7 @@ import { Container } from '@/shared/ui/Container/Container';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
+import { cn } from '@/shared/lib/utils/cn';
 
 const cards = [
     {
@@ -126,48 +127,60 @@ export const DemoSection = () => {
                             </span>
                         </div>
 
-                        <div className="mt-7 grid gap-5 md:grid-cols-2">
+                        <div className="mx-auto mt-10 grid max-w-[44rem] items-start gap-6 [perspective:1400px] md:max-w-[88rem] md:grid-cols-[1fr_0.82fr] md:gap-8">
                             {cards.map(({ image, eyebrow, index, title, note, foot, tag }, i) => (
                                 <motion.article
                                     key={title}
-                                    className="group flex flex-col rounded-[2rem] border border-[var(--line-strong)] bg-[var(--bg)] p-6 text-[var(--text)] shadow-[var(--shadow-lg)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:p-8"
-                                    initial={{ opacity: 0, y: 24 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    whileHover={{ y: -8 }}
+                                    className={cn(
+                                        'group flex flex-col rounded-[1.8rem] border border-[var(--line-strong)] bg-[var(--bg)] p-6 text-[var(--text)] shadow-[var(--shadow-lg)] [transform-style:preserve-3d] hover:z-10 md:p-8',
+                                        i === 0 ? 'md:origin-bottom-right' : 'md:origin-bottom-left md:mt-7',
+                                    )}
+                                    initial={{ opacity: 0, y: 28, rotate: i === 0 ? -3 : 3 }}
+                                    whileInView={{
+                                        opacity: 1,
+                                        y: [0, i === 0 ? -8 : -12, 0],
+                                        rotate: i === 0 ? -1.5 : 1.5,
+                                    }}
+                                    whileHover={{ rotate: 0, y: -10, scale: 1.02 }}
                                     viewport={{ once: true, margin: '-40px' }}
-                                    transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                                    transition={{
+                                        opacity: { duration: 0.6, delay: i * 0.1 },
+                                        rotate: { duration: 0.7, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] },
+                                        y: { duration: 7 + i * 1.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.4 },
+                                        default: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+                                    }}
                                 >
-                                    <div className="flex items-start justify-between">
-                                        <span className="font-mono text-[0.95rem] font-semibold uppercase tracking-[0.2em] text-[var(--accent-text)]">
+                                    <div className="flex items-center justify-between">
+                                        <span className="font-mono text-[0.85rem] font-semibold uppercase tracking-[0.2em] text-[var(--accent-text)]">
                                             {eyebrow}
                                         </span>
-                                        <span className="font-mono text-[0.95rem] uppercase tracking-[0.16em] text-[var(--text-faint)]">
+                                        <span className="font-mono text-[0.85rem] uppercase tracking-[0.16em] text-[var(--text-faint)]">
                                             {index}
                                         </span>
                                     </div>
 
-                                    <h3 className="mt-6 text-[clamp(2.6rem,3vw,3.6rem)] font-extrabold leading-[1] tracking-[-0.03em]">
+                                    <h3 className="mt-5 text-[2.6rem] font-extrabold leading-[1.05] tracking-[-0.03em]">
                                         {title}
                                     </h3>
-                                    <p className="mt-4 max-w-[40ch] text-[1.4rem] leading-[1.65] text-[var(--text-muted)]">
+                                    <p className="mt-3 max-w-[40ch] text-[1.4rem] leading-[1.6] text-[var(--text-muted)]">
                                         {note}
                                     </p>
 
-                                    <div className="relative mt-7 aspect-[16/11] overflow-hidden rounded-[1.4rem] border border-[var(--line)]">
+                                    <div className="relative mt-5 aspect-[16/9] overflow-hidden rounded-[1.1rem] border border-[var(--line)]">
                                         <Image
                                             src={image}
                                             alt=""
                                             fill
-                                            sizes="(max-width: 768px) 100vw, 44vw"
+                                            sizes="(max-width: 768px) 90vw, 34vw"
                                             className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
                                         />
                                     </div>
 
-                                    <div className="mt-6 flex items-center justify-between border-t border-[var(--line)] pt-5">
-                                        <span className="font-mono text-[0.95rem] uppercase tracking-[0.16em] text-[var(--accent-text)]">
+                                    <div className="mt-5 flex items-center justify-between border-t border-[var(--line)] pt-4">
+                                        <span className="font-mono text-[0.85rem] uppercase tracking-[0.16em] text-[var(--accent-text)]">
                                             {foot}
                                         </span>
-                                        <span className="rounded-md bg-[var(--text)] px-2.5 py-1 font-mono text-[0.85rem] font-semibold uppercase tracking-[0.16em] text-[var(--bg)]">
+                                        <span className="rounded-md bg-[var(--text)] px-2.5 py-1 font-mono text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[var(--bg)]">
                                             {tag}
                                         </span>
                                     </div>
