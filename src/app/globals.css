@@ -16,12 +16,12 @@
   --text-muted: #625e56;
   --text-faint: #898277;
 
-  --accent: #e46754;
-  --accent-hover: #cd5544;
-  --accent-text: #bd4638;
+  --accent: #e87058;
+  --accent-hover: #d9624a;
+  --accent-text: #d35a3e;
   --accent-fg: #ffffff;
   --accent-2: #b9903f;
-  --blush: #efb1a5;
+  --blush: #f0a088;
 
   --line: rgba(25, 24, 21, 0.14);
   --line-strong: rgba(25, 24, 21, 0.32);
@@ -108,19 +108,22 @@
   --radius-full: 9999px;
 }
 
+/* DARK MODE WYŁĄCZONY (decyzja: tylko light). Skrypt theme + ikona przełącznika
+   zostają na wypadek powrotu. Aby przywrócić — odkomentuj poniższy blok. */
+/*
 [data-theme="dark"] {
   --bg: #171715;
   --bg-alpha: rgba(23, 23, 21, 0.92);
   --surface: #201f1c;
   --surface-2: #2c2a25;
 
-  --text: #efeae0;                           /* 15.4:1 ✅ */
-  --text-muted: #b8b2a4;                     /* 8.7:1 ✅ */
+  --text: #efeae0;
+  --text-muted: #b8b2a4;
   --text-faint: #918a7b;
 
-  --accent: #e46754;
-  --accent-hover: #cd5544;
-  --accent-text: #e46754;
+  --accent: #e87058;
+  --accent-hover: #d9624a;
+  --accent-text: #e87058;
   --accent-fg: #ffffff;
   --accent-2: #d3ad5b;
   --blush: #7f4d45;
@@ -132,6 +135,7 @@
   --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.4);
   --shadow-lg: 0 12px 32px -8px rgb(0 0 0 / 0.5);
 }
+*/
 
 @media screen and (max-width: 992px) {
   html {
@@ -185,10 +189,12 @@ html {
   color-scheme: light;
 }
 
+/* dark mode wyłączony
 html[data-theme="dark"] {
   background-color: #171715;
   color-scheme: dark;
 }
+*/
 
 body {
   font-family: var(--font-body), system-ui, -apple-system, sans-serif;
@@ -216,10 +222,12 @@ body::before {
   mix-blend-mode: multiply;
 }
 
+/* dark mode wyłączony — patrz blok tokenów wyżej
 [data-theme="dark"] body::before {
   opacity: 0.025;
   mix-blend-mode: screen;
 }
+*/
 
 input,
 textarea {
