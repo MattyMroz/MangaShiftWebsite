@@ -17,17 +17,13 @@ const variants: Record<ButtonVariant, string> = {
     hero: 'rounded-full bg-[var(--accent)] text-[var(--accent-fg)] font-semibold shadow-[0_12px_30px_-16px_var(--accent)]',
     primary: 'rounded-full bg-[var(--text)] text-[var(--bg)] font-medium',
     secondary: 'rounded-full bg-[var(--surface)] text-[var(--text)] font-medium border border-[var(--line)]',
-    ghost: 'rounded-full text-[var(--text)] font-medium',
-    outline: 'rounded-full bg-transparent text-[var(--text)] font-medium border border-[var(--line-strong)] hover:text-[var(--bg)]',
+    ghost: 'rounded-full text-[var(--text)] font-medium hover:text-[var(--bg)]',
+    outline: 'rounded-full bg-transparent text-[var(--text)] font-medium border border-[var(--line-strong)] hover:border-[var(--text)]',
     link: 'text-[var(--accent-text)] font-medium underline-offset-4 hover:underline',
 };
 
-const wipes: Record<Exclude<ButtonVariant, 'link'>, string> = {
-    hero: 'bg-[var(--text)]',
-    primary: 'bg-[var(--accent)]',
-    secondary: 'bg-[var(--surface-2)]',
+const wipes = {
     ghost: 'bg-[var(--surface)]',
-    outline: 'bg-[var(--text)]',
 };
 
 const sizes: Record<ButtonSize, string> = {
@@ -49,23 +45,23 @@ export const Button: React.FC<ButtonProps> = ({
     return (
         <motion.button
             className={cn(
-                'group relative min-h-11 inline-flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap tracking-tight outline-none transition-[color,border-color,transform] duration-300 disabled:opacity-50 disabled:pointer-events-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)]',
-                !isLink && 'overflow-hidden',
+                'group relative min-h-11 inline-flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap tracking-tight outline-none transition-[color,border-color] duration-300 disabled:opacity-50 disabled:pointer-events-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)]',
+                variant === 'ghost' && 'overflow-hidden',
                 variants[variant],
                 isLink ? '' : sizes[resolvedSize],
                 className,
             )}
             whileHover={isLink ? undefined : { scale: 1.04 }}
-            whileTap={isLink ? undefined : { scale: 0.93 }}
-            transition={{ type: 'spring', stiffness: 420, damping: 24 }}
+            whileTap={isLink ? undefined : { scale: 0.92, opacity: 0.82 }}
+            transition={{ duration: 0.1, ease: [0, 0, 0.2, 1] }}
             {...props}
         >
-            {!isLink && (
+            {variant === 'ghost' && (
                 <span
                     aria-hidden="true"
                     className={cn(
                         'absolute inset-0 translate-y-[105%] rounded-[inherit] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0',
-                        wipes[variant as Exclude<ButtonVariant, 'link'>],
+                        wipes.ghost,
                     )}
                 />
             )}
