@@ -5,8 +5,8 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Hamburger } from "@/shared/ui/Hamburger/Hamburger";
 import { ThemeSwitcher } from "@/shared/ui/ThemeSwitcher/ThemeSwitcher";
-import GlassSurface from "@/shared/ui/GlassSurface/GlassSurface";
 import { smoothScrollTo } from "@/shared/lib/utils/smoothScroll";
+import { t } from "@/shared/i18n";
 
 export const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -58,47 +58,33 @@ export const Header = () => {
     };
 
     const navLinks = [
-        { name: "Home", href: "#home" },
-        { name: "Demo", href: "#demo" },
-        { name: "About", href: "#about" },
-        { name: "Contact", href: "#contact" },
-        { name: "FAQ", href: "#faq" },
+        { name: t("nav.about"), href: "#about" },
+        { name: t("nav.how"), href: "#how" },
+        { name: t("nav.features"), href: "#features" },
+        { name: t("nav.demo"), href: "#demo" },
+        { name: t("nav.faq"), href: "#faq" },
     ];
 
     return (
         <>
-            <header 
-                className="fixed top-0 left-0 w-full h-[10rem] md:h-[15rem] z-[1030] flex items-center justify-center px-4 md:px-12"
+            <header
+                className="fixed top-0 left-0 w-full z-[1030] flex items-center justify-center px-4 md:px-12"
             >
-                <GlassSurface
-                    width="100%"
-                    height="9rem"
-                    borderRadius={50}
-                    borderWidth={0.07}
-                    brightness={50}
-                    opacity={0.93}
-                    blur={11}
-                    displace={0.5}
-                    backgroundOpacity={0.1}
-                    saturation={1}
-                    distortionScale={-180}
-                    redOffset={0}
-                    greenOffset={10}
-                    blueOffset={20}
-                    mixBlendMode="lighten"
-                    className={`max-w-[140rem] px-6 md:px-16 transition-all duration-300 ${isScrolled ? 'shadow-[var(--shadow-lg)]' : ''}`}
-                    style={{ boxShadow: 'none' }}
+                <div
+                    className={`w-full max-w-[140rem] my-4 md:my-6 px-6 md:px-10 rounded-full transition-all duration-300 ${isScrolled
+                        ? 'bg-[var(--bg-alpha)] backdrop-blur-md border border-[var(--line)] shadow-[var(--shadow-md)]'
+                        : 'bg-transparent border border-transparent'
+                        }`}
                 >
-
-                    <nav className="relative flex items-center justify-between w-full h-full">
+                    <nav className="relative flex items-center justify-between w-full h-[7rem] md:h-[8rem]">
 
                         <Link
                             href="#home"
                             onClick={handleNavLinkClick}
-                            className="z-[1030] whitespace-nowrap pl-6 md:pl-4 cursor-pointer"
+                            className="z-[1030] whitespace-nowrap cursor-pointer"
                         >
-                            <span className="text-[2.4rem] md:text-[2.8rem] font-bold text-[var(--text-primary)] tracking-tighter font-[family-name:var(--font-inter)]">
-                                MangaShift
+                            <span className="text-[2.4rem] md:text-[2.8rem] font-extrabold text-[var(--text)] tracking-tight font-[family-name:var(--font-display)]">
+                                MangaShift<span className="text-[var(--accent)]">.</span>
                             </span>
                         </Link>
 
@@ -109,7 +95,7 @@ export const Header = () => {
                                         <Link
                                             href={link.href}
                                             onClick={handleNavLinkClick}
-                                            className="nav-link relative inline-block py-2 text-[2rem] font-semibold text-[var(--text-primary)] transition-all duration-300"
+                                            className="nav-link relative inline-block py-2 text-[1.7rem] font-semibold text-[var(--text-muted)] hover:text-[var(--text)] transition-colors duration-300"
                                         >
                                             {link.name}
                                         </Link>
@@ -118,7 +104,7 @@ export const Header = () => {
                             </ul>
                         </div>
 
-                        <div className="flex items-center gap-8 z-[1030]">
+                        <div className="flex items-center gap-6 z-[1030]">
                             <div className="hidden lg:flex items-center justify-center">
                                 <ThemeSwitcher />
                             </div>
@@ -127,7 +113,7 @@ export const Header = () => {
                             </div>
                         </div>
                     </nav>
-                </GlassSurface>
+                </div>
             </header>
 
             <AnimatePresence>
@@ -137,7 +123,7 @@ export const Header = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="fixed inset-0 z-[1020] bg-[var(--bg-primary)] pt-[18rem] px-12 pb-12 overflow-y-auto"
+                        className="fixed inset-0 z-[1020] bg-[var(--bg-alpha)] backdrop-blur-xl pt-[18rem] px-12 pb-12 overflow-y-auto flex flex-col"
                     >
                         <ul className="flex flex-col items-center gap-6 mb-2 list-none">
                             {navLinks.map((link, index) => (
@@ -150,7 +136,7 @@ export const Header = () => {
                                     <Link
                                         href={link.href}
                                         onClick={handleNavLinkClick}
-                                        className="block text-[2.8rem] font-bold text-[var(--text-primary)] transition-all duration-300"
+                                        className="block text-[2.8rem] font-bold text-[var(--text)] hover:text-[var(--accent)] transition-colors duration-300"
                                     >
                                         {link.name}
                                     </Link>
