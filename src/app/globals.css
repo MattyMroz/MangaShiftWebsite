@@ -267,6 +267,13 @@ em {
   color: var(--accent-text);
 }
 
+/* ── Dostępność: jednolity focus ring (2px) ─────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 /* ── Edytorialne wzbogacenie (atelier-zero × yohaku) ────────────────────────── */
 
 /* .display — mega-nagłówek: Inter Tight 800 + <em> Playfair italic + koralowa kropka */
