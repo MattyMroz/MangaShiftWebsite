@@ -1,26 +1,53 @@
 @import "tailwindcss";
 
 :root {
-  --primary: #ff4500;
-  --primary-hover: #ff6347;
-  --secondary: #ff1493;
-  --secondary-hover: #ff69b4;
-  --accent-primary: #525252;
+  /* ── Paleta: edytorialny minimalizm (papier + tusz suminagashi) ──────────────
+     Domyślnie LIGHT. Dark w [data-theme="dark"]. Tylko semantyczne tokeny w UI.
+     Akcent MODYFIKOWALNY — zmień --accent (i --accent-text dla kontrastu linków).
+     Kontrasty zweryfikowane WCAG AA. ──────────────────────────────────────────── */
 
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #171717;
-  --bg-tertiary: #262626;
+  /* Tła (papier z suminagashi #efeae0) */
+  --bg: #efeae0;
+  --bg-alpha: rgba(239, 234, 224, 0.72);   /* półprzezroczysty — przepuszcza tusz */
+  --surface: #f7f1de;                        /* uniesiona karta (bone) */
+  --surface-2: #e7dec9;                      /* wgłębienie */
 
-  --text-primary: #fafafa;
-  --text-secondary: #c4c4c4;
-  --text-tertiary: #8a8a8a;
+  /* Tekst (ink — czerń tuszu, nie #000) */
+  --text: #1a1a1f;                           /* 14.5:1 ✅ */
+  --text-muted: #5a5448;                     /* 6.3:1 ✅ */
+  --text-faint: #7a7568;                     /* meta/eyebrow (duży/semibold) */
 
-  --border-primary: #2a2a2a;
-  --border-secondary: #404040;
+  /* Akcent (czerwień tuszu) — modyfikowalny */
+  --accent: #c8372d;                         /* fill CTA; biały tekst 5.2:1 ✅ */
+  --accent-hover: #a82a22;
+  --accent-text: #b32f26;                    /* linki inline na papierze 5.2:1 ✅ */
+  --accent-fg: #ffffff;                      /* tekst na wypełnieniu akcentu */
+  --accent-2: #16407a;                       /* granat tuszu (secondary) 8.6:1 ✅ */
 
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4);
+  --line: rgba(26, 26, 31, 0.16);            /* hairline */
+  --line-strong: rgba(26, 26, 31, 0.32);
+
+  /* ── Aliasy wstecznej zgodności (stare komponenty zanim je przerobimy) ────── */
+  --primary: var(--accent);
+  --primary-hover: var(--accent-hover);
+  --secondary: var(--accent-2);
+  --secondary-hover: var(--accent-2);
+  --accent-primary: var(--text-muted);
+
+  --bg-primary: var(--bg);
+  --bg-secondary: var(--surface);
+  --bg-tertiary: var(--surface-2);
+
+  --text-primary: var(--text);
+  --text-secondary: var(--text-muted);
+  --text-tertiary: var(--text-faint);
+
+  --border-primary: var(--line);
+  --border-secondary: var(--line-strong);
+
+  --shadow-sm: 0 1px 2px 0 rgb(26 26 31 / 0.06);
+  --shadow-md: 0 4px 12px -2px rgb(26 26 31 / 0.10);
+  --shadow-lg: 0 12px 32px -8px rgb(26 26 31 / 0.16);
 
   --title-font-size: 16rem;
   --subtitle-font-size: 3rem;
@@ -82,26 +109,30 @@
   --radius-full: 9999px;
 }
 
-[data-theme="light"] {
-  --primary: #dc2626;
-  --primary-hover: #b91c1c;
-  --secondary: #ec4899;
-  --secondary-hover: #db2777;
+/* ── DARK (ciemny atrament) — placeholder, dopracujemy wartości później ─────────
+   Wszystkie kontrasty WCAG AA zweryfikowane. Budujemy na tym, działa od startu. */
+[data-theme="dark"] {
+  --bg: #14131a;
+  --bg-alpha: rgba(20, 19, 26, 0.72);
+  --surface: #1d1c24;
+  --surface-2: #26242e;
 
-  --bg-primary: #fcfcfc;
-  --bg-secondary: #f5f5f5;
-  --bg-tertiary: #e5e5e5;
+  --text: #efeae0;                           /* 15.4:1 ✅ */
+  --text-muted: #b8b2a4;                     /* 8.7:1 ✅ */
+  --text-faint: #8b8676;
 
-  --text-primary: #1a1a1a;
-  --text-secondary: #525252;
-  --text-tertiary: #a3a3a3;
+  --accent: #e0594d;                         /* rozjaśniona czerwień; 5.0:1 ✅ */
+  --accent-hover: #ec6b5f;
+  --accent-text: #e0594d;                    /* 5.0:1 ✅ */
+  --accent-fg: #14131a;                      /* ciemny tekst na jasnym akcencie 5.0:1 ✅ */
+  --accent-2: #5a8fd6;
 
-  --border-primary: #e5e5e5;
-  --border-secondary: #d4d4d8;
+  --line: rgba(239, 234, 224, 0.16);
+  --line-strong: rgba(239, 234, 224, 0.32);
 
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 12px 32px -8px rgb(0 0 0 / 0.5);
 }
 
 @media screen and (max-width: 992px) {
@@ -158,21 +189,21 @@ html {
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   width: 100%;
-  background-color: #0a0a0a;
-  color-scheme: dark;
-}
-
-html[data-theme="light"] {
-  background-color: #fcfcfc;
+  background-color: #efeae0;
   color-scheme: light;
 }
 
+html[data-theme="dark"] {
+  background-color: #14131a;
+  color-scheme: dark;
+}
+
 body {
-  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-body), system-ui, -apple-system, sans-serif;
   font-size: 1.6rem;
   line-height: 1.6;
-  color: var(--text-primary, #fafafa);
-  background-color: var(--bg-primary, #0a0a0a);
+  color: var(--text, #1a1a1f);
+  background-color: var(--bg, #efeae0);
   position: relative;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
@@ -186,7 +217,24 @@ h4,
 h5,
 h6,
 button {
-  font-family: var(--font-montserrat), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-display), system-ui, -apple-system, sans-serif;
+}
+
+/* Emfaza serif (pojedyncze słowa w nagłówkach, cyfry) — <em> lub .serif */
+.serif,
+em {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+}
+
+/* Eyebrow / meta — mono uppercase z letter-spacing (atelier-zero) */
+.eyebrow {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: var(--tiny-font-size);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-text);
 }
 
 input,
