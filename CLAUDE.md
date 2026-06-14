@@ -15,6 +15,21 @@ założenia, weryfikowalne kryteria sukcesu. To nie jest opcjonalne.
 
 Jeśli istnieje inny pasujący skill w `.claude/skills/` — użyj go zamiast improwizować.
 
+### Skille design/animacja (z open-design, do redesignu)
+
+W `.claude/skills/` jest zestaw skilli pod budowę ładnej, animowanej strony — **korzystaj z nich**
+gdy pasują do zadania (nadal pod parasolem `simple`):
+
+- **GSAP:** `gsap-core`, `gsap-react`, `gsap-scrolltrigger`, `gsap-timeline`, `gsap-plugins`,
+  `gsap-performance`, `gsap-utils`, `gsap-frameworks` — animacje, scroll, wydajność.
+- **Design/UI:** `frontend-design`, `impeccable-design-polish`, `design-review`, `creative-director`,
+  `color-expert`, `apple-hig`, `minimalist-skill`, `redesign-skill`, `shadcn-ui`, `reference-design-contract`.
+- **Wizual/tło:** `frame-liquid-bg-hero` (płynne tło ≈ suminagashi), `shader-dev`, `emilkowalski-motion`,
+  `algorithmic-art`, `canvas-design`.
+- **Treść:** `copywriting`, `marketing-psychology`, `faq-page`, `poster-hero`.
+
+Źródło: github.com/nexu-io/open-design (Apache-2.0).
+
 ## Co to jest
 
 Landing page projektu **MangaShift** (pipeline: statyczna manga → wideo). Strona statyczna

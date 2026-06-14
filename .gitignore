@@ -49,6 +49,11 @@ bun-debug.log*
 .claude/scheduled_tasks.lock
 
 
+# ── Robocze (brainstorm, scratch) ─────────────────────────────────────────────
+
+temp/
+
+
 # ── IDE & Editor ──────────────────────────────────────────────────────────────
 
 .vscode/*
