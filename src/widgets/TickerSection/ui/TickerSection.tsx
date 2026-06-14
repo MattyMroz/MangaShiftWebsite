@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 
-// Pojedynczy element przewijanej taśmy: Nº + label + glify (manga→wideo AI).
 interface WireItem {
     no: string;
     label: string;
@@ -40,7 +39,6 @@ const TickerCell = ({ item }: { item: WireItem }) => (
     </li>
 );
 
-// Korner-brackety (atelier-zero): cienkie narożniki obrysu bloku.
 const CornerBrackets = () => (
     <>
         <span aria-hidden="true" className="pointer-events-none absolute left-0 top-0 h-4 w-4 border-l border-t border-[var(--line-strong)]" />
@@ -60,7 +58,6 @@ export const TickerSection = () => {
             className="relative py-[11rem] px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:px-[var(--section-padding-x-desktop-sm)]"
         >
             <div className="relative z-10 mx-auto max-w-[120rem]">
-                {/* Linijka-nagłówek: cyfra rzymska · meta · numeracja stron (atelier-zero) */}
                 <div className="flex items-baseline justify-between gap-4 border-t border-[var(--line)] pb-10 pt-3 text-[10.5px] uppercase tracking-[0.18em] text-[var(--text-faint)]">
                     <em className="serif shrink-0 text-[1.5em] leading-none tracking-normal text-[var(--accent-text)]">
                         III
@@ -79,7 +76,6 @@ export const TickerSection = () => {
                     <CornerBrackets />
 
                     <div className="flex flex-col items-stretch lg:flex-row">
-                        {/* ── Lewa kolumna: status + pulsująca kropka + współrzędne ── */}
                         <div className="relative flex shrink-0 flex-col justify-between gap-8 border-b border-[var(--line)] px-8 py-9 md:px-10 lg:w-[34%] lg:max-w-[42rem] lg:border-b-0 lg:border-r">
                             <div className="flex items-center gap-3">
                                 <span className="h-px w-8 bg-[var(--accent)]" />
@@ -108,7 +104,6 @@ export const TickerSection = () => {
                             </div>
                         </div>
 
-                        {/* ── Prawa kolumna: marquee z mask-fade na krawędziach ── */}
                         <div
                             className="ms-marquee relative min-w-0 flex-1 overflow-hidden py-9"
                             role="marquee"
@@ -120,7 +115,6 @@ export const TickerSection = () => {
                                 ))}
                             </ul>
 
-                            {/* Pieczątka-koło w rogu marquee (premium magazyn) */}
                             <span
                                 aria-hidden="true"
                                 className="pointer-events-none absolute right-5 top-4 hidden h-12 w-12 items-center justify-center rounded-full border border-[var(--line-strong)] font-mono text-[0.82rem] uppercase leading-tight tracking-[0.14em] text-[var(--text-faint)] md:flex"
@@ -131,7 +125,6 @@ export const TickerSection = () => {
                     </div>
                 </motion.div>
 
-                {/* Stopka-linijka pod blokiem: ribbon akcentu + meta */}
                 <div className="mt-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
                     <span className="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-3 py-1 font-mono text-[1rem] uppercase tracking-[0.16em] text-[var(--accent-fg)]">
                         Now in beta

@@ -7,25 +7,16 @@ import 'plyr-react/plyr.css';
 import { plyrOptions, demoVideoSource } from '../lib/plyrConfig';
 
 interface VideoPlayerProps {
-    /** Additional className for the container */
     className?: string;
-    /** Disable canvas ambient light effect (e.g., for mobile) */
     disableCanvas?: boolean;
 }
 
-/**
- * Video Player component with ambient light canvas effect
- * Works exactly like the HTML 4K60FPS reference
- */
 export const VideoPlayer = ({ className = '', disableCanvas = false }: VideoPlayerProps) => {
     const playerRef = useRef<APITypes>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
-    // Initial loading state - loader visible, player/canvas hidden
     const [isLoaded, setIsLoaded] = useState(false);
 
-    // Canvas animation - copy video to canvas like in HTML reference
-    // Skip if canvas is disabled (mobile)
     useEffect(() => {
         if (disableCanvas) return;
         let animationFrameId: number;
@@ -45,10 +36,8 @@ export const VideoPlayer = ({ className = '', disableCanvas = false }: VideoPlay
             animationFrameId = requestAnimationFrame(updateCanvas);
         };
 
-        // Start loop
         animationFrameId = requestAnimationFrame(updateCanvas);
 
-        // Handle fullscreen - pause canvas in fullscreen
         const handleFullscreen = () => {
             isCopyingActive = !document.fullscreenElement;
         };
@@ -61,17 +50,14 @@ export const VideoPlayer = ({ className = '', disableCanvas = false }: VideoPlay
         };
     }, [disableCanvas]);
 
-    // Setup video event listeners - like handleVideoLoading() in HTML
     useEffect(() => {
         const checkVideo = () => {
             const video = document.querySelector('.plyr video') as HTMLVideoElement;
             if (video) {
-                // When video data is loaded, hide loader and show player+canvas
                 video.addEventListener('loadeddata', () => {
                     setIsLoaded(true);
                 });
 
-                // Check if already loaded
                 if (video.readyState >= 2) {
                     setIsLoaded(true);
                 }
@@ -81,7 +67,6 @@ export const VideoPlayer = ({ className = '', disableCanvas = false }: VideoPlay
             return false;
         };
 
-        // Try immediately and with delays
         if (!checkVideo()) {
             const t1 = setTimeout(checkVideo, 100);
             const t2 = setTimeout(checkVideo, 500);
@@ -96,7 +81,6 @@ export const VideoPlayer = ({ className = '', disableCanvas = false }: VideoPlay
 
     return (
         <div className={`relative w-full ${className}`}>
-            {/* Ambient light canvas - like #canvas in HTML (disabled on mobile) */}
             {!disableCanvas && (
                 <canvas
                     ref={canvasRef}
@@ -116,12 +100,10 @@ export const VideoPlayer = ({ className = '', disableCanvas = false }: VideoPlay
                 />
             )}
 
-            {/* Player container */}
             <div
                 className="relative overflow-hidden rounded-2xl bg-[rgb(15,15,15)] shadow-2xl shadow-black/50"
                 style={{ aspectRatio: '16 / 9', zIndex: 1 }}
             >
-                {/* Initial loader - like #loader in HTML - disappears when loaded */}
                 {!isLoaded && (
                     <div 
                         className="absolute inset-0 flex items-center justify-center bg-[rgb(15,15,15)]"
@@ -133,7 +115,6 @@ export const VideoPlayer = ({ className = '', disableCanvas = false }: VideoPlay
                     </div>
                 )}
 
-                {/* Plyr video player - like #player in HTML */}
                 <div
                     className="relative w-full h-full"
                     style={{
@@ -150,7 +131,6 @@ export const VideoPlayer = ({ className = '', disableCanvas = false }: VideoPlay
                 </div>
             </div>
 
-            {/* CSS Keyframes */}
             <style jsx>{`
                 @keyframes fadeInCanvas {
                     from { opacity: 0; }

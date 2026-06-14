@@ -8,11 +8,9 @@ import { isMobile } from 'react-device-detect';
 import { cn } from '@/shared/lib/utils/cn';
 import { Button } from '@/shared/ui/Button/Button';
 
-/* ── Dark block (the only one). Sumi #1a1a1f base; text is hardcoded paper-light
-   for guaranteed AA against this fixed surface — independent of theme tokens. ── */
 const INK = '#1a1a1f';
 const PAPER = '#efeae0';
-const PAPER_MUTED = 'rgba(239,234,224,0.66)'; /* ≈ 7:1 on sumi */
+const PAPER_MUTED = 'rgba(239,234,224,0.66)';
 const PAPER_FAINT = 'rgba(239,234,224,0.42)';
 const HAIRLINE = 'rgba(239,234,224,0.16)';
 
@@ -126,7 +124,6 @@ export const DemoSection = () => {
                     viewport={{ once: true, margin: '-80px' }}
                     transition={{ duration: 0.9, ease }}
                 >
-                    {/* own subtle grain */}
                     <span
                         aria-hidden
                         className="pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-screen"
@@ -135,7 +132,6 @@ export const DemoSection = () => {
                                 "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
                         }}
                     />
-                    {/* warm vignette from accent */}
                     <span
                         aria-hidden
                         className="pointer-events-none absolute inset-0"
@@ -145,14 +141,12 @@ export const DemoSection = () => {
                         }}
                     />
 
-                    {/* corner brackets of the whole block */}
                     <Bracket className="left-6 top-6 border-l-2 border-t-2" />
                     <Bracket className="right-6 top-6 border-r-2 border-t-2" />
                     <Bracket className="bottom-6 left-6 border-b-2 border-l-2" />
                     <Bracket className="bottom-6 right-6 border-b-2 border-r-2" />
 
                     <div className="relative px-6 py-14 sm:px-10 lg:px-16 lg:py-20">
-                        {/* SecRule-style top line: roman · meta · page */}
                         <div
                             className="flex items-baseline justify-between gap-4 border-t pt-3 text-[10.5px] uppercase tracking-[0.18em]"
                             style={{ borderColor: HAIRLINE, color: PAPER_FAINT }}
@@ -164,7 +158,6 @@ export const DemoSection = () => {
                             <span className="shrink-0 font-mono tabular-nums">006 / 008</span>
                         </div>
 
-                        {/* eyebrow + heading */}
                         <div className="mt-12 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                             <div>
                                 <div className="flex items-center gap-4">
@@ -198,9 +191,7 @@ export const DemoSection = () => {
                             </p>
                         </div>
 
-                        {/* main grid: reel + polaroid rail */}
                         <div className="mt-14 grid grid-cols-1 gap-10 lg:mt-16 lg:grid-cols-12 lg:gap-12">
-                            {/* video frame */}
                             <motion.div
                                 className="relative lg:col-span-8"
                                 initial={{ opacity: 0, y: 40 }}
@@ -209,7 +200,6 @@ export const DemoSection = () => {
                                 transition={{ duration: 0.8, ease, delay: 0.1 }}
                             >
                                 <div className="relative rounded-[20px] border border-white/10 bg-black/30 p-2.5 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.9)]">
-                                    {/* frame corner brackets */}
                                     <Bracket className="-left-px -top-px border-l-2 border-t-2" />
                                     <Bracket className="-right-px -top-px border-r-2 border-t-2" />
                                     <Bracket className="-bottom-px -left-px border-b-2 border-l-2" />
@@ -217,7 +207,6 @@ export const DemoSection = () => {
 
                                     <VideoPlayer disableCanvas={isMobileDevice} />
 
-                                    {/* rec stamp */}
                                     <span className="absolute right-5 top-5 z-[2] flex items-center gap-2 rounded-full bg-black/55 px-3 py-1.5 backdrop-blur-sm">
                                         <span className="h-2 w-2 animate-pulse rounded-full bg-[var(--accent)]" />
                                         <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/85">
@@ -226,7 +215,6 @@ export const DemoSection = () => {
                                     </span>
                                 </div>
 
-                                {/* reel meta strip */}
                                 <div
                                     className="mt-5 flex flex-wrap items-center gap-x-8 gap-y-2 px-1 font-mono text-[10.5px] uppercase tracking-[0.16em]"
                                     style={{ color: PAPER_FAINT }}
@@ -238,9 +226,7 @@ export const DemoSection = () => {
                                 </div>
                             </motion.div>
 
-                            {/* polaroid rail */}
                             <div className="relative flex flex-col items-center gap-12 pt-2 sm:flex-row sm:justify-center lg:col-span-4 lg:flex-col lg:items-end lg:gap-14 lg:pt-6">
-                                {/* circular stamp */}
                                 <motion.span
                                     aria-hidden
                                     className="absolute -top-2 right-0 z-10 hidden h-[6.5rem] w-[6.5rem] items-center justify-center rounded-full border border-[var(--accent)]/60 text-[var(--accent)] lg:flex"
@@ -288,7 +274,6 @@ export const DemoSection = () => {
                             </div>
                         </div>
 
-                        {/* footer line + CTA */}
                         <div
                             className="mt-16 flex flex-col gap-6 border-t pt-8 sm:flex-row sm:items-center sm:justify-between"
                             style={{ borderColor: HAIRLINE }}

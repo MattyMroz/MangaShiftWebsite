@@ -6,8 +6,6 @@ import { motion } from 'framer-motion';
 import { cn } from '@/shared/lib/utils/cn';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
 
-/* ── i18n (koncepcyjnie footer.*) — teksty wpisane bezpośrednio, podłączymy t() później ─── */
-
 const EXPLORE = [
     { label: 'About', href: '#about', n: '01' },
     { label: 'How it works', href: '#how', n: '02' },
@@ -27,7 +25,6 @@ const fadeUp = {
     viewport: { once: true, margin: '-80px' },
 };
 
-/* Narożny wspornik (corner bracket) — edytorialny detal kadrowania */
 const Bracket = ({ className }: { className?: string }) => (
     <span
         aria-hidden="true"
@@ -52,7 +49,6 @@ export const Footer = () => {
 
     return (
         <footer className="relative w-full overflow-hidden border-t border-[var(--line-strong)] bg-[var(--bg-alpha)] px-[var(--section-padding-x-mobile)] pt-[10rem] pb-[5rem] backdrop-blur-sm md:px-[var(--section-padding-x-tablet)] lg:px-[var(--section-padding-x-desktop-sm)] lg:pt-[13rem]">
-            {/* Sygnatura prasowa — róg arkusza */}
             <div
                 aria-hidden="true"
                 className="pointer-events-none absolute right-[var(--section-padding-x-mobile)] top-10 hidden font-mono text-[10px] uppercase tracking-[0.32em] text-[var(--text-faint)] md:right-[var(--section-padding-x-tablet)] md:block lg:right-[var(--section-padding-x-desktop-sm)]"
@@ -61,7 +57,6 @@ export const Footer = () => {
             </div>
 
             <div className="relative z-10 mx-auto max-w-[120rem]">
-                {/* ── SecRule: cyfra rzymska · meta · numeracja stron ─────────────────────── */}
                 <div className="flex items-baseline justify-between gap-4 border-t border-[var(--line)] pt-3 text-[10.5px] uppercase tracking-[0.18em] text-[var(--text-faint)]">
                     <em className="serif shrink-0 text-[1.5em] leading-none tracking-normal text-[var(--accent-text)]">
                         VIII
@@ -70,13 +65,11 @@ export const Footer = () => {
                     <span className="shrink-0 font-mono tabular-nums">008 / 008</span>
                 </div>
 
-                {/* ── GÓRNY GRID ──────────────────────────────────────────────────────────── */}
                 <motion.div
                     className="mt-16 grid grid-cols-1 gap-x-12 gap-y-16 lg:mt-24 lg:grid-cols-[1.5fr_1fr_1fr_1.1fr]"
                     {...fadeUp}
                     transition={{ duration: 0.7 }}
                 >
-                    {/* Wordmark + tagline + pieczątka */}
                     <div className="flex max-w-[40ch] flex-col">
                         <div className="flex items-center gap-3">
                             <span className="h-px w-10 bg-[var(--accent)]" />
@@ -92,7 +85,6 @@ export const Footer = () => {
                             video — page after page, frame by frame.
                         </p>
 
-                        {/* Pieczątka-koło (stamp) */}
                         <div className="mt-10 flex items-center gap-4">
                             <span className="relative flex h-[5.4rem] w-[5.4rem] shrink-0 items-center justify-center rounded-full border border-[var(--line-strong)]">
                                 <span className="absolute inset-[6px] rounded-full border border-dashed border-[var(--line)]" />
@@ -106,7 +98,6 @@ export const Footer = () => {
                         </div>
                     </div>
 
-                    {/* Explore */}
                     <nav aria-label="Explore" className="flex flex-col">
                         <div className="flex items-baseline justify-between border-b border-[var(--line)] pb-3">
                             <span className="eyebrow !text-[var(--text-faint)]">Explore</span>
@@ -133,7 +124,6 @@ export const Footer = () => {
                         </ul>
                     </nav>
 
-                    {/* Connect */}
                     <nav aria-label="Connect" className="flex flex-col">
                         <div className="flex items-baseline justify-between border-b border-[var(--line)] pb-3">
                             <span className="eyebrow !text-[var(--text-faint)]">Connect</span>
@@ -170,7 +160,6 @@ export const Footer = () => {
                         </ul>
                     </nav>
 
-                    {/* Kolaż + współrzędne */}
                     <div className="flex flex-col">
                         <div className="flex items-baseline justify-between border-b border-[var(--line)] pb-3">
                             <span className="eyebrow !text-[var(--text-faint)]">Plate</span>
@@ -216,13 +205,11 @@ export const Footer = () => {
                     </div>
                 </motion.div>
 
-                {/* ── MEGA-SŁOWO ──────────────────────────────────────────────────────────── */}
                 <motion.div
                     className="relative mt-24 border-y border-[var(--line)] py-10 lg:mt-32"
                     {...fadeUp}
                     transition={{ duration: 0.9, delay: 0.1 }}
                 >
-                    {/* Ribbon — wstążka z meta nad mega-słowem */}
                     <div className="absolute -top-3 left-0 flex items-center gap-3">
                         <span className="bg-[var(--accent)] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--accent-fg)]">
                             Vol. 01
@@ -246,7 +233,6 @@ export const Footer = () => {
                     </div>
                 </motion.div>
 
-                {/* ── DÓŁ — kolofon ───────────────────────────────────────────────────────── */}
                 <div className="mt-10 flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
                     <div className="flex items-center gap-3">
                         <Dot />

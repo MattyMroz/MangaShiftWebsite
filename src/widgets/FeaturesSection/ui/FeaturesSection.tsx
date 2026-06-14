@@ -5,8 +5,6 @@ import { motion, type Variants } from 'framer-motion';
 import { cn } from '@/shared/lib/utils/cn';
 import { Button } from '@/shared/ui/Button/Button';
 
-/* ── Ikony (stroke 1.5, currentColor) — inline, bez zależności ────────────────── */
-
 type IconProps = { className?: string };
 
 const NarrationIcon = ({ className }: IconProps) => (
@@ -68,8 +66,6 @@ const Bracket = ({ corner }: { corner: 'tl' | 'tr' | 'bl' | 'br' }) => {
     );
 };
 
-/* ── Treść kart (i18n koncepcyjnie: features.capabilities[].* ) ────────────────── */
-
 const capabilities = [
     {
         n: '01',
@@ -105,8 +101,6 @@ const capabilities = [
     },
 ] as const;
 
-/* ── Animacje ─────────────────────────────────────────────────────────────────── */
-
 const reveal: Variants = {
     hidden: { opacity: 0, y: 28 },
     show: { opacity: 1, y: 0 },
@@ -119,15 +113,12 @@ const stagger: Variants = {
 
 const viewport = { once: true, margin: '-80px' } as const;
 
-/* ── Sekcja ───────────────────────────────────────────────────────────────────── */
-
 export const FeaturesSection = () => (
     <section
         id="features"
         className="relative py-[clamp(10rem,16vw,13rem)] px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:px-[var(--section-padding-x-desktop-sm)]"
     >
         <div className="relative z-10 mx-auto max-w-[120rem]">
-            {/* Sec-rule: cyfra rzymska · meta · numeracja stron */}
             <motion.div
                 className="flex items-baseline justify-between gap-4 border-t border-[var(--line)] pt-3 text-[10.5px] uppercase tracking-[0.18em] text-[var(--text-faint)]"
                 initial={{ opacity: 0, y: 16 }}
@@ -142,7 +133,6 @@ export const FeaturesSection = () => (
 
             <div className="mt-[clamp(4rem,7vw,7rem)] grid grid-cols-1 items-start gap-[clamp(4rem,6vw,7rem)] lg:grid-cols-2">
 
-                {/* ── LEWA: obraz + corner brackets + pionowy ribbon ─────────────── */}
                 <motion.figure
                     className="relative lg:sticky lg:top-[12rem]"
                     initial={{ opacity: 0, y: 32 }}
@@ -150,7 +140,6 @@ export const FeaturesSection = () => (
                     viewport={viewport}
                     transition={{ duration: 0.8 }}
                 >
-                    {/* Pionowy ribbon (poza ramką, lewa krawędź) */}
                     <span
                         aria-hidden="true"
                         className="absolute -left-[2.6rem] top-0 hidden font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--text-faint)] md:block"
@@ -176,7 +165,6 @@ export const FeaturesSection = () => (
                                 />
                             </div>
 
-                            {/* Naklejka: Nº + tytuł płyty */}
                             <figcaption className="pointer-events-none absolute bottom-0 left-0 right-0 flex items-end justify-between gap-4 bg-gradient-to-t from-[var(--bg)]/85 to-transparent p-5">
                                 <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--text-muted)]">
                                     Plate Nº 04 — Page → Reel
@@ -185,7 +173,6 @@ export const FeaturesSection = () => (
                             </figcaption>
                         </div>
 
-                        {/* Pieczątka-koło (stamp) */}
                         <div className="absolute -right-4 -top-4 hidden h-[7.2rem] w-[7.2rem] items-center justify-center rounded-full border border-[var(--line-strong)] bg-[var(--bg)] text-center md:flex">
                             <div className="flex flex-col leading-tight">
                                 <span className="serif text-[2.4rem] leading-none text-[var(--accent-text)]">04</span>
@@ -197,7 +184,6 @@ export const FeaturesSection = () => (
                     </div>
                 </motion.figure>
 
-                {/* ── PRAWA: eyebrow + H2 + grid 2×2 kart + CTA ──────────────────── */}
                 <div>
                     <motion.div
                         initial={{ opacity: 0, y: 24 }}

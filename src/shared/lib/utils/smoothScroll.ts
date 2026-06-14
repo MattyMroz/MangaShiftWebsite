@@ -1,17 +1,14 @@
 export const smoothScrollTo = (href: string, offset: number = 100): boolean => {
     let id = href;
-    
-    // Handle hash links (#section)
+
     if (href.startsWith('#')) {
         id = href.substring(1);
     } else {
-        // Handle path links (/section)
         const parts = href.split('/');
         id = parts[parts.length - 1];
         id = id.replace('#', '');
     }
 
-    // Remove query params
     id = id.split('?')[0];
 
     if (id === 'home' || id === '') {

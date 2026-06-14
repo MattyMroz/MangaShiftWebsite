@@ -7,9 +7,6 @@ import { Button } from '@/shared/ui/Button/Button';
 import { SecRule } from '@/shared/ui/SecRule/SecRule';
 import { cn } from '@/shared/lib/utils/cn';
 
-// ── Google Forms ──────────────────────────────────────────────────────────────
-// Maile lądują w arkuszu Google Sheets podpiętym do formularza. Darmowe, bez limitu.
-// LOGIKA NIENARUSZALNA — przepisany jest TYLKO wygląd.
 const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLScyTs1gTH1kmVC8EHkB_pdPsdrWwEtGIwLvQYu4StRfSkVYpA/formResponse';
 const GOOGLE_FORM_EMAIL_ENTRY = 'entry.1654989478';
 const GOOGLE_FORM_CONSENT_ENTRY = 'entry.980875902';
@@ -29,7 +26,6 @@ const ROADMAP = [
     { tag: 'SOON', text: 'Export to 1080p / vertical / subtitles' },
 ];
 
-// Narożne wsporniki — drukarski detal kadru (atelier-zero).
 const Corners = () => (
     <>
         <span className="pointer-events-none absolute left-0 top-0 h-4 w-4 border-l border-t border-[var(--line-strong)]" />
@@ -49,7 +45,6 @@ export const BetaSection = () => {
         if (status === 'submitting') return;
 
         const form = e.currentTarget;
-        // Honeypot — jeśli ukryte pole zostało wypełnione, to bot.
         if ((form.elements.namedItem('company') as HTMLInputElement)?.value) return;
 
         setStatus('submitting');
@@ -58,7 +53,6 @@ export const BetaSection = () => {
                 [GOOGLE_FORM_EMAIL_ENTRY]: email,
                 [GOOGLE_FORM_CONSENT_ENTRY]: GOOGLE_FORM_CONSENT_VALUE,
             });
-            // Google Forms zwraca opaque response (no-cors) — brak wyjątku traktujemy jako sukces.
             await fetch(GOOGLE_FORM_ACTION, {
                 method: 'POST',
                 mode: 'no-cors',
@@ -80,7 +74,6 @@ export const BetaSection = () => {
             id="beta"
             className="relative py-[clamp(10rem,16vw,13rem)] px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:px-[var(--section-padding-x-desktop-sm)]"
         >
-            {/* Side-rails: pionowe znaczniki na krawędziach kolumny (magazyn) */}
             <span
                 aria-hidden
                 className="absolute left-[var(--section-padding-x-mobile)] top-[clamp(10rem,16vw,13rem)] hidden font-mono text-[10.5px] uppercase tracking-[0.32em] text-[var(--text-faint)] [writing-mode:vertical-rl] lg:block"
@@ -97,7 +90,6 @@ export const BetaSection = () => {
             <div className="relative z-10 mx-auto max-w-[88rem]">
                 <SecRule roman="VII." meta="Beta · Founding cohort" page="008 / 008" />
 
-                {/* ── Stamp + eyebrow ─────────────────────────────────────────── */}
                 <motion.div
                     className="mt-12 flex flex-col items-center gap-6 text-center"
                     initial={{ opacity: 0, y: 24 }}
@@ -120,7 +112,6 @@ export const BetaSection = () => {
                     </div>
                 </motion.div>
 
-                {/* ── Mega-słowo / nagłówek ───────────────────────────────────── */}
                 <motion.h2
                     className="mx-auto mt-8 max-w-[16ch] text-center text-[clamp(3.6rem,7.2vw,8.2rem)] font-extrabold leading-[0.98] tracking-[-0.02em] text-[var(--text)]"
                     initial={{ opacity: 0, y: 28 }}
@@ -142,7 +133,6 @@ export const BetaSection = () => {
                     paced, voiced. Join the founding cohort and shape the pipeline before public launch.
                 </motion.p>
 
-                {/* ── Kolaż: manga → wideo (kadr + strip) ─────────────────────── */}
                 <motion.figure
                     className="relative mx-auto mt-16 grid max-w-[68rem] grid-cols-1 items-stretch gap-4 sm:grid-cols-[1.15fr_auto_1fr]"
                     initial={{ opacity: 0, y: 28 }}
@@ -164,7 +154,6 @@ export const BetaSection = () => {
                         </figcaption>
                     </div>
 
-                    {/* Łącznik z kierunkiem przepływu */}
                     <div className="flex items-center justify-center sm:flex-col sm:gap-3">
                         <span className="hidden h-px w-12 bg-[var(--line-strong)] sm:block" />
                         <span className="serif text-[2.4rem] leading-none text-[var(--accent-text)] sm:rotate-90">
@@ -197,7 +186,6 @@ export const BetaSection = () => {
                     </div>
                 </motion.figure>
 
-                {/* ── Karta signup ────────────────────────────────────────────── */}
                 <motion.div
                     className="relative mx-auto mt-16 max-w-[58rem] rounded-[var(--radius-lg)] border border-[var(--line)] bg-[var(--surface)] p-[clamp(2rem,4vw,3.6rem)] shadow-[var(--shadow-md)]"
                     initial={{ opacity: 0, y: 28 }}
@@ -205,7 +193,6 @@ export const BetaSection = () => {
                     viewport={{ once: true, margin: '-80px' }}
                     transition={{ duration: 0.85, delay: 0.2 }}
                 >
-                    {/* Ribbon w rogu karty */}
                     <span className="absolute -top-3 right-8 rounded-full border border-[var(--accent)] bg-[var(--bg)] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--accent-text)]">
                         Free during beta
                     </span>
@@ -220,7 +207,6 @@ export const BetaSection = () => {
                     </div>
 
                     <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-6">
-                        {/* Honeypot — ukryte przed ludźmi, łapie boty */}
                         <input
                             type="text"
                             name="company"
@@ -287,7 +273,6 @@ export const BetaSection = () => {
                         </p>
                     </form>
 
-                    {/* Współrzędne / stopka karty */}
                     <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--line)] pt-4 font-mono text-[10.5px] uppercase tracking-[0.16em] text-[var(--text-faint)]">
                         <span>Wrocław · PL</span>
                         <span className="tabular-nums">51.1079° N · 17.0385° E</span>
@@ -295,7 +280,6 @@ export const BetaSection = () => {
                     </div>
                 </motion.div>
 
-                {/* ── Specyfikacja: in/out + roadmap ──────────────────────────── */}
                 <motion.dl
                     className="mx-auto mt-12 grid max-w-[58rem] grid-cols-1 gap-px overflow-hidden rounded-[var(--radius-md)] border border-[var(--line)] bg-[var(--line)] sm:grid-cols-3"
                     initial={{ opacity: 0, y: 24 }}
@@ -343,7 +327,6 @@ export const BetaSection = () => {
                     ))}
                 </motion.ul>
 
-                {/* ── Stopka sekcji ───────────────────────────────────────────── */}
                 <div className="mx-auto mt-16 flex max-w-[58rem] items-center justify-between gap-4 border-t border-[var(--line)] pt-5 font-mono text-[10.5px] uppercase tracking-[0.18em] text-[var(--text-faint)]">
                     <span><em className="serif not-italic text-[var(--accent-text)]">VII.</em> — Beta</span>
                     <span className="hidden sm:block">Static manga → narrated video</span>

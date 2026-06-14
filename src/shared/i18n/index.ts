@@ -1,6 +1,5 @@
 import en from "./en.json";
 
-// Fundament i18n: na teraz 1 język (en). Dodanie języka = nowy plik + wpis w `dictionaries`.
 const dictionaries = { en } as const;
 
 export type Locale = keyof typeof dictionaries;
@@ -8,8 +7,6 @@ export const defaultLocale: Locale = "en";
 
 type Dict = typeof en;
 
-// Ścieżka po kluczach zagnieżdżonych, np. t("hero.title").
-// Tablice/obiekty zwracamy całością przez tArr/tObj (typowane).
 export const t = (key: string, locale: Locale = defaultLocale): string => {
   const value = key.split(".").reduce<unknown>(
     (acc, k) => (acc && typeof acc === "object" ? (acc as Record<string, unknown>)[k] : undefined),
@@ -18,5 +15,4 @@ export const t = (key: string, locale: Locale = defaultLocale): string => {
   return typeof value === "string" ? value : key;
 };
 
-// Typowany dostęp do całego słownika (dla tablic, np. faq.items, how.steps).
 export const dict = (locale: Locale = defaultLocale): Dict => dictionaries[locale];
