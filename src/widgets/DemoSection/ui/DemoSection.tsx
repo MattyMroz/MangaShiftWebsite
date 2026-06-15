@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, useMotionValue, animate } from 'framer-motion';
+import { motion, useMotionValue, useReducedMotion, animate } from 'framer-motion';
 import { Button } from '@/shared/ui/Button/Button';
 import { Container } from '@/shared/ui/Container/Container';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
@@ -24,6 +24,7 @@ export const DemoSection = () => {
     const total = cards.length;
     const dragged = useRef(false);
     const dragX = useMotionValue(0);
+    const reduce = useReducedMotion();
     const go = (dir: number) => setActive((prev) => (prev + dir + total) % total);
 
     const scrollToBeta = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -185,8 +186,8 @@ export const DemoSection = () => {
                                     >
                                         <motion.figure
                                             className="rounded-[1.8rem] border border-[var(--line-strong)] bg-[var(--bg)] p-4 text-[var(--text)] shadow-[var(--shadow-lg)]"
-                                            animate={{ y: [0, -12, 0] }}
-                                            transition={{ duration: 6 + i, repeat: Infinity, repeatType: 'loop', ease: 'easeInOut', delay: i * 0.5 }}
+                                            animate={reduce ? undefined : { y: [0, -12, 0] }}
+                                            transition={reduce ? undefined : { duration: 6 + i, repeat: Infinity, repeatType: 'loop', ease: 'easeInOut', delay: i * 0.5 }}
                                         >
                                             <div className="relative aspect-[4/5] overflow-hidden rounded-[1.2rem] border border-[var(--line)]">
                                                 <Image
