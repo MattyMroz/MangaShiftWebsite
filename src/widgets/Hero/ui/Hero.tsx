@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { Button } from '@/shared/ui/Button/Button';
 import { Container } from '@/shared/ui/Container/Container';
 import { assetPath } from '@/shared/lib/utils/assetPath';
@@ -20,6 +20,7 @@ const reveal = {
 };
 
 export const Hero = () => {
+    const reduce = useReducedMotion();
     const scrollTo = (event: React.MouseEvent<HTMLAnchorElement>) => {
         const href = event.currentTarget.getAttribute('href');
         if (href && smoothScrollTo(href)) event.preventDefault();
@@ -158,8 +159,8 @@ export const Hero = () => {
 
                         <motion.div
                             className="diagram-card absolute bottom-0 left-0 w-[42%] p-2.5"
-                            animate={{ y: [0, -6, 0] }}
-                            transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
+                            animate={reduce ? undefined : { y: [0, -6, 0] }}
+                            transition={reduce ? undefined : { duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
                         >
                             <div className="relative aspect-[4/3] overflow-hidden rounded-[1.1rem]">
                                 <Image
