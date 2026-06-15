@@ -14,6 +14,8 @@ const navLinks = [
     { name: t('nav.about'), href: '#about' },
     { name: 'How', href: '#how' },
     { name: t('nav.features'), href: '#features' },
+    { name: 'Use cases', href: '#usecases' },
+    { name: 'Gallery', href: '#gallery' },
     { name: t('nav.demo'), href: '#demo' },
     { name: t('nav.faq'), href: '#faq' },
 ];
