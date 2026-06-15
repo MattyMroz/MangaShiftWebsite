@@ -83,7 +83,7 @@ export const UseCasesSection = () => {
                     <div
                         role="tablist"
                         aria-label="MangaShift audiences"
-                        className="relative grid gap-1 rounded-[1.6rem] border border-[var(--line)] bg-[var(--surface)] p-1.5 sm:grid-cols-3"
+                        className="relative grid gap-1 rounded-full border border-[var(--line)] bg-[var(--surface)] p-1.5 sm:grid-cols-3"
                     >
                         {modes.map((mode) => {
                             const selected = mode.id === active.id;
@@ -95,12 +95,12 @@ export const UseCasesSection = () => {
                                     aria-selected={selected}
                                     aria-controls="usecase-panel"
                                     onClick={() => setActiveId(mode.id)}
-                                    className="relative z-10 min-h-12 rounded-[1.2rem] px-5 py-3 text-left sm:text-center"
+                                    className="relative z-10 min-h-12 rounded-full px-5 py-3 text-left sm:text-center"
                                 >
                                     {selected && (
                                         <motion.span
                                             layoutId="usecase-active-pill"
-                                            className="absolute inset-0 -z-10 rounded-[1.2rem] bg-[var(--text)] shadow-[var(--shadow-sm)]"
+                                            className="absolute inset-0 -z-10 rounded-full bg-[var(--text)] shadow-[var(--shadow-sm)]"
                                             transition={{ type: 'spring', stiffness: 380, damping: 34 }}
                                         />
                                     )}

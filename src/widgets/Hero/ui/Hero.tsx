@@ -162,7 +162,7 @@ export const Hero = () => {
                             animate={reduce ? undefined : { y: [0, -6, 0] }}
                             transition={reduce ? undefined : { duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
                         >
-                            <div className="relative aspect-[4/3] overflow-hidden rounded-[1.2rem]">
+                            <div className="relative aspect-[4/3] overflow-hidden rounded-[1.6rem]">
                                 <Image
                                     src={assetPath('/images/chainsawman/RezeArc.webp')}
                                     alt="Source manga frame"
