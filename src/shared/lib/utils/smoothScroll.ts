@@ -20,7 +20,9 @@ export const smoothScrollTo = (href: string, offset?: number): boolean => {
 
     if (section) {
         const header = document.querySelector('header');
-        const target = (section.querySelector('.editorial-rule') as HTMLElement | null) ?? section;
+        const target = (section.querySelector('[data-scroll-target]') as HTMLElement | null)
+            ?? (section.querySelector('.editorial-rule') as HTMLElement | null)
+            ?? section;
         const resolvedOffset = offset ?? (header?.getBoundingClientRect().height ?? 0) + 24;
         let elementTop = 0;
         let node: HTMLElement | null = target;

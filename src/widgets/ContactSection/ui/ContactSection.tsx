@@ -83,7 +83,7 @@ export const BetaSection = () => {
                     </motion.div>
 
                     <motion.div
-                        className="relative rounded-[2.6rem] border border-[var(--line-strong)] bg-[var(--bg)] p-6 shadow-[var(--shadow-md)] sm:p-8 lg:col-span-6 lg:p-10"
+                        className="relative rounded-[2.4rem] border border-[var(--line-strong)] bg-[var(--bg)] p-6 shadow-[var(--shadow-md)] sm:p-8 lg:col-span-6 lg:p-10"
                         initial={false}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: '-80px' }}
@@ -150,7 +150,7 @@ export const BetaSection = () => {
                                 <span
                                     aria-hidden="true"
                                     className={cn(
-                                        'grid h-6 w-6 shrink-0 place-items-center rounded-lg border transition-colors duration-200',
+                                        'grid h-6 w-6 shrink-0 place-items-center rounded-[0.8rem] border transition-colors duration-200',
                                         consent
                                             ? 'border-[var(--accent)] bg-[var(--accent)]'
                                             : 'border-[var(--line-strong)] bg-[var(--surface)]',

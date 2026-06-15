@@ -131,7 +131,7 @@ export const LanguageSwitcher = () => {
                         exit={{ opacity: 0, y: -6 }}
                         transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
                         onMouseLeave={() => setHovered(null)}
-                        className="absolute right-0 top-[calc(100%+1.4rem)] z-50 grid grid-cols-[15rem_15rem] gap-x-1.5 gap-y-1 rounded-2xl border border-[var(--line-strong)] bg-[var(--surface)] p-2.5 shadow-[var(--shadow-lg)] list-none"
+                        className="absolute right-0 top-[calc(100%+1.4rem)] z-50 grid grid-cols-[15rem_15rem] gap-x-1.5 gap-y-1 rounded-[1.6rem] border border-[var(--line-strong)] bg-[var(--surface)] p-2.5 shadow-[var(--shadow-lg)] list-none"
                     >
                         {LANGUAGES.map((option) => {
                             const isActive = option.code === current.code;
@@ -146,14 +146,14 @@ export const LanguageSwitcher = () => {
                                     {(hovered === option.code || (hovered === null && isActive)) && (
                                         <motion.span
                                             layoutId="lang-sliding-pill"
-                                            className="absolute inset-0 rounded-xl bg-[var(--surface-2)]"
+                                            className="absolute inset-0 rounded-[1.2rem] bg-[var(--surface-2)]"
                                             transition={{ type: "spring", stiffness: 480, damping: 38 }}
                                         />
                                     )}
                                     <button
                                         type="button"
                                         onClick={() => handleSelect(option)}
-                                        className="relative z-10 flex w-full cursor-pointer items-baseline gap-3 rounded-xl px-3 py-2.5 text-left"
+                                        className="relative z-10 flex w-full cursor-pointer items-baseline gap-3 rounded-[1.2rem] px-3 py-2.5 text-left"
                                     >
                                         <span
                                             className={cn(
