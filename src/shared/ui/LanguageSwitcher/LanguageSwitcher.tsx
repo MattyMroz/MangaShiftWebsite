@@ -76,9 +76,21 @@ export const LanguageSwitcher = () => {
                 aria-expanded={isOpen}
                 aria-label="Select language"
             >
-                <span className="text-[var(--text-faint)] transition-colors duration-300 group-hover:text-[var(--text-muted)]">
-                    Lang
-                </span>
+                <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                    className="text-[var(--text-faint)] transition-colors duration-300 group-hover:text-[var(--text-muted)]"
+                >
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
+                </svg>
                 <span className="font-semibold text-[var(--text)]">{current.label}</span>
                 <motion.svg
                     width="11"
