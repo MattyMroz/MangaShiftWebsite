@@ -1,17 +1,14 @@
-export const smoothScrollTo = (href: string, offset: number = 100): boolean => {
+export const smoothScrollTo = (href: string, offset?: number): boolean => {
     let id = href;
-    
-    // Handle hash links (#section)
+
     if (href.startsWith('#')) {
         id = href.substring(1);
     } else {
-        // Handle path links (/section)
         const parts = href.split('/');
         id = parts[parts.length - 1];
         id = id.replace('#', '');
     }
 
-    // Remove query params
     id = id.split('?')[0];
 
     if (id === 'home' || id === '') {
@@ -19,11 +16,21 @@ export const smoothScrollTo = (href: string, offset: number = 100): boolean => {
         return true;
     }
 
-    const targetElement = document.getElementById(id);
+    const section = document.getElementById(id);
 
-    if (targetElement) {
-        const elementPosition = targetElement.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.scrollY - offset;
+    if (section) {
+        const header = document.querySelector('header');
+        const target = (section.querySelector('[data-scroll-target]') as HTMLElement | null)
+            ?? (section.querySelector('.editorial-rule') as HTMLElement | null)
+            ?? section;
+        const resolvedOffset = offset ?? (header?.getBoundingClientRect().height ?? 0) + 24;
+        let elementTop = 0;
+        let node: HTMLElement | null = target;
+        while (node) {
+            elementTop += node.offsetTop;
+            node = node.offsetParent as HTMLElement | null;
+        }
+        const offsetPosition = elementTop - resolvedOffset;
 
         window.scrollTo({
             top: Math.max(0, offsetPosition),

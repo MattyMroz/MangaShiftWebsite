@@ -1,0 +1,90 @@
+{
+  "nav": {
+    "about": "About",
+    "how": "How it works",
+    "features": "Features",
+    "demo": "Demo",
+    "faq": "FAQ",
+    "beta": "Join Beta"
+  },
+  "hero": {
+    "eyebrow": "Manga → Video · AI pipeline",
+    "title": "Turn static manga into living video.",
+    "titleEmphasis": "living",
+    "lead": "MangaShift reads the page, understands the panels, and narrates them — turning manga and manhwa into immersive video, automatically.",
+    "ctaPrimary": "Join the Beta",
+    "ctaSecondary": "See the demo"
+  },
+  "ticker": {
+    "status": "In development · Open beta soon",
+    "items": ["AI narration", "Panel detection", "Multi-voice", "Subtitles", "Export to video"]
+  },
+  "about": {
+    "eyebrow": "The vision",
+    "title": "We give manga a voice.",
+    "lead": "Reading is silent. MangaShift adds motion, narration and sound — so a story you scroll becomes a story you watch."
+  },
+  "how": {
+    "eyebrow": "How it works",
+    "title": "From page to video, in four steps.",
+    "steps": [
+      { "n": "01", "title": "Upload", "text": "Drop in manga or manhwa pages." },
+      { "n": "02", "title": "Detect", "text": "AI reads panels, bubbles and reading order." },
+      { "n": "03", "title": "Narrate", "text": "Text is translated and voiced naturally." },
+      { "n": "04", "title": "Render", "text": "Everything is composed into a video." }
+    ]
+  },
+  "features": {
+    "eyebrow": "Capabilities",
+    "title": "Built for storytelling.",
+    "items": [
+      { "n": "01", "title": "AI narration", "text": "Natural voices that match the scene." },
+      { "n": "02", "title": "Panel detection", "text": "Understands layout and reading flow." },
+      { "n": "03", "title": "Multiple voices", "text": "Distinct voices per character." },
+      { "n": "04", "title": "Video export", "text": "Ready-to-share output in one click." }
+    ]
+  },
+  "demo": {
+    "eyebrow": "See it",
+    "title": "A page, brought to life.",
+    "lead": "A short look at what MangaShift produces."
+  },
+  "tech": {
+    "eyebrow": "Under the hood",
+    "title": "Powered by state-of-the-art AI."
+  },
+  "proof": {
+    "eyebrow": "Early access",
+    "title": "Be the first to try it.",
+    "lead": "MangaShift is in private beta. Join early and help shape it."
+  },
+  "faq": {
+    "eyebrow": "Questions",
+    "title": "Frequently asked.",
+    "items": [
+      { "q": "What is MangaShift?", "a": "A pipeline that turns static manga and manhwa into narrated video using AI." },
+      { "q": "Is it free?", "a": "The beta is free. Pricing will be announced later." },
+      { "q": "Which languages are supported?", "a": "We start with English; more languages are planned." },
+      { "q": "When does the beta open?", "a": "Soon. Leave your email and we'll reach out the moment it's ready." }
+    ]
+  },
+  "beta": {
+    "eyebrow": "Join the beta",
+    "title": "Be the first to try MangaShift.",
+    "lead": "Leave your email to join the private beta — we'll reach out the moment it's ready. No spam, just the invite.",
+    "emailPlaceholder": "you@example.com",
+    "emailLabel": "Email address",
+    "consent": "I agree to be contacted by email about the beta test.",
+    "submit": "Join the Beta",
+    "submitting": "Joining…",
+    "success": "You're in!",
+    "successMessage": "Thanks! We'll email you when the beta opens.",
+    "errorMessage": "Something went wrong — please try again or email us directly."
+  },
+  "footer": {
+    "wordmark": "MangaShift",
+    "tagline": "Manga, brought to life.",
+    "rights": "All rights reserved.",
+    "links": { "github": "GitHub", "linkedin": "LinkedIn" }
+  }
+}

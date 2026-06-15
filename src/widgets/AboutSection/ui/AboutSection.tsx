@@ -1,169 +1,101 @@
 'use client';
 
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { isMobile } from 'react-device-detect';
-import { Section } from '@/shared/ui/Section/Section';
-import CardSwap, { Card } from '@/shared/ui/CardSwap/CardSwap';
-import { SmartText } from '@/shared/ui/SmartText/SmartText';
-import { Button } from '@/shared/ui/Button/Button';
+import { Container } from '@/shared/ui/Container/Container';
+import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
+import { assetPath } from '@/shared/lib/utils/assetPath';
 
-const milestones = [
-    {
-        number: '01',
-        title: 'Intelligent Analysis',
-        description: 'AI-powered module that understands manga structure, detects panels, speech bubbles, and extracts text with proper reading order.',
-        status: 'Done'
-    },
-    {
-        number: '02',
-        title: 'Content Enhancement',
-        description: 'Translation to any language, AI voice synthesis for narration and dubbing, plus image upscaling for crystal-clear visuals.',
-        status: 'In Progress'
-    },
-    {
-        number: '03',
-        title: 'Prototype Development',
-        description: 'First functional prototype with basic interface, capable of creating complete audiovisual manga adaptations.',
-        status: 'Planned'
-    },
-    {
-        number: '04',
-        title: 'Final Product',
-        description: 'Polished, optimized system with comprehensive testing, documentation, and production-ready deployment.',
-        status: 'Q4 2026'
-    }
-];
+const principles = [
+    ['Keep the composition', 'The camera follows the artist’s panel order instead of inventing a new scene.'],
+    ['Direct the voice', 'Dialogue, narration and pauses are shaped around what happens on the page.'],
+    ['Publish the result', 'The output is a video made for watching, sharing and iterating.'],
+] as const;
 
-export const AboutSection = () => {
-    const [isMobileDevice, setIsMobileDevice] = useState(false);
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsMobileDevice(isMobile);
-        }, 0);
-        return () => clearTimeout(timer);
-    }, []);
-
-    return (
-        <Section id="about" title="About" gridCols={1}>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--section-gap-horizontal)] items-center w-full">
-                <motion.div
-                    className="order-1 w-full flex flex-col items-center lg:items-start gap-[var(--section-gap-vertical)] text-center lg:text-left px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-desktop-sm)] lg:pr-[var(--section-padding-x-tablet)]"
-                    initial={isMobileDevice ? { opacity: 0, x: -50 } : false}
-                    whileInView={isMobileDevice ? { opacity: 1, x: 0 } : undefined}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                >
-                    <motion.h3
-                        className="text-[length:var(--h1-font-size)] font-bold text-[var(--text-primary)] leading-tight"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                    >
-                        What is MangaShift?
-                    </motion.h3>
-                    <motion.div
-                        className="flex flex-col gap-[var(--card-gap)] max-w-2xl"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.4 }}
-                    >
-                        <SmartText>
-                            <p className="text-[length:var(--h3-font-size)] leading-relaxed text-[var(--text-primary)] opacity-90">
-                                MangaShift is an automated system that transforms static manga pages into dynamic,
-                                accessible audiovisual adaptations.
-                                <br /><br />
-                                Using AI-powered analysis, translation,
-                                voice synthesis, and image enhancement, we create immersive motion comics
-                                that bring stories
-                                to life.
-                            </p>
-                            <p className="text-[length:var(--h3-font-size)] leading-relaxed text-[var(--text-primary)] opacity-90">
-                                Our goal is to make manga accessible
-                                to everyone — especially those with visual
-                                or motor impairments — while offering a new dimension of storytelling for all readers.
-                            </p>
-                        </SmartText>
-                    </motion.div>
-                    <Link href="https://www.youtube.com/watch?v=wZTBQfYB-qU" target="_blank" rel="noopener noreferrer" className="mb-32">
-                        <motion.div
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            <Button variant="ghost">
-                                <span className="flex items-center gap-3">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="32"
-                                        height="32"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="2.5"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        className="w-8 h-8"
-                                    >
-                                        <circle cx="12" cy="12" r="9" />
-                                        <polygon points="11 9 16 12 11 15 11 9" fill="currentColor" />
-                                    </svg>
-                                    Watch Video
-                                </span>
-                            </Button>
-                        </motion.div>
-                    </Link>
-                </motion.div>
-
-                <motion.div
-                    className="order-2 w-full flex justify-center items-center min-h-[400px] lg:min-h-[450px] py-[var(--section-padding-y-mobile)] md:py-[var(--section-padding-y-tablet)] lg:pt-[var(--section-padding-y-desktop-sm)] lg:pb-[var(--section-padding-y-desktop-lg)] px-[calc(var(--section-padding-x-mobile)*0.67)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-tablet)] lg:pr-[var(--section-padding-x-desktop-sm)]"
-                    initial={isMobileDevice ? { opacity: 0, x: 50 } : false}
-                    whileInView={isMobileDevice ? { opacity: 1, x: 0 } : undefined}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                >
-                    <div className="w-full max-w-[40rem]">
-                        <CardSwap
-                            cardDistance={40}
-                            verticalDistance={50}
-                            delay={4000}
-                            pauseOnHover={true}
-                            width="100%"
-                            height="260px"
-                            skewAmount={3}
-                            easing="elastic"
-                        >
-                            {milestones.map((milestone) => (
-                                <Card key={milestone.number}>
-                                    <div className="p-[var(--card-padding-mobile)] md:p-[var(--card-padding-desktop)] h-full flex flex-col justify-between">
-                                        <div>
-                                            <div className="flex items-center justify-between mb-4 md:mb-6">
-                                                <span className="text-[4rem] md:text-[4rem] font-black text-[var(--accent-primary)] opacity-60">
-                                                    {milestone.number}
-                                                </span>
-                                                <span className="text-[1.3rem] md:text-[1.2rem] font-semibold px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-[var(--text-primary)] text-[var(--bg-primary)]">
-                                                    {milestone.status}
-                                                </span>
-                                            </div>
-                                            <h4 className="text-[2.2rem] md:text-[2rem] font-bold text-[var(--text-primary)] mb-2 md:mb-3 leading-tight">
-                                                {milestone.title}
-                                            </h4>
-                                            <SmartText>
-                                                <p className="text-[1.5rem] md:text-[1.4rem] text-[var(--text-primary)] opacity-80 leading-relaxed">
-                                                    {milestone.description}
-                                                </p>
-                                            </SmartText>
-                                        </div>
-                                    </div>
-                                </Card>
-                            ))}
-                        </CardSwap>
-                    </div>
-                </motion.div>
+export const AboutSection = () => (
+    <section id="about" className="section-shell relative">
+        <SideLabel side="left">Nº 02 — Why MangaShift</SideLabel>
+        <Container className="relative">
+            <div className="editorial-rule" data-index="II." data-page="002 / 008">
+                <span>Why MangaShift</span>
             </div>
-        </Section>
-    );
-};
+
+            <div className="mt-12 grid gap-x-20 gap-y-12 lg:grid-cols-[1.05fr_1fr] lg:items-start">
+                <motion.div
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-80px' }}
+                    transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
+                >
+                    <p className="section-kicker">The idea</p>
+                    <h2 className="display mt-7 max-w-[12ch] text-[clamp(4rem,6vw,7.4rem)]">
+                        Keep the art. Add{' '}
+                        <em className="text-[var(--accent-text)]">voice</em>, pacing and motion.
+                    </h2>
+                    <p className="mt-8 max-w-[54ch] text-[1.75rem] leading-[1.7] text-[var(--text-muted)]">
+                        MangaShift is not an image generator. It is a production pipeline for
+                        artwork that already exists. The page remains the source; AI handles the
+                        repetitive work between scan and screen.
+                    </p>
+
+                    <dl className="mt-14 border-t border-[var(--line-strong)]">
+                        {principles.map(([title, text], index) => (
+                            <motion.div
+                                key={title}
+                                className="group grid items-baseline gap-3 border-b border-[var(--line)] py-7 sm:grid-cols-[3.4rem_1fr_1.5fr]"
+                                initial={{ opacity: 0, y: 16 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: '-40px' }}
+                                transition={{ duration: 0.5, delay: 0.1 + index * 0.08 }}
+                            >
+                                <dt className="serif text-[2.4rem] italic leading-none text-[var(--accent-text)]">
+                                    {String(index + 1).padStart(2, '0')}
+                                </dt>
+                                <dd className="text-[1.7rem] font-semibold tracking-tight text-[var(--text)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1">
+                                    {title}
+                                </dd>
+                                <dd className="text-[1.4rem] leading-relaxed text-[var(--text-muted)]">{text}</dd>
+                            </motion.div>
+                        ))}
+                    </dl>
+                </motion.div>
+
+                <motion.figure
+                    className="relative lg:mt-24"
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-80px' }}
+                    transition={{ duration: 0.82, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+                >
+                    <span aria-hidden="true" className="absolute -left-4 -top-4 h-7 w-7 border-l border-t border-[var(--line-strong)]" />
+                    <span aria-hidden="true" className="absolute -bottom-4 -right-4 h-7 w-7 border-b border-r border-[var(--line-strong)]" />
+
+                    <div className="relative aspect-[5/6] overflow-hidden rounded-[1.6rem] border border-[var(--line-strong)] bg-[var(--surface)]">
+                        <Image
+                            src={assetPath('/images/inspiration/about.png')}
+                            alt="Editorial collage representing the MangaShift visual direction"
+                            fill
+                            sizes="(max-width: 1024px) 100vw, 42vw"
+                            className="object-cover"
+                        />
+                        <span className="absolute inset-0 bg-[var(--accent-2)]/10 mix-blend-multiply" />
+                        <div className="absolute bottom-0 left-0 right-0 flex items-end justify-between bg-gradient-to-t from-black/80 to-transparent p-6 text-white">
+                            <span className="font-mono text-[1rem] uppercase tracking-[0.2em] text-white/65">
+                                Source frame
+                            </span>
+                            <span className="serif text-[2.4rem] italic text-[var(--accent)]">01</span>
+                        </div>
+                    </div>
+
+                    <figcaption className="mt-6 flex items-start gap-4">
+                        <span aria-hidden="true" className="mt-3 h-px w-9 shrink-0 bg-[var(--accent)]" />
+                        <p className="max-w-[40ch] text-[1.35rem] leading-relaxed text-[var(--text-muted)]">
+                            The artwork stays recognizable. Motion and audio support the reading rhythm
+                            instead of covering it up.
+                        </p>
+                    </figcaption>
+                </motion.figure>
+            </div>
+        </Container>
+    </section>
+);
