@@ -1,134 +1,136 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-import { Hamburger } from "@/shared/ui/Hamburger/Hamburger";
-import { ThemeSwitcher } from "@/shared/ui/ThemeSwitcher/ThemeSwitcher";
-import GlassSurface from "@/shared/ui/GlassSurface/GlassSurface";
-import { smoothScrollTo } from "@/shared/lib/utils/smoothScroll";
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Hamburger } from '@/shared/ui/Hamburger/Hamburger';
+import { LanguageSwitcher } from '@/shared/ui/LanguageSwitcher/LanguageSwitcher';
+import { Button } from '@/shared/ui/Button/Button';
+import { Container } from '@/shared/ui/Container/Container';
+import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
+import { t } from '@/shared/i18n';
+
+const navLinks = [
+    { name: t('nav.about'), href: '#about' },
+    { name: 'How', href: '#how' },
+    { name: t('nav.features'), href: '#features' },
+    { name: 'Use cases', href: '#usecases' },
+    { name: 'Gallery', href: '#gallery' },
+    { name: t('nav.demo'), href: '#demo' },
+    { name: t('nav.faq'), href: '#faq' },
+];
 
 export const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+    const [hoveredNav, setHoveredNav] = useState<string | null>(null);
 
     useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 20);
-        };
-
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
+        const onScroll = () => setIsScrolled(window.scrollY > 12);
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
     }, []);
 
     useEffect(() => {
-        if (isOpen) {
-            document.body.classList.add("no-scroll");
-        } else {
-            document.body.classList.remove("no-scroll");
-        }
-        return () => document.body.classList.remove("no-scroll");
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+        return () => {
+            document.body.style.overflow = '';
+        };
     }, [isOpen]);
 
     useEffect(() => {
-        const handleResize = () => {
-            if (isOpen) {
-                setIsOpen(false);
-            }
+        const onResize = () => {
+            if (window.innerWidth >= 1024) setIsOpen(false);
         };
+        window.addEventListener('resize', onResize);
+        return () => window.removeEventListener('resize', onResize);
+    }, []);
 
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, [isOpen]);
-
-    const toggleMenu = () => setIsOpen(!isOpen);
-
-    const handleNavLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const nav = (e: React.MouseEvent<HTMLAnchorElement>) => {
         const href = e.currentTarget.getAttribute('href');
-        if (!href) return;
-
-        if (isOpen) {
-            setIsOpen(false);
-        }
-
-        const scrolled = smoothScrollTo(href);
-        if (scrolled) {
-            e.preventDefault();
-        }
+        if (isOpen) setIsOpen(false);
+        if (href && smoothScrollTo(href)) e.preventDefault();
     };
 
-    const navLinks = [
-        { name: "Home", href: "#home" },
-        { name: "Demo", href: "#demo" },
-        { name: "About", href: "#about" },
-        { name: "Contact", href: "#contact" },
-        { name: "FAQ", href: "#faq" },
-    ];
+    const joinBeta = () => {
+        if (isOpen) setIsOpen(false);
+        smoothScrollTo('#beta');
+    };
 
     return (
         <>
-            <header 
-                className="fixed top-0 left-0 w-full h-[10rem] md:h-[15rem] z-[1030] flex items-center justify-center px-4 md:px-12"
+            <motion.header
+                initial={{ y: -28, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="fixed inset-x-0 top-0 z-[1030] border-b"
+                style={{
+                    backgroundColor: isScrolled ? 'var(--bg-alpha)' : 'transparent',
+                    borderColor: isScrolled ? 'var(--line)' : 'transparent',
+                    backdropFilter: isScrolled ? 'blur(12px)' : 'none',
+                    WebkitBackdropFilter: isScrolled ? 'blur(12px)' : 'none',
+                    transition:
+                        'background-color 0.35s ease, border-color 0.35s ease, backdrop-filter 0.35s ease',
+                }}
             >
-                <GlassSurface
-                    width="100%"
-                    height="9rem"
-                    borderRadius={50}
-                    borderWidth={0.07}
-                    brightness={50}
-                    opacity={0.93}
-                    blur={11}
-                    displace={0.5}
-                    backgroundOpacity={0.1}
-                    saturation={1}
-                    distortionScale={-180}
-                    redOffset={0}
-                    greenOffset={10}
-                    blueOffset={20}
-                    mixBlendMode="lighten"
-                    className={`max-w-[140rem] px-6 md:px-16 transition-all duration-300 ${isScrolled ? 'shadow-[var(--shadow-lg)]' : ''}`}
-                    style={{ boxShadow: 'none' }}
-                >
+                <Container className="flex h-[6.5rem] items-center justify-between md:h-[7.5rem]">
+                    <Link
+                        href="#home"
+                        onClick={nav}
+                        className="shrink-0 font-[family-name:var(--font-display)] text-[2.1rem] font-extrabold tracking-tight text-[var(--text)] md:text-[2.3rem]"
+                    >
+                        MangaShift<span className="text-[var(--accent)]">.</span>
+                    </Link>
 
-                    <nav className="relative flex items-center justify-between w-full h-full">
-
-                        <Link
-                            href="#home"
-                            onClick={handleNavLinkClick}
-                            className="z-[1030] whitespace-nowrap pl-6 md:pl-4 cursor-pointer"
+                    <nav className="absolute left-1/2 hidden -translate-x-1/2 lg:block">
+                        <ul
+                            className="flex items-center gap-1 rounded-full border border-transparent p-1 list-none"
+                            onMouseLeave={() => setHoveredNav(null)}
                         >
-                            <span className="text-[2.4rem] md:text-[2.8rem] font-bold text-[var(--text-primary)] tracking-tighter font-[family-name:var(--font-inter)]">
-                                MangaShift
-                            </span>
-                        </Link>
-
-                        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:block">
-                            <ul className="flex items-center gap-12 list-none">
-                                {navLinks.map((link) => (
-                                    <li key={link.name}>
-                                        <Link
-                                            href={link.href}
-                                            onClick={handleNavLinkClick}
-                                            className="nav-link relative inline-block py-2 text-[2rem] font-semibold text-[var(--text-primary)] transition-all duration-300"
-                                        >
-                                            {link.name}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        <div className="flex items-center gap-8 z-[1030]">
-                            <div className="hidden lg:flex items-center justify-center">
-                                <ThemeSwitcher />
-                            </div>
-                            <div className="lg:hidden">
-                                <Hamburger isOpen={isOpen} toggle={toggleMenu} />
-                            </div>
-                        </div>
+                            {navLinks.map((link) => (
+                                <li
+                                    key={link.name}
+                                    className="relative"
+                                    onMouseEnter={() => setHoveredNav(link.name)}
+                                >
+                                    {hoveredNav === link.name && (
+                                        <motion.span
+                                            layoutId="header-nav-hover"
+                                            className="absolute inset-0 rounded-full border border-[var(--line)] bg-[var(--surface)] shadow-[var(--shadow-sm)]"
+                                            transition={{ type: 'spring', stiffness: 420, damping: 36 }}
+                                        />
+                                    )}
+                                    <Link
+                                        href={link.href}
+                                        onClick={nav}
+                                        className="relative z-10 block px-4 py-2 font-[family-name:var(--font-mono)] text-[1.15rem] font-medium uppercase tracking-[0.14em] text-[var(--text-muted)] transition-colors duration-200 hover:text-[var(--text)]"
+                                    >
+                                        {link.name}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
                     </nav>
-                </GlassSurface>
-            </header>
+
+                    <div className="flex items-center gap-4 sm:gap-7 lg:gap-10">
+                        <div className="hidden items-center lg:flex">
+                            <LanguageSwitcher />
+                        </div>
+                        <Button
+                            variant="hero"
+                            size="sm"
+                            onClick={joinBeta}
+                            className="hidden px-6 text-[1.3rem] sm:inline-flex"
+                        >
+                            {t('nav.beta')}
+                        </Button>
+                        <div className="lg:hidden">
+                            <Hamburger isOpen={isOpen} toggle={() => setIsOpen(!isOpen)} />
+                        </div>
+                    </div>
+                </Container>
+            </motion.header>
 
             <AnimatePresence>
                 {isOpen && (
@@ -136,35 +138,35 @@ export const Header = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="fixed inset-0 z-[1020] bg-[var(--bg-primary)] pt-[18rem] px-12 pb-12 overflow-y-auto"
+                        transition={{ duration: 0.25 }}
+                        className="fixed inset-0 z-[1020] flex flex-col bg-[var(--bg-alpha)] px-10 pb-12 pt-[12rem] backdrop-blur-xl lg:hidden"
                     >
-                        <ul className="flex flex-col items-center gap-6 mb-2 list-none">
-                            {navLinks.map((link, index) => (
+                        <ul className="flex flex-col items-center gap-7 list-none">
+                            {navLinks.map((link, i) => (
                                 <motion.li
                                     key={link.name}
-                                    initial={{ opacity: 0, y: 20 }}
+                                    initial={{ opacity: 0, y: 16 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: index * 0.05 + 0.1 }}
+                                    transition={{ delay: i * 0.05 + 0.05 }}
                                 >
                                     <Link
                                         href={link.href}
-                                        onClick={handleNavLinkClick}
-                                        className="block text-[2.8rem] font-bold text-[var(--text-primary)] transition-all duration-300"
+                                        onClick={nav}
+                                        className="text-[2.6rem] font-bold text-[var(--text)] transition-colors duration-200 hover:text-[var(--accent)]"
                                     >
                                         {link.name}
                                     </Link>
                                 </motion.li>
                             ))}
                         </ul>
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.4 }}
-                            className="flex justify-center mt-auto"
-                        >
-                            <ThemeSwitcher />
-                        </motion.div>
+                        <div className="mt-10 flex justify-center">
+                            <Button variant="hero" size="md" onClick={joinBeta}>
+                                {t('nav.beta')}
+                            </Button>
+                        </div>
+                        <div className="mt-auto flex items-center justify-center pt-12">
+                            <LanguageSwitcher />
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>

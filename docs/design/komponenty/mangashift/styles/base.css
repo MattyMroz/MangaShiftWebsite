@@ -1,0 +1,109 @@
+/* ═══════════════════════════════════════════════════
+   Base Layer
+   Resets, scrollbar, focus, cursors, body defaults
+   ═══════════════════════════════════════════════════ */
+
+@font-face {
+  font-family: "Bubble Sans";
+  src: url("/fonts/bubble-sans.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Document defaults */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Global: UI chrome jest nie-selectable. Pola tekstowe i .selectable robia opt-in. */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Opt-in: pola tekstowe + edytowalne + jawny opt-in via .selectable */
+input, textarea, [contenteditable="true"], .selectable {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+html {
+  background: transparent;
+}
+
+body {
+  background: transparent;
+}
+
+#root {
+  background: var(--background);
+  overflow: hidden;
+  border: 0;
+  box-shadow: none;
+  transition: background 0.3s ease;
+}
+
+/* Selection */
+::selection {
+  background: var(--accent-subtle);
+  color: inherit;
+}
+
+/* Scrollbar (WebKit) */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 999px;
+  transition: background 0.2s;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* Interactive elements — cursor pointer */
+button,
+[role="button"],
+a,
+select,
+input[type="checkbox"],
+input[type="radio"],
+input[type="submit"],
+input[type="button"],
+label[for],
+summary {
+  cursor: pointer;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+input[type="url"],
+textarea {
+  cursor: text;
+}
+
+/* Focus visible disabled */
+*:focus-visible {
+  outline: none;
+}
+
+/* shadcn base */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply text-foreground;
+  }
+}

@@ -12,8 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    // Statyczne demo (nie kod aplikacji) — zawiera zminifikowane vendory.
-    "suminagashi-fjdbyyqi-demo/**",
+    // Materiały referencyjne / robocze (nie kod aplikacji).
+    "docs/**",
+    "temp/**",
   ]),
 ]);
 

@@ -2,57 +2,28 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Section } from '@/shared/ui/Section/Section';
-import { SmartText } from '@/shared/ui/SmartText/SmartText';
 import { Button } from '@/shared/ui/Button/Button';
-import GlassSurface from '@/shared/ui/GlassSurface/GlassSurface';
+import { Container } from '@/shared/ui/Container/Container';
+import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
+import { cn } from '@/shared/lib/utils/cn';
 
-// ── Google Forms ──────────────────────────────────────────────────────────────
-// Maile lądują w arkuszu Google Sheets podpiętym do formularza. Darmowe, bez limitu.
 const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLScyTs1gTH1kmVC8EHkB_pdPsdrWwEtGIwLvQYu4StRfSkVYpA/formResponse';
 const GOOGLE_FORM_EMAIL_ENTRY = 'entry.1654989478';
-// Zgoda RODO — formularz wymaga jej do przyjęcia wpisu; user akceptuje przez nasz checkbox.
 const GOOGLE_FORM_CONSENT_ENTRY = 'entry.980875902';
 const GOOGLE_FORM_CONSENT_VALUE = 'Yes, I agree';
 
 type SubmitState = 'idle' | 'submitting' | 'success' | 'error';
 
-const contactMethods = [
-    {
-        icon: (
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-            </svg>
-        ),
-        title: 'GitHub',
-        value: 'github.com/MattyMroz',
-        href: 'https://github.com/MattyMroz'
-    },
-    {
-        icon: (
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                <rect x="2" y="9" width="4" height="12" />
-                <circle cx="4" cy="4" r="2" />
-            </svg>
-        ),
-        title: 'LinkedIn',
-        value: 'linkedin.com/in/mattymroz',
-        href: 'https://www.linkedin.com/in/mattymroz/'
-    }
-];
-
-export const ContactSection = () => {
+export const BetaSection = () => {
     const [email, setEmail] = useState('');
     const [consent, setConsent] = useState(false);
     const [status, setStatus] = useState<SubmitState>('idle');
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         if (status === 'submitting') return;
 
-        const form = e.currentTarget;
-        // Honeypot — jeśli ukryte pole zostało wypełnione, to bot.
+        const form = event.currentTarget;
         if ((form.elements.namedItem('company') as HTMLInputElement)?.value) return;
 
         setStatus('submitting');
@@ -61,7 +32,6 @@ export const ContactSection = () => {
                 [GOOGLE_FORM_EMAIL_ENTRY]: email,
                 [GOOGLE_FORM_CONSENT_ENTRY]: GOOGLE_FORM_CONSENT_VALUE,
             });
-            // Google Forms zwraca opaque response (no-cors) — brak wyjątku traktujemy jako sukces.
             await fetch(GOOGLE_FORM_ACTION, {
                 method: 'POST',
                 mode: 'no-cors',
@@ -76,183 +46,146 @@ export const ContactSection = () => {
         }
     };
 
-    const isLocked = status === 'submitting' || status === 'success';
+    const locked = status === 'submitting' || status === 'success';
 
     return (
-        <Section id="contact" title="Join the Beta" gridCols={1}>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--section-gap-horizontal)] items-center w-full">
-
-                {/* Beta signup column */}
-                <motion.div
-                    className="order-1 w-full flex flex-col items-center lg:items-start gap-[var(--section-gap-vertical)] text-center lg:text-left px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-desktop-sm)] lg:pr-[var(--section-padding-x-tablet)]"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                >
-                    <motion.h3
-                        className="text-[length:var(--h1-font-size)] font-bold text-[var(--text-primary)] leading-tight"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                    >
-                        Be the first to try MangaShift
-                    </motion.h3>
-
+        <section id="beta" className="section-shell relative border-t border-[var(--line-strong)] bg-[var(--surface)]">
+            <SideLabel side="right">Nº 09 — Private beta</SideLabel>
+            <Container>
+                <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
                     <motion.div
-                        className="flex flex-col gap-[var(--card-gap)] max-w-2xl"
-                        initial={{ opacity: 0, y: 20 }}
+                        className="lg:col-span-6"
+                        initial={false}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.4 }}
+                        viewport={{ once: true, margin: '-80px' }}
+                        transition={{ duration: 0.72 }}
                     >
-                        <SmartText>
-                            <p className="text-[length:var(--h3-font-size)] leading-relaxed text-[var(--text-primary)] opacity-90">
-                                MangaShift turns static manga into immersive videos with AI narration.
-                                <br /><br />
-                                Leave your email to join the private beta — we&apos;ll reach out the moment it&apos;s ready. No spam, just the invite.
-                            </p>
-                        </SmartText>
+                        <p className="section-kicker">Private beta</p>
+                        <h2 className="display mt-7 max-w-[10ch] text-[clamp(4.6rem,6.6vw,8.2rem)]">
+                            Your manga could be{' '}
+                            <em className="text-[var(--accent-text)]">next</em>.
+                        </h2>
+                        <p className="mt-8 max-w-[52ch] text-[1.7rem] leading-[1.7] text-[var(--text-muted)]">
+                            Leave your email to receive a beta invitation. You will hear from us
+                            when there is a real build to test, not another generic newsletter.
+                        </p>
+
+                        <ul className="mt-9 flex flex-wrap gap-3">
+                            {['Free during beta', 'No credit card', 'Early product access'].map((item) => (
+                                <li
+                                    key={item}
+                                    className="rounded-full border border-[var(--line-strong)] px-4 py-2 font-mono text-[1rem] uppercase tracking-[0.14em] text-[var(--text-muted)]"
+                                >
+                                    {item}
+                                </li>
+                            ))}
+                        </ul>
                     </motion.div>
 
-                    <motion.form
-                        onSubmit={handleSubmit}
-                        className="w-full max-w-md flex flex-col gap-[var(--card-gap)] items-center lg:items-start"
-                        initial={{ opacity: 0, y: 20 }}
+                    <motion.div
+                        className="relative rounded-[2.4rem] border border-[var(--line-strong)] bg-[var(--bg)] p-6 shadow-[var(--shadow-md)] sm:p-8 lg:col-span-6 lg:p-10"
+                        initial={false}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.6 }}
+                        viewport={{ once: true, margin: '-80px' }}
+                        transition={{ duration: 0.8, delay: 0.1 }}
                     >
-                        {/* Honeypot — ukryte przed ludźmi, łapie boty */}
-                        <input
-                            type="text"
-                            name="company"
-                            tabIndex={-1}
-                            autoComplete="off"
-                            aria-hidden="true"
-                            className="absolute w-0 h-0 opacity-0 pointer-events-none"
-                        />
+                        <div className="flex items-center justify-between border-b border-[var(--line)] pb-5">
+                            <div>
+                                <p className="font-mono text-[1rem] uppercase tracking-[0.18em] text-[var(--accent-text)]">
+                                    Request access
+                                </p>
+                                <p className="mt-2 text-[2.2rem] font-bold tracking-tight text-[var(--text)]">
+                                    Join the MangaShift list
+                                </p>
+                            </div>
+                            <span className="grid h-12 w-12 place-items-center rounded-full bg-[var(--accent)] text-white">
+                                ↗
+                            </span>
+                        </div>
 
-                        <GlassSurface
-                            width="100%"
-                            height="auto"
-                            borderRadius={50}
-                            borderWidth={0.07}
-                            brightness={50}
-                            opacity={0.5}
-                            blur={11}
-                            displace={0.5}
-                            backgroundOpacity={0.05}
-                            saturation={1}
-                            distortionScale={-180}
-                            redOffset={0}
-                            greenOffset={10}
-                            blueOffset={20}
-                            mixBlendMode="lighten"
-                            className="w-full px-6 py-3"
-                        >
+                        <form onSubmit={handleSubmit} className="mt-7">
                             <input
-                                type="email"
-                                name="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                                disabled={isLocked}
-                                placeholder="you@example.com"
-                                aria-label="Email address"
-                                className="w-full bg-transparent outline-none text-[length:var(--normal-font-size)] text-[var(--text-primary)] placeholder:text-[var(--text-secondary)] disabled:opacity-60"
+                                type="text"
+                                name="company"
+                                tabIndex={-1}
+                                autoComplete="off"
+                                aria-hidden="true"
+                                className="pointer-events-none absolute h-0 w-0 opacity-0"
                             />
-                        </GlassSurface>
 
-                        <label className="flex items-start gap-3 cursor-pointer text-left max-w-md">
-                            <input
-                                type="checkbox"
-                                name="consent"
-                                checked={consent}
-                                onChange={(e) => setConsent(e.target.checked)}
-                                required
-                                disabled={isLocked}
-                                className="mt-1 shrink-0 w-4 h-4 accent-[var(--text-primary)] cursor-pointer disabled:opacity-60"
-                            />
-                            <SmartText>
-                                <span className="text-[length:var(--normal-font-size)] text-[var(--text-secondary)] leading-snug">
-                                    I agree to be contacted by email about the beta test.
+                            <label htmlFor="beta-email" className="font-mono text-[1rem] uppercase tracking-[0.18em] text-[var(--text-faint)]">
+                                Email address
+                            </label>
+                            <div className="mt-3 flex flex-col gap-3 sm:flex-row">
+                                <input
+                                    id="beta-email"
+                                    type="email"
+                                    name="email"
+                                    value={email}
+                                    onChange={(event) => setEmail(event.target.value)}
+                                    required
+                                    disabled={locked}
+                                    placeholder="you@studio.com"
+                                    className="min-h-12 flex-1 rounded-full border border-[var(--line-strong)] bg-[var(--surface)] px-5 text-[1.5rem] text-[var(--text)] outline-none transition-colors placeholder:text-[var(--text-faint)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15 disabled:opacity-60"
+                                />
+                                <Button type="submit" variant="hero" size="md" disabled={locked}>
+                                    {status === 'submitting'
+                                        ? 'Sending…'
+                                        : status === 'success'
+                                            ? 'You’re on the list'
+                                            : 'Join beta'}
+                                </Button>
+                            </div>
+
+                            <label className="mt-5 flex cursor-pointer items-center gap-3">
+                                <input
+                                    type="checkbox"
+                                    name="consent"
+                                    checked={consent}
+                                    onChange={(event) => setConsent(event.target.checked)}
+                                    required
+                                    disabled={locked}
+                                    className="sr-only"
+                                />
+                                <span
+                                    aria-hidden="true"
+                                    className={cn(
+                                        'grid h-6 w-6 shrink-0 place-items-center rounded-[0.8rem] border transition-colors duration-200',
+                                        consent
+                                            ? 'border-[var(--accent)] bg-[var(--accent)]'
+                                            : 'border-[var(--line-strong)] bg-[var(--surface)]',
+                                    )}
+                                >
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        className={cn('h-3.5 w-3.5 text-white transition-transform duration-200', consent ? 'scale-100' : 'scale-0')}
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="3.5"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <path d="M5 12l5 5L20 7" />
+                                    </svg>
                                 </span>
-                            </SmartText>
-                        </label>
+                                <span className="text-[1.3rem] leading-[1.55] text-[var(--text-muted)]">
+                                    I agree to receive email about MangaShift beta access and product updates.
+                                </span>
+                            </label>
 
-                        <Button type="submit" variant="primary" disabled={isLocked}>
-                            {status === 'submitting' ? 'Joining…' : status === 'success' ? 'You’re in!' : 'Join the Beta'}
-                        </Button>
-
-                        <SmartText>
                             <p
-                                className="text-[length:var(--normal-font-size)] min-h-[1.5em]"
-                                style={{ color: status === 'error' ? '#ff6b6b' : 'var(--text-secondary)' }}
+                                className="mt-5 min-h-8 border-t border-[var(--line)] pt-5 text-[1.35rem] text-[var(--text-faint)]"
                                 role="status"
                                 aria-live="polite"
                             >
-                                {status === 'success' && 'Thanks! We’ll email you when the beta opens.'}
-                                {status === 'error' && 'Something went wrong — please try again or email us directly.'}
+                                {status === 'success' && 'Thanks. Your beta request has been recorded.'}
+                                {status === 'error' && 'The request could not be sent. Please try again.'}
+                                {status === 'idle' && 'Only useful product emails. Unsubscribe whenever you want.'}
                             </p>
-                        </SmartText>
-                    </motion.form>
-                </motion.div>
-
-                {/* Contact links column */}
-                <div className="order-2 w-full flex flex-col gap-[var(--card-gap)] py-12 lg:py-16 px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-tablet)] lg:pr-[var(--section-padding-x-desktop-sm)]">
-                    {contactMethods.map((method) => (
-                        <motion.a
-                            key={method.title}
-                            href={method.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group block"
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                        >
-                            <GlassSurface
-                                width="100%"
-                                height="auto"
-                                borderRadius={20}
-                                borderWidth={0.07}
-                                brightness={50}
-                                opacity={0.5}
-                                blur={11}
-                                displace={0.5}
-                                backgroundOpacity={0.05}
-                                saturation={1}
-                                distortionScale={-180}
-                                redOffset={0}
-                                greenOffset={10}
-                                blueOffset={20}
-                                mixBlendMode="lighten"
-                                className="p-[var(--card-padding-mobile)] md:p-[var(--card-padding-desktop)] hover:shadow-lg transition-shadow"
-                            >
-                                <div className="w-full flex items-center justify-center">
-                                    <div className="w-full max-w-[300px] flex items-center gap-6">
-                                        <div className="flex-shrink-0 w-16 h-16 flex items-center justify-center text-[var(--text-primary)]">
-                                            {method.icon}
-                                        </div>
-                                        <div className="flex flex-col gap-1 min-w-0 flex-1">
-                                            <h4 className="text-[length:var(--h2-font-size)] font-bold text-[var(--text-primary)]">
-                                                {method.title}
-                                            </h4>
-                                            <SmartText>
-                                                <p className="text-[length:var(--normal-font-size)] text-[var(--text-secondary)] truncate">
-                                                    {method.value}
-                                                </p>
-                                            </SmartText>
-                                        </div>
-                                    </div>
-                                </div>
-                            </GlassSurface>
-                        </motion.a>
-                    ))}
+                        </form>
+                    </motion.div>
                 </div>
-
-            </div>
-        </Section>
+            </Container>
+        </section>
     );
 };

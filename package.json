@@ -12,13 +12,8 @@
   "dependencies": {
     "framer-motion": "^12.40.0",
     "gsap": "^3.15.0",
-    "liquid-glass-react": "^1.1.1",
     "next": "16.2.9",
-    "ogl": "^1.0.11",
-    "plyr": "^3.8.4",
-    "plyr-react": "^6.0.0",
     "react": "19.2.7",
-    "react-device-detect": "^2.2.3",
     "react-dom": "19.2.7",
     "react-type-animation": "^3.2.0"
   },
@@ -31,7 +26,8 @@
     "eslint": "^9.39.4",
     "eslint-config-next": "16.2.9",
     "tailwindcss": "^4.3.1",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "ws": "^8.21.0"
   },
   "trustedDependencies": [
     "unrs-resolver"
