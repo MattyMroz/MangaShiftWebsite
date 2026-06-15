@@ -136,16 +136,30 @@ export const BetaSection = () => {
                                 </Button>
                             </div>
 
-                            <label className="mt-5 flex cursor-pointer items-start gap-3">
-                                <input
-                                    type="checkbox"
-                                    name="consent"
-                                    checked={consent}
-                                    onChange={(event) => setConsent(event.target.checked)}
-                                    required
-                                    disabled={locked}
-                                    className="mt-1 h-4 w-4 shrink-0 accent-[var(--accent)]"
-                                />
+                            <label className="mt-5 flex cursor-pointer items-center gap-3">
+                                <span className="relative grid h-6 w-6 shrink-0 place-items-center">
+                                    <input
+                                        type="checkbox"
+                                        name="consent"
+                                        checked={consent}
+                                        onChange={(event) => setConsent(event.target.checked)}
+                                        required
+                                        disabled={locked}
+                                        className="peer h-6 w-6 cursor-pointer appearance-none rounded-lg border border-[var(--line-strong)] bg-[var(--surface)] transition-colors duration-200 checked:border-[var(--accent)] checked:bg-[var(--accent)] focus-visible:outline-2 focus-visible:outline-[var(--accent)] disabled:opacity-50"
+                                    />
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        className="pointer-events-none absolute h-3.5 w-3.5 scale-0 text-white opacity-0 transition-all duration-200 peer-checked:scale-100 peer-checked:opacity-100"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="3.5"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        aria-hidden="true"
+                                    >
+                                        <path d="M5 12l5 5L20 7" />
+                                    </svg>
+                                </span>
                                 <span className="text-[1.3rem] leading-[1.55] text-[var(--text-muted)]">
                                     I agree to receive email about MangaShift beta access and product updates.
                                 </span>
