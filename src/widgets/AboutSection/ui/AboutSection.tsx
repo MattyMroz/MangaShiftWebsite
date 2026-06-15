@@ -70,7 +70,7 @@ export const AboutSection = () => (
                     <span aria-hidden="true" className="absolute -left-4 -top-4 h-7 w-7 border-l border-t border-[var(--line-strong)]" />
                     <span aria-hidden="true" className="absolute -bottom-4 -right-4 h-7 w-7 border-b border-r border-[var(--line-strong)]" />
 
-                    <div className="relative aspect-[5/6] overflow-hidden rounded-[2rem] border border-[var(--line-strong)] bg-[var(--surface)]">
+                    <div className="relative aspect-[5/6] overflow-hidden rounded-[1.6rem] border border-[var(--line-strong)] bg-[var(--surface)]">
                         <Image
                             src={assetPath('/images/inspiration/about.png')}
                             alt="Editorial collage representing the MangaShift visual direction"

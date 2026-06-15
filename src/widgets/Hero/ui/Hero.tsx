@@ -118,7 +118,7 @@ export const Hero = () => {
                                 </span>
                             </div>
 
-                            <div className="relative mt-3 aspect-[4/5] overflow-hidden rounded-[1.5rem] border border-[var(--line)] bg-[var(--surface-2)]">
+                            <div className="relative mt-3 aspect-[4/5] overflow-hidden rounded-[1.2rem] border border-[var(--line)] bg-[var(--surface-2)]">
                                 <span className="absolute right-8 top-8 h-28 w-28 rounded-full bg-[var(--accent)] opacity-80" />
                                 <Image
                                     src={assetPath('/images/inspiration/hero-angel.png')}
@@ -137,14 +137,14 @@ export const Hero = () => {
                                     { label: 'Voice', cls: 'bg-[color-mix(in_srgb,var(--accent)_22%,var(--surface))]' },
                                 ].map(({ label, cls }) => (
                                     <div key={label}>
-                                        <span className={`block h-9 rounded-[0.7rem] ${cls}`} />
+                                        <span className={`block h-9 rounded-[0.8rem] ${cls}`} />
                                         <span className="mt-1.5 block font-mono text-[0.72rem] uppercase tracking-[0.14em] text-[var(--text-faint)]">
                                             {label}
                                         </span>
                                     </div>
                                 ))}
                                 <div>
-                                    <span className="relative block h-9 overflow-hidden rounded-[0.7rem] bg-[var(--accent)]">
+                                    <span className="relative block h-9 overflow-hidden rounded-[0.8rem] bg-[var(--accent)]">
                                         <svg viewBox="0 0 120 36" className="absolute inset-0 h-full w-full text-white/55" aria-hidden="true">
                                             <path d="M0 22c18-16 34 10 52-3s31-7 68 5" fill="none" stroke="currentColor" strokeWidth="1.4" />
                                             <path d="M0 28c22-12 35 7 56-2s38-7 64 1" fill="none" stroke="currentColor" strokeWidth="1.4" />
@@ -162,7 +162,7 @@ export const Hero = () => {
                             animate={reduce ? undefined : { y: [0, -6, 0] }}
                             transition={reduce ? undefined : { duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
                         >
-                            <div className="relative aspect-[4/3] overflow-hidden rounded-[1.1rem]">
+                            <div className="relative aspect-[4/3] overflow-hidden rounded-[1.2rem]">
                                 <Image
                                     src={assetPath('/images/chainsawman/RezeArc.webp')}
                                     alt="Source manga frame"

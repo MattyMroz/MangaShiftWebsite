@@ -79,11 +79,11 @@ export const UseCasesSection = () => {
                     </p>
                 </div>
 
-                <div className="mt-14 rounded-[2.8rem] border border-[var(--line-strong)] bg-[var(--bg)] p-3 shadow-[var(--shadow-md)] md:p-5">
+                <div className="mt-14 rounded-[2.4rem] border border-[var(--line-strong)] bg-[var(--bg)] p-3 shadow-[var(--shadow-md)] md:p-5">
                     <div
                         role="tablist"
                         aria-label="MangaShift audiences"
-                        className="relative grid gap-1 rounded-[1.8rem] border border-[var(--line)] bg-[var(--surface)] p-1.5 sm:grid-cols-3"
+                        className="relative grid gap-1 rounded-[1.6rem] border border-[var(--line)] bg-[var(--surface)] p-1.5 sm:grid-cols-3"
                     >
                         {modes.map((mode) => {
                             const selected = mode.id === active.id;
@@ -95,12 +95,12 @@ export const UseCasesSection = () => {
                                     aria-selected={selected}
                                     aria-controls="usecase-panel"
                                     onClick={() => setActiveId(mode.id)}
-                                    className="relative z-10 min-h-12 rounded-[1.3rem] px-5 py-3 text-left sm:text-center"
+                                    className="relative z-10 min-h-12 rounded-[1.2rem] px-5 py-3 text-left sm:text-center"
                                 >
                                     {selected && (
                                         <motion.span
                                             layoutId="usecase-active-pill"
-                                            className="absolute inset-0 -z-10 rounded-[1.3rem] bg-[var(--text)] shadow-[var(--shadow-sm)]"
+                                            className="absolute inset-0 -z-10 rounded-[1.2rem] bg-[var(--text)] shadow-[var(--shadow-sm)]"
                                             transition={{ type: 'spring', stiffness: 380, damping: 34 }}
                                         />
                                     )}
@@ -121,7 +121,7 @@ export const UseCasesSection = () => {
                     <div
                         id="usecase-panel"
                         role="tabpanel"
-                        className="mt-3 grid overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[var(--surface)] lg:h-[58rem] lg:grid-cols-12"
+                        className="mt-3 grid overflow-hidden rounded-[1.6rem] border border-[var(--line)] bg-[var(--surface)] lg:h-[58rem] lg:grid-cols-12"
                     >
                         <div className="relative min-h-[38rem] overflow-hidden border-b border-[var(--line)] lg:col-span-7 lg:min-h-full lg:border-b-0 lg:border-r">
                             <AnimatePresence mode="wait">
@@ -143,7 +143,7 @@ export const UseCasesSection = () => {
                                 </motion.div>
                             </AnimatePresence>
 
-                            <div className="pointer-events-none absolute inset-5 rounded-[1.4rem] border border-[var(--text)]/25" />
+                            <div className="pointer-events-none absolute inset-5 rounded-[1.2rem] border border-[var(--text)]/25" />
                             <span className="absolute left-8 top-8 rounded-full bg-[var(--accent)] px-3 py-1.5 font-mono text-[0.95rem] uppercase tracking-[0.18em] text-white">
                                 {active.code}
                             </span>

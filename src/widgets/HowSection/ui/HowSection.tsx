@@ -79,7 +79,7 @@ export const HowSection = () => (
                 {steps.map((step, index) => (
                     <motion.li
                         key={step.number}
-                        className="group relative overflow-hidden rounded-[2rem] border border-[var(--line-strong)] bg-[var(--bg)]"
+                        className="group relative overflow-hidden rounded-[1.6rem] border border-[var(--line-strong)] bg-[var(--bg)]"
                         initial={{ opacity: 0, y: 28 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         whileHover={{ y: -6 }}

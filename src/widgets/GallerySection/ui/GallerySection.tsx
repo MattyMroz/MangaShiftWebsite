@@ -54,7 +54,7 @@ export const GallerySection = () => (
                         transition={{ duration: 0.55, delay: index * 0.05 }}
                     >
                         <div className="paper-frame relative aspect-[3/4] p-1.5">
-                            <div className="relative h-full overflow-hidden rounded-[1rem]">
+                            <div className="relative h-full overflow-hidden rounded-[1.2rem]">
                                 <Image
                                     src={study.image}
                                     alt=""

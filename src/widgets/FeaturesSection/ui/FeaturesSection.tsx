@@ -139,7 +139,7 @@ export const FeaturesSection = () => (
                         </div>
 
                         {large && (
-                            <div className="relative mt-8 aspect-[16/8] max-w-[54rem] overflow-hidden rounded-[1.6rem] border border-white/15">
+                            <div className="relative mt-8 aspect-[16/8] max-w-[54rem] overflow-hidden rounded-[1.2rem] border border-white/15">
                                 <Image
                                     src={assetPath('/images/inspiration/capabilities.png')}
                                     alt=""

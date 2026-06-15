@@ -36,7 +36,8 @@ export const DemoSection = () => {
             <SideLabel side="left">Nº 07 — Demo output</SideLabel>
             <Container>
                 <motion.div
-                    className="on-dark relative overflow-hidden rounded-[3rem] bg-[#121214] px-6 py-8 text-[#f1ede5] shadow-[var(--shadow-lg)] md:px-10 md:py-12 lg:px-14"
+                    data-scroll-target
+                    className="on-dark relative overflow-hidden rounded-[2.4rem] bg-[#121214] px-6 py-8 text-[#f1ede5] shadow-[var(--shadow-lg)] md:px-10 md:py-12 lg:px-14"
                     initial={false}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-80px' }}
@@ -87,7 +88,7 @@ export const DemoSection = () => {
                         </div>
 
                         <div className="relative lg:col-span-8">
-                            <div className="relative aspect-video overflow-hidden rounded-[2rem] border border-white/15 bg-black">
+                            <div className="relative aspect-video overflow-hidden rounded-[1.6rem] border border-white/15 bg-black">
                                 <Image
                                     src={assetPath('/assets/demo/spare-me-great-lord.gif')}
                                     alt="Animated manga to video sample"
@@ -185,7 +186,7 @@ export const DemoSection = () => {
                                         style={{ zIndex: total - abs, pointerEvents: abs > 2 ? 'none' : 'auto', cursor: isActive ? 'grab' : 'pointer' }}
                                     >
                                         <motion.figure
-                                            className="rounded-[1.8rem] border border-[var(--line-strong)] bg-[var(--bg)] p-4 text-[var(--text)] shadow-[var(--shadow-lg)]"
+                                            className="rounded-[1.6rem] border border-[var(--line-strong)] bg-[var(--bg)] p-4 text-[var(--text)] shadow-[var(--shadow-lg)]"
                                             animate={reduce ? undefined : { y: [0, -12, 0] }}
                                             transition={reduce ? undefined : { duration: 6 + i, repeat: Infinity, repeatType: 'loop', ease: 'easeInOut', delay: i * 0.5 }}
                                         >
