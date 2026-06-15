@@ -16,15 +16,14 @@ export const smoothScrollTo = (href: string, offset?: number): boolean => {
         return true;
     }
 
-    const targetElement = document.getElementById(id);
+    const section = document.getElementById(id);
 
-    if (targetElement) {
+    if (section) {
         const header = document.querySelector('header');
-        const resolvedOffset = offset ?? (header?.getBoundingClientRect().height ?? 0) + 4;
-        // offsetTop ignoruje transformy (np. reveal y:24), więc cel jest stabilny
-        // niezależnie od tego czy sekcja zdążyła wejść w viewport.
+        const target = (section.querySelector('.editorial-rule') as HTMLElement | null) ?? section;
+        const resolvedOffset = offset ?? (header?.getBoundingClientRect().height ?? 0) + 24;
         let elementTop = 0;
-        let node: HTMLElement | null = targetElement;
+        let node: HTMLElement | null = target;
         while (node) {
             elementTop += node.offsetTop;
             node = node.offsetParent as HTMLElement | null;

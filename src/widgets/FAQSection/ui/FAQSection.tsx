@@ -114,16 +114,24 @@ export const FaqSection = () => {
                                             </span>
                                             <span
                                                 className={cn(
-                                                    'relative grid h-10 w-10 place-self-center rounded-full border border-[var(--line-strong)] text-[var(--accent-text)] transition-[color,background-color,border-color,transform] duration-300 group-hover:-translate-y-0.5 group-hover:border-[var(--accent)] sm:h-11 sm:w-11',
-                                                    isOpen && 'border-[var(--accent)] bg-[var(--accent)] text-white',
+                                                    'grid h-10 w-10 shrink-0 place-self-center place-items-center rounded-full border transition-colors duration-300 sm:h-11 sm:w-11',
+                                                    isOpen
+                                                        ? 'border-[var(--accent)] bg-[var(--accent)] text-white'
+                                                        : 'border-[var(--line-strong)] text-[var(--accent-text)] group-hover:border-[var(--accent)]',
                                                 )}
                                                 aria-hidden="true"
                                             >
-                                                <span className="absolute left-1/2 top-1/2 h-[1.5px] w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-current" />
-                                                <span
-                                                    className="absolute left-1/2 top-1/2 h-4 w-[1.5px] rounded-full bg-current transition-transform duration-300 [transform-origin:center]"
-                                                    style={{ transform: `translate(-50%, -50%) scaleY(${isOpen ? 0 : 1})` }}
-                                                />
+                                                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                                                    <line x1="5" y1="12" x2="19" y2="12" />
+                                                    <line
+                                                        x1="12"
+                                                        y1="5"
+                                                        x2="12"
+                                                        y2="19"
+                                                        className="origin-center transition-transform duration-300"
+                                                        style={{ transform: `scaleY(${isOpen ? 0 : 1})` }}
+                                                    />
+                                                </svg>
                                             </span>
                                         </button>
                                     </h3>
