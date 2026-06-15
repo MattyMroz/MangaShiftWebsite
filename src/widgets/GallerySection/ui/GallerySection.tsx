@@ -53,14 +53,14 @@ export const GallerySection = () => (
                         viewport={{ once: true, margin: '-40px' }}
                         transition={{ duration: 0.55, delay: index * 0.05 }}
                     >
-                        <div className="paper-frame relative aspect-[3/4] p-1.5">
-                            <div className="relative h-full overflow-hidden rounded-[1.2rem]">
+                        <div className="paper-frame relative aspect-[4/5] p-1.5">
+                            <div className="relative h-full overflow-hidden rounded-[1.6rem]">
                                 <Image
                                     src={study.image}
                                     alt=""
                                     fill
                                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
-                                    className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                                    className="scale-[1.18] object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.24]"
                                 />
                             </div>
                             <span className="absolute right-3 top-3 rounded-full border border-[var(--line-strong)] bg-[var(--bg-alpha)] px-2.5 py-1 font-mono text-[0.78rem] uppercase tracking-[0.16em] text-[var(--text)] backdrop-blur">
