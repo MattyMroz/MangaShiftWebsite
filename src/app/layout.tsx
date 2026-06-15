@@ -62,23 +62,14 @@ export const metadata: Metadata = {
 const themeInitScript = `
   (function() {
     try {
-      var theme = localStorage.getItem('theme') || 'light';
-      var effects = localStorage.getItem('effects');
       var root = document.documentElement;
-      var bg = theme === 'dark' ? '#171715' : '#f3efe6';
-      root.setAttribute('data-theme', theme);
-      root.setAttribute('data-effects', effects === 'false' ? 'disabled' : 'enabled');
-      root.style.colorScheme = theme;
-      root.style.backgroundColor = bg;
-      document.body && (document.body.style.backgroundColor = bg);
-      if (theme === 'dark') {
-        root.classList.add('dark');
-      } else {
-        root.classList.remove('dark');
-      }
-      // Update meta theme-color
+      root.setAttribute('data-theme', 'light');
+      root.style.colorScheme = 'light';
+      root.style.backgroundColor = '#f3efe6';
+      root.classList.remove('dark');
+      document.body && (document.body.style.backgroundColor = '#f3efe6');
       var meta = document.querySelector('meta[name="theme-color"]');
-      if (meta) meta.setAttribute('content', bg);
+      if (meta) meta.setAttribute('content', '#f3efe6');
     } catch (e) {}
   })();
 `;
