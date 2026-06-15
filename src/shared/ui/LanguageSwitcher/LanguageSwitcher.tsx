@@ -17,24 +17,32 @@ interface LanguageOption {
     code: string;
     label: string;
     native: string;
-    enabled: boolean;
 }
 
 const LANGUAGES: LanguageOption[] = [
-    { code: "en", label: "EN", native: "English", enabled: true },
-    { code: "pl", label: "PL", native: "Polski", enabled: true },
-    { code: "ja", label: "JA", native: "日本語", enabled: false },
-    { code: "ko", label: "KO", native: "한국어", enabled: false },
-    { code: "zh", label: "ZH", native: "中文", enabled: false },
-    { code: "es", label: "ES", native: "Español", enabled: false },
-    { code: "fr", label: "FR", native: "Français", enabled: false },
-    { code: "de", label: "DE", native: "Deutsch", enabled: false },
+    { code: "en", label: "EN", native: "English" },
+    { code: "zh", label: "ZH", native: "中文" },
+    { code: "hi", label: "HI", native: "हिन्दी" },
+    { code: "es", label: "ES", native: "Español" },
+    { code: "fr", label: "FR", native: "Français" },
+    { code: "ar", label: "AR", native: "العربية" },
+    { code: "pt", label: "PT", native: "Português" },
+    { code: "ru", label: "RU", native: "Русский" },
+    { code: "ja", label: "JA", native: "日本語" },
+    { code: "de", label: "DE", native: "Deutsch" },
+    { code: "ko", label: "KO", native: "한국어" },
+    { code: "pl", label: "PL", native: "Polski" },
+    { code: "it", label: "IT", native: "Italiano" },
+    { code: "tr", label: "TR", native: "Türkçe" },
+    { code: "id", label: "ID", native: "Indonesia" },
+    { code: "vi", label: "VI", native: "Tiếng Việt" },
 ];
 
 export const LanguageSwitcher = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [hovered, setHovered] = useState<string | null>(null);
     const stored = useSyncExternalStore(subscribeLocale, readLocale, () => DEFAULT_LOCALE);
-    const locale = LANGUAGES.some((l) => l.code === stored && l.enabled) ? stored : DEFAULT_LOCALE;
+    const locale = LANGUAGES.some((l) => l.code === stored) ? stored : DEFAULT_LOCALE;
     const rootRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -55,7 +63,6 @@ export const LanguageSwitcher = () => {
 
     const handleSelect = useCallback(
         (option: LanguageOption) => {
-            if (!option.enabled) return;
             setIsOpen(false);
             if (option.code === locale) return;
             localStorage.setItem(LOCALE_STORAGE_KEY, option.code);
@@ -119,23 +126,30 @@ export const LanguageSwitcher = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -6 }}
                         transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
-                        className="absolute right-0 top-[calc(100%+1.4rem)] z-50 grid grid-cols-[13rem_13rem] gap-x-2 gap-y-1 rounded-2xl border border-[var(--line-strong)] bg-[var(--surface)] p-3 shadow-[var(--shadow-lg)] list-none"
+                        onMouseLeave={() => setHovered(null)}
+                        className="absolute right-0 top-[calc(100%+1.4rem)] z-50 grid grid-cols-[13.5rem_13.5rem] gap-x-1 gap-y-0.5 rounded-2xl border border-[var(--line-strong)] bg-[var(--surface)] p-2 shadow-[var(--shadow-lg)] list-none"
                     >
                         {LANGUAGES.map((option) => {
                             const isActive = option.code === current.code;
                             return (
-                                <li key={option.code} role="option" aria-selected={isActive}>
+                                <li
+                                    key={option.code}
+                                    role="option"
+                                    aria-selected={isActive}
+                                    className="relative"
+                                    onMouseEnter={() => setHovered(option.code)}
+                                >
+                                    {(hovered === option.code || (hovered === null && isActive)) && (
+                                        <motion.span
+                                            layoutId="lang-sliding-pill"
+                                            className="absolute inset-0 rounded-xl bg-[var(--surface-2)]"
+                                            transition={{ type: "spring", stiffness: 480, damping: 38 }}
+                                        />
+                                    )}
                                     <button
                                         type="button"
-                                        disabled={!option.enabled}
                                         onClick={() => handleSelect(option)}
-                                        className={cn(
-                                            "flex w-full items-baseline gap-3 rounded-xl px-3 py-2.5 text-left transition-colors duration-200",
-                                            option.enabled
-                                                ? "cursor-pointer hover:bg-[var(--surface-2)]"
-                                                : "cursor-not-allowed opacity-45",
-                                            isActive && "bg-[var(--surface-2)]",
-                                        )}
+                                        className="relative z-10 flex w-full cursor-pointer items-baseline gap-3 rounded-xl px-3 py-2.5 text-left"
                                     >
                                         <span
                                             className={cn(
@@ -153,11 +167,6 @@ export const LanguageSwitcher = () => {
                                         >
                                             {option.native}
                                         </span>
-                                        {!option.enabled && (
-                                            <span className="shrink-0 font-[family-name:var(--font-mono)] text-[0.9rem] uppercase tracking-[0.16em] text-[var(--text-faint)]">
-                                                soon
-                                            </span>
-                                        )}
                                     </button>
                                 </li>
                             );
