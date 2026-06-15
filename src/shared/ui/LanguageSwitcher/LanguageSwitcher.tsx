@@ -36,6 +36,10 @@ const LANGUAGES: LanguageOption[] = [
     { code: "tr", label: "TR", native: "Türkçe" },
     { code: "id", label: "ID", native: "Indonesia" },
     { code: "vi", label: "VI", native: "Tiếng Việt" },
+    { code: "uk", label: "UK", native: "Українська" },
+    { code: "nl", label: "NL", native: "Nederlands" },
+    { code: "th", label: "TH", native: "ไทย" },
+    { code: "fa", label: "FA", native: "فارسی" },
 ];
 
 export const LanguageSwitcher = () => {
@@ -127,7 +131,7 @@ export const LanguageSwitcher = () => {
                         exit={{ opacity: 0, y: -6 }}
                         transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
                         onMouseLeave={() => setHovered(null)}
-                        className="absolute right-0 top-[calc(100%+1.4rem)] z-50 grid grid-cols-[13.5rem_13.5rem] gap-x-1 gap-y-0.5 rounded-2xl border border-[var(--line-strong)] bg-[var(--surface)] p-2 shadow-[var(--shadow-lg)] list-none"
+                        className="absolute right-0 top-[calc(100%+1.4rem)] z-50 grid grid-cols-[15rem_15rem] gap-x-1.5 gap-y-1 rounded-2xl border border-[var(--line-strong)] bg-[var(--surface)] p-2.5 shadow-[var(--shadow-lg)] list-none"
                     >
                         {LANGUAGES.map((option) => {
                             const isActive = option.code === current.code;

@@ -267,11 +267,11 @@ em {
   color: var(--accent-text);
 }
 
-/* ── Dostępność: jednolity focus ring (2px) ─────────────────────────────────── */
+/* ── Dostępność: jednolity focus ring (2px). Outline sam podąża za border-radius
+   elementu (nie narzucamy własnego radius — inaczej ring jest kwadratowy). ───── */
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
-  border-radius: 2px;
 }
 
 /* ── Edytorialne wzbogacenie (atelier-zero × yohaku) ────────────────────────── */

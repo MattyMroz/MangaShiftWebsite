@@ -121,10 +121,8 @@ export const FaqSection = () => {
                                             >
                                                 <span className="absolute left-1/2 top-1/2 h-[1.5px] w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-current" />
                                                 <span
-                                                    className={cn(
-                                                        'absolute left-1/2 top-1/2 h-4 w-[1.5px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-current transition-transform duration-300',
-                                                        isOpen && 'scale-y-0',
-                                                    )}
+                                                    className="absolute left-1/2 top-1/2 h-4 w-[1.5px] rounded-full bg-current transition-transform duration-300 [transform-origin:center]"
+                                                    style={{ transform: `translate(-50%, -50%) scaleY(${isOpen ? 0 : 1})` }}
                                                 />
                                             </span>
                                         </button>

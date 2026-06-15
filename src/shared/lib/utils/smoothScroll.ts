@@ -20,7 +20,7 @@ export const smoothScrollTo = (href: string, offset?: number): boolean => {
 
     if (targetElement) {
         const header = document.querySelector('header');
-        const resolvedOffset = offset ?? (header?.getBoundingClientRect().height ?? 0) + 24;
+        const resolvedOffset = offset ?? (header?.getBoundingClientRect().height ?? 0) + 4;
         // offsetTop ignoruje transformy (np. reveal y:24), więc cel jest stabilny
         // niezależnie od tego czy sekcja zdążyła wejść w viewport.
         let elementTop = 0;
