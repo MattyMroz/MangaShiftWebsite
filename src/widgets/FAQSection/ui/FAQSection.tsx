@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Container } from '@/shared/ui/Container/Container';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
+import { MetaLabel } from '@/shared/ui/MetaLabel/MetaLabel';
 import { cn } from '@/shared/lib/utils/cn';
 
 const questions = [
@@ -72,7 +73,7 @@ export const FaqSection = () => {
                         viewport={{ once: true, margin: '-80px' }}
                         transition={{ duration: 0.7 }}
                     >
-                        <p className="section-kicker">Before you join</p>
+                        <MetaLabel>Before you join</MetaLabel>
                         <h2 className="display mt-7 max-w-[9ch] text-[clamp(4rem,5.6vw,6.8rem)]">
                             A few clear{' '}
                             <em className="text-[var(--accent-text)]">answers</em>.

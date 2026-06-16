@@ -7,6 +7,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from '@/shared/ui/Button/Button';
 import { Container } from '@/shared/ui/Container/Container';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
+import { TabPill } from '@/shared/ui/TabPill/TabPill';
+import { MetaLabel } from '@/shared/ui/MetaLabel/MetaLabel';
+import { FloatingLabel } from '@/shared/ui/FloatingLabel/FloatingLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
 
@@ -67,7 +70,7 @@ export const UseCasesSection = () => {
                         viewport={{ once: true, margin: '-80px' }}
                         transition={{ duration: 0.7 }}
                     >
-                        <p className="section-kicker">One engine, different stories</p>
+                        <MetaLabel>One engine, different stories</MetaLabel>
                         <h2 className="display mt-7 max-w-[12ch] text-[clamp(4rem,5.8vw,7rem)]">
                             Built around the way you want to{' '}
                             <em className="text-[var(--accent-text)]">use</em> manga.
@@ -80,43 +83,13 @@ export const UseCasesSection = () => {
                 </div>
 
                 <div className="mt-14 rounded-[2.4rem] border border-[var(--line-strong)] bg-[var(--bg)] p-3 shadow-[var(--shadow-md)] md:p-5">
-                    <div
-                        role="tablist"
+                    <TabPill
+                        tabs={modes.map((mode) => ({ id: mode.id, label: mode.label }))}
+                        active={active.id}
+                        onChange={(id) => setActiveId(id as (typeof modes)[number]['id'])}
+                        layoutId="usecase-active-pill"
                         aria-label="MangaShift audiences"
-                        className="relative grid gap-1 rounded-[2rem] border border-[var(--line)] bg-[var(--surface)] p-1.5 sm:grid-cols-3 sm:rounded-full"
-                    >
-                        {modes.map((mode) => {
-                            const selected = mode.id === active.id;
-                            return (
-                                <button
-                                    key={mode.id}
-                                    type="button"
-                                    role="tab"
-                                    aria-selected={selected}
-                                    aria-controls="usecase-panel"
-                                    onClick={() => setActiveId(mode.id)}
-                                    className="relative z-10 min-h-12 rounded-full px-5 py-3 text-center"
-                                >
-                                    {selected && (
-                                        <motion.span
-                                            layoutId="usecase-active-pill"
-                                            className="absolute inset-0 -z-10 rounded-full bg-[var(--text)] shadow-[var(--shadow-sm)]"
-                                            transition={{ type: 'spring', stiffness: 380, damping: 34 }}
-                                        />
-                                    )}
-                                    <span
-                                        className={
-                                            selected
-                                                ? 'font-mono text-[1.05rem] uppercase tracking-[0.18em] text-[var(--bg)]'
-                                                : 'font-mono text-[1.05rem] uppercase tracking-[0.18em] text-[var(--text-muted)]'
-                                        }
-                                    >
-                                        {mode.label}
-                                    </span>
-                                </button>
-                            );
-                        })}
-                    </div>
+                    />
 
                     <div
                         id="usecase-panel"
@@ -144,14 +117,14 @@ export const UseCasesSection = () => {
                             </AnimatePresence>
 
                             <div className="pointer-events-none absolute inset-5 rounded-[1.2rem] border border-[var(--text)]/25" />
-                            <span className="absolute left-8 top-8 rounded-full bg-[var(--accent)] px-3 py-1.5 font-mono text-[0.95rem] uppercase tracking-[0.18em] text-white">
+                            <FloatingLabel position="tl" tone="accent" className="tracking-[0.18em]">
                                 {active.code}
-                            </span>
+                            </FloatingLabel>
                             <div className="absolute bottom-8 right-8 flex items-end gap-3">
                                 <div className="dot-grid h-12 w-16 opacity-40" />
-                                <span className="rounded-full bg-[var(--bg-alpha)] px-3 py-1.5 font-mono text-[0.85rem] uppercase tracking-[0.16em] text-[var(--text)] backdrop-blur">
+                                <FloatingLabel position="br" tone="glass" className="static text-[0.85rem]">
                                     {active.label}
-                                </span>
+                                </FloatingLabel>
                             </div>
                         </div>
 
