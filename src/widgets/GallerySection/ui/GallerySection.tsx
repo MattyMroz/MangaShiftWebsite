@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Container } from '@/shared/ui/Container/Container';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
+import { MetaLabel } from '@/shared/ui/MetaLabel/MetaLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
 
 const studies = [
@@ -30,7 +31,7 @@ export const GallerySection = () => (
                     viewport={{ once: true, margin: '-80px' }}
                     transition={{ duration: 0.7 }}
                 >
-                    <p className="section-kicker">The look of the experience</p>
+                    <MetaLabel>The look of the experience</MetaLabel>
                     <h2 className="display mt-7 max-w-[13ch] text-[clamp(4rem,5.8vw,7rem)]">
                         A visual system with room to{' '}
                         <em className="text-[var(--accent-text)]">breathe</em>.

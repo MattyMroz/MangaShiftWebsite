@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Button } from '@/shared/ui/Button/Button';
+import { Input } from '@/shared/ui/Input/Input';
+import { Field } from '@/shared/ui/Field/Field';
 
 const Corners = () => (
     <>
@@ -69,40 +71,37 @@ export default function LoginPage() {
                 </div>
 
                 <form onSubmit={handleSubmit} className="mt-10 flex flex-col gap-5">
-                    <label className="flex flex-col gap-2">
-                        <span className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-[var(--text-faint)]">
-                            Email
-                        </span>
-                        <input
+                    <Field label="Email" labelClassName="text-[10.5px]">
+                        <Input
                             type="email"
                             name="email"
                             autoComplete="email"
                             placeholder="you@studio.com"
                             aria-label="Email address"
-                            className="w-full rounded-full border border-[var(--line)] bg-[var(--surface)] px-6 py-4 text-[length:var(--normal-font-size)] text-[var(--text)] outline-none transition-colors placeholder:text-[var(--text-faint)] focus:border-[var(--accent)]"
                         />
-                    </label>
+                    </Field>
 
-                    <label className="flex flex-col gap-2">
-                        <span className="flex items-baseline justify-between gap-3 font-mono text-[10.5px] uppercase tracking-[0.18em] text-[var(--text-faint)]">
-                            Password
+                    <Field
+                        label="Password"
+                        labelClassName="text-[10.5px]"
+                        action={
                             <button
                                 type="button"
                                 onClick={() => setNotice(true)}
-                                className="text-[var(--accent-text)] transition-opacity hover:opacity-80"
+                                className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-[var(--accent-text)] transition-opacity hover:opacity-80"
                             >
                                 Forgot?
                             </button>
-                        </span>
-                        <input
+                        }
+                    >
+                        <Input
                             type="password"
                             name="password"
                             autoComplete="current-password"
                             placeholder="••••••••"
                             aria-label="Password"
-                            className="w-full rounded-full border border-[var(--line)] bg-[var(--surface)] px-6 py-4 text-[length:var(--normal-font-size)] text-[var(--text)] outline-none transition-colors placeholder:text-[var(--text-faint)] focus:border-[var(--accent)]"
                         />
-                    </label>
+                    </Field>
 
                     <Button type="submit" variant="hero" size="md" className="mt-2 w-full">
                         Sign in

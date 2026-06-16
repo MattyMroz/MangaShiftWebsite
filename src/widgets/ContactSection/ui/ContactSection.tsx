@@ -5,7 +5,11 @@ import { motion } from 'framer-motion';
 import { Button } from '@/shared/ui/Button/Button';
 import { Container } from '@/shared/ui/Container/Container';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
-import { cn } from '@/shared/lib/utils/cn';
+import { Input } from '@/shared/ui/Input/Input';
+import { Checkbox } from '@/shared/ui/Checkbox/Checkbox';
+import { Badge } from '@/shared/ui/Badge/Badge';
+import { Field } from '@/shared/ui/Field/Field';
+import { MetaLabel } from '@/shared/ui/MetaLabel/MetaLabel';
 
 const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLScyTs1gTH1kmVC8EHkB_pdPsdrWwEtGIwLvQYu4StRfSkVYpA/formResponse';
 const GOOGLE_FORM_EMAIL_ENTRY = 'entry.1654989478';
@@ -60,7 +64,7 @@ export const BetaSection = () => {
                         viewport={{ once: true, margin: '-80px' }}
                         transition={{ duration: 0.72 }}
                     >
-                        <p className="section-kicker">Private beta</p>
+                        <MetaLabel>Private beta</MetaLabel>
                         <h2 className="display mt-7 max-w-[10ch] text-[clamp(4.6rem,6.6vw,8.2rem)]">
                             Your manga could be{' '}
                             <em className="text-[var(--accent-text)]">next</em>.
@@ -72,12 +76,9 @@ export const BetaSection = () => {
 
                         <ul className="mt-9 flex flex-wrap gap-3">
                             {['Free during beta', 'No credit card', 'Early product access'].map((item) => (
-                                <li
-                                    key={item}
-                                    className="rounded-full border border-[var(--line-strong)] px-4 py-2 font-mono text-[1rem] uppercase tracking-[0.14em] text-[var(--text-muted)]"
-                                >
+                                <Badge key={item} as="li" variant="outline" className="tracking-[0.14em]">
                                     {item}
-                                </li>
+                                </Badge>
                             ))}
                         </ul>
                     </motion.div>
@@ -113,65 +114,38 @@ export const BetaSection = () => {
                                 className="pointer-events-none absolute h-0 w-0 opacity-0"
                             />
 
-                            <label htmlFor="beta-email" className="font-mono text-[1rem] uppercase tracking-[0.18em] text-[var(--text-faint)]">
-                                Email address
-                            </label>
-                            <div className="mt-3 flex flex-col gap-3 sm:flex-row">
-                                <input
-                                    id="beta-email"
-                                    type="email"
-                                    name="email"
-                                    value={email}
-                                    onChange={(event) => setEmail(event.target.value)}
-                                    required
-                                    disabled={locked}
-                                    placeholder="you@studio.com"
-                                    className="min-h-12 flex-1 rounded-full border border-[var(--line-strong)] bg-[var(--surface)] px-5 text-[1.5rem] text-[var(--text)] outline-none transition-colors placeholder:text-[var(--text-faint)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15 disabled:opacity-60"
-                                />
-                                <Button type="submit" variant="hero" size="md" disabled={locked}>
-                                    {status === 'submitting'
-                                        ? 'Sending…'
-                                        : status === 'success'
-                                            ? 'You’re on the list'
-                                            : 'Join beta'}
-                                </Button>
-                            </div>
+                            <Field label="Email address" htmlFor="beta-email">
+                                <div className="flex flex-col gap-3 sm:flex-row">
+                                    <Input
+                                        id="beta-email"
+                                        type="email"
+                                        name="email"
+                                        value={email}
+                                        onChange={(event) => setEmail(event.target.value)}
+                                        required
+                                        disabled={locked}
+                                        placeholder="you@studio.com"
+                                        className="flex-1"
+                                    />
+                                    <Button type="submit" variant="hero" size="md" disabled={locked}>
+                                        {status === 'submitting'
+                                            ? 'Sending…'
+                                            : status === 'success'
+                                                ? 'You’re on the list'
+                                                : 'Join beta'}
+                                    </Button>
+                                </div>
+                            </Field>
 
-                            <label className="mt-5 flex cursor-pointer items-center gap-3">
-                                <input
-                                    type="checkbox"
-                                    name="consent"
-                                    checked={consent}
-                                    onChange={(event) => setConsent(event.target.checked)}
-                                    required
-                                    disabled={locked}
-                                    className="sr-only"
-                                />
-                                <span
-                                    aria-hidden="true"
-                                    className={cn(
-                                        'grid h-6 w-6 shrink-0 place-items-center rounded-[0.8rem] border transition-colors duration-200',
-                                        consent
-                                            ? 'border-[var(--accent)] bg-[var(--accent)]'
-                                            : 'border-[var(--line-strong)] bg-[var(--surface)]',
-                                    )}
-                                >
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        className={cn('h-3.5 w-3.5 text-white transition-transform duration-200', consent ? 'scale-100' : 'scale-0')}
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="3.5"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    >
-                                        <path d="M5 12l5 5L20 7" />
-                                    </svg>
-                                </span>
-                                <span className="text-[1.3rem] leading-[1.55] text-[var(--text-muted)]">
-                                    I agree to receive email about MangaShift beta access and product updates.
-                                </span>
-                            </label>
+                            <Checkbox
+                                className="mt-5"
+                                name="consent"
+                                checked={consent}
+                                onChange={(event) => setConsent(event.target.checked)}
+                                required
+                                disabled={locked}
+                                label="I agree to receive email about MangaShift beta access and product updates."
+                            />
 
                             <p
                                 className="mt-5 min-h-8 border-t border-[var(--line)] pt-5 text-[1.35rem] text-[var(--text-faint)]"

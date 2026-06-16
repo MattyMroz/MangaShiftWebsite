@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Container } from '@/shared/ui/Container/Container';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
+import { MetaLabel } from '@/shared/ui/MetaLabel/MetaLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
 
 const principles = [
@@ -27,7 +28,7 @@ export const AboutSection = () => (
                     viewport={{ once: true, margin: '-80px' }}
                     transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
                 >
-                    <p className="section-kicker">The idea</p>
+                    <MetaLabel>The idea</MetaLabel>
                     <h2 className="display mt-7 max-w-[12ch] text-[clamp(4rem,6vw,7.4rem)]">
                         Keep the art. Add{' '}
                         <em className="text-[var(--accent-text)]">voice</em>, pacing and motion.

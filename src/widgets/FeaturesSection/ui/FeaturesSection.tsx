@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Container } from '@/shared/ui/Container/Container';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
+import { MetaLabel } from '@/shared/ui/MetaLabel/MetaLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
 
 type IconProps = { className?: string };
@@ -88,7 +89,7 @@ export const FeaturesSection = () => (
                     viewport={{ once: true, margin: '-80px' }}
                     transition={{ duration: 0.7 }}
                 >
-                    <p className="section-kicker">Built for the page</p>
+                    <MetaLabel>Built for the page</MetaLabel>
                     <h2 className="display mt-7 max-w-[13ch] text-[clamp(4rem,5.8vw,7rem)]">
                         The production work, without the production{' '}
                         <em className="text-[var(--accent-text)]">mess</em>.
