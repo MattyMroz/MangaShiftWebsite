@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import { motion, type Variants } from 'framer-motion';
 import { Button } from '@/shared/ui/Button/Button';
-import { SecRule } from '@/shared/ui/SecRule/SecRule';
+import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
+import { LiveDot } from '@/shared/ui/LiveDot/LiveDot';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
 import { cn } from '@/shared/lib/utils/cn';
 
@@ -136,7 +137,7 @@ export const PricingSection = () => {
             </span>
 
             <div className="relative z-10 mx-auto max-w-[120rem]">
-                <SecRule roman="VI." meta="Pricing · Plans" page="007 / 008" />
+                <EditorialRule index="VI." page="007 / 008">Pricing · Plans</EditorialRule>
 
                 <div className="mt-[clamp(4rem,7vw,7rem)] grid grid-cols-1 items-start gap-[clamp(4rem,6vw,7rem)] lg:grid-cols-[0.85fr_1.15fr]">
 
@@ -240,10 +241,7 @@ export const PricingSection = () => {
                                             )}
                                         >
                                             {isLive ? (
-                                                <span className="relative flex h-1.5 w-1.5">
-                                                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--accent)] opacity-60" />
-                                                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
-                                                </span>
+                                                <LiveDot size="sm" />
                                             ) : (
                                                 <LockMark className="h-3 w-3" />
                                             )}
