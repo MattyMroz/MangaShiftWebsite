@@ -3,6 +3,7 @@
 import { motion, type Variants } from 'framer-motion';
 import { cn } from '@/shared/lib/utils/cn';
 import { Button } from '@/shared/ui/Button/Button';
+import { LiveDot } from '@/shared/ui/LiveDot/LiveDot';
 
 type Pill = { glyph: string; label: string; coord: string };
 
@@ -71,10 +72,7 @@ export const PoweredSection = () => (
 
                 <div className="relative flex flex-col gap-10 p-[clamp(2.2rem,4vw,4rem)] lg:flex-row lg:items-center lg:justify-between lg:gap-16">
                     <div className="flex items-center gap-4 text-[var(--accent-fg)]">
-                        <span className="relative flex h-3 w-3 shrink-0">
-                            <span className="ms-powered-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent-fg)] opacity-50" />
-                            <span className="relative inline-flex h-3 w-3 rounded-full bg-[var(--accent-fg)]" />
-                        </span>
+                        <LiveDot size="md" className="bg-[var(--accent-fg)]" />
                         <span className="font-mono text-[10.5px] uppercase tracking-[0.24em] opacity-80">
                             Powered by
                         </span>
@@ -204,17 +202,5 @@ export const PoweredSection = () => (
             </motion.div>
         </div>
 
-        <style>{`
-            @keyframes ms-powered-ping {
-                0% { transform: scale(1); opacity: 0.5; }
-                75%, 100% { transform: scale(2.4); opacity: 0; }
-            }
-            .ms-powered-ping {
-                animation: ms-powered-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
-            }
-            @media (prefers-reduced-motion: reduce) {
-                .ms-powered-ping { animation: none; }
-            }
-        `}</style>
     </section>
 );

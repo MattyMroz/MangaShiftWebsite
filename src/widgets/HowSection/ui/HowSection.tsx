@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Container } from '@/shared/ui/Container/Container';
+import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { MetaLabel } from '@/shared/ui/MetaLabel/MetaLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
@@ -42,9 +43,7 @@ export const HowSection = () => (
     <section id="how" className="section-shell relative border-y border-[var(--line)] bg-[var(--surface)]">
         <SideLabel side="right">Nº 03 — One pipeline</SideLabel>
         <Container>
-            <div className="editorial-rule" data-index="III." data-page="003 / 008">
-                <span>How it works</span>
-            </div>
+            <EditorialRule index="III." page="003 / 008">How it works</EditorialRule>
 
             <div className="mt-12 grid gap-8 lg:grid-cols-12 lg:items-end">
                 <motion.div

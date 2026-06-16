@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Container } from '@/shared/ui/Container/Container';
+import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { MetaLabel } from '@/shared/ui/MetaLabel/MetaLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
@@ -17,9 +18,7 @@ export const AboutSection = () => (
     <section id="about" className="section-shell relative">
         <SideLabel side="left">Nº 02 — Why MangaShift</SideLabel>
         <Container className="relative">
-            <div className="editorial-rule" data-index="II." data-page="002 / 008">
-                <span>Why MangaShift</span>
-            </div>
+            <EditorialRule index="II." page="002 / 008">Why MangaShift</EditorialRule>
 
             <div className="mt-12 grid gap-x-20 gap-y-12 lg:grid-cols-[1.05fr_1fr] lg:items-start">
                 <motion.div

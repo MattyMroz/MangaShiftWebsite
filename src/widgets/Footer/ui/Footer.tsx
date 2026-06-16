@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Container } from '@/shared/ui/Container/Container';
+import { LiveDot } from '@/shared/ui/LiveDot/LiveDot';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
 
@@ -81,7 +82,7 @@ export const Footer = () => {
                             Static manga and manhwa, directed into voice, pacing and motion.
                         </p>
                         <div className="mt-8 flex items-center gap-3 font-mono text-[0.95rem] uppercase tracking-[0.18em] text-white/35">
-                            <span className="h-2 w-2 animate-pulse rounded-full bg-[var(--accent)]" />
+                            <LiveDot variant="pulse" className="h-2 w-2" />
                             Building the first beta
                         </div>
                     </div>

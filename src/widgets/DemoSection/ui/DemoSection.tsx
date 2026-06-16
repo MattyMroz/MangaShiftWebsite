@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { motion, useMotionValue, useReducedMotion, animate } from 'framer-motion';
 import { Button } from '@/shared/ui/Button/Button';
 import { Container } from '@/shared/ui/Container/Container';
+import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
@@ -48,9 +49,9 @@ export const DemoSection = () => {
                         className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[var(--accent)] opacity-15 blur-3xl"
                     />
 
-                    <div className="editorial-rule border-white/15 text-white/45" data-index="VII." data-page="007 / 008">
-                        <span>Demo output</span>
-                    </div>
+                    <EditorialRule index="VII." page="007 / 008" className="border-white/15 text-white/45">
+                        Demo output
+                    </EditorialRule>
 
                     <div className="relative mt-10 grid gap-10 lg:grid-cols-12 lg:items-center">
                         <div className="lg:col-span-4">

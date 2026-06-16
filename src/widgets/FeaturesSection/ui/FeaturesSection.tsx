@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Container } from '@/shared/ui/Container/Container';
+import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { MetaLabel } from '@/shared/ui/MetaLabel/MetaLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
@@ -77,9 +78,7 @@ export const FeaturesSection = () => (
     <section id="features" className="section-shell relative">
         <SideLabel side="left">Nº 04 — Capabilities</SideLabel>
         <Container>
-            <div className="editorial-rule" data-index="IV." data-page="004 / 008">
-                <span>Capabilities</span>
-            </div>
+            <EditorialRule index="IV." page="004 / 008">Capabilities</EditorialRule>
 
             <div className="mt-12 grid gap-8 lg:grid-cols-12 lg:items-end">
                 <motion.div

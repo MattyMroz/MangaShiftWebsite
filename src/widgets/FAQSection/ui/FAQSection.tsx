@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Container } from '@/shared/ui/Container/Container';
+import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { MetaLabel } from '@/shared/ui/MetaLabel/MetaLabel';
 import { Accordion } from '@/shared/ui/Accordion/Accordion';
@@ -61,9 +62,7 @@ export const FaqSection = () => {
         <section id="faq" className="section-shell relative">
             <SideLabel side="left">Nº 08 — Frequently asked</SideLabel>
             <Container>
-                <div className="editorial-rule" data-index="VIII." data-page="008 / 008">
-                    <span>Frequently asked</span>
-                </div>
+                <EditorialRule index="VIII." page="008 / 008">Frequently asked</EditorialRule>
 
                 <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:items-start">
                     <motion.div

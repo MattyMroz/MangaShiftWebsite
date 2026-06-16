@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Container } from '@/shared/ui/Container/Container';
+import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { MetaLabel } from '@/shared/ui/MetaLabel/MetaLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
@@ -19,9 +20,7 @@ export const GallerySection = () => (
     <section id="gallery" className="section-shell relative">
         <SideLabel side="left">Nº 06 — Visual studies</SideLabel>
         <Container>
-            <div className="editorial-rule" data-index="VI." data-page="006 / 008">
-                <span>Visual studies</span>
-            </div>
+            <EditorialRule index="VI." page="006 / 008">Visual studies</EditorialRule>
 
             <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:items-end">
                 <motion.div

@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, type Variants } from 'framer-motion';
-import { SecRule } from '@/shared/ui/SecRule/SecRule';
+import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
 import { Button } from '@/shared/ui/Button/Button';
 import { cn } from '@/shared/lib/utils/cn';
 
@@ -62,7 +62,7 @@ export const StatsSection = () => (
         className="relative py-[clamp(10rem,16vw,13rem)] px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:px-[var(--section-padding-x-desktop-sm)]"
     >
         <div className="relative z-10 mx-auto max-w-[120rem]">
-            <SecRule roman="II." meta="Metrics · By the numbers" page="003 / 008" />
+            <EditorialRule index="II." page="003 / 008">Metrics · By the numbers</EditorialRule>
 
             <div className="mt-[clamp(4rem,7vw,7rem)] grid grid-cols-1 gap-[clamp(3.5rem,6vw,6rem)] lg:grid-cols-12">
 

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from '@/shared/ui/Button/Button';
 import { Container } from '@/shared/ui/Container/Container';
+import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { TabPill } from '@/shared/ui/TabPill/TabPill';
 import { MetaLabel } from '@/shared/ui/MetaLabel/MetaLabel';
@@ -58,9 +59,7 @@ export const UseCasesSection = () => {
         <section id="usecases" className="section-shell relative border-y border-[var(--line)] bg-[var(--surface)]">
             <SideLabel side="right">Nº 05 — Who it is for</SideLabel>
             <Container>
-                <div className="editorial-rule" data-index="V." data-page="005 / 008">
-                    <span>Who it is for</span>
-                </div>
+                <EditorialRule index="V." page="005 / 008">Who it is for</EditorialRule>
 
                 <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:items-end">
                     <motion.div

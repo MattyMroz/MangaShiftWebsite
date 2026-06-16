@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Button } from '@/shared/ui/Button/Button';
 import { Container } from '@/shared/ui/Container/Container';
+import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
 import { assetPath } from '@/shared/lib/utils/assetPath';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
 
@@ -29,9 +30,9 @@ export const Hero = () => {
     return (
         <section id="home" className="relative overflow-hidden pb-20 pt-32 md:pb-24 md:pt-40">
             <Container>
-                <div className="editorial-rule" data-index="I." data-page="001 / 008">
-                    <span className="truncate">MangaShift / private beta / 2026</span>
-                </div>
+                <EditorialRule index="I." page="001 / 008">
+                    MangaShift / private beta / 2026
+                </EditorialRule>
 
                 <div className="mt-10 grid items-center gap-16 lg:mt-14 lg:grid-cols-12 lg:gap-10">
                     <div className="lg:col-span-7 lg:pr-8">
