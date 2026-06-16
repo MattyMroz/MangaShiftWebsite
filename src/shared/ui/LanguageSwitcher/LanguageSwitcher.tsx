@@ -146,14 +146,14 @@ export const LanguageSwitcher = () => {
                                     {(hovered === option.code || (hovered === null && isActive)) && (
                                         <motion.span
                                             layoutId="lang-sliding-pill"
-                                            className="absolute inset-0 rounded-[1.2rem] bg-[var(--surface-2)]"
+                                            className="absolute inset-0 rounded-full bg-[var(--surface-2)]"
                                             transition={{ type: "spring", stiffness: 480, damping: 38 }}
                                         />
                                     )}
                                     <button
                                         type="button"
                                         onClick={() => handleSelect(option)}
-                                        className="relative z-10 flex w-full cursor-pointer items-baseline gap-3 rounded-[1.2rem] px-3 py-2.5 text-left"
+                                        className="relative z-10 flex w-full cursor-pointer items-center gap-3 rounded-full py-2.5 pl-6 pr-4 text-left"
                                     >
                                         <span
                                             className={cn(

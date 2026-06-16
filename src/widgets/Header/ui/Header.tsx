@@ -119,9 +119,9 @@ export const Header = () => {
                         </div>
                         <Button
                             variant="hero"
-                            size="sm"
+                            size="md"
                             onClick={joinBeta}
-                            className="hidden px-6 text-[1.3rem] sm:inline-flex"
+                            className="hidden sm:inline-flex"
                         >
                             {t('nav.beta')}
                         </Button>
