@@ -127,12 +127,12 @@ export const BetaSection = () => {
                                         placeholder="you@studio.com"
                                         className="flex-1"
                                     />
-                                    <Button type="submit" variant="hero" size="md" disabled={locked}>
+                                    <Button type="submit" variant="hero" size="lg" disabled={locked} className="self-start sm:self-auto">
                                         {status === 'submitting'
                                             ? 'Sending…'
                                             : status === 'success'
                                                 ? 'You’re on the list'
-                                                : 'Join beta'}
+                                                : 'Join Beta'}
                                     </Button>
                                 </div>
                             </Field>
