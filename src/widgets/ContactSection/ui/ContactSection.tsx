@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/shared/ui/Button/Button';
 import { Container } from '@/shared/ui/Container/Container';
+import { IconCircle } from '@/shared/ui/IconCircle/IconCircle';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { Input } from '@/shared/ui/Input/Input';
 import { Checkbox } from '@/shared/ui/Checkbox/Checkbox';
@@ -99,9 +100,9 @@ export const BetaSection = () => {
                                     Join the MangaShift list
                                 </p>
                             </div>
-                            <span className="grid h-12 w-12 place-items-center rounded-full bg-[var(--accent)] text-white">
+                            <IconCircle as="span" size="lg">
                                 ↗
-                            </span>
+                            </IconCircle>
                         </div>
 
                         <form onSubmit={handleSubmit} className="mt-7">

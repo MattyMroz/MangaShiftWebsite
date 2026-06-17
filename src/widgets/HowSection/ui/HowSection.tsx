@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Container } from '@/shared/ui/Container/Container';
+import { FloatingLabel } from '@/shared/ui/FloatingLabel/FloatingLabel';
 import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { MetaLabel } from '@/shared/ui/MetaLabel/MetaLabel';
@@ -94,9 +95,9 @@ export const HowSection = () => (
                                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                                 className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
                             />
-                            <span className="absolute left-4 top-4 rounded-full bg-[var(--bg-alpha)] px-3 py-1.5 font-mono text-[0.9rem] uppercase tracking-[0.16em] text-[var(--text)] backdrop-blur">
+                            <FloatingLabel className="left-4 top-4">
                                 {step.eyebrow}
-                            </span>
+                            </FloatingLabel>
                         </div>
 
                         <div className="p-6">
