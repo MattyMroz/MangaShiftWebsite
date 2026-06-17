@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Container } from '@/shared/ui/Container/Container';
+import { FloatingLabel } from '@/shared/ui/FloatingLabel/FloatingLabel';
 import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { MetaLabel } from '@/shared/ui/MetaLabel/MetaLabel';
@@ -63,9 +64,9 @@ export const GallerySection = () => (
                                     className="scale-[1.18] object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.24]"
                                 />
                             </div>
-                            <span className="absolute right-3 top-3 rounded-full border border-[var(--line-strong)] bg-[var(--bg-alpha)] px-2.5 py-1 font-mono text-[0.78rem] uppercase tracking-[0.16em] text-[var(--text)] backdrop-blur">
+                            <FloatingLabel position="tr" size="sm" className="border border-[var(--line-strong)]">
                                 {String(index + 1).padStart(2, '0')}
-                            </span>
+                            </FloatingLabel>
                         </div>
                         <figcaption className="mt-3 border-t border-[var(--line-strong)] pt-3">
                             <h3 className="text-[1.4rem] font-bold leading-tight tracking-tight text-[var(--text)]">

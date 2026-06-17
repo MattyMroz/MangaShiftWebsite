@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Container } from '@/shared/ui/Container/Container';
+import { IconCircle } from '@/shared/ui/IconCircle/IconCircle';
 import { LiveDot } from '@/shared/ui/LiveDot/LiveDot';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
@@ -62,9 +63,9 @@ export const Footer = () => {
                             className="group mt-7 inline-flex items-center gap-4 text-[1.45rem] font-semibold text-white"
                         >
                             Join the private beta
-                            <span className="grid h-11 w-11 place-items-center rounded-full bg-[var(--accent)] text-white transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
+                            <IconCircle as="span" className="transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
                                 ↗
-                            </span>
+                            </IconCircle>
                         </Link>
                     </div>
                 </div>

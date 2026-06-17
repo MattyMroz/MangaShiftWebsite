@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { motion, useMotionValue, useReducedMotion, animate } from 'framer-motion';
 import { Button } from '@/shared/ui/Button/Button';
 import { Container } from '@/shared/ui/Container/Container';
+import { FloatingLabel } from '@/shared/ui/FloatingLabel/FloatingLabel';
+import { IconCircle } from '@/shared/ui/IconCircle/IconCircle';
 import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
@@ -99,9 +101,9 @@ export const DemoSection = () => {
                                     className="object-cover"
                                 />
                                 <div className="absolute inset-0 ring-1 ring-inset ring-white/10" />
-                                <span className="absolute left-4 top-4 rounded-full bg-black/60 px-3 py-1.5 font-mono text-[0.95rem] uppercase tracking-[0.18em] text-white/70 backdrop-blur">
+                                <FloatingLabel tone="dark" className="left-4 top-4 text-[0.95rem] tracking-[0.18em]">
                                     Preview · beta render
-                                </span>
+                                </FloatingLabel>
                             </div>
 
                             <div className="mt-4 flex flex-wrap items-center justify-between gap-3 font-mono text-[1rem] uppercase tracking-[0.16em] text-white/35">
@@ -120,26 +122,26 @@ export const DemoSection = () => {
                                 </span>
                             </div>
                             <div className="flex items-center gap-3">
-                                <button
-                                    type="button"
+                                <IconCircle
+                                    variant="outline"
                                     onClick={() => go(-1)}
                                     aria-label="Previous frame"
-                                    className="grid h-11 w-11 place-items-center rounded-full border border-white/20 text-white/70 transition-colors duration-300 hover:border-white/50 hover:text-white"
+                                    className="border-white/20 text-white/70 hover:border-white/50 hover:text-white"
                                 >
                                     <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                                         <path d="M15 5l-7 7 7 7" />
                                     </svg>
-                                </button>
-                                <button
-                                    type="button"
+                                </IconCircle>
+                                <IconCircle
+                                    variant="outline"
                                     onClick={() => go(1)}
                                     aria-label="Next frame"
-                                    className="grid h-11 w-11 place-items-center rounded-full border border-white/20 text-white/70 transition-colors duration-300 hover:border-white/50 hover:text-white"
+                                    className="border-white/20 text-white/70 hover:border-white/50 hover:text-white"
                                 >
                                     <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                                         <path d="M9 5l7 7-7 7" />
                                     </svg>
-                                </button>
+                                </IconCircle>
                             </div>
                         </div>
 
@@ -200,9 +202,9 @@ export const DemoSection = () => {
                                                     draggable={false}
                                                     className="object-cover"
                                                 />
-                                                <span className="absolute left-3 top-3 rounded-full bg-[var(--bg-alpha)] px-2.5 py-1 font-mono text-[0.74rem] font-semibold uppercase tracking-[0.16em] text-[var(--accent-text)] backdrop-blur">
+                                                <FloatingLabel size="sm" className="text-[0.74rem] font-semibold text-[var(--accent-text)]">
                                                     {eyebrow}
-                                                </span>
+                                                </FloatingLabel>
                                             </div>
                                             <figcaption className="flex items-center justify-between px-1 pb-1 pt-3.5">
                                                 <h3 className="text-[1.7rem] font-bold leading-tight tracking-tight text-[var(--text)]">
