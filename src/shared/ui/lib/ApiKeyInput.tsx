@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
-import { Button } from '@/shared/ui/Button/Button'
+import { Button } from '@/shared/ui/lib/Button'
 import { Input } from '@/shared/ui/lib/Input'
 
 // ---------------------------------------------------------------------------

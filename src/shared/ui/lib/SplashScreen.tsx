@@ -3,7 +3,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import { Check, Loader2, X } from 'lucide-react'
 
 import { AppIcon } from './AppIcon'
-import { Button } from '@/shared/ui/Button/Button'
+import { Button } from '@/shared/ui/lib/Button'
 import { useBackendHealth, type BackendPhase } from '@/hooks/useBackendHealth'
 import { cn } from '@/lib/utils'
 

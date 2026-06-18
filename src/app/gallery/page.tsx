@@ -1,11 +1,11 @@
 'use client'
 
-import { useState, useRef, type ReactNode } from 'react'
+import { useEffect, useState, useRef, type ReactNode } from 'react'
 import { format } from 'date-fns'
 import { Bar, BarChart, XAxis } from 'recharts'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
-import { useAppStore, neonGlow } from '@/stores/useAppStore'
+import { syncGalleryTheme, useAppStore, neonGlow } from '@/stores/useAppStore'
 import { ALL_ACCENT_PRESETS, CONTRAST_KEY } from '@/shared/lib/theme-presets'
 import {
   AlertTriangle, Bell, Bold, Calendar as CalendarIcon, Check,
@@ -15,7 +15,6 @@ import {
   Table2, Trash2, Type, Underline, User, Volume2, X, Zap,
 } from 'lucide-react'
 
-// ── UI components (alphabetical) ──
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/shared/ui/lib/Accordion'
 import { Alert, AlertTitle, AlertDescription } from '@/shared/ui/lib/Alert'
 import {
@@ -31,7 +30,8 @@ import {
   Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList,
   BreadcrumbPage, BreadcrumbSeparator,
 } from '@/shared/ui/lib/Breadcrumb'
-import { Button } from '@/shared/ui/Button/Button'
+import { GalleryAppearance } from './GalleryAppearance'
+import { Button } from '@/shared/ui/lib/Button'
 import { ButtonGroup } from '@/shared/ui/lib/ButtonGroup'
 import { Calendar } from '@/shared/ui/lib/Calendar'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/shared/ui/lib/Card'
@@ -146,7 +146,6 @@ import { ToggleGroup, ToggleGroupItem } from '@/shared/ui/lib/ToggleGroup'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/lib/Tooltip'
 import { Toaster } from '@/shared/ui/lib/Sonner'
 
-// ── Types ──
 import type { LucideIcon } from 'lucide-react'
 
 interface ComponentEntry {
@@ -156,7 +155,6 @@ interface ComponentEntry {
   tags?: string
 }
 
-// ── Registry (alphabetical, 65 components) ──
 const COMPONENTS: ComponentEntry[] = [
   { id: 'accordion', name: 'Accordion', icon: ChevronRight, tags: 'collapse expand' },
   { id: 'alert', name: 'Alert', icon: AlertTriangle, tags: 'warning info error' },
@@ -228,35 +226,71 @@ const COMPONENTS: ComponentEntry[] = [
   { id: 'toggle', name: 'Toggle + ToggleGroup', icon: Bold, tags: 'toggle pressed group' },
   { id: 'tooltip', name: 'Tooltip', icon: Eye, tags: 'hover info hint' },
   { id: 'typography', name: 'Typography', icon: Type, tags: 'heading text paragraph muted lead' },
-  // ── Theme customization ──
-  { id: 'theme-colors', name: 'Kolory akcentu', icon: Palette, tags: 'theme accent color motyw' },
-  { id: 'theme-radius', name: 'Zaokrąglenia', icon: Settings, tags: 'radius border rounded corners' },
-  { id: 'theme-mode', name: 'Tryb ciemny/jasny', icon: Eye, tags: 'dark light mode theme' },
-  { id: 'theme-fonts', name: 'Czcionki', icon: Type, tags: 'font typography family tekst' },
+  { id: 'theme-colors', name: 'Accent colors', icon: Palette, tags: 'theme accent color' },
+  { id: 'theme-radius', name: 'Corner radius', icon: Settings, tags: 'radius border rounded corners' },
+  { id: 'theme-mode', name: 'Dark / light mode', icon: Eye, tags: 'dark light mode theme' },
+  { id: 'theme-fonts', name: 'Fonts', icon: Type, tags: 'font typography family text' },
 ]
 
-// ── Chart data ──
 const chartConfig = {
-  value: { label: 'Wartość', color: 'var(--accent)' },
+  value: { label: 'Value', color: 'var(--accent)' },
 } satisfies ChartConfig
 
 const chartData = [
-  { name: 'Sty', value: 186 }, { name: 'Lut', value: 305 },
-  { name: 'Mar', value: 237 }, { name: 'Kwi', value: 73 },
-  { name: 'Maj', value: 209 }, { name: 'Cze', value: 214 },
+  { name: 'Jan', value: 186 }, { name: 'Feb', value: 305 },
+  { name: 'Mar', value: 237 }, { name: 'Apr', value: 73 },
+  { name: 'May', value: 209 }, { name: 'Jun', value: 214 },
 ]
 
-/* ═══════════════════════════════════════════════════════════════
-   Component Gallery — Source of Truth
-   65 komponentów. Sidebar + preview.
-   Renderuje demo TYLKO wybranego komponentu.
-   ═══════════════════════════════════════════════════════════════ */
-
 export default function GalleryPage() {
-  // ── State ──
+  useEffect(() => {
+    document.documentElement.setAttribute('data-gallery', 'components')
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual'
+    }
+    syncGalleryTheme()
+    const resetScroll = () => {
+      window.scrollTo(0, 0)
+      document
+        .querySelectorAll<HTMLElement>('.gallery-workbench [data-slot="scroll-area-viewport"]')
+        .forEach((viewport) => viewport.scrollTo(0, 0))
+    }
+    resetScroll()
+    const frame = requestAnimationFrame(resetScroll)
+    const timers = [100, 500, 1200].map((delay) => window.setTimeout(resetScroll, delay))
+
+    return () => {
+      cancelAnimationFrame(frame)
+      timers.forEach((timer) => window.clearTimeout(timer))
+      const root = document.documentElement
+      root.removeAttribute('data-gallery')
+      root.removeAttribute('data-neon')
+      root.removeAttribute('data-transparent')
+      root.setAttribute('data-theme', 'light')
+      root.style.colorScheme = 'light'
+      ;[
+        '--accent',
+        '--accent-text',
+        '--accent-hover',
+        '--accent-bright',
+        '--accent-dim',
+        '--accent-glow',
+        '--accent-subtle',
+        '--accent-border',
+        '--accent-fg',
+        '--primary',
+        '--primary-foreground',
+        '--ring',
+        '--radius',
+        '--font-sans',
+        '--ui-scale',
+        '--neon',
+      ].forEach((token) => root.style.removeProperty(token))
+    }
+  }, [])
+
   const [search, setSearch] = useState('')
 
-  // Demo-specific state
   const [switchA, setSwitchA] = useState(true)
   const [switchB, setSwitchB] = useState(false)
   const [slider1, setSlider1] = useState([50])
@@ -276,34 +310,30 @@ export default function GalleryPage() {
   const [toggleBold, setToggleBold] = useState(false)
   const [toggleValues, setToggleValues] = useState<string[]>(['bold'])
 
-  // Theme store (reactive — for theme customization demos)
   const { accentColor, setAccentColor, neonLevel, theme, toggleTheme } = useAppStore()
 
-  // ── Filter ──
   const query = search.toLowerCase()
   const filtered = COMPONENTS.filter((c) => {
     const hay = `${c.name} ${c.tags ?? ''}`.toLowerCase()
     return hay.includes(query)
   })
 
-  // ── Demo renderer ──
   function renderDemo(id: string): ReactNode {
     switch (id) {
-      // ─── A ───
       case 'accordion':
         return (
           <Accordion type="single" collapsible>
             <AccordionItem value="a1">
-              <AccordionTrigger>Czym jest MangaShift?</AccordionTrigger>
-              <AccordionContent>Aplikacja desktopowa do OCR, tłumaczeń i TTS — Tauri + React.</AccordionContent>
+              <AccordionTrigger>What is MangaShift?</AccordionTrigger>
+              <AccordionContent>A desktop app for OCR, translation and TTS - Tauri + React.</AccordionContent>
             </AccordionItem>
             <AccordionItem value="a2">
-              <AccordionTrigger>Jak działa OCR?</AccordionTrigger>
-              <AccordionContent>Rozpoznawanie tekstu z ekranu za pomocą OneOCR.</AccordionContent>
+              <AccordionTrigger>How does OCR work?</AccordionTrigger>
+              <AccordionContent>Text recognition from the screen using OneOCR.</AccordionContent>
             </AccordionItem>
             <AccordionItem value="a3">
-              <AccordionTrigger>Obsługiwane języki</AccordionTrigger>
-              <AccordionContent>100+ języków tłumaczeń, 60+ głosów TTS.</AccordionContent>
+              <AccordionTrigger>Supported languages</AccordionTrigger>
+              <AccordionContent>100+ translation languages and 60+ TTS voices.</AccordionContent>
             </AccordionItem>
           </Accordion>
         )
@@ -312,12 +342,12 @@ export default function GalleryPage() {
         return (
           <div className="space-y-3">
             <Alert>
-              <AlertTitle>Informacja</AlertTitle>
-              <AlertDescription>To jest domyślny alert z informacją.</AlertDescription>
+              <AlertTitle>Information</AlertTitle>
+              <AlertDescription>This is the default information alert.</AlertDescription>
             </Alert>
             <Alert variant="destructive">
-              <AlertTitle>Błąd!</AlertTitle>
-              <AlertDescription>Coś poszło nie tak. Spróbuj ponownie.</AlertDescription>
+              <AlertTitle>Error!</AlertTitle>
+              <AlertDescription>Something went wrong. Try again.</AlertDescription>
             </Alert>
           </div>
         )
@@ -326,16 +356,16 @@ export default function GalleryPage() {
         return (
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button variant="destructive" size="sm"><Trash2 size={14} /> Usuń profil</Button>
+              <Button variant="destructive" size="sm"><Trash2 size={14} /> Delete profile</Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Czy na pewno chcesz usunąć?</AlertDialogTitle>
-                <AlertDialogDescription>Ta operacja jest nieodwracalna.</AlertDialogDescription>
+                <AlertDialogTitle>Are you sure you want to delete this?</AlertDialogTitle>
+                <AlertDialogDescription>This operation cannot be undone.</AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Anuluj</AlertDialogCancel>
-                <AlertDialogAction>Usuń</AlertDialogAction>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction>Delete</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
@@ -385,7 +415,6 @@ export default function GalleryPage() {
           </div>
         )
 
-      // ─── B ───
       case 'badge':
         return (
           <div className="flex flex-wrap gap-2">
@@ -402,18 +431,18 @@ export default function GalleryPage() {
             <div>
               <Label className="text-xs text-muted-foreground mb-2 block">Horizontal</Label>
               <ButtonGroup>
-                <Button variant="outline" size="sm">Lewo</Button>
-                <Button variant="outline" size="sm">Środek</Button>
-                <Button variant="outline" size="sm">Prawo</Button>
+                <Button variant="outline" size="sm">Left</Button>
+                <Button variant="outline" size="sm">Center</Button>
+                <Button variant="outline" size="sm">Right</Button>
               </ButtonGroup>
             </div>
             <Separator />
             <div>
               <Label className="text-xs text-muted-foreground mb-2 block">Vertical</Label>
               <ButtonGroup orientation="vertical">
-                <Button variant="outline" size="sm">Góra</Button>
-                <Button variant="outline" size="sm">Środek</Button>
-                <Button variant="outline" size="sm">Dół</Button>
+                <Button variant="outline" size="sm">Top</Button>
+                <Button variant="outline" size="sm">Middle</Button>
+                <Button variant="outline" size="sm">Bottom</Button>
               </ButtonGroup>
             </div>
           </div>
@@ -423,11 +452,11 @@ export default function GalleryPage() {
         return (
           <Breadcrumb>
             <BreadcrumbList>
-              <BreadcrumbItem><BreadcrumbLink href="#">Strona główna</BreadcrumbLink></BreadcrumbItem>
+              <BreadcrumbItem><BreadcrumbLink href="#">Home</BreadcrumbLink></BreadcrumbItem>
               <BreadcrumbSeparator />
-              <BreadcrumbItem><BreadcrumbLink href="#">Ustawienia</BreadcrumbLink></BreadcrumbItem>
+              <BreadcrumbItem><BreadcrumbLink href="#">Settings</BreadcrumbLink></BreadcrumbItem>
               <BreadcrumbSeparator />
-              <BreadcrumbItem><BreadcrumbPage>Wygląd</BreadcrumbPage></BreadcrumbItem>
+              <BreadcrumbItem><BreadcrumbPage>Appearance</BreadcrumbPage></BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
         )
@@ -436,7 +465,7 @@ export default function GalleryPage() {
         return (
           <div className="space-y-4">
             <div>
-              <Label className="text-xs text-muted-foreground mb-2 block">Warianty</Label>
+              <Label className="text-xs text-muted-foreground mb-2 block">Variants</Label>
               <div className="flex flex-wrap gap-2">
                 <Button variant="default">Default</Button>
                 <Button variant="accent">Accent</Button>
@@ -449,7 +478,7 @@ export default function GalleryPage() {
             </div>
             <Separator />
             <div>
-              <Label className="text-xs text-muted-foreground mb-2 block">Rozmiary</Label>
+              <Label className="text-xs text-muted-foreground mb-2 block">Sizes</Label>
               <div className="flex flex-wrap items-center gap-2">
                 <Button size="lg"><Plus size={16} /> Large</Button>
                 <Button>Default</Button>
@@ -459,7 +488,7 @@ export default function GalleryPage() {
             </div>
             <Separator />
             <div>
-              <Label className="text-xs text-muted-foreground mb-2 block">Ikony</Label>
+              <Label className="text-xs text-muted-foreground mb-2 block">Icons</Label>
               <div className="flex items-center gap-2">
                 <Button size="icon-lg" variant="outline"><Heart /></Button>
                 <Button size="icon" variant="accent"><Star /></Button>
@@ -469,18 +498,17 @@ export default function GalleryPage() {
             </div>
             <Separator />
             <div>
-              <Label className="text-xs text-muted-foreground mb-2 block">Z ikonami + Disabled</Label>
+              <Label className="text-xs text-muted-foreground mb-2 block">With icons + disabled</Label>
               <div className="flex flex-wrap gap-2">
-                <Button variant="accent"><Download size={16} /> Pobierz</Button>
-                <Button variant="outline"><Copy size={16} /> Kopiuj</Button>
-                <Button variant="destructive"><Trash2 size={16} /> Usuń</Button>
+                <Button variant="accent"><Download size={16} /> Download</Button>
+                <Button variant="outline"><Copy size={16} /> Copy</Button>
+                <Button variant="destructive"><Trash2 size={16} /> Delete</Button>
                 <Button disabled>Disabled</Button>
               </div>
             </div>
           </div>
         )
 
-      // ─── C ───
       case 'calendar':
         return (
           <Calendar
@@ -495,15 +523,15 @@ export default function GalleryPage() {
         return (
           <Card className="max-w-sm">
             <CardHeader>
-              <CardTitle>Tytuł karty</CardTitle>
-              <CardDescription>Opis karty — krótki summary.</CardDescription>
+              <CardTitle>Card title</CardTitle>
+              <CardDescription>Card description - short summary.</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground">Treść karty z dowolnymi komponentami.</p>
+              <p className="text-sm text-muted-foreground">Card content with any components.</p>
             </CardContent>
             <CardFooter className="flex gap-2">
-              <Button variant="outline" size="sm">Anuluj</Button>
-              <Button variant="accent" size="sm">Zapisz</Button>
+              <Button variant="outline" size="sm">Cancel</Button>
+              <Button variant="accent" size="sm">Save</Button>
             </CardFooter>
           </Card>
         )
@@ -543,11 +571,11 @@ export default function GalleryPage() {
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <Checkbox id="g-cb-a" checked={checkboxA} onCheckedChange={(v) => setCheckboxA(v as boolean)} />
-              <Label htmlFor="g-cb-a" className="text-sm">Zaznaczony</Label>
+              <Label htmlFor="g-cb-a" className="text-sm">Checked</Label>
             </div>
             <div className="flex items-center gap-2">
               <Checkbox id="g-cb-b" checked={checkboxB} onCheckedChange={(v) => setCheckboxB(v as boolean)} />
-              <Label htmlFor="g-cb-b" className="text-sm">Niezaznaczony</Label>
+              <Label htmlFor="g-cb-b" className="text-sm">Unchecked</Label>
             </div>
             <div className="flex items-center gap-2">
               <Checkbox disabled checked />
@@ -560,11 +588,11 @@ export default function GalleryPage() {
         return (
           <Collapsible open={collapsibleOpen} onOpenChange={setCollapsibleOpen}>
             <CollapsibleTrigger asChild>
-              <Button variant="outline" size="sm">{collapsibleOpen ? 'Zwiń' : 'Rozwiń'}</Button>
+              <Button variant="outline" size="sm">{collapsibleOpen ? 'Collapse' : 'Expand'}</Button>
             </CollapsibleTrigger>
             <CollapsibleContent>
               <div className="mt-2 rounded-lg border border-[var(--glass-border)] p-3 text-sm text-muted-foreground">
-                Ukryta treść. Może zawierać dowolne komponenty.
+                Hidden content. It can contain any components.
               </div>
             </CollapsibleContent>
           </Collapsible>
@@ -574,16 +602,16 @@ export default function GalleryPage() {
         return (
           <Combobox
             options={[
-              { value: 'pl', label: 'Polski' },
+              { value: 'pl', label: 'Polish' },
               { value: 'en', label: 'English' },
               { value: 'de', label: 'Deutsch' },
-              { value: 'ja', label: '日本語' },
-              { value: 'ko', label: '한국어' },
+              { value: 'ja', label: 'Japanese' },
+              { value: 'ko', label: 'Korean' },
             ]}
             value={comboVal}
             onValueChange={setComboVal}
-            placeholder="Wybierz język..."
-            searchPlaceholder="Szukaj języka..."
+            placeholder="Choose language..."
+            searchPlaceholder="Search language..."
           />
         )
 
@@ -591,31 +619,31 @@ export default function GalleryPage() {
         return (
           <SlidingCombobox
             options={[
-              { value: 'pl', label: 'Polski' },
+              { value: 'pl', label: 'Polish' },
               { value: 'en', label: 'English' },
               { value: 'de', label: 'Deutsch' },
-              { value: 'ja', label: '日本語' },
-              { value: 'ko', label: '한국어' },
-              { value: 'fr', label: 'Français' },
-              { value: 'es', label: 'Español' },
+              { value: 'ja', label: 'Japanese' },
+              { value: 'ko', label: 'Korean' },
+              { value: 'fr', label: 'French' },
+              { value: 'es', label: 'Spanish' },
             ]}
             value={comboVal}
             onValueChange={setComboVal}
-            placeholder="Wybierz język..."
-            searchPlaceholder="Szukaj języka..."
+            placeholder="Choose language..."
+            searchPlaceholder="Search language..."
           />
         )
 
       case 'command':
         return (
           <Command className="rounded-lg border border-[var(--glass-border)]">
-            <CommandInput placeholder="Szukaj..." />
+            <CommandInput placeholder="Search..." />
             <CommandList>
-              <CommandEmpty>Brak wyników.</CommandEmpty>
-              <CommandGroup heading="Sugestie">
-                <CommandItem>Ustawienia</CommandItem>
-                <CommandItem>Profil OCR</CommandItem>
-                <CommandItem>Tłumaczenie</CommandItem>
+              <CommandEmpty>No results.</CommandEmpty>
+              <CommandGroup heading="Suggestions">
+                <CommandItem>Settings</CommandItem>
+                <CommandItem>OCR profile</CommandItem>
+                <CommandItem>Translation</CommandItem>
               </CommandGroup>
             </CommandList>
           </Command>
@@ -624,19 +652,19 @@ export default function GalleryPage() {
       case 'sliding-command':
         return (
           <SlidingCommand className="rounded-lg border border-[var(--glass-border)]">
-            <SlidingCommandInput placeholder="Szukaj..." />
+            <SlidingCommandInput placeholder="Search..." />
             <SlidingCommandList>
-              <SlidingCommandEmpty>Brak wyników.</SlidingCommandEmpty>
-              <SlidingCommandGroup heading="Sugestie">
-                <SlidingCommandItem>Ustawienia</SlidingCommandItem>
-                <SlidingCommandItem>Profil OCR</SlidingCommandItem>
-                <SlidingCommandItem>Tłumaczenie</SlidingCommandItem>
-                <SlidingCommandItem>Eksport PDF</SlidingCommandItem>
+              <SlidingCommandEmpty>No results.</SlidingCommandEmpty>
+              <SlidingCommandGroup heading="Suggestions">
+                <SlidingCommandItem>Settings</SlidingCommandItem>
+                <SlidingCommandItem>OCR profile</SlidingCommandItem>
+                <SlidingCommandItem>Translation</SlidingCommandItem>
+                <SlidingCommandItem>Export PDF</SlidingCommandItem>
               </SlidingCommandGroup>
               <SlidingCommandSeparator />
-              <SlidingCommandGroup heading="Narzędzia">
-                <SlidingCommandItem>OCR <SlidingCommandShortcut>⌘O</SlidingCommandShortcut></SlidingCommandItem>
-                <SlidingCommandItem>TTS <SlidingCommandShortcut>⌘T</SlidingCommandShortcut></SlidingCommandItem>
+              <SlidingCommandGroup heading="Tools">
+                <SlidingCommandItem>OCR <SlidingCommandShortcut>Ctrl+O</SlidingCommandShortcut></SlidingCommandItem>
+                <SlidingCommandItem>TTS <SlidingCommandShortcut>Ctrl+T</SlidingCommandShortcut></SlidingCommandItem>
               </SlidingCommandGroup>
             </SlidingCommandList>
           </SlidingCommand>
@@ -646,13 +674,13 @@ export default function GalleryPage() {
         return (
           <ContextMenu>
             <ContextMenuTrigger className="flex h-24 items-center justify-center rounded-lg border border-dashed border-[var(--glass-border)] text-sm text-muted-foreground">
-              Kliknij prawym przyciskiem myszy
+              Right-click here
             </ContextMenuTrigger>
             <ContextMenuContent>
-              <ContextMenuItem>Kopiuj</ContextMenuItem>
-              <ContextMenuItem>Wklej</ContextMenuItem>
+              <ContextMenuItem>Copy</ContextMenuItem>
+              <ContextMenuItem>Paste</ContextMenuItem>
               <ContextMenuSeparator />
-              <ContextMenuItem className="text-destructive">Usuń</ContextMenuItem>
+              <ContextMenuItem className="text-destructive">Delete</ContextMenuItem>
             </ContextMenuContent>
           </ContextMenu>
         )
@@ -661,19 +689,18 @@ export default function GalleryPage() {
         return (
           <SlidingContextMenu>
             <SlidingContextMenuTrigger className="flex h-24 items-center justify-center rounded-lg border border-dashed border-[var(--glass-border)] text-sm text-muted-foreground">
-              Kliknij prawym przyciskiem myszy
+              Right-click here
             </SlidingContextMenuTrigger>
             <SlidingContextMenuContent>
-              <SlidingContextMenuItem>Kopiuj</SlidingContextMenuItem>
-              <SlidingContextMenuItem>Wklej</SlidingContextMenuItem>
-              <SlidingContextMenuItem>Duplikuj</SlidingContextMenuItem>
+              <SlidingContextMenuItem>Copy</SlidingContextMenuItem>
+              <SlidingContextMenuItem>Paste</SlidingContextMenuItem>
+              <SlidingContextMenuItem>Duplicate</SlidingContextMenuItem>
               <SlidingContextMenuSeparator />
-              <SlidingContextMenuItem className="text-destructive">Usuń</SlidingContextMenuItem>
+              <SlidingContextMenuItem className="text-destructive">Delete</SlidingContextMenuItem>
             </SlidingContextMenuContent>
           </SlidingContextMenu>
         )
 
-      // ─── D ───
       case 'date-picker':
         return (
           <Popover>
@@ -682,7 +709,7 @@ export default function GalleryPage() {
                 className={`inline-flex h-8 w-[240px] items-center justify-start gap-2 rounded-lg border border-[var(--btn-border)] bg-[var(--btn-bg)] px-3 text-sm font-normal transition-colors hover:bg-[var(--btn-hover)] ${!calendarDate ? 'text-muted-foreground' : 'text-foreground'}`}
               >
                 <CalendarIcon className="size-4" />
-                {calendarDate ? format(calendarDate, 'PPP') : 'Wybierz datę...'}
+                {calendarDate ? format(calendarDate, 'PPP') : 'Pick a date...'}
               </button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
@@ -695,19 +722,19 @@ export default function GalleryPage() {
         return (
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="outline">Otwórz dialog</Button>
+              <Button variant="outline">Open dialog</Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Przykładowy dialog</DialogTitle>
-                <DialogDescription>Dialog z formularzem.</DialogDescription>
+                <DialogTitle>Example dialog</DialogTitle>
+                <DialogDescription>Dialog with a form.</DialogDescription>
               </DialogHeader>
-              <FormField label="Nazwa">
-                <Input placeholder="Wpisz nazwę..." />
+              <FormField label="Name">
+                <Input placeholder="Enter name..." />
               </FormField>
               <DialogFooter>
-                <Button variant="outline">Anuluj</Button>
-                <Button variant="accent">Zapisz</Button>
+                <Button variant="outline">Cancel</Button>
+                <Button variant="accent">Save</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
@@ -717,16 +744,16 @@ export default function GalleryPage() {
         return (
           <Drawer>
             <DrawerTrigger asChild>
-              <Button variant="outline" size="sm">Otwórz drawer</Button>
+              <Button variant="outline" size="sm">Open drawer</Button>
             </DrawerTrigger>
             <DrawerContent>
               <DrawerHeader>
                 <DrawerTitle>Drawer</DrawerTitle>
-                <DrawerDescription>Panel wysuwany od dołu.</DrawerDescription>
+                <DrawerDescription>Panel sliding up from the bottom.</DrawerDescription>
               </DrawerHeader>
-              <div className="p-4 text-sm text-muted-foreground">Treść drawera.</div>
+              <div className="p-4 text-sm text-muted-foreground">Drawer content.</div>
               <DrawerFooter>
-                <DrawerClose asChild><Button variant="outline">Zamknij</Button></DrawerClose>
+                <DrawerClose asChild><Button variant="outline">Close</Button></DrawerClose>
               </DrawerFooter>
             </DrawerContent>
           </Drawer>
@@ -739,12 +766,12 @@ export default function GalleryPage() {
               <Button variant="outline" size="sm"><Menu size={14} /> Menu</Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuLabel>Akcje</DropdownMenuLabel>
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Edytuj</DropdownMenuItem>
-              <DropdownMenuItem>Kopiuj</DropdownMenuItem>
+              <DropdownMenuItem>Edit</DropdownMenuItem>
+              <DropdownMenuItem>Copy</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-destructive">Usuń</DropdownMenuItem>
+              <DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         )
@@ -756,41 +783,39 @@ export default function GalleryPage() {
               <Button variant="outline" size="sm"><Menu size={14} /> Sliding menu</Button>
             </SlidingDropdownMenuTrigger>
             <SlidingDropdownMenuContent>
-              <SlidingDropdownMenuLabel>Akcje</SlidingDropdownMenuLabel>
+              <SlidingDropdownMenuLabel>Actions</SlidingDropdownMenuLabel>
               <SlidingDropdownMenuSeparator />
-              <SlidingDropdownMenuItem>Edytuj</SlidingDropdownMenuItem>
-              <SlidingDropdownMenuItem>Kopiuj</SlidingDropdownMenuItem>
-              <SlidingDropdownMenuItem>Duplikuj</SlidingDropdownMenuItem>
+              <SlidingDropdownMenuItem>Edit</SlidingDropdownMenuItem>
+              <SlidingDropdownMenuItem>Copy</SlidingDropdownMenuItem>
+              <SlidingDropdownMenuItem>Duplicate</SlidingDropdownMenuItem>
               <SlidingDropdownMenuSeparator />
-              <SlidingDropdownMenuItem className="text-destructive">Usuń</SlidingDropdownMenuItem>
+              <SlidingDropdownMenuItem className="text-destructive">Delete</SlidingDropdownMenuItem>
             </SlidingDropdownMenuContent>
           </SlidingDropdownMenu>
         )
 
-      // ─── E ───
       case 'empty-state':
         return (
           <div className="flex gap-4">
-            <div className="flex-1"><EmptyState message="Brak danych" size="sm" /></div>
-            <div className="flex-1"><EmptyState message="Lista pusta" size="md" /></div>
+            <div className="flex-1"><EmptyState message="No data" size="sm" /></div>
+            <div className="flex-1"><EmptyState message="Empty list" size="md" /></div>
           </div>
         )
 
-      // ─── F ───
       case 'form':
         return (
           <div className="space-y-3">
             <p className="text-xs text-muted-foreground">
-              Integracja <code className="bg-muted px-1 py-0.5 rounded">react-hook-form</code> + <code className="bg-muted px-1 py-0.5 rounded">zod</code>.
+              Integration with <code className="bg-muted px-1 py-0.5 rounded">react-hook-form</code> + <code className="bg-muted px-1 py-0.5 rounded">zod</code>.
             </p>
             <div className="space-y-2 rounded-lg border border-[var(--glass-border)] p-4">
-              <FormField label="Imię">
-                <Input placeholder="Jan" />
+              <FormField label="Name">
+                <Input placeholder="Alex" />
               </FormField>
               <FormField label="Email">
                 <Input type="email" placeholder="jan@example.com" />
               </FormField>
-              <Button variant="accent" size="sm" className="mt-2">Wyślij</Button>
+              <Button variant="accent" size="sm" className="mt-2">Submit</Button>
             </div>
           </div>
         )
@@ -801,13 +826,12 @@ export default function GalleryPage() {
             <FormField label="Email" icon={Search}>
               <Input placeholder="email@example.com" />
             </FormField>
-            <FormField label="Opis">
-              <Textarea placeholder="Krótki opis..." rows={2} />
+            <FormField label="Description">
+              <Textarea placeholder="Short description..." rows={2} />
             </FormField>
           </div>
         )
 
-      // ─── H ───
       case 'hover-card':
         return (
           <HoverCard>
@@ -819,19 +843,18 @@ export default function GalleryPage() {
                 <Avatar><AvatarFallback>ER</AvatarFallback></Avatar>
                 <div>
                   <p className="text-sm font-medium">MangaShift</p>
-                  <p className="text-xs text-muted-foreground">OCR • TTS • Tłumaczenia</p>
+                  <p className="text-xs text-muted-foreground">OCR - TTS - Translation</p>
                 </div>
               </div>
             </HoverCardContent>
           </HoverCard>
         )
 
-      // ─── I ───
       case 'input':
         return (
           <div className="space-y-2">
-            <Input placeholder="Wpisz tekst..." value={inputVal} onChange={(e) => setInputVal(e.target.value)} />
-            <Input placeholder="Disabled" disabled value="Stała wartość" />
+            <Input placeholder="Enter text..." value={inputVal} onChange={(e) => setInputVal(e.target.value)} />
+            <Input placeholder="Disabled" disabled value="Fixed value" />
           </div>
         )
 
@@ -852,7 +875,6 @@ export default function GalleryPage() {
           </InputOTP>
         )
 
-      // ─── K ───
       case 'kbd':
         return (
           <div className="flex flex-wrap items-center gap-3">
@@ -864,22 +886,21 @@ export default function GalleryPage() {
           </div>
         )
 
-      // ─── L ───
       case 'label':
         return (
           <div className="space-y-2">
-            <Label>Domyślna etykieta</Label>
-            <Label className="text-muted-foreground">Wyciszona</Label>
-            <Label className="text-xs text-[var(--accent)]">Akcentowa</Label>
+            <Label>Default label</Label>
+            <Label className="text-muted-foreground">Muted</Label>
+            <Label className="text-xs text-[var(--accent)]">Accent</Label>
           </div>
         )
 
       case 'list-item':
         return (
           <div className="space-y-1">
-            <ListItem title="Z Switch" subtitle="Opis" switchProps={{ checked: switchA, onCheckedChange: setSwitchA }} />
-            <ListItem title="Zaznaczalny" subtitle="Kliknij" selectable selected={selectedItem === 1} onClick={() => setSelectedItem(1)} badge="Aktywny" />
-            <ListItem title="Z akcją" subtitle="Usuwanie" selectable selected={selectedItem === 2} onClick={() => setSelectedItem(2)} onDelete={() => {}} actionIcon={Copy} onAction={() => {}} />
+            <ListItem title="With switch" subtitle="Description" switchProps={{ checked: switchA, onCheckedChange: setSwitchA }} />
+            <ListItem title="Selectable" subtitle="Click" selectable selected={selectedItem === 1} onClick={() => setSelectedItem(1)} badge="Active" />
+            <ListItem title="With action" subtitle="Deletion" selectable selected={selectedItem === 2} onClick={() => setSelectedItem(2)} onDelete={() => {}} actionIcon={Copy} onAction={() => {}} />
           </div>
         )
 
@@ -893,41 +914,39 @@ export default function GalleryPage() {
           </div>
         )
 
-      // ─── M ───
       case 'menubar':
         return (
           <Menubar>
             <MenubarMenu>
-              <MenubarTrigger>Plik</MenubarTrigger>
+              <MenubarTrigger>File</MenubarTrigger>
               <MenubarContent>
-                <MenubarItem>Nowy <MenubarShortcut>Ctrl+N</MenubarShortcut></MenubarItem>
-                <MenubarItem>Otwórz <MenubarShortcut>Ctrl+O</MenubarShortcut></MenubarItem>
+                <MenubarItem>New <MenubarShortcut>Ctrl+N</MenubarShortcut></MenubarItem>
+                <MenubarItem>Open <MenubarShortcut>Ctrl+O</MenubarShortcut></MenubarItem>
                 <MenubarSeparator />
-                <MenubarItem>Zapisz <MenubarShortcut>Ctrl+S</MenubarShortcut></MenubarItem>
+                <MenubarItem>Save <MenubarShortcut>Ctrl+S</MenubarShortcut></MenubarItem>
               </MenubarContent>
             </MenubarMenu>
             <MenubarMenu>
-              <MenubarTrigger>Edycja</MenubarTrigger>
+              <MenubarTrigger>Edit</MenubarTrigger>
               <MenubarContent>
-                <MenubarItem>Cofnij <MenubarShortcut>Ctrl+Z</MenubarShortcut></MenubarItem>
-                <MenubarItem>Ponów <MenubarShortcut>Ctrl+Y</MenubarShortcut></MenubarItem>
+                <MenubarItem>Undo <MenubarShortcut>Ctrl+Z</MenubarShortcut></MenubarItem>
+                <MenubarItem>Redo <MenubarShortcut>Ctrl+Y</MenubarShortcut></MenubarItem>
               </MenubarContent>
             </MenubarMenu>
           </Menubar>
         )
 
-      // ─── N ───
       case 'navigation-menu':
         return (
           <div className="pb-14">
             <NavigationMenu viewport={false}>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>Dokumentacja</NavigationMenuTrigger>
+                  <NavigationMenuTrigger>Docs</NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <div className="p-4 w-48">
                       <p className="text-sm font-medium">Quick links</p>
-                      <p className="text-xs text-muted-foreground mt-1">Przewodniki i API reference.</p>
+                      <p className="text-xs text-muted-foreground mt-1">Guides and API reference.</p>
                     </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
@@ -947,18 +966,17 @@ export default function GalleryPage() {
               <div className="absolute -bottom-8 -right-8 h-28 w-28 rounded-full opacity-25 blur-[35px]" style={{ background: 'var(--accent-bright)' }} />
             </div>
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-xs text-muted-foreground glass px-3 py-1.5 rounded-lg">Dekoracyjne kule neonowe — kolor z akcentu</span>
+              <span className="text-xs text-muted-foreground glass px-3 py-1.5 rounded-lg">Decorative neon orbs - accent-driven color</span>
             </div>
           </div>
         )
 
-      // ─── P ───
       case 'page-header':
         return (
           <div className="space-y-3">
-            <PageHeader icon={Star} title="Przykładowy nagłówek" description="Z opisem i ikoną" />
+            <PageHeader icon={Star} title="Example header" description="With description and icon" />
             <Separator />
-            <PageHeader icon={Zap} title="Bez opisu" />
+            <PageHeader icon={Zap} title="No description" />
           </div>
         )
 
@@ -983,7 +1001,7 @@ export default function GalleryPage() {
               <Button variant="outline" size="sm">Popover</Button>
             </PopoverTrigger>
             <PopoverContent className="w-64">
-              <p className="text-sm text-muted-foreground">Treść popover.</p>
+              <p className="text-sm text-muted-foreground">Popover content.</p>
             </PopoverContent>
           </Popover>
         )
@@ -1002,13 +1020,12 @@ export default function GalleryPage() {
           </div>
         )
 
-      // ─── R ───
       case 'radio-group':
         return (
           <RadioGroup value={radioVal} onValueChange={setRadioVal}>
-            <div className="flex items-center gap-2"><RadioGroupItem value="option-1" id="g-r1" /><Label htmlFor="g-r1" className="text-sm">Opcja 1</Label></div>
-            <div className="flex items-center gap-2"><RadioGroupItem value="option-2" id="g-r2" /><Label htmlFor="g-r2" className="text-sm">Opcja 2</Label></div>
-            <div className="flex items-center gap-2"><RadioGroupItem value="option-3" id="g-r3" /><Label htmlFor="g-r3" className="text-sm">Opcja 3</Label></div>
+            <div className="flex items-center gap-2"><RadioGroupItem value="option-1" id="g-r1" /><Label htmlFor="g-r1" className="text-sm">Option 1</Label></div>
+            <div className="flex items-center gap-2"><RadioGroupItem value="option-2" id="g-r2" /><Label htmlFor="g-r2" className="text-sm">Option 2</Label></div>
+            <div className="flex items-center gap-2"><RadioGroupItem value="option-3" id="g-r3" /><Label htmlFor="g-r3" className="text-sm">Option 3</Label></div>
           </RadioGroup>
         )
 
@@ -1017,23 +1034,22 @@ export default function GalleryPage() {
           <div className="rounded-lg border border-[var(--glass-border)] overflow-hidden">
             <ResizablePanelGroup className="min-h-[120px]">
               <ResizablePanel defaultSize={50} minSize={20}>
-                <div className="flex h-full items-center justify-center p-4"><span className="text-sm text-muted-foreground">Lewy</span></div>
+                <div className="flex h-full items-center justify-center p-4"><span className="text-sm text-muted-foreground">Left</span></div>
               </ResizablePanel>
               <ResizableHandle withHandle />
               <ResizablePanel defaultSize={50} minSize={20}>
-                <div className="flex h-full items-center justify-center p-4"><span className="text-sm text-muted-foreground">Prawy</span></div>
+                <div className="flex h-full items-center justify-center p-4"><span className="text-sm text-muted-foreground">Right</span></div>
               </ResizablePanel>
             </ResizablePanelGroup>
           </div>
         )
 
-      // ─── S ───
       case 'scroll-area':
         return (
           <ScrollArea className="h-48 rounded-lg border border-[var(--glass-border)] p-3">
             <div className="space-y-2">
               {Array.from({ length: 20 }, (_, i) => (
-                <div key={i} className="rounded-md bg-[var(--overlay)] px-3 py-2 text-sm text-muted-foreground">Element {i + 1}</div>
+                <div key={i} className="rounded-md bg-[var(--overlay)] px-3 py-2 text-sm text-muted-foreground">Item {i + 1}</div>
               ))}
             </div>
           </ScrollArea>
@@ -1042,12 +1058,12 @@ export default function GalleryPage() {
       case 'section-card':
         return (
           <div className="space-y-3">
-            <SectionCard icon={Star} title="Z akcentem i glow" accentLine glow>
+            <SectionCard icon={Star} title="With accent and glow" accentLine glow>
               <SectionContent spacing="tight">
                 <p className="text-sm text-muted-foreground">accentLine + glow</p>
               </SectionContent>
             </SectionCard>
-            <SectionCard title="Bez ikony, bez akcentu" accentLine={false} glow={false}>
+            <SectionCard title="No icon, no accent" accentLine={false} glow={false}>
               <SectionContent spacing="tight">
                 <p className="text-sm text-muted-foreground">accentLine=false, glow=false</p>
               </SectionContent>
@@ -1060,13 +1076,13 @@ export default function GalleryPage() {
           <SlidingSelect
             value={selectVal}
             onValueChange={setSelectVal}
-            placeholder="Wybierz..."
+            placeholder="Choose..."
             ariaLabel="Demo select"
             triggerClassName="w-[200px]"
             items={[
-              { value: 'option-1', label: 'Opcja 1' },
-              { value: 'option-2', label: 'Opcja 2' },
-              { value: 'option-3', label: 'Opcja 3' },
+              { value: 'option-1', label: 'Option 1' },
+              { value: 'option-2', label: 'Option 2' },
+              { value: 'option-3', label: 'Option 3' },
             ]}
           />
         )
@@ -1074,13 +1090,13 @@ export default function GalleryPage() {
       case 'separator':
         return (
           <div className="space-y-2">
-            <p className="text-sm text-muted-foreground">Powyżej</p>
+            <p className="text-sm text-muted-foreground">Above</p>
             <Separator />
-            <p className="text-sm text-muted-foreground">Poniżej</p>
+            <p className="text-sm text-muted-foreground">Below</p>
             <div className="flex items-center gap-3 h-6">
-              <span className="text-sm">Lewa</span>
+              <span className="text-sm">Left</span>
               <Separator orientation="vertical" />
-              <span className="text-sm">Prawa</span>
+              <span className="text-sm">Right</span>
             </div>
           </div>
         )
@@ -1088,8 +1104,8 @@ export default function GalleryPage() {
       case 'setting-row':
         return (
           <div className="space-y-1">
-            <SettingRow label="Autozapis" icon={Settings} description="Zapisuje po zmianie" checked={switchA} onCheckedChange={setSwitchA} />
-            <SettingRow label="Powiadomienia" icon={Bell} checked={switchB} onCheckedChange={setSwitchB} />
+            <SettingRow label="Autosave" icon={Settings} description="Saves after changes" checked={switchA} onCheckedChange={setSwitchA} />
+            <SettingRow label="Notifications" icon={Bell} checked={switchB} onCheckedChange={setSwitchB} />
           </div>
         )
 
@@ -1097,15 +1113,15 @@ export default function GalleryPage() {
         return (
           <div className="flex gap-2">
             <Sheet>
-              <SheetTrigger asChild><Button variant="outline" size="sm"><PanelLeftClose size={14} /> Prawy</Button></SheetTrigger>
+              <SheetTrigger asChild><Button variant="outline" size="sm"><PanelLeftClose size={14} /> Right</Button></SheetTrigger>
               <SheetContent side="right">
-                <SheetHeader><SheetTitle>Panel prawy</SheetTitle><SheetDescription>Glass morphism sheet.</SheetDescription></SheetHeader>
+                <SheetHeader><SheetTitle>Right panel</SheetTitle><SheetDescription>Glass morphism sheet.</SheetDescription></SheetHeader>
               </SheetContent>
             </Sheet>
             <Sheet>
-              <SheetTrigger asChild><Button variant="outline" size="sm">Lewy</Button></SheetTrigger>
+              <SheetTrigger asChild><Button variant="outline" size="sm">Left</Button></SheetTrigger>
               <SheetContent side="left">
-                <SheetHeader><SheetTitle>Panel lewy</SheetTitle></SheetHeader>
+                <SheetHeader><SheetTitle>Left panel</SheetTitle></SheetHeader>
               </SheetContent>
             </Sheet>
           </div>
@@ -1137,32 +1153,32 @@ export default function GalleryPage() {
       case 'slider-row':
         return (
           <div className="space-y-1">
-            <SliderRow label="Głośność" icon={Volume2} value={slider1[0]} onValueChange={(v) => setSlider1([v])} min={0} max={100} step={1} formatValue={(v) => `${v}%`} />
-            <SliderRow label="Prędkość" icon={Zap} value={slider2[0]} onValueChange={(v) => setSlider2([v])} min={0} max={100} step={5} formatValue={(v) => `${v / 100}×`} />
+            <SliderRow label="Volume" icon={Volume2} value={slider1[0]} onValueChange={(v) => setSlider1([v])} min={0} max={100} step={1} formatValue={(v) => `${v}%`} />
+            <SliderRow label="Speed" icon={Zap} value={slider2[0]} onValueChange={(v) => setSlider2([v])} min={0} max={100} step={5} formatValue={(v) => `${v / 100}x`} />
           </div>
         )
 
       case 'sliding-menubar': {
         const fileEntries: SlidingItemEntry[] = [
-          { kind: 'item', label: 'Nowy', shortcut: 'Ctrl+N', onSelect: () => toast('Nowy') },
-          { kind: 'item', label: 'Otwórz', shortcut: 'Ctrl+O', onSelect: () => toast('Otwórz') },
+          { kind: 'item', label: 'New', shortcut: 'Ctrl+N', onSelect: () => toast('New') },
+          { kind: 'item', label: 'Open', shortcut: 'Ctrl+O', onSelect: () => toast('Open') },
           { kind: 'separator' },
-          { kind: 'item', label: 'Zapisz', shortcut: 'Ctrl+S', onSelect: () => toast('Zapisz') },
+          { kind: 'item', label: 'Save', shortcut: 'Ctrl+S', onSelect: () => toast('Save') },
         ]
         const editEntries: SlidingItemEntry[] = [
-          { kind: 'item', label: 'Cofnij', shortcut: 'Ctrl+Z', onSelect: () => toast('Cofnij') },
-          { kind: 'item', label: 'Ponów', shortcut: 'Ctrl+Y', onSelect: () => toast('Ponów') },
+          { kind: 'item', label: 'Undo', shortcut: 'Ctrl+Z', onSelect: () => toast('Undo') },
+          { kind: 'item', label: 'Redo', shortcut: 'Ctrl+Y', onSelect: () => toast('Redo') },
         ]
         const viewEntries: SlidingItemEntry[] = [
-          { kind: 'item', label: 'Powiększ', shortcut: 'Ctrl++', onSelect: () => toast('Powiększ') },
-          { kind: 'item', label: 'Pomniejsz', shortcut: 'Ctrl+-', onSelect: () => toast('Pomniejsz') },
+          { kind: 'item', label: 'Zoom in', shortcut: 'Ctrl++', onSelect: () => toast('Zoom in') },
+          { kind: 'item', label: 'Zoom out', shortcut: 'Ctrl+-', onSelect: () => toast('Zoom out') },
           { kind: 'separator' },
-          { kind: 'item', label: 'Reset zoomu', onSelect: () => toast('Reset') },
+          { kind: 'item', label: 'Reset zoom', onSelect: () => toast('Reset') },
         ]
         const triggers: SlidingTriggerDef[] = [
-          { value: 'file', label: 'Plik', content: <MenubarContent><SlidingMenubarItems entries={fileEntries} /></MenubarContent> },
-          { value: 'edit', label: 'Edycja', content: <MenubarContent><SlidingMenubarItems entries={editEntries} /></MenubarContent> },
-          { value: 'view', label: 'Widok', content: <MenubarContent><SlidingMenubarItems entries={viewEntries} /></MenubarContent> },
+          { value: 'file', label: 'File', content: <MenubarContent><SlidingMenubarItems entries={fileEntries} /></MenubarContent> },
+          { value: 'edit', label: 'Edit', content: <MenubarContent><SlidingMenubarItems entries={editEntries} /></MenubarContent> },
+          { value: 'view', label: 'View', content: <MenubarContent><SlidingMenubarItems entries={viewEntries} /></MenubarContent> },
         ]
         return <SlidingMenubar triggers={triggers} />
       }
@@ -1223,12 +1239,12 @@ export default function GalleryPage() {
         return (
           <div className="flex flex-wrap gap-2">
             <Button size="sm" variant="outline" onClick={() => toast('Default')}>Default</Button>
-            <Button size="sm" variant="outline" onClick={() => toast.success('Sukces!')}>Success</Button>
-            <Button size="sm" variant="outline" onClick={() => toast.error('Błąd!')}>Error</Button>
-            <Button size="sm" variant="outline" onClick={() => toast.warning('Uwaga!')}>Warning</Button>
+            <Button size="sm" variant="outline" onClick={() => toast.success('Success!')}>Success</Button>
+            <Button size="sm" variant="outline" onClick={() => toast.error('Error!')}>Error</Button>
+            <Button size="sm" variant="outline" onClick={() => toast.warning('Warning!')}>Warning</Button>
             <Button size="sm" variant="outline" onClick={() => toast.info('Info')}>Info</Button>
-            <Button size="sm" variant="outline" onClick={() => toast.loading('Ładowanie...')}>Loading</Button>
-            <Button size="sm" variant="outline" onClick={() => toast('Akcja', { action: { label: 'Cofnij', onClick: () => toast.success('OK!') } })}>Z akcją</Button>
+            <Button size="sm" variant="outline" onClick={() => toast.loading('Loading...')}>Loading</Button>
+            <Button size="sm" variant="outline" onClick={() => toast('Action', { action: { label: 'Undo', onClick: () => toast.success('OK!') } })}>With action</Button>
           </div>
         )
 
@@ -1249,7 +1265,7 @@ export default function GalleryPage() {
             <div className="flex flex-col items-center gap-3">
               <AppIcon size={48} />
               <Spinner size="sm" className="text-[var(--accent)]" />
-              <span className="text-xs text-muted-foreground">Ładowanie aplikacji...</span>
+              <span className="text-xs text-muted-foreground">Loading application...</span>
             </div>
           </div>
         )
@@ -1257,9 +1273,9 @@ export default function GalleryPage() {
       case 'status-card':
         return (
           <div className="flex flex-wrap gap-3">
-            <StatusCard icon={Zap} label="OCR" value="Aktywny" active />
-            <StatusCard icon={Volume2} label="TTS" value="Gotowy" />
-            <StatusCard icon={Eye} label="Region" value="1920×1080" />
+            <StatusCard icon={Zap} label="OCR" value="Active" active />
+            <StatusCard icon={Volume2} label="TTS" value="Ready" />
+            <StatusCard icon={Eye} label="Region" value="1920x1080" />
           </div>
         )
 
@@ -1272,23 +1288,22 @@ export default function GalleryPage() {
           </div>
         )
 
-      // ─── T ───
       case 'table':
         return (
           <Table>
-            <TableCaption>Operacje OCR</TableCaption>
+            <TableCaption>OCR operations</TableCaption>
             <TableHeader>
               <TableRow>
-                <TableHead>Nr</TableHead>
-                <TableHead>Język</TableHead>
+                <TableHead>No.</TableHead>
+                <TableHead>Language</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead className="text-right">Czas</TableHead>
+                <TableHead className="text-right">Time</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              <TableRow><TableCell>1</TableCell><TableCell>Polski</TableCell><TableCell><Badge>OK</Badge></TableCell><TableCell className="text-right">234ms</TableCell></TableRow>
-              <TableRow><TableCell>2</TableCell><TableCell>Angielski</TableCell><TableCell><Badge>OK</Badge></TableCell><TableCell className="text-right">187ms</TableCell></TableRow>
-              <TableRow><TableCell>3</TableCell><TableCell>Japoński</TableCell><TableCell><Badge variant="destructive">Błąd</Badge></TableCell><TableCell className="text-right">—</TableCell></TableRow>
+              <TableRow><TableCell>1</TableCell><TableCell>Polish</TableCell><TableCell><Badge>OK</Badge></TableCell><TableCell className="text-right">234ms</TableCell></TableRow>
+              <TableRow><TableCell>2</TableCell><TableCell>English</TableCell><TableCell><Badge>OK</Badge></TableCell><TableCell className="text-right">187ms</TableCell></TableRow>
+              <TableRow><TableCell>3</TableCell><TableCell>Japanese</TableCell><TableCell><Badge variant="destructive">Error</Badge></TableCell><TableCell className="text-right">-</TableCell></TableRow>
             </TableBody>
           </Table>
         )
@@ -1298,11 +1313,11 @@ export default function GalleryPage() {
           <div className="space-y-4">
             <Tabs defaultValue="t1">
               <TabsList>
-                <TabsTrigger value="t1">Zakładka 1</TabsTrigger>
-                <TabsTrigger value="t2">Zakładka 2</TabsTrigger>
+                <TabsTrigger value="t1">Tab 1</TabsTrigger>
+                <TabsTrigger value="t2">Tab 2</TabsTrigger>
               </TabsList>
-              <TabsContent value="t1" className="p-3 text-sm text-muted-foreground">Treść 1</TabsContent>
-              <TabsContent value="t2" className="p-3 text-sm text-muted-foreground">Treść 2</TabsContent>
+              <TabsContent value="t1" className="p-3 text-sm text-muted-foreground">Content 1</TabsContent>
+              <TabsContent value="t2" className="p-3 text-sm text-muted-foreground">Content 2</TabsContent>
             </Tabs>
             <Separator />
             <Tabs defaultValue="l1">
@@ -1310,8 +1325,8 @@ export default function GalleryPage() {
                 <TabsTrigger value="l1">Line A</TabsTrigger>
                 <TabsTrigger value="l2">Line B</TabsTrigger>
               </TabsList>
-              <TabsContent value="l1" className="p-3 text-sm text-muted-foreground">Wariant line</TabsContent>
-              <TabsContent value="l2" className="p-3 text-sm text-muted-foreground">Opcja B</TabsContent>
+              <TabsContent value="l1" className="p-3 text-sm text-muted-foreground">Line variant</TabsContent>
+              <TabsContent value="l2" className="p-3 text-sm text-muted-foreground">Option B</TabsContent>
             </Tabs>
           </div>
         )
@@ -1321,13 +1336,13 @@ export default function GalleryPage() {
           <div className="space-y-4">
             <SlidingTabs defaultValue="t1">
               <SlidingTabsList>
-                <SlidingTabsTrigger value="t1">Zakładka 1</SlidingTabsTrigger>
-                <SlidingTabsTrigger value="t2">Zakładka 2</SlidingTabsTrigger>
-                <SlidingTabsTrigger value="t3">Zakładka 3</SlidingTabsTrigger>
+                <SlidingTabsTrigger value="t1">Tab 1</SlidingTabsTrigger>
+                <SlidingTabsTrigger value="t2">Tab 2</SlidingTabsTrigger>
+                <SlidingTabsTrigger value="t3">Tab 3</SlidingTabsTrigger>
               </SlidingTabsList>
-              <SlidingTabsContent value="t1" className="p-3 text-sm text-muted-foreground">Treść 1 — hover pill (akcent subtle) goni za kursorem, active indicator zostaje pod aktywnym tabem.</SlidingTabsContent>
-              <SlidingTabsContent value="t2" className="p-3 text-sm text-muted-foreground">Treść 2</SlidingTabsContent>
-              <SlidingTabsContent value="t3" className="p-3 text-sm text-muted-foreground">Treść 3</SlidingTabsContent>
+              <SlidingTabsContent value="t1" className="p-3 text-sm text-muted-foreground">Content 1 - hover pill follows the cursor, active indicator stays under the active tab.</SlidingTabsContent>
+              <SlidingTabsContent value="t2" className="p-3 text-sm text-muted-foreground">Content 2</SlidingTabsContent>
+              <SlidingTabsContent value="t3" className="p-3 text-sm text-muted-foreground">Content 3</SlidingTabsContent>
             </SlidingTabs>
             <Separator />
             <SlidingTabs defaultValue="l1">
@@ -1336,15 +1351,15 @@ export default function GalleryPage() {
                 <SlidingTabsTrigger value="l2">Line B</SlidingTabsTrigger>
                 <SlidingTabsTrigger value="l3">Line C</SlidingTabsTrigger>
               </SlidingTabsList>
-              <SlidingTabsContent value="l1" className="p-3 text-sm text-muted-foreground">Wariant line</SlidingTabsContent>
-              <SlidingTabsContent value="l2" className="p-3 text-sm text-muted-foreground">Opcja B</SlidingTabsContent>
-              <SlidingTabsContent value="l3" className="p-3 text-sm text-muted-foreground">Opcja C</SlidingTabsContent>
+              <SlidingTabsContent value="l1" className="p-3 text-sm text-muted-foreground">Line variant</SlidingTabsContent>
+              <SlidingTabsContent value="l2" className="p-3 text-sm text-muted-foreground">Option B</SlidingTabsContent>
+              <SlidingTabsContent value="l3" className="p-3 text-sm text-muted-foreground">Option C</SlidingTabsContent>
             </SlidingTabs>
           </div>
         )
 
       case 'textarea':
-        return <Textarea placeholder="Wieloliniowy tekst..." value={textareaVal} onChange={(e) => setTextareaVal(e.target.value)} rows={3} />
+        return <Textarea placeholder="Multiline text..." value={textareaVal} onChange={(e) => setTextareaVal(e.target.value)} rows={3} />
 
       case 'toggle':
         return (
@@ -1370,11 +1385,11 @@ export default function GalleryPage() {
           <div className="flex gap-3">
             <Tooltip>
               <TooltipTrigger asChild><Button variant="outline" size="sm">Hover me</Button></TooltipTrigger>
-              <TooltipContent>Domyślny tooltip</TooltipContent>
+              <TooltipContent>Default tooltip</TooltipContent>
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild><Button variant="ghost" size="icon-sm"><Star /></Button></TooltipTrigger>
-              <TooltipContent side="bottom">Na dole</TooltipContent>
+              <TooltipContent side="bottom">On bottom</TooltipContent>
             </Tooltip>
           </div>
         )
@@ -1386,19 +1401,18 @@ export default function GalleryPage() {
             <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight">Heading 2</h2>
             <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">Heading 3</h3>
             <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">Heading 4</h4>
-            <p className="leading-7">Paragraf z normalnym tekstem. <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">inline code</code></p>
-            <p className="text-xl text-muted-foreground">Lead — większy tekst wprowadzający.</p>
-            <blockquote className="border-l-2 pl-6 italic">&ldquo;Cytat blokowy z border-left.&rdquo;</blockquote>
-            <p className="text-sm text-muted-foreground">Muted — wyciszony tekst pomocniczy.</p>
-            <small className="text-sm leading-none font-medium">Small — drobny napis</small>
+            <p className="leading-7">Paragraph with normal text. <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">inline code</code></p>
+            <p className="text-xl text-muted-foreground">Lead - larger introductory text.</p>
+            <blockquote className="border-l-2 pl-6 italic">&ldquo;Block quote with a border-left.&rdquo;</blockquote>
+            <p className="text-sm text-muted-foreground">Muted - subdued helper text.</p>
+            <small className="text-sm leading-none font-medium">Small - tiny label</small>
           </div>
         )
 
-      // ─── Theme customization ───
       case 'theme-colors': {
         return (
           <div className="space-y-3">
-            <Label className="text-xs text-muted-foreground block">Kolor akcentu — kliknij by zmienić</Label>
+            <Label className="text-xs text-muted-foreground block">Accent color - click to change</Label>
             <div className="flex flex-wrap gap-1.5">
               {ALL_ACCENT_PRESETS.map((color) => {
                 const isActive = accentColor === color.key
@@ -1437,7 +1451,7 @@ export default function GalleryPage() {
                             borderColor: 'var(--btn-border)',
                           }
                     }
-                    aria-label={`Kolor akcentu: ${color.label}`}
+                    aria-label={`Accent color: ${color.label}`}
                     aria-pressed={isActive}
                   >
                     <span
@@ -1470,12 +1484,12 @@ export default function GalleryPage() {
               style={{ background: 'var(--btn-bg)', borderColor: 'var(--btn-border)' }}
             >
               {theme === 'dark' ? (
-                <><Moon className="size-4" /><span>Ciemny</span></>
+                <><Moon className="size-4" /><span>Dark</span></>
               ) : (
-                <><Sun className="size-4" /><span>Jasny</span></>
+                <><Sun className="size-4" /><span>Light</span></>
               )}
             </button>
-            <span className="text-xs text-muted-foreground">Kliknij by przełączyć motyw</span>
+            <span className="text-xs text-muted-foreground">Click to switch theme</span>
           </div>
         )
       }
@@ -1483,18 +1497,21 @@ export default function GalleryPage() {
       case 'theme-radius':
         return (
           <div className="space-y-3">
-            <Label className="text-xs text-muted-foreground block">Porównanie zaokrągleń</Label>
+            <Label className="text-xs text-muted-foreground block">Corner radius comparison</Label>
             <div className="flex flex-wrap gap-3">
               {[
-                { label: '0', r: 'rounded-none' },
-                { label: '0.3', r: 'rounded-sm' },
-                { label: '0.5', r: 'rounded-md' },
-                { label: '0.75', r: 'rounded-lg' },
-                { label: '1.0', r: 'rounded-xl' },
-              ].map(({ label, r }) => (
+                { label: '0rem', value: '0rem' },
+                { label: '0.3rem', value: '0.3rem' },
+                { label: '0.5rem', value: '0.5rem' },
+                { label: '0.75rem', value: '0.75rem' },
+                { label: '1rem', value: '1rem' },
+              ].map(({ label, value }) => (
                 <div key={label} className="flex flex-col items-center gap-1.5">
-                  <div className={`h-16 w-16 border-2 border-[var(--accent)] bg-[var(--accent-subtle)] ${r}`} />
-                  <span className="text-[10px] text-muted-foreground">{label}rem</span>
+                  <div
+                    className="h-16 w-16 border-2 border-[var(--accent)] bg-[var(--accent-subtle)]"
+                    style={{ borderRadius: value }}
+                  />
+                  <span className="text-[10px] text-muted-foreground">{label}</span>
                 </div>
               ))}
             </div>
@@ -1504,7 +1521,7 @@ export default function GalleryPage() {
       case 'theme-fonts':
         return (
           <div className="space-y-4">
-            <Label className="text-xs text-muted-foreground block">Porównanie czcionek</Label>
+            <Label className="text-xs text-muted-foreground block">Font comparison</Label>
             <div className="grid gap-3">
               {[
                 { name: 'Inter', family: "'Inter', sans-serif" },
@@ -1520,7 +1537,7 @@ export default function GalleryPage() {
                   <div>
                     <p className="text-xs text-muted-foreground mb-1">{name}</p>
                     <p className="text-sm" style={{ fontFamily: family }}>
-                      Szybki brązowy lis przeskoczył nad leniwym psem — 0123456789
+                      The quick brown fox jumps over the lazy dog - 0123456789
                     </p>
                   </div>
                 </div>
@@ -1530,12 +1547,13 @@ export default function GalleryPage() {
         )
 
       default:
-        return <p className="text-sm text-muted-foreground">Demo niedostępne.</p>
+        return <p className="text-sm text-muted-foreground">Demo unavailable.</p>
     }
   }
 
-  // ── Active components (multi-select) ──
-  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(
+    () => new Set(COMPONENTS.map((c) => c.id)),
+  )
 
   const toggleSelected = (id: string) => {
     setSelectedIds((prev) => {
@@ -1554,29 +1572,29 @@ export default function GalleryPage() {
     setSelectedIds(new Set())
   }
 
-  // ── Scroll to demo when selecting ──
   const previewRefs = useRef<Record<string, HTMLDivElement | null>>({})
 
   const selectedComps = COMPONENTS.filter((c) => selectedIds.has(c.id))
 
   return (
     <TooltipProvider>
-      <div className="flex h-[calc(100vh-3rem)] gap-4">
-        {/* ── Left sidebar — scrollable component list ── */}
-        <SectionCard
-          icon={LayoutGrid}
-          title="Komponenty"
-          description={`${selectedIds.size}/${COMPONENTS.length}`}
-          className="w-64 shrink-0 flex flex-col overflow-hidden"
-          accentLine
-          glow={false}
-        >
-          {/* Search */}
+      <main className="gallery-root">
+        <GalleryAppearance />
+
+        <div className="gallery-workbench">
+          <SectionCard
+            icon={LayoutGrid}
+            title="Components"
+            description={`${selectedIds.size}/${COMPONENTS.length}`}
+            className="gallery-sidebar shrink-0 flex flex-col overflow-hidden"
+            accentLine
+            glow={false}
+          >
           <div className="border-t border-[var(--border)] px-4 pb-3 pt-2">
             <div className="relative">
               <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground" />
               <Input
-                placeholder="Szukaj..."
+                placeholder="Search..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="h-8 pl-8 text-xs"
@@ -1590,27 +1608,25 @@ export default function GalleryPage() {
                 </button>
               )}
             </div>
-            {/* Select all / Clear */}
             <div className="mt-2 flex items-center justify-between">
               <div className="flex gap-1.5">
                 <button
                   onClick={selectAll}
                   className="text-[10px] text-muted-foreground hover:text-[var(--accent-bright)] transition-colors"
                 >
-                  Wszystkie
+                  All
                 </button>
-                <span className="text-[10px] text-muted-foreground">·</span>
+                <span className="text-[10px] text-muted-foreground">.</span>
                 <button
                   onClick={clearAll}
                   className="text-[10px] text-muted-foreground hover:text-[var(--accent-bright)] transition-colors"
                 >
-                  Wyczyść
+                  Clear
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Scrollable list */}
           <ScrollArea className="min-h-0 flex-1">
             <div className="space-y-0.5 p-1.5 pr-3">
               {filtered.map((c) => {
@@ -1621,7 +1637,6 @@ export default function GalleryPage() {
                     key={c.id}
                     onClick={() => {
                       toggleSelected(c.id)
-                      // Scroll to the demo after a short delay (for DOM to render)
                       if (!selectedIds.has(c.id)) {
                         setTimeout(() => {
                           previewRefs.current[c.id]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
@@ -1650,44 +1665,44 @@ export default function GalleryPage() {
               })}
               {filtered.length === 0 && (
                 <div className="px-2 py-4 text-center text-xs text-muted-foreground">
-                  Brak wyników dla &ldquo;{search}&rdquo;
+                  No results for &ldquo;{search}&rdquo;
                 </div>
               )}
             </div>
           </ScrollArea>
-        </SectionCard>
+          </SectionCard>
 
-        {/* ── Right preview area ── */}
-        <div className="flex-1 overflow-hidden">
-          <ScrollArea className="h-full">
-            <div className="p-4 space-y-4">
-              {selectedComps.length === 0 ? (
-                <EmptyState
-                  message="Wybierz komponenty z listy po lewej"
-                  size="sm"
-                />
-              ) : (
-                selectedComps.map((comp) => (
-                  <div
-                    key={comp.id}
-                    ref={(el) => { previewRefs.current[comp.id] = el }}
-                  >
-                    <SectionCard
-                      icon={comp.icon}
-                      title={comp.name}
-                      className={comp.id === 'navigation-menu' ? 'overflow-visible' : undefined}
+          <div className="min-w-0 flex-1 overflow-hidden">
+            <ScrollArea className="h-full">
+              <div className="space-y-4 p-4">
+                {selectedComps.length === 0 ? (
+                  <EmptyState
+                    message="Choose components from the list on the left"
+                    size="sm"
+                  />
+                ) : (
+                  selectedComps.map((comp) => (
+                    <div
+                      key={comp.id}
+                      ref={(el) => { previewRefs.current[comp.id] = el }}
                     >
-                      <SectionContent spacing="normal">
-                        {renderDemo(comp.id)}
-                      </SectionContent>
-                    </SectionCard>
-                  </div>
-                ))
-              )}
-            </div>
-          </ScrollArea>
+                      <SectionCard
+                        icon={comp.icon}
+                        title={comp.name}
+                        className={comp.id === 'navigation-menu' ? 'overflow-visible' : undefined}
+                      >
+                        <SectionContent spacing="normal">
+                          {renderDemo(comp.id)}
+                        </SectionContent>
+                      </SectionCard>
+                    </div>
+                  ))
+                )}
+              </div>
+            </ScrollArea>
+          </div>
         </div>
-      </div>
+      </main>
       <Toaster />
     </TooltipProvider>
   )
