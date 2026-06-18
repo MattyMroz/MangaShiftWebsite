@@ -11,6 +11,7 @@ import { Checkbox } from '@/shared/ui/Checkbox/Checkbox';
 import { Badge } from '@/shared/ui/Badge/Badge';
 import { Field } from '@/shared/ui/Field/Field';
 import { MetaLabel } from '@/shared/ui/MetaLabel/MetaLabel';
+import { t } from '@/shared/i18n';
 
 const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLScyTs1gTH1kmVC8EHkB_pdPsdrWwEtGIwLvQYu4StRfSkVYpA/formResponse';
 const GOOGLE_FORM_EMAIL_ENTRY = 'entry.1654989478';
@@ -65,18 +66,17 @@ export const BetaSection = () => {
                         viewport={{ once: true, margin: '-80px' }}
                         transition={{ duration: 0.72 }}
                     >
-                        <MetaLabel>Private beta</MetaLabel>
+                        <MetaLabel>{t('beta.metaLabel')}</MetaLabel>
                         <h2 className="display mt-7 max-w-[10ch] text-[clamp(4.6rem,6.6vw,8.2rem)]">
-                            Your manga could be{' '}
-                            <em className="text-[var(--accent-text)]">next</em>.
+                            {t('beta.titleBefore')}{' '}
+                            <em className="text-[var(--accent-text)]">{t('beta.titleEmphasis')}</em>.
                         </h2>
                         <p className="mt-8 max-w-[52ch] text-[1.7rem] leading-[1.7] text-[var(--text-muted)]">
-                            Leave your email to receive a beta invitation. You will hear from us
-                            when there is a real build to test, not another generic newsletter.
+                            {t('beta.lead')}
                         </p>
 
                         <ul className="mt-9 flex flex-wrap gap-3">
-                            {['Free during beta', 'No credit card', 'Early product access'].map((item) => (
+                            {Array.from({ length: 3 }, (_, i) => t(`beta.badges.${i}`)).map((item) => (
                                 <Badge key={item} as="li" variant="outline" className="tracking-[0.14em]">
                                     {item}
                                 </Badge>
@@ -94,10 +94,10 @@ export const BetaSection = () => {
                         <div className="flex items-center justify-between border-b border-[var(--line)] pb-5">
                             <div>
                                 <p className="font-mono text-[1rem] uppercase tracking-[0.18em] text-[var(--accent-text)]">
-                                    Request access
+                                    {t('beta.requestAccess')}
                                 </p>
                                 <p className="mt-2 text-[2.2rem] font-bold tracking-tight text-[var(--text)]">
-                                    Join the MangaShift list
+                                    {t('beta.listTitle')}
                                 </p>
                             </div>
                             <IconCircle as="span" size="lg">
@@ -115,7 +115,7 @@ export const BetaSection = () => {
                                 className="pointer-events-none absolute h-0 w-0 opacity-0"
                             />
 
-                            <Field label="Email address" htmlFor="beta-email">
+                            <Field label={t('beta.emailLabel')} htmlFor="beta-email">
                                 <div className="flex flex-col gap-3 sm:flex-row">
                                     <Input
                                         id="beta-email"
@@ -125,15 +125,15 @@ export const BetaSection = () => {
                                         onChange={(event) => setEmail(event.target.value)}
                                         required
                                         disabled={locked}
-                                        placeholder="you@studio.com"
+                                        placeholder={t('beta.emailPlaceholder')}
                                         className="flex-1"
                                     />
                                     <Button type="submit" variant="hero" size="lg" disabled={locked} className="self-start sm:self-auto">
                                         {status === 'submitting'
-                                            ? 'Sending…'
+                                            ? t('beta.submitting')
                                             : status === 'success'
-                                                ? 'You’re on the list'
-                                                : 'Join Beta'}
+                                                ? t('beta.submitSuccess')
+                                                : t('beta.submit')}
                                     </Button>
                                 </div>
                             </Field>
@@ -145,7 +145,7 @@ export const BetaSection = () => {
                                 onChange={(event) => setConsent(event.target.checked)}
                                 required
                                 disabled={locked}
-                                label="I agree to receive email about MangaShift beta access and product updates."
+                                label={t('beta.consent')}
                             />
 
                             <p
@@ -153,9 +153,9 @@ export const BetaSection = () => {
                                 role="status"
                                 aria-live="polite"
                             >
-                                {status === 'success' && 'Thanks. Your beta request has been recorded.'}
-                                {status === 'error' && 'The request could not be sent. Please try again.'}
-                                {status === 'idle' && 'Only useful product emails. Unsubscribe whenever you want.'}
+                                {status === 'success' && t('beta.successMessage')}
+                                {status === 'error' && t('beta.errorMessage')}
+                                {status === 'idle' && t('beta.disclaimer')}
                             </p>
                         </form>
                     </motion.div>
