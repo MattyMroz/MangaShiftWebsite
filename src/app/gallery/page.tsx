@@ -24,6 +24,10 @@ import {
   Volume2,
 } from 'lucide-react';
 
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts';
+
 import { cn } from '@/shared/lib/utils/cn';
 import { Button } from '@/shared/ui/Button/Button';
 
@@ -163,14 +167,46 @@ import { Toggle } from '@/shared/ui/lib/Toggle';
 import { ToggleGroup, ToggleGroupItem } from '@/shared/ui/lib/ToggleGroup';
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from '@/shared/ui/lib/Tooltip';
 
+import { ApiKeyInput } from '@/shared/ui/lib/ApiKeyInput';
+import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from '@/shared/ui/lib/Chart';
+import { Combobox } from '@/shared/ui/lib/Combobox';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/shared/ui/lib/Command';
+import { ConfirmDialog } from '@/shared/ui/lib/ConfirmDialog';
+import { ConfirmDeleteDialog } from '@/shared/ui/lib/ConfirmDeleteDialog';
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuLabel,
+  ContextMenuSeparator,
+  ContextMenuTrigger,
+} from '@/shared/ui/lib/ContextMenu';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/shared/ui/lib/Form';
+import { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from '@/shared/ui/lib/InputOtp';
+import { PageHeader } from '@/shared/ui/lib/PageHeader';
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/shared/ui/lib/Resizable';
+import { RoundedScrollList } from '@/shared/ui/lib/RoundedScrollList';
+import { SectionCard } from '@/shared/ui/lib/SectionCard';
+import { SectionContent } from '@/shared/ui/lib/SectionContent';
+import { SlidingNav } from '@/shared/ui/lib/SlidingNav';
+import { SlidingSelect } from '@/shared/ui/lib/SlidingSelect';
+import { Toaster } from '@/shared/ui/lib/Sonner';
+import { VoiceListItem } from '@/shared/ui/lib/VoiceListItem';
+
 // ---------------------------------------------------------------------------
 // /gallery — debug galeria komponentow shared/ui/lib + zunifikowany Button.
 // Cel: wizualne potwierdzenie renderu w kolorach papier(#f3efe6)/koral(#e87058).
-// Pominiete (app-only / wymaga providerow lub danych): SplashScreen, NeonOrbs,
-// Sonner/Toaster, Chart, Resizable, Combobox, Command, InputOtp, ApiKeyInput,
-// VoiceListItem, RoundedScrollList, Sliding* (poza SlidingTabs), OverflowMenubar,
-// PageHeader, SectionCard/SectionContent (uzywaja useAppStore), ConfirmDialog,
-// ConfirmDeleteDialog, Form/FormField, ContextMenu, AppIcon.
+// Pominiete (app-only / montuja globalne efekty): SplashScreen, NeonOrbs, AppIcon.
+// Pominiete (trudne API / app-domain): SlidingMenubar, SlidingCombobox,
+// SlidingCommand, SlidingContextMenu, SlidingDropdownMenu, SlidingScrollList,
+// OverflowMenubar.
 // ---------------------------------------------------------------------------
 
 function Section({
@@ -219,10 +255,47 @@ const BUTTON_VARIANTS = [
 
 const BADGE_VARIANTS = ['default', 'secondary', 'destructive', 'outline', 'ghost', 'link'] as const;
 
+const CHART_DATA = [
+  { day: 'Pon', renders: 18 },
+  { day: 'Wt', renders: 32 },
+  { day: 'Sr', renders: 24 },
+  { day: 'Czw', renders: 41 },
+];
+
+const CHART_CONFIG = {
+  renders: { label: 'Rendery', color: 'var(--accent)' },
+} satisfies ChartConfig;
+
+const COMBOBOX_OPTIONS = [
+  { value: 'pl', label: 'Polski' },
+  { value: 'en', label: 'English' },
+  { value: 'ja', label: '日本語' },
+];
+
+const SLIDING_SELECT_ITEMS = [
+  { value: '480', label: '480p' },
+  { value: '720', label: '720p' },
+  { value: '1080', label: '1080p' },
+];
+
+const SLIDING_NAV_ITEMS = [
+  { key: 'home', content: 'Start' },
+  { key: 'docs', content: 'Dokumentacja' },
+  { key: 'about', content: 'O nas' },
+];
+
 export default function GalleryPage() {
   const [sliderVal, setSliderVal] = React.useState(40);
   const [switchOn, setSwitchOn] = React.useState(true);
   const [progress, setProgress] = React.useState(66);
+  const [comboValue, setComboValue] = React.useState('pl');
+  const [otp, setOtp] = React.useState('');
+  const [slidingSelectValue, setSlidingSelectValue] = React.useState('720');
+  const [slidingNavKey, setSlidingNavKey] = React.useState('home');
+  const [confirmOpen, setConfirmOpen] = React.useState(false);
+  const [deleteOpen, setDeleteOpen] = React.useState(false);
+
+  const form = useForm<{ username: string }>({ defaultValues: { username: '' } });
 
   return (
     <TooltipProvider>
@@ -741,13 +814,226 @@ export default function GalleryPage() {
           </div>
         </Section>
 
+        {/* ---------------------------------------------------------------- Charts */}
+        <Section title="Charts" description="Chart (recharts BarChart) + ChartTooltip">
+          <Tile label="Bar chart">
+            <ChartContainer config={CHART_CONFIG} className="h-48 w-full">
+              <BarChart data={CHART_DATA}>
+                <CartesianGrid vertical={false} />
+                <XAxis dataKey="day" tickLine={false} axisLine={false} tickMargin={8} />
+                <ChartTooltip content={<ChartTooltipContent />} />
+                <Bar dataKey="renders" fill="var(--color-renders)" radius={6} />
+              </BarChart>
+            </ChartContainer>
+          </Tile>
+        </Section>
+
+        {/* ---------------------------------------------------------------- Command palette */}
+        <Section title="Command / Combobox / OTP" description="Command, Combobox, InputOTP">
+          <div className="grid gap-4 md:grid-cols-2">
+            <Tile label="Command">
+              <Command className="rounded-lg border border-[var(--line)]">
+                <CommandInput placeholder="Wpisz polecenie..." />
+                <CommandList>
+                  <CommandEmpty>Brak wynikow.</CommandEmpty>
+                  <CommandGroup>
+                    <CommandItem><Home /> Strona glowna</CommandItem>
+                    <CommandItem><Settings /> Ustawienia</CommandItem>
+                    <CommandItem><Search /> Szukaj</CommandItem>
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </Tile>
+
+            <Tile label="Combobox">
+              <Combobox
+                options={COMBOBOX_OPTIONS}
+                value={comboValue}
+                onValueChange={setComboValue}
+                placeholder="Wybierz jezyk..."
+              />
+            </Tile>
+
+            <Tile label="InputOTP">
+              <InputOTP maxLength={6} value={otp} onChange={setOtp}>
+                <InputOTPGroup>
+                  <InputOTPSlot index={0} />
+                  <InputOTPSlot index={1} />
+                  <InputOTPSlot index={2} />
+                </InputOTPGroup>
+                <InputOTPSeparator />
+                <InputOTPGroup>
+                  <InputOTPSlot index={3} />
+                  <InputOTPSlot index={4} />
+                  <InputOTPSlot index={5} />
+                </InputOTPGroup>
+              </InputOTP>
+            </Tile>
+          </div>
+        </Section>
+
+        {/* ---------------------------------------------------------------- Sliding */}
+        <Section title="Sliding" description="SlidingSelect, SlidingNav (pill follows selection)">
+          <div className="grid gap-4 md:grid-cols-2">
+            <Tile label="SlidingSelect">
+              <SlidingSelect
+                items={SLIDING_SELECT_ITEMS}
+                value={slidingSelectValue}
+                onValueChange={setSlidingSelectValue}
+                placeholder="Jakosc"
+              />
+            </Tile>
+
+            <Tile label="SlidingNav">
+              <SlidingNav
+                items={SLIDING_NAV_ITEMS}
+                activeKey={slidingNavKey}
+                onSelect={setSlidingNavKey}
+                orientation="horizontal"
+                itemClassName="px-3 py-1.5 text-[length:var(--small-font-size)]"
+              />
+            </Tile>
+          </div>
+        </Section>
+
+        {/* ---------------------------------------------------------------- Resizable */}
+        <Section title="Resizable" description="ResizablePanelGroup (2 panele poziomo)">
+          <Tile label="Resizable">
+            <ResizablePanelGroup orientation="horizontal" className="h-32 rounded-md border border-[var(--line)]">
+              <ResizablePanel defaultSize={50}>
+                <div className="flex h-full items-center justify-center p-4 text-[length:var(--small-font-size)]">Lewy panel</div>
+              </ResizablePanel>
+              <ResizableHandle withHandle />
+              <ResizablePanel defaultSize={50}>
+                <div className="flex h-full items-center justify-center p-4 text-[length:var(--small-font-size)]">Prawy panel</div>
+              </ResizablePanel>
+            </ResizablePanelGroup>
+          </Tile>
+        </Section>
+
+        {/* ---------------------------------------------------------------- App-store driven */}
+        <Section title="App-store driven" description="PageHeader, SectionCard, SectionContent, StatusCard (uzywaja useAppStore stub)">
+          <div className="space-y-4">
+            <PageHeader icon={Sparkles} title="Panel renderowania" description="Status zadania">
+              <Button variant="accent" size="sm"><Plus /> Nowy</Button>
+            </PageHeader>
+
+            <SectionCard icon={Settings} title="Ustawienia" description="Konfiguracja eksportu">
+              <SectionContent>
+                <p className="text-[length:var(--small-font-size)] text-muted-foreground">
+                  Zawartosc karty sekcji z naglowkiem i akcentem.
+                </p>
+              </SectionContent>
+            </SectionCard>
+          </div>
+        </Section>
+
+        {/* ---------------------------------------------------------------- Form (react-hook-form) */}
+        <Section title="Form" description="Form + FormField (react-hook-form)">
+          <Tile label="Form">
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(() => {})} className="space-y-4">
+                <FormField
+                  control={form.control}
+                  name="username"
+                  rules={{ required: 'Pole wymagane' }}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Nazwa uzytkownika</FormLabel>
+                      <FormControl>
+                        <Input placeholder="manga-shift" {...field} />
+                      </FormControl>
+                      <FormDescription>Twoja publiczna nazwa.</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit" variant="accent" size="sm">Zapisz</Button>
+              </form>
+            </Form>
+          </Tile>
+        </Section>
+
+        {/* ---------------------------------------------------------------- Domain inputs */}
+        <Section title="Domain inputs" description="ApiKeyInput, VoiceListItem, ContextMenu, RoundedScrollList">
+          <div className="grid gap-4 md:grid-cols-2">
+            <Tile label="ApiKeyInput">
+              <ApiKeyInput onSave={() => {}} placeholder="sk-..." />
+            </Tile>
+
+            <Tile label="VoiceListItem">
+              <div className="space-y-1">
+                <VoiceListItem title="Aiko" subtitle="ja-JP" selected onSelect={() => {}} onPlay={() => {}} />
+                <VoiceListItem title="Ren" subtitle="ja-JP" selected={false} onSelect={() => {}} />
+              </div>
+            </Tile>
+
+            <Tile label="ContextMenu">
+              <ContextMenu>
+                <ContextMenuTrigger className="flex h-20 items-center justify-center rounded-md border border-dashed border-[var(--line)] text-[length:var(--small-font-size)] text-dim">
+                  Kliknij prawym
+                </ContextMenuTrigger>
+                <ContextMenuContent>
+                  <ContextMenuLabel>Akcje</ContextMenuLabel>
+                  <ContextMenuSeparator />
+                  <ContextMenuItem><Copy /> Kopiuj</ContextMenuItem>
+                  <ContextMenuItem><Download /> Pobierz</ContextMenuItem>
+                  <ContextMenuItem variant="destructive"><Trash2 /> Usun</ContextMenuItem>
+                </ContextMenuContent>
+              </ContextMenu>
+            </Tile>
+
+            <Tile label="RoundedScrollList">
+              <div className="h-28">
+                <RoundedScrollList className="h-full">
+                  <div className="space-y-1 text-[length:var(--small-font-size)]">
+                    {Array.from({ length: 12 }).map((_, i) => (
+                      <p key={i} className="rounded-md px-2 py-1 hover:bg-[var(--overlay)]">Element {i + 1}</p>
+                    ))}
+                  </div>
+                </RoundedScrollList>
+              </div>
+            </Tile>
+          </div>
+        </Section>
+
+        {/* ---------------------------------------------------------------- Dialogs + toasts */}
+        <Section title="Dialogs + Toasts" description="ConfirmDialog, ConfirmDeleteDialog, Sonner (toast)">
+          <Row>
+            <Button variant="outline" onClick={() => setConfirmOpen(true)}>ConfirmDialog</Button>
+            <Button variant="destructive" onClick={() => setDeleteOpen(true)}>ConfirmDeleteDialog</Button>
+            <Button variant="accent" onClick={() => toast('Render zakonczony', { description: 'Wideo gotowe do pobrania.' })}>
+              <Bell /> Pokaz toast
+            </Button>
+          </Row>
+
+          <ConfirmDialog
+            open={confirmOpen}
+            onOpenChange={setConfirmOpen}
+            icon={Info}
+            title="Potwierdz akcje"
+            description="Czy chcesz kontynuowac renderowanie?"
+            confirmLabel="Tak"
+            cancelLabel="Anuluj"
+            onConfirm={() => setConfirmOpen(false)}
+          />
+
+          <ConfirmDeleteDialog
+            open={deleteOpen}
+            onOpenChange={setDeleteOpen}
+            title="Usunac projekt?"
+            description="Tej operacji nie da sie cofnac."
+            onConfirm={() => setDeleteOpen(false)}
+          />
+        </Section>
+
+        <Toaster />
+
         <footer className="border-t border-[var(--line)] py-10 text-[length:var(--small-font-size)] text-dim">
-          {/* SplashScreen / NeonOrbs pominiete — app boot / app-only. */}
-          {/* Sonner/Toaster pominiety — wymaga globalnego providera. */}
-          {/* Chart / Resizable / Combobox / Command / InputOtp / ApiKeyInput / */}
-          {/* VoiceListItem / RoundedScrollList / Sliding* (poza SlidingTabs) / */}
-          {/* OverflowMenubar / PageHeader / SectionCard / ConfirmDialog / Form — */}
-          {/* pominiete: wymagaja providerow, danych domenowych lub useAppStore. */}
+          {/* SplashScreen / NeonOrbs / AppIcon pominiete — app boot / app-only. */}
+          {/* SlidingMenubar / SlidingCombobox / SlidingCommand / SlidingContextMenu / */}
+          {/* SlidingDropdownMenu / SlidingScrollList / OverflowMenubar pominiete — */}
+          {/* app-domain API (wymaga konfiguracji menu/akcji domenowych). */}
           Galeria debug — koniec.
         </footer>
       </main>
