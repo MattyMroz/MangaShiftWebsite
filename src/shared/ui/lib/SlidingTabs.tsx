@@ -28,6 +28,8 @@ interface SlidingTabsListProps
   activeBg?: string
   activeBorder?: string
   activeGlow?: boolean
+  hoverPillClassName?: string
+  activePillClassName?: string
 }
 
 function SlidingTabsList({
@@ -37,6 +39,8 @@ function SlidingTabsList({
   activeBg,
   activeBorder,
   activeGlow = true,
+  hoverPillClassName,
+  activePillClassName,
   children,
   ...props
 }: SlidingTabsListProps) {
@@ -125,7 +129,7 @@ function SlidingTabsList({
     >
       <div
         aria-hidden
-        className="absolute pointer-events-none rounded-md z-0"
+        className={cn('absolute pointer-events-none rounded-md z-0', hoverPillClassName)}
         style={{
           left: hover.left,
           top: hover.top,
@@ -143,7 +147,8 @@ function SlidingTabsList({
           'absolute rounded-md pointer-events-none z-0',
           isDefault
             ? cn('bg-[var(--accent)] border border-[var(--accent-bright)]', activeGlow && 'neon-glow-sm')
-            : cn('bg-[var(--accent-subtle)]', activeGlow && 'neon-glow-xs')
+            : cn('bg-[var(--accent-subtle)]', activeGlow && 'neon-glow-xs'),
+          activePillClassName
         )}
         style={{
           background: activeBg,
