@@ -1,3 +1,4 @@
+import type { KeyboardEvent } from 'react'
 import { cn } from '@/lib/utils'
 import { Switch } from '@/shared/ui/lib/Switch'
 import { Badge } from '@/shared/ui/lib/Badge'
@@ -48,12 +49,22 @@ export function ListItem({
   actionLabel,
   className,
 }: ListItemProps) {
-  const Comp = selectable ? 'button' : 'div'
-
   return (
-    <Comp
-      onClick={onClick}
-      {...(selectable ? { type: 'button' as const, 'aria-pressed': selected } : {})}
+    <div
+      onClick={selectable ? onClick : undefined}
+      {...(selectable
+        ? {
+              role: 'button' as const,
+              tabIndex: 0,
+              'aria-pressed': selected,
+              onKeyDown: (e: KeyboardEvent) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault()
+                      onClick?.()
+                  }
+              },
+          }
+        : {})}
       className={cn(
         'flex items-center justify-between gap-3 rounded-md px-3 py-2 transition-colors',
         'focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[var(--accent-glow)]/30',
@@ -115,6 +126,6 @@ export function ListItem({
           </Button>
         )}
       </div>
-    </Comp>
+    </div>
   )
 }
