@@ -13,11 +13,11 @@ Gdy piszesz, reviewujesz lub refaktoryzujesz kod Python — ten skill definiuje 
 - Piszesz nowy moduł / serwis / CLI
 - Reviewujesz PR pod kątem coding standard
 - Nie wiesz jaki pattern użyć (dataclass vs Pydantic, sync vs async, Protocol vs ABC, itp.)
-- Potrzebujesz decyzji architektonicznej na poziomie kodu (nie systemu — do tego `brainstorm`)
+- Potrzebujesz decyzji architektonicznej na poziomie kodu (nie systemu — do tego `ideate`)
 
 ### Nie używaj do ❌
 
-- **Decyzji architektonicznych systemu** (→ `brainstorm` skill)
+- **Decyzji architektonicznych systemu** (→ `ideate` skill)
 - **Frontend / TypeScript** (→ `frontend` skill)
 - **Jednorazowych quick-fixów** gdzie wystarczy `ruff check --fix`
 - **Porównań z innymi językami** (standard dotyczy tylko Pythona ≥3.10)
