@@ -5,13 +5,15 @@ import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Button } from '@/shared/ui/Button/Button';
 import { Container } from '@/shared/ui/Container/Container';
+import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
 import { assetPath } from '@/shared/lib/utils/assetPath';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
+import { t } from '@/shared/i18n';
 
 const highlights = [
-    ['01', 'Panel-aware pacing'],
-    ['02', 'Character narration'],
-    ['03', 'Ready-to-share video'],
+    ['01', t('hero.highlights.0.label')],
+    ['02', t('hero.highlights.1.label')],
+    ['03', t('hero.highlights.2.label')],
 ] as const;
 
 const reveal = {
@@ -29,14 +31,14 @@ export const Hero = () => {
     return (
         <section id="home" className="relative overflow-hidden pb-20 pt-32 md:pb-24 md:pt-40">
             <Container>
-                <div className="editorial-rule" data-index="I." data-page="001 / 008">
-                    <span className="truncate">MangaShift / private beta / 2026</span>
-                </div>
+                <EditorialRule index="I." page="001 / 008">
+                    {t('hero.rule')}
+                </EditorialRule>
 
                 <div className="mt-10 grid items-center gap-16 lg:mt-14 lg:grid-cols-12 lg:gap-10">
                     <div className="lg:col-span-7 lg:pr-8">
                         <motion.p className="section-kicker" {...reveal} transition={{ duration: 0.55 }}>
-                            Manga to narrated video
+                            {t('hero.kicker')}
                         </motion.p>
 
                         <motion.h1
@@ -44,8 +46,9 @@ export const Hero = () => {
                             {...reveal}
                             transition={{ duration: 0.78, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
                         >
-                            Turn manga into a story you can{' '}
-                            <em className="text-[var(--accent-text)]">watch</em>.
+                            {t('hero.titleBefore')}{' '}
+                            <em className="text-[var(--accent-text)]">{t('hero.titleEmphasis')}</em>
+                            {t('hero.titleAfter')}
                         </motion.h1>
 
                         <motion.p
@@ -53,8 +56,7 @@ export const Hero = () => {
                             {...reveal}
                             transition={{ duration: 0.7, delay: 0.18 }}
                         >
-                            MangaShift reads every panel, follows the original flow, adds narration
-                            and motion, then renders a finished video. No timeline. No manual cut.
+                            {t('hero.lead')}
                         </motion.p>
 
                         <motion.div
@@ -64,13 +66,13 @@ export const Hero = () => {
                         >
                             <Link href="#beta" onClick={scrollTo} className="contents">
                                 <Button variant="hero" size="md">
-                                    Join the private beta
+                                    {t('hero.ctaPrimary')}
                                     <span aria-hidden="true">↗</span>
                                 </Button>
                             </Link>
                             <Link href="#demo" onClick={scrollTo} className="contents">
                                 <Button variant="outline" size="md">
-                                    Watch the sample
+                                    {t('hero.ctaSecondary')}
                                     <span aria-hidden="true">↓</span>
                                 </Button>
                             </Link>
@@ -110,7 +112,7 @@ export const Hero = () => {
                                 <div className="flex items-center gap-2">
                                     <span className="h-4 w-4 rounded-full bg-[var(--accent)]" />
                                     <span className="font-mono text-[0.9rem] uppercase tracking-[0.17em] text-[var(--text-faint)]">
-                                        Motion study / 01
+                                        {t('hero.motionStudyLabel')}
                                     </span>
                                 </div>
                                 <span className="font-mono text-[1.4rem] tracking-[0.14em] text-[var(--text)]">
@@ -122,7 +124,7 @@ export const Hero = () => {
                                 <span className="absolute right-8 top-8 h-28 w-28 rounded-full bg-[var(--accent)] opacity-80" />
                                 <Image
                                     src={assetPath('/images/inspiration/hero-angel.png')}
-                                    alt="Editorial collage representing MangaShift motion direction"
+                                    alt={t('hero.heroImageAlt')}
                                     fill
                                     priority
                                     sizes="(max-width: 1024px) 88vw, 38vw"
@@ -132,9 +134,9 @@ export const Hero = () => {
 
                             <div className="mt-3 grid grid-cols-[1fr_1fr_1fr_1.6fr] gap-2" aria-hidden="true">
                                 {[
-                                    { label: 'Page', cls: 'bg-[var(--text)]' },
-                                    { label: 'Panels', cls: 'border border-[var(--line-strong)] bg-[var(--surface-2)]' },
-                                    { label: 'Voice', cls: 'bg-[color-mix(in_srgb,var(--accent)_22%,var(--surface))]' },
+                                    { label: t('hero.diagram.page'), cls: 'bg-[var(--text)]' },
+                                    { label: t('hero.diagram.panels'), cls: 'border border-[var(--line-strong)] bg-[var(--surface-2)]' },
+                                    { label: t('hero.diagram.voice'), cls: 'bg-[color-mix(in_srgb,var(--accent)_22%,var(--surface))]' },
                                 ].map(({ label, cls }) => (
                                     <div key={label}>
                                         <span className={`block h-9 rounded-[0.8rem] ${cls}`} />
@@ -151,7 +153,7 @@ export const Hero = () => {
                                         </svg>
                                     </span>
                                     <span className="mt-1.5 block text-right font-mono text-[0.72rem] uppercase tracking-[0.14em] text-[var(--accent-text)]">
-                                        Video
+                                        {t('hero.diagram.video')}
                                     </span>
                                 </div>
                             </div>
@@ -165,7 +167,7 @@ export const Hero = () => {
                             <div className="relative aspect-[4/3] overflow-hidden rounded-[1.6rem]">
                                 <Image
                                     src={assetPath('/images/chainsawman/RezeArc.webp')}
-                                    alt="Source manga frame"
+                                    alt={t('hero.sourceImageAlt')}
                                     fill
                                     sizes="220px"
                                     className="object-cover object-top grayscale"
@@ -173,8 +175,8 @@ export const Hero = () => {
                                 <span className="absolute left-3 top-3 h-5 w-5 rounded-full bg-[var(--accent)]" />
                             </div>
                             <div className="mt-2 flex items-center justify-between font-mono text-[0.8rem] uppercase tracking-[0.14em] text-[var(--text-faint)]">
-                                <span>Source</span>
-                                <span>Panel 001</span>
+                                <span>{t('hero.sourceLabel')}</span>
+                                <span>{t('hero.panelLabel')}</span>
                             </div>
                         </motion.div>
 

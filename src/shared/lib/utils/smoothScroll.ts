@@ -21,7 +21,6 @@ export const smoothScrollTo = (href: string, offset?: number): boolean => {
     if (section) {
         const header = document.querySelector('header');
         const target = (section.querySelector('[data-scroll-target]') as HTMLElement | null)
-            ?? (section.querySelector('.editorial-rule') as HTMLElement | null)
             ?? section;
         const resolvedOffset = offset ?? (header?.getBoundingClientRect().height ?? 0) + 24;
         let elementTop = 0;
@@ -36,6 +35,13 @@ export const smoothScrollTo = (href: string, offset?: number): boolean => {
             top: Math.max(0, offsetPosition),
             behavior: 'smooth'
         });
+
+        if (id === 'beta') {
+            window.setTimeout(() => {
+                const input = document.getElementById('beta-email') as HTMLInputElement | null;
+                input?.focus({ preventScroll: true });
+            }, 700);
+        }
         return true;
     }
 

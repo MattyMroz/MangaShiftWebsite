@@ -1,90 +1,337 @@
 {
   "nav": {
     "about": "About",
-    "how": "How it works",
+    "how": "How",
     "features": "Features",
+    "usecases": "Use cases",
+    "gallery": "Gallery",
     "demo": "Demo",
     "faq": "FAQ",
     "beta": "Join Beta"
   },
   "hero": {
-    "eyebrow": "Manga → Video · AI pipeline",
-    "title": "Turn static manga into living video.",
-    "titleEmphasis": "living",
-    "lead": "MangaShift reads the page, understands the panels, and narrates them — turning manga and manhwa into immersive video, automatically.",
-    "ctaPrimary": "Join the Beta",
-    "ctaSecondary": "See the demo"
-  },
-  "ticker": {
-    "status": "In development · Open beta soon",
-    "items": ["AI narration", "Panel detection", "Multi-voice", "Subtitles", "Export to video"]
+    "rule": "MangaShift / private beta / 2026",
+    "kicker": "Manga to narrated video",
+    "titleBefore": "Turn manga into a story you can",
+    "titleEmphasis": "watch",
+    "titleAfter": ".",
+    "lead": "MangaShift reads every panel, follows the original flow, adds narration and motion, then renders a finished video. No timeline. No manual cut.",
+    "ctaPrimary": "Join the private beta",
+    "ctaSecondary": "Watch the sample",
+    "highlights": [
+      { "label": "Panel-aware pacing" },
+      { "label": "Character narration" },
+      { "label": "Ready-to-share video" }
+    ],
+    "motionStudyLabel": "Motion study / 01",
+    "heroImageAlt": "Editorial collage representing MangaShift motion direction",
+    "diagram": {
+      "page": "Page",
+      "panels": "Panels",
+      "voice": "Voice",
+      "video": "Video"
+    },
+    "sourceImageAlt": "Source manga frame",
+    "sourceLabel": "Source",
+    "panelLabel": "Panel 001"
   },
   "about": {
-    "eyebrow": "The vision",
-    "title": "We give manga a voice.",
-    "lead": "Reading is silent. MangaShift adds motion, narration and sound — so a story you scroll becomes a story you watch."
+    "sideLabel": "Why MangaShift",
+    "eyebrowRule": "Why MangaShift",
+    "metaLabel": "The idea",
+    "titleLead": "Keep the art. Add",
+    "titleEmphasis": "voice",
+    "titleTail": ", pacing and motion.",
+    "lead": "MangaShift is not an image generator. It is a production pipeline for artwork that already exists. The page remains the source; AI handles the repetitive work between scan and screen.",
+    "principles": [
+      { "title": "Keep the composition", "text": "The camera follows the artist’s panel order instead of inventing a new scene." },
+      { "title": "Direct the voice", "text": "Dialogue, narration and pauses are shaped around what happens on the page." },
+      { "title": "Publish the result", "text": "The output is a video made for watching, sharing and iterating." }
+    ],
+    "imageAlt": "Editorial collage representing the MangaShift visual direction",
+    "sourceFrame": "Source frame",
+    "figcaption": "The artwork stays recognizable. Motion and audio support the reading rhythm instead of covering it up."
   },
   "how": {
-    "eyebrow": "How it works",
-    "title": "From page to video, in four steps.",
+    "eyebrow": "One clear pipeline",
+    "title": "From silent page to narrated",
+    "titleEmphasis": "scene",
+    "lead": "Four stages replace the usual editing timeline. The illustration stays central; each step adds one clear layer to the final sequence.",
     "steps": [
-      { "n": "01", "title": "Upload", "text": "Drop in manga or manhwa pages." },
-      { "n": "02", "title": "Detect", "text": "AI reads panels, bubbles and reading order." },
-      { "n": "03", "title": "Narrate", "text": "Text is translated and voiced naturally." },
-      { "n": "04", "title": "Render", "text": "Everything is composed into a video." }
+      { "title": "Upload", "eyebrow": "Source", "text": "Add a page, chapter or vertical webtoon. MangaShift accepts the artwork as it is." },
+      { "title": "Understand", "eyebrow": "Vision", "text": "The pipeline finds panels, reading direction, speech bubbles and scene changes." },
+      { "title": "Direct", "eyebrow": "Voice + motion", "text": "Dialogue gets a cast, narration gets timing, and each panel receives a camera move." },
+      { "title": "Render", "eyebrow": "Output", "text": "Video, audio and subtitles are composed into a finished file ready to publish." }
     ]
   },
   "features": {
-    "eyebrow": "Capabilities",
-    "title": "Built for storytelling.",
+    "eyebrow": "Built for the page",
+    "title": "The production work, without the production",
+    "titleEmphasis": "mess",
+    "lead": "Each feature exists to shorten the path from finished artwork to a watchable, narrated format.",
+    "capabilityLabel": "Capability",
     "items": [
-      { "n": "01", "title": "AI narration", "text": "Natural voices that match the scene." },
-      { "n": "02", "title": "Panel detection", "text": "Understands layout and reading flow." },
-      { "n": "03", "title": "Multiple voices", "text": "Distinct voices per character." },
-      { "n": "04", "title": "Video export", "text": "Ready-to-share output in one click." }
+      { "title": "Narration that follows the scene", "text": "The script is built from panel order and dialogue context, so the voice follows the page instead of reading a text dump.", "meta": "Script · panel order" },
+      { "title": "Panel-aware camera", "text": "Framing respects manga and manhwa layouts, including right-to-left reading.", "meta": "Camera · RTL aware" },
+      { "title": "Captions included", "text": "Speech, narration and subtitles stay synchronized with the final cut.", "meta": "Subtitles · in sync" },
+      { "title": "One finished export", "text": "Get a video file for horizontal or vertical publishing without rebuilding the edit.", "meta": "Output · one file" }
+    ]
+  },
+  "usecases": {
+    "metaLabel": "One engine, different stories",
+    "headingBefore": "Built around the way you want to",
+    "headingEm": "use",
+    "headingAfter": "manga.",
+    "intro": "Choose a point of view. The active panel slides into place and shows how the same pipeline changes for readers, creators and publishing teams.",
+    "joinBeta": "Join the beta",
+    "modes": [
+      { "label": "Readers", "eyebrow": "Watch the chapter", "title": "A calmer way to follow the story.", "text": "Narration, readable captions and panel-led motion turn a chapter into a format that works on a commute, on a TV or when reading feels tiring.", "notes": ["Hands-free playback", "Original panel order", "Captions included"], "code": "MODE 01 / VIEW" },
+      { "label": "Creators", "eyebrow": "Publish more formats", "title": "Move from finished pages to a finished cut.", "text": "Use the artwork you already made. MangaShift prepares narration, camera motion and timing, then returns a video ready for review and publishing.", "notes": ["No editing timeline", "Horizontal and vertical", "Fast iteration"], "code": "MODE 02 / MAKE" },
+      { "label": "Publishers", "eyebrow": "Open the catalogue", "title": "Give existing stories a new screen.", "text": "Adapt selected titles into watchable previews and narrated episodes without rebuilding the production workflow for every chapter.", "notes": ["Repeatable pipeline", "New distribution formats", "Beta collaboration"], "code": "MODE 03 / SCALE" }
+    ]
+  },
+  "gallery": {
+    "metaLabel": "The look of the experience",
+    "headingBefore": "A visual system with room to",
+    "headingEmphasis": "breathe",
+    "headingAfter": ".",
+    "paragraph": "These are art-direction studies, not fake product results. They define the paper, ink, composition and pacing that the beta interface will use.",
+    "studies": [
+      { "title": "Panel rhythm", "note": "Framing and pause" },
+      { "title": "Voice space", "note": "Dialogue and silence" },
+      { "title": "Scene focus", "note": "Guided attention" },
+      { "title": "Motion language", "note": "Subtle camera direction" },
+      { "title": "Visual tone", "note": "A coherent final cut" }
     ]
   },
   "demo": {
-    "eyebrow": "See it",
-    "title": "A page, brought to life.",
-    "lead": "A short look at what MangaShift produces."
+    "kicker": "See the format",
+    "title": "A page that knows when to",
+    "titleEmphasis": "move",
+    "lead": "This sample shows the direction: panel-led framing, narration timing and motion composed into one watchable sequence.",
+    "stats": [
+      { "label": "Input", "value": "Manga" },
+      { "label": "Format", "value": "Video" },
+      { "label": "Stage", "value": "Beta" }
+    ],
+    "cta": "Get beta access",
+    "previewLabel": "Preview · beta render",
+    "sourceCaption": "Source · static panels",
+    "outputCaption": "Output · narrated motion",
+    "carouselLabel": "From page to sequence",
+    "prevFrame": "Previous frame",
+    "nextFrame": "Next frame",
+    "cards": [
+      { "eyebrow": "Source", "title": "The static page" },
+      { "eyebrow": "Read", "title": "Panel order" },
+      { "eyebrow": "Direct", "title": "Voice & motion" },
+      { "eyebrow": "Render", "title": "The narrated cut" },
+      { "eyebrow": "Output", "title": "Ready to share" }
+    ]
   },
-  "tech": {
+  "powered": {
+    "interlude": "Interlude — The Engine Room",
+    "poweredBy": "Powered by",
+    "headingBefore": "State-of-the-art",
+    "headingEm": "AI",
+    "headingAfter": ", end to end.",
+    "engines": "engines",
     "eyebrow": "Under the hood",
-    "title": "Powered by state-of-the-art AI."
+    "leadBefore": "One pipeline,",
+    "leadEm": "many minds",
+    "leadAfter": "— each pass handled by a model tuned for the job.",
+    "body": "We stay model-agnostic on purpose. As the field moves, so does the engine — you keep the same upload-in, reel-out workflow while the parts underneath only get sharper.",
+    "vol": "Vol.01",
+    "pills": [
+      { "label": "Vision models" },
+      { "label": "Neural narration" },
+      { "label": "Auto-translation" },
+      { "label": "Voice synthesis" },
+      { "label": "Scene pacing" },
+      { "label": "Caption alignment" }
+    ],
+    "outroEm": "No model lock-in.",
+    "outroAfter": "The names under the hood will change — the result on screen only gets better.",
+    "modelAgnostic": "Model-agnostic",
+    "joinBeta": "Join the beta"
   },
-  "proof": {
-    "eyebrow": "Early access",
-    "title": "Be the first to try it.",
-    "lead": "MangaShift is in private beta. Join early and help shape it."
+  "stats": {
+    "title": "Built to",
+    "titleEmphasis": "scale",
+    "titleAfter": ", not to fuss.",
+    "lead": "One pipeline carries a whole chapter from silent page to narrated reel — measured, repeatable, and ready for release.",
+    "joinBeta": "Join the beta",
+    "metrics": [
+      { "label": "Pages per run", "note": "A full chapter, read in order, panel by panel — no manual cuts." },
+      { "label": "Languages", "note": "Narration and subtitles generated across scripts, left- or right-to-left." },
+      { "label": "Export to video", "note": "Upload in, a narrated reel out — MP4 with synced audio and motion." },
+      { "label": "AI voices", "note": "A distinct voice per character, plus a narrator — cast automatically." }
+    ]
+  },
+  "pricing": {
+    "title": "Free while it's",
+    "titleEmphasis": "beta",
+    "lead": "One plan is open today — the whole pipeline, no card, no catch. Pro and Studio land at public launch.",
+    "noteLabel": "Note · Pricing is placeholder",
+    "noteBefore": "Figures shown for paid tiers are indicative only and",
+    "noteEmphasis": "not final",
+    "noteAfter": ". Final pricing is set before public launch — beta members keep their founding terms.",
+    "openNow": "Open now",
+    "statusLive": "Live",
+    "statusSoon": "Soon",
+    "placeholderNote": "Placeholder — not final",
+    "plans": [
+      {
+        "name": "Free",
+        "cadence": "during beta",
+        "tagline": "The whole pipeline, while we build it together.",
+        "features": [
+          "Panel detection & reading-order parsing",
+          "AI narration with a single voice",
+          "720p export · watermark",
+          "Up to 3 chapters per month",
+          "Founding-cohort Discord"
+        ],
+        "cta": "Join the beta"
+      },
+      {
+        "name": "Pro",
+        "cadence": "per month",
+        "tagline": "For creators shipping reels on a schedule.",
+        "features": [
+          "Everything in Free, no limits",
+          "Multiple character voices & narrator",
+          "1080p / vertical export · no watermark",
+          "Subtitles & paced Ken-Burns motion",
+          "Priority render queue"
+        ],
+        "cta": "Coming soon"
+      },
+      {
+        "name": "Studio",
+        "cadence": "per seat",
+        "tagline": "For teams and publishers at volume.",
+        "features": [
+          "Everything in Pro, per seat",
+          "4K export & batch rendering",
+          "Shared voice library & brand presets",
+          "API access & bulk uploads",
+          "Dedicated support"
+        ],
+        "cta": "Coming soon"
+      }
+    ]
+  },
+  "tickerbar": {
+    "buildingNow": "Building now",
+    "status": "Open · 12 modules · 3 in beta",
+    "rowTop": [
+      "Panel detection",
+      "Reading-order analysis",
+      "AI narration",
+      "Character voices",
+      "Subtitles",
+      "Video export",
+      "Speech bubble parsing",
+      "Frame interpolation",
+      "Color grading",
+      "Auto chapters",
+      "Voice cloning",
+      "Lip-sync timing"
+    ],
+    "rowBottom": [
+      "OCR",
+      "Translation",
+      "Text-to-speech",
+      "Scene pacing",
+      "Sound design",
+      "Auto-cut",
+      "Motion tracking",
+      "Depth parallax",
+      "Ambient score",
+      "Subtitle styling",
+      "Export presets",
+      "Batch render"
+    ]
   },
   "faq": {
-    "eyebrow": "Questions",
-    "title": "Frequently asked.",
+    "eyebrow": "Before you join",
+    "title": "A few clear",
+    "titleEmphasis": "answers",
+    "lead": "MangaShift is still in active development. These answers describe the beta direction without pretending unfinished parts are already final.",
+    "questionsLabel": "questions",
+    "answeredLabel": "answered",
     "items": [
-      { "q": "What is MangaShift?", "a": "A pipeline that turns static manga and manhwa into narrated video using AI." },
-      { "q": "Is it free?", "a": "The beta is free. Pricing will be announced later." },
-      { "q": "Which languages are supported?", "a": "We start with English; more languages are planned." },
-      { "q": "When does the beta open?", "a": "Soon. Leave your email and we'll reach out the moment it's ready." }
+      { "question": "What does MangaShift create?", "answer": "A narrated video built from your manga or manhwa pages. The pipeline detects panel order, prepares the script, adds voices and motion, then renders the result." },
+      { "question": "Does it redraw or replace the artwork?", "answer": "No. The current direction keeps the supplied page as the visual source. MangaShift adds framing, timing, narration, audio and subtitles around it." },
+      { "question": "Is the beta free?", "answer": "Yes. The private beta is free while the workflow and output quality are being tested with early users." },
+      { "question": "Which languages will be available?", "answer": "English is the first interface and narration target. Polish is prepared as the next site language, with additional narration languages planned after the core pipeline is stable." },
+      { "question": "When will I get access?", "answer": "Invites will be sent in small waves. Joining the list is the best way to receive an access email when a new beta cohort opens." },
+      { "question": "What kind of pages work best?", "answer": "Clear, legible scans of manga or vertical manhwa. The pipeline reads panel layout and speech bubbles, so high-resolution pages with readable lettering give the most reliable framing and narration." },
+      { "question": "How does it handle right-to-left reading?", "answer": "Reading direction is detected per title. Traditional manga is followed right-to-left and top-to-bottom, while vertical manhwa is read as a continuous scroll, so the camera moves in the order a human reader would." },
+      { "question": "Where do the voices come from?", "answer": "Narration and dialogue use text-to-speech tuned to scene context. The goal is a consistent cast and pacing that supports the page, not a literal read-out of every line." },
+      { "question": "Can I edit the result?", "answer": "The beta returns a finished video rather than an editing timeline. Control over framing, voices and timing is expanding as the pipeline matures; early users help decide which controls land first." },
+      { "question": "What formats does it export?", "answer": "A standard video file in horizontal or vertical aspect, with synchronized subtitles. The same chapter can be rendered for a widescreen player or a vertical short." },
+      { "question": "Do I keep the rights to my work?", "answer": "Yes. You only grant what is needed to process the pages you upload and generate your video. MangaShift does not claim ownership of your artwork or the rendered output." }
     ]
   },
   "beta": {
-    "eyebrow": "Join the beta",
-    "title": "Be the first to try MangaShift.",
-    "lead": "Leave your email to join the private beta — we'll reach out the moment it's ready. No spam, just the invite.",
-    "emailPlaceholder": "you@example.com",
+    "metaLabel": "Private beta",
+    "titleBefore": "Your manga could be",
+    "titleEmphasis": "next",
+    "lead": "Leave your email to receive a beta invitation. You will hear from us when there is a real build to test, not another generic newsletter.",
+    "badges": [
+      "Free during beta",
+      "No credit card",
+      "Early product access"
+    ],
+    "requestAccess": "Request access",
+    "listTitle": "Join the MangaShift list",
     "emailLabel": "Email address",
-    "consent": "I agree to be contacted by email about the beta test.",
-    "submit": "Join the Beta",
-    "submitting": "Joining…",
-    "success": "You're in!",
-    "successMessage": "Thanks! We'll email you when the beta opens.",
-    "errorMessage": "Something went wrong — please try again or email us directly."
+    "emailPlaceholder": "you@studio.com",
+    "submit": "Join Beta",
+    "submitting": "Sending…",
+    "submitSuccess": "You’re on the list",
+    "consent": "I agree to receive email about MangaShift beta access and product updates.",
+    "successMessage": "Thanks. Your beta request has been recorded.",
+    "errorMessage": "The request could not be sent. Please try again.",
+    "disclaimer": "Only useful product emails. Unsubscribe whenever you want."
   },
   "footer": {
-    "wordmark": "MangaShift",
-    "tagline": "Manga, brought to life.",
-    "rights": "All rights reserved.",
-    "links": { "github": "GitHub", "linkedin": "LinkedIn" }
+    "eyebrow": "The next way to read",
+    "headingPre": "Let finished pages find a",
+    "headingEmphasis": "new rhythm",
+    "headingPost": ".",
+    "metaEst": "Est. 2026",
+    "metaCity": "Wrocław",
+    "intro": "MangaShift is building a direct path from static manga and manhwa to narrated video, while keeping the original composition at the center.",
+    "joinBeta": "Join the private beta",
+    "brandTagline": "Static manga and manhwa, directed into voice, pacing and motion.",
+    "buildingNote": "Building the first beta",
+    "sections": {
+      "explore": "Explore",
+      "product": "Product",
+      "connect": "Connect"
+    },
+    "exploreLinks": [
+      "About",
+      "How it works",
+      "Features",
+      "For whom",
+      "Visual studies",
+      "Demo",
+      "FAQ",
+      "Private beta"
+    ],
+    "productNotes": [
+      { "label": "Status", "value": "Private beta" },
+      { "label": "Interface", "value": "English first" },
+      { "label": "Input", "value": "Manga + manhwa" }
+    ],
+    "connect": {
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
+    },
+    "location": "Wrocław / Poland / Private beta"
   }
 }

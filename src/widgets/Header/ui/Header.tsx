@@ -12,10 +12,10 @@ import { t } from '@/shared/i18n';
 
 const navLinks = [
     { name: t('nav.about'), href: '#about' },
-    { name: 'How', href: '#how' },
+    { name: t('nav.how'), href: '#how' },
     { name: t('nav.features'), href: '#features' },
-    { name: 'Use cases', href: '#usecases' },
-    { name: 'Gallery', href: '#gallery' },
+    { name: t('nav.usecases'), href: '#usecases' },
+    { name: t('nav.gallery'), href: '#gallery' },
     { name: t('nav.demo'), href: '#demo' },
     { name: t('nav.faq'), href: '#faq' },
 ];
@@ -119,9 +119,9 @@ export const Header = () => {
                         </div>
                         <Button
                             variant="hero"
-                            size="sm"
+                            size="md"
                             onClick={joinBeta}
-                            className="hidden px-6 text-[1.3rem] sm:inline-flex"
+                            className="hidden sm:inline-flex"
                         >
                             {t('nav.beta')}
                         </Button>
@@ -152,7 +152,7 @@ export const Header = () => {
                                     <Link
                                         href={link.href}
                                         onClick={nav}
-                                        className="text-[2.6rem] font-bold text-[var(--text)] transition-colors duration-200 hover:text-[var(--accent)]"
+                                        className="font-[family-name:var(--font-mono)] text-[1.8rem] font-medium uppercase tracking-[0.14em] text-[var(--text)] transition-colors duration-200 hover:text-[var(--accent)]"
                                     >
                                         {link.name}
                                     </Link>

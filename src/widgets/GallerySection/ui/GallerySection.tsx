@@ -3,25 +3,26 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Container } from '@/shared/ui/Container/Container';
+import { FloatingLabel } from '@/shared/ui/FloatingLabel/FloatingLabel';
+import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { MetaLabel } from '@/shared/ui/MetaLabel/MetaLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
+import { t } from '@/shared/i18n';
 
 const studies = [
-    { image: assetPath('/images/inspiration/lab-1.png'), title: 'Panel rhythm', note: 'Framing and pause' },
-    { image: assetPath('/images/inspiration/lab-2.png'), title: 'Voice space', note: 'Dialogue and silence' },
-    { image: assetPath('/images/inspiration/lab-3.png'), title: 'Scene focus', note: 'Guided attention' },
-    { image: assetPath('/images/inspiration/lab-4.png'), title: 'Motion language', note: 'Subtle camera direction' },
-    { image: assetPath('/images/inspiration/lab-5.png'), title: 'Visual tone', note: 'A coherent final cut' },
+    { image: assetPath('/images/inspiration/lab-1.png') },
+    { image: assetPath('/images/inspiration/lab-2.png') },
+    { image: assetPath('/images/inspiration/lab-3.png') },
+    { image: assetPath('/images/inspiration/lab-4.png') },
+    { image: assetPath('/images/inspiration/lab-5.png') },
 ] as const;
 
 export const GallerySection = () => (
     <section id="gallery" className="section-shell relative">
         <SideLabel side="left">Nº 06 — Visual studies</SideLabel>
         <Container>
-            <div className="editorial-rule" data-index="VI." data-page="006 / 008">
-                <span>Visual studies</span>
-            </div>
+            <EditorialRule index="VI." page="006 / 008">Visual studies</EditorialRule>
 
             <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:items-end">
                 <motion.div
@@ -31,16 +32,15 @@ export const GallerySection = () => (
                     viewport={{ once: true, margin: '-80px' }}
                     transition={{ duration: 0.7 }}
                 >
-                    <MetaLabel>The look of the experience</MetaLabel>
+                    <MetaLabel>{t('gallery.metaLabel')}</MetaLabel>
                     <h2 className="display mt-7 max-w-[13ch] text-[clamp(4rem,5.8vw,7rem)]">
-                        A visual system with room to{' '}
-                        <em className="text-[var(--accent-text)]">breathe</em>.
+                        {t('gallery.headingBefore')}{' '}
+                        <em className="text-[var(--accent-text)]">{t('gallery.headingEmphasis')}</em>{t('gallery.headingAfter')}
                     </h2>
                 </motion.div>
 
                 <p className="max-w-[42ch] text-[1.5rem] leading-[1.7] text-[var(--text-muted)] lg:col-span-4 lg:justify-self-end">
-                    These are art-direction studies, not fake product results. They define the
-                    paper, ink, composition and pacing that the beta interface will use.
+                    {t('gallery.paragraph')}
                 </p>
             </div>
 
@@ -64,16 +64,16 @@ export const GallerySection = () => (
                                     className="scale-[1.18] object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.24]"
                                 />
                             </div>
-                            <span className="absolute right-3 top-3 rounded-full border border-[var(--line-strong)] bg-[var(--bg-alpha)] px-2.5 py-1 font-mono text-[0.78rem] uppercase tracking-[0.16em] text-[var(--text)] backdrop-blur">
+                            <FloatingLabel position="tr" size="sm" className="border border-[var(--line-strong)]">
                                 {String(index + 1).padStart(2, '0')}
-                            </span>
+                            </FloatingLabel>
                         </div>
                         <figcaption className="mt-3 border-t border-[var(--line-strong)] pt-3">
                             <h3 className="text-[1.4rem] font-bold leading-tight tracking-tight text-[var(--text)]">
-                                {study.title}
+                                {t(`gallery.studies.${index}.title`)}
                             </h3>
                             <p className="mt-1 font-mono text-[0.82rem] uppercase tracking-[0.14em] text-[var(--text-faint)]">
-                                {study.note}
+                                {t(`gallery.studies.${index}.note`)}
                             </p>
                         </figcaption>
                     </motion.figure>

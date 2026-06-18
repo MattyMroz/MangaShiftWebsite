@@ -29,7 +29,7 @@ const wipes = {
 const sizes: Record<ButtonSize, string> = {
     sm: 'px-4 py-2 text-[length:var(--small-font-size)]',
     md: 'px-6 py-3 text-[length:var(--normal-font-size)]',
-    lg: 'px-8 py-4 md:px-12 md:py-5 text-[length:var(--h3-font-size)]',
+    lg: 'px-8 py-3.5 md:px-10 md:py-4 text-[length:var(--h3-font-size)]',
 };
 
 export const Button: React.FC<ButtonProps> = ({

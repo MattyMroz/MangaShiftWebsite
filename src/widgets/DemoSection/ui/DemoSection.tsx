@@ -6,17 +6,21 @@ import Link from 'next/link';
 import { motion, useMotionValue, useReducedMotion, animate } from 'framer-motion';
 import { Button } from '@/shared/ui/Button/Button';
 import { Container } from '@/shared/ui/Container/Container';
+import { FloatingLabel } from '@/shared/ui/FloatingLabel/FloatingLabel';
+import { IconCircle } from '@/shared/ui/IconCircle/IconCircle';
+import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
 import { cn } from '@/shared/lib/utils/cn';
+import { t } from '@/shared/i18n';
 
 const cards = [
-    { image: assetPath('/images/inspiration/method-1.png'), eyebrow: 'Source', title: 'The static page', foot: '01' },
-    { image: assetPath('/images/inspiration/method-2.png'), eyebrow: 'Read', title: 'Panel order', foot: '02' },
-    { image: assetPath('/images/inspiration/method-3.png'), eyebrow: 'Direct', title: 'Voice & motion', foot: '03' },
-    { image: assetPath('/images/inspiration/method-4.png'), eyebrow: 'Render', title: 'The narrated cut', foot: '04' },
-    { image: assetPath('/images/inspiration/lab-1.png'), eyebrow: 'Output', title: 'Ready to share', foot: '05' },
+    { image: assetPath('/images/inspiration/method-1.png'), foot: '01' },
+    { image: assetPath('/images/inspiration/method-2.png'), foot: '02' },
+    { image: assetPath('/images/inspiration/method-3.png'), foot: '03' },
+    { image: assetPath('/images/inspiration/method-4.png'), foot: '04' },
+    { image: assetPath('/images/inspiration/lab-1.png'), foot: '05' },
 ] as const;
 
 export const DemoSection = () => {
@@ -37,51 +41,45 @@ export const DemoSection = () => {
             <Container>
                 <motion.div
                     data-scroll-target
-                    className="on-dark relative overflow-hidden rounded-[2.4rem] bg-[#121214] px-6 py-8 text-[#f1ede5] shadow-[var(--shadow-lg)] md:px-10 md:py-12 lg:px-14"
+                    className="on-dark relative overflow-y-clip rounded-[2.4rem] bg-[#121214] px-6 py-8 text-[#f1ede5] shadow-[var(--shadow-lg)] md:px-10 md:py-12 lg:px-14"
                     initial={false}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-80px' }}
                     transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                 >
-                    <span
-                        aria-hidden="true"
-                        className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[var(--accent)] opacity-15 blur-3xl"
-                    />
+                    <span aria-hidden="true" className="absolute inset-0 overflow-hidden rounded-[2.4rem]">
+                        <span className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[var(--accent)] opacity-15 blur-3xl" />
+                    </span>
 
-                    <div className="editorial-rule border-white/15 text-white/45" data-index="VII." data-page="007 / 008">
-                        <span>Demo output</span>
-                    </div>
+                    <EditorialRule index="VII." page="007 / 008" className="border-white/15 text-white/45">
+                        Demo output
+                    </EditorialRule>
 
                     <div className="relative mt-10 grid gap-10 lg:grid-cols-12 lg:items-center">
                         <div className="lg:col-span-4">
-                            <p className="section-kicker !text-[var(--accent)]">See the format</p>
+                            <p className="section-kicker !text-[var(--accent)]">{t('demo.kicker')}</p>
                             <h2 className="mt-7 max-w-[10ch] text-[clamp(4rem,5vw,6.4rem)] font-extrabold leading-[0.96] tracking-[-0.045em]">
-                                A page that knows when to{' '}
-                                <em className="serif font-medium text-[var(--accent)]">move</em>.
+                                {t('demo.title')}{' '}
+                                <em className="serif font-medium text-[var(--accent)]">{t('demo.titleEmphasis')}</em>.
                             </h2>
                             <p className="mt-7 max-w-[42ch] text-[1.55rem] leading-[1.7] text-white/60">
-                                This sample shows the direction: panel-led framing, narration timing
-                                and motion composed into one watchable sequence.
+                                {t('demo.lead')}
                             </p>
 
                             <dl className="mt-9 grid grid-cols-3 border-y border-white/15 py-5">
-                                {[
-                                    ['Input', 'Manga'],
-                                    ['Format', 'Video'],
-                                    ['Stage', 'Beta'],
-                                ].map(([label, value]) => (
-                                    <div key={label}>
+                                {[0, 1, 2].map((i) => (
+                                    <div key={i}>
                                         <dt className="font-mono text-[0.95rem] uppercase tracking-[0.18em] text-white/40">
-                                            {label}
+                                            {t(`demo.stats.${i}.label`)}
                                         </dt>
-                                        <dd className="mt-2 text-[1.4rem] font-medium text-white/85">{value}</dd>
+                                        <dd className="mt-2 text-[1.4rem] font-medium text-white/85">{t(`demo.stats.${i}.value`)}</dd>
                                     </div>
                                 ))}
                             </dl>
 
                             <Link href="#beta" onClick={scrollToBeta} className="mt-9 inline-flex">
                                 <Button variant="hero" size="md">
-                                    Get beta access
+                                    {t('demo.cta')}
                                     <span aria-hidden="true">↗</span>
                                 </Button>
                             </Link>
@@ -98,14 +96,14 @@ export const DemoSection = () => {
                                     className="object-cover"
                                 />
                                 <div className="absolute inset-0 ring-1 ring-inset ring-white/10" />
-                                <span className="absolute left-4 top-4 rounded-full bg-black/60 px-3 py-1.5 font-mono text-[0.95rem] uppercase tracking-[0.18em] text-white/70 backdrop-blur">
-                                    Preview · beta render
-                                </span>
+                                <FloatingLabel tone="dark" className="left-4 top-4 text-[0.95rem] tracking-[0.18em]">
+                                    {t('demo.previewLabel')}
+                                </FloatingLabel>
                             </div>
 
                             <div className="mt-4 flex flex-wrap items-center justify-between gap-3 font-mono text-[1rem] uppercase tracking-[0.16em] text-white/35">
-                                <span>Source · static panels</span>
-                                <span className="text-[var(--accent)]">Output · narrated motion</span>
+                                <span>{t('demo.sourceCaption')}</span>
+                                <span className="text-[var(--accent)]">{t('demo.outputCaption')}</span>
                             </div>
                         </div>
                     </div>
@@ -115,30 +113,30 @@ export const DemoSection = () => {
                             <div className="flex items-center gap-4">
                                 <span aria-hidden="true" className="h-px w-10 bg-[var(--accent)]" />
                                 <span className="font-mono text-[0.95rem] uppercase tracking-[0.18em] text-white/45">
-                                    From page to sequence
+                                    {t('demo.carouselLabel')}
                                 </span>
                             </div>
                             <div className="flex items-center gap-3">
-                                <button
-                                    type="button"
+                                <IconCircle
+                                    variant="outline"
                                     onClick={() => go(-1)}
-                                    aria-label="Previous frame"
-                                    className="grid h-11 w-11 place-items-center rounded-full border border-white/20 text-white/70 transition-colors duration-300 hover:border-white/50 hover:text-white"
+                                    aria-label={t('demo.prevFrame')}
+                                    className="border-white/20 text-white/70 hover:border-white/50 hover:text-white"
                                 >
                                     <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                                         <path d="M15 5l-7 7 7 7" />
                                     </svg>
-                                </button>
-                                <button
-                                    type="button"
+                                </IconCircle>
+                                <IconCircle
+                                    variant="outline"
                                     onClick={() => go(1)}
-                                    aria-label="Next frame"
-                                    className="grid h-11 w-11 place-items-center rounded-full border border-white/20 text-white/70 transition-colors duration-300 hover:border-white/50 hover:text-white"
+                                    aria-label={t('demo.nextFrame')}
+                                    className="border-white/20 text-white/70 hover:border-white/50 hover:text-white"
                                 >
                                     <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                                         <path d="M9 5l7 7-7 7" />
                                     </svg>
-                                </button>
+                                </IconCircle>
                             </div>
                         </div>
 
@@ -161,7 +159,9 @@ export const DemoSection = () => {
                                 window.setTimeout(() => { dragged.current = false; }, 50);
                             }}
                         >
-                            {cards.map(({ image, eyebrow, title, foot }, i) => {
+                            {cards.map(({ image, foot }, i) => {
+                                const eyebrow = t(`demo.cards.${i}.eyebrow`);
+                                const title = t(`demo.cards.${i}.title`);
                                 const raw = i - active;
                                 const offset = ((raw + total + Math.floor(total / 2)) % total) - Math.floor(total / 2);
                                 const abs = Math.abs(offset);
@@ -199,9 +199,9 @@ export const DemoSection = () => {
                                                     draggable={false}
                                                     className="object-cover"
                                                 />
-                                                <span className="absolute left-3 top-3 rounded-full bg-[var(--bg-alpha)] px-2.5 py-1 font-mono text-[0.74rem] font-semibold uppercase tracking-[0.16em] text-[var(--accent-text)] backdrop-blur">
+                                                <FloatingLabel size="sm" className="text-[0.74rem] font-semibold text-[var(--accent-text)]">
                                                     {eyebrow}
-                                                </span>
+                                                </FloatingLabel>
                                             </div>
                                             <figcaption className="flex items-center justify-between px-1 pb-1 pt-3.5">
                                                 <h3 className="text-[1.7rem] font-bold leading-tight tracking-tight text-[var(--text)]">
@@ -218,9 +218,9 @@ export const DemoSection = () => {
                         </motion.div>
 
                         <div className="mt-10 flex justify-center gap-2.5">
-                            {cards.map(({ title }, i) => (
+                            {cards.map((_, i) => (
                                 <button
-                                    key={title}
+                                    key={i}
                                     type="button"
                                     onClick={() => setActive(i)}
                                     aria-label={`Go to frame ${i + 1}`}

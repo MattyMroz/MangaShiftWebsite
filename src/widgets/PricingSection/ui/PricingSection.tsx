@@ -3,9 +3,11 @@
 import Link from 'next/link';
 import { motion, type Variants } from 'framer-motion';
 import { Button } from '@/shared/ui/Button/Button';
-import { SecRule } from '@/shared/ui/SecRule/SecRule';
+import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
+import { LiveDot } from '@/shared/ui/LiveDot/LiveDot';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
 import { cn } from '@/shared/lib/utils/cn';
+import { t } from '@/shared/i18n';
 
 type IconProps = { className?: string };
 
@@ -27,12 +29,8 @@ const LockMark = ({ className }: IconProps) => (
 type Plan = {
     n: string;
     roman: string;
-    name: string;
     price: string;
-    cadence: string;
-    tagline: string;
-    features: readonly string[];
-    cta: string;
+    featureCount: number;
     state: 'live' | 'soon';
     featured: boolean;
     coord: string;
@@ -42,18 +40,8 @@ const plans: readonly Plan[] = [
     {
         n: '01',
         roman: 'I.',
-        name: 'Free',
         price: '$0',
-        cadence: 'during beta',
-        tagline: 'The whole pipeline, while we build it together.',
-        features: [
-            'Panel detection & reading-order parsing',
-            'AI narration with a single voice',
-            '720p export · watermark',
-            'Up to 3 chapters per month',
-            'Founding-cohort Discord',
-        ],
-        cta: 'Join the beta',
+        featureCount: 5,
         state: 'live',
         featured: true,
         coord: 'TIER 01 · OPEN',
@@ -61,18 +49,8 @@ const plans: readonly Plan[] = [
     {
         n: '02',
         roman: 'II.',
-        name: 'Pro',
         price: '$—',
-        cadence: 'per month',
-        tagline: 'For creators shipping reels on a schedule.',
-        features: [
-            'Everything in Free, no limits',
-            'Multiple character voices & narrator',
-            '1080p / vertical export · no watermark',
-            'Subtitles & paced Ken-Burns motion',
-            'Priority render queue',
-        ],
-        cta: 'Coming soon',
+        featureCount: 5,
         state: 'soon',
         featured: false,
         coord: 'TIER 02 · LOCKED',
@@ -80,18 +58,8 @@ const plans: readonly Plan[] = [
     {
         n: '03',
         roman: 'III.',
-        name: 'Studio',
         price: '$—',
-        cadence: 'per seat',
-        tagline: 'For teams and publishers at volume.',
-        features: [
-            'Everything in Pro, per seat',
-            '4K export & batch rendering',
-            'Shared voice library & brand presets',
-            'API access & bulk uploads',
-            'Dedicated support',
-        ],
-        cta: 'Coming soon',
+        featureCount: 5,
         state: 'soon',
         featured: false,
         coord: 'TIER 03 · LOCKED',
@@ -136,7 +104,7 @@ export const PricingSection = () => {
             </span>
 
             <div className="relative z-10 mx-auto max-w-[120rem]">
-                <SecRule roman="VI." meta="Pricing · Plans" page="007 / 008" />
+                <EditorialRule index="VI." page="007 / 008">Pricing · Plans</EditorialRule>
 
                 <div className="mt-[clamp(4rem,7vw,7rem)] grid grid-cols-1 items-start gap-[clamp(4rem,6vw,7rem)] lg:grid-cols-[0.85fr_1.15fr]">
 
@@ -156,8 +124,8 @@ export const PricingSection = () => {
                             {...fadeUp}
                             transition={{ duration: 0.8, delay: 0.1 }}
                         >
-                            Free while it&apos;s{' '}
-                            <em className="font-normal text-[var(--accent-text)]">beta</em>.
+                            {t('pricing.title')}{' '}
+                            <em className="font-normal text-[var(--accent-text)]">{t('pricing.titleEmphasis')}</em>.
                         </motion.h2>
 
                         <motion.p
@@ -165,8 +133,7 @@ export const PricingSection = () => {
                             {...fadeUp}
                             transition={{ duration: 0.8, delay: 0.18 }}
                         >
-                            One plan is open today — the whole pipeline, no card, no catch. Pro and
-                            Studio land at public launch.
+                            {t('pricing.lead')}
                         </motion.p>
 
                         <motion.div
@@ -175,12 +142,11 @@ export const PricingSection = () => {
                             transition={{ duration: 0.8, delay: 0.26 }}
                         >
                             <span className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-[var(--accent-text)]">
-                                Note · Pricing is placeholder
+                                {t('pricing.noteLabel')}
                             </span>
                             <p className="mt-3 text-[length:var(--small-font-size)] leading-relaxed text-[var(--text-muted)]">
-                                Figures shown for paid tiers are indicative only and{' '}
-                                <em className="serif text-[var(--text)]">not final</em>. Final pricing
-                                is set before public launch — beta members keep their founding terms.
+                                {t('pricing.noteBefore')}{' '}
+                                <em className="serif text-[var(--text)]">{t('pricing.noteEmphasis')}</em>{t('pricing.noteAfter')}
                             </p>
                         </motion.div>
 
@@ -202,7 +168,7 @@ export const PricingSection = () => {
                         whileInView="show"
                         viewport={viewport}
                     >
-                        {plans.map((plan) => {
+                        {plans.map((plan, index) => {
                             const isLive = plan.state === 'live';
                             return (
                                 <motion.li
@@ -218,7 +184,7 @@ export const PricingSection = () => {
                                 >
                                     {plan.featured && (
                                         <span className="absolute -top-3 left-8 rounded-full border border-[var(--accent)] bg-[var(--bg)] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--accent-text)]">
-                                            Open now
+                                            {t('pricing.openNow')}
                                         </span>
                                     )}
 
@@ -228,7 +194,7 @@ export const PricingSection = () => {
                                                 {plan.roman}
                                             </span>
                                             <h3 className="text-[length:var(--h3-font-size)] font-bold leading-tight text-[var(--text)]">
-                                                {plan.name}
+                                                {t(`pricing.plans.${index}.name`)}
                                             </h3>
                                         </div>
                                         <span
@@ -240,14 +206,11 @@ export const PricingSection = () => {
                                             )}
                                         >
                                             {isLive ? (
-                                                <span className="relative flex h-1.5 w-1.5">
-                                                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--accent)] opacity-60" />
-                                                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
-                                                </span>
+                                                <LiveDot size="sm" />
                                             ) : (
                                                 <LockMark className="h-3 w-3" />
                                             )}
-                                            {isLive ? 'Live' : 'Soon'}
+                                            {isLive ? t('pricing.statusLive') : t('pricing.statusSoon')}
                                         </span>
                                     </div>
 
@@ -256,22 +219,22 @@ export const PricingSection = () => {
                                             {plan.price}
                                         </span>
                                         <span className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-[var(--text-faint)]">
-                                            {plan.cadence}
+                                            {t(`pricing.plans.${index}.cadence`)}
                                         </span>
                                     </div>
                                     {!isLive && (
                                         <span className="mt-2 font-mono text-[9.5px] uppercase tracking-[0.16em] text-[var(--text-faint)]">
-                                            Placeholder — not final
+                                            {t('pricing.placeholderNote')}
                                         </span>
                                     )}
 
                                     <p className="mt-4 text-[length:var(--small-font-size)] leading-relaxed text-[var(--text-muted)]">
-                                        {plan.tagline}
+                                        {t(`pricing.plans.${index}.tagline`)}
                                     </p>
 
                                     <ul className="mt-7 flex flex-1 flex-col gap-3.5">
-                                        {plan.features.map((feature) => (
-                                            <li key={feature} className="flex items-start gap-3">
+                                        {Array.from({ length: plan.featureCount }).map((_, featureIndex) => (
+                                            <li key={featureIndex} className="flex items-start gap-3">
                                                 <span
                                                     className={cn(
                                                         'mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full',
@@ -283,7 +246,7 @@ export const PricingSection = () => {
                                                     <CheckMark className="h-3 w-3" />
                                                 </span>
                                                 <span className="text-[length:var(--small-font-size)] leading-snug text-[var(--text-muted)]">
-                                                    {feature}
+                                                    {t(`pricing.plans.${index}.features.${featureIndex}`)}
                                                 </span>
                                             </li>
                                         ))}
@@ -293,7 +256,7 @@ export const PricingSection = () => {
                                         {isLive ? (
                                             <Link href="#beta" onClick={handleScrollLink} className="contents">
                                                 <Button variant="primary" size="md" className="w-full">
-                                                    {plan.cta}
+                                                    {t(`pricing.plans.${index}.cta`)}
                                                 </Button>
                                             </Link>
                                         ) : (
@@ -306,7 +269,7 @@ export const PricingSection = () => {
                                             >
                                                 <span className="flex items-center gap-2">
                                                     <LockMark className="h-4 w-4" />
-                                                    {plan.cta}
+                                                    {t(`pricing.plans.${index}.cta`)}
                                                 </span>
                                             </Button>
                                         )}

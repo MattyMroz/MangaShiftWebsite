@@ -1,46 +1,22 @@
 'use client';
 
 import { motion, type Variants } from 'framer-motion';
-import { SecRule } from '@/shared/ui/SecRule/SecRule';
+import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
 import { Button } from '@/shared/ui/Button/Button';
 import { cn } from '@/shared/lib/utils/cn';
+import { t } from '@/shared/i18n';
 
 type Metric = {
     n: string;
     value: string;
     unit?: string;
-    label: string;
-    note: string;
 };
 
 const metrics: readonly Metric[] = [
-    {
-        n: '001',
-        value: '100',
-        unit: '+',
-        label: 'Pages per run',
-        note: 'A full chapter, read in order, panel by panel — no manual cuts.',
-    },
-    {
-        n: '002',
-        value: '15',
-        unit: '+',
-        label: 'Languages',
-        note: 'Narration and subtitles generated across scripts, left- or right-to-left.',
-    },
-    {
-        n: '003',
-        value: '1',
-        unit: '-click',
-        label: 'Export to video',
-        note: 'Upload in, a narrated reel out — MP4 with synced audio and motion.',
-    },
-    {
-        n: '004',
-        value: '∞',
-        label: 'AI voices',
-        note: 'A distinct voice per character, plus a narrator — cast automatically.',
-    },
+    { n: '001', value: '100', unit: '+' },
+    { n: '002', value: '15', unit: '+' },
+    { n: '003', value: '1', unit: '-click' },
+    { n: '004', value: '∞' },
 ] as const;
 
 const reveal: Variants = {
@@ -62,7 +38,7 @@ export const StatsSection = () => (
         className="relative py-[clamp(10rem,16vw,13rem)] px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:px-[var(--section-padding-x-desktop-sm)]"
     >
         <div className="relative z-10 mx-auto max-w-[120rem]">
-            <SecRule roman="II." meta="Metrics · By the numbers" page="003 / 008" />
+            <EditorialRule index="II." page="003 / 008">Metrics · By the numbers</EditorialRule>
 
             <div className="mt-[clamp(4rem,7vw,7rem)] grid grid-cols-1 gap-[clamp(3.5rem,6vw,6rem)] lg:grid-cols-12">
 
@@ -88,9 +64,11 @@ export const StatsSection = () => (
                         variants={reveal}
                         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                     >
-                        Built to{' '}
-                        <em className="serif font-normal text-[var(--accent-text)]">scale</em>, not
-                        to fuss.
+                        {t('stats.title')}{' '}
+                        <em className="serif font-normal text-[var(--accent-text)]">
+                            {t('stats.titleEmphasis')}
+                        </em>
+                        {t('stats.titleAfter')}
                     </motion.h2>
 
                     <motion.p
@@ -98,8 +76,7 @@ export const StatsSection = () => (
                         variants={reveal}
                         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                     >
-                        One pipeline carries a whole chapter from silent page to narrated reel —
-                        measured, repeatable, and ready for release.
+                        {t('stats.lead')}
                     </motion.p>
 
                     <motion.div
@@ -108,7 +85,7 @@ export const StatsSection = () => (
                         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                     >
                         <Button variant="outline" size="md">
-                            Join the beta
+                            {t('stats.joinBeta')}
                         </Button>
                     </motion.div>
 
@@ -130,7 +107,7 @@ export const StatsSection = () => (
                     whileInView="show"
                     viewport={viewport}
                 >
-                    {metrics.map(({ n, value, unit, label, note }, i) => (
+                    {metrics.map(({ n, value, unit }, i) => (
                         <motion.div
                             key={n}
                             variants={reveal}
@@ -163,12 +140,12 @@ export const StatsSection = () => (
                             <div className="mt-6 flex items-center gap-3">
                                 <span className="h-px w-8 bg-[var(--accent)] transition-all duration-300 group-hover:w-12" />
                                 <dt className="text-[length:var(--normal-font-size)] font-bold leading-tight text-[var(--text)]">
-                                    {label}
+                                    {t(`stats.metrics.${i}.label`)}
                                 </dt>
                             </div>
 
                             <p className="mt-3 max-w-[34ch] text-[length:var(--small-font-size)] leading-relaxed text-[var(--text-muted)]">
-                                {note}
+                                {t(`stats.metrics.${i}.note`)}
                             </p>
                         </motion.div>
                     ))}
