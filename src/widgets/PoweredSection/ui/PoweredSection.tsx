@@ -4,16 +4,17 @@ import { motion, type Variants } from 'framer-motion';
 import { cn } from '@/shared/lib/utils/cn';
 import { Button } from '@/shared/ui/Button/Button';
 import { LiveDot } from '@/shared/ui/LiveDot/LiveDot';
+import { t } from '@/shared/i18n';
 
-type Pill = { glyph: string; label: string; coord: string };
+type Pill = { glyph: string; coord: string };
 
 const pills: Pill[] = [
-    { glyph: '◳', label: 'Vision models', coord: 'PANEL · ORDER' },
-    { glyph: '声', label: 'Neural narration', coord: 'SCRIPT · BEAT' },
-    { glyph: '世', label: 'Auto-translation', coord: '15+ LOCALES' },
-    { glyph: '◐', label: 'Voice synthesis', coord: 'CAST · ∞' },
-    { glyph: '⏱', label: 'Scene pacing', coord: 'CUT · TIMING' },
-    { glyph: '字', label: 'Caption alignment', coord: 'SUBS · SYNC' },
+    { glyph: '◳', coord: 'PANEL · ORDER' },
+    { glyph: '声', coord: 'SCRIPT · BEAT' },
+    { glyph: '世', coord: '15+ LOCALES' },
+    { glyph: '◐', coord: 'CAST · ∞' },
+    { glyph: '⏱', coord: 'CUT · TIMING' },
+    { glyph: '字', coord: 'SUBS · SYNC' },
 ];
 
 const reveal: Variants = {
@@ -50,7 +51,7 @@ export const PoweredSection = () => (
                 <em className="serif shrink-0 text-[1.5em] not-italic leading-none tracking-normal text-[var(--accent-text)]">
                     ✦
                 </em>
-                <span className="hidden truncate sm:block">Interlude — The Engine Room</span>
+                <span className="hidden truncate sm:block">{t('powered.interlude')}</span>
                 <span className="shrink-0 tabular-nums">∗ · / 008</span>
             </motion.div>
 
@@ -74,7 +75,7 @@ export const PoweredSection = () => (
                     <div className="flex items-center gap-4 text-[var(--accent-fg)]">
                         <LiveDot size="md" className="bg-[var(--accent-fg)]" />
                         <span className="font-mono text-[10.5px] uppercase tracking-[0.24em] opacity-80">
-                            Powered by
+                            {t('powered.poweredBy')}
                         </span>
                     </div>
 
@@ -82,11 +83,11 @@ export const PoweredSection = () => (
                         id="powered-title"
                         className="max-w-[20ch] text-[clamp(2.4rem,4.4vw,4.4rem)] font-extrabold leading-[1.02] tracking-tight text-[var(--accent-fg)]"
                     >
-                        State-of-the-art{' '}
+                        {t('powered.headingBefore')}{' '}
                         <em className="font-normal not-italic">
-                            <span className="serif font-medium">AI</span>
+                            <span className="serif font-medium">{t('powered.headingEm')}</span>
                         </em>
-                        , end to end.
+                        {t('powered.headingAfter')}
                     </h2>
 
                     <span
@@ -97,7 +98,7 @@ export const PoweredSection = () => (
                             <span className="flex flex-col leading-none">
                                 <span className="serif text-[2.2rem]">06</span>
                                 <span className="mt-1 font-mono text-[8px] uppercase tracking-[0.2em] opacity-70">
-                                    engines
+                                    {t('powered.engines')}
                                 </span>
                             </span>
                         </span>
@@ -114,24 +115,23 @@ export const PoweredSection = () => (
                 >
                     <div className="flex items-center gap-4">
                         <span className="h-px w-10 bg-[var(--accent)]" />
-                        <span className="eyebrow">Under the hood</span>
+                        <span className="eyebrow">{t('powered.eyebrow')}</span>
                     </div>
 
                     <p className="mt-7 max-w-[40ch] text-[length:var(--h3-font-size)] leading-snug text-[var(--text)]">
-                        One pipeline, <em className="serif text-[var(--accent-text)]">many minds</em> —
-                        each pass handled by a model tuned for the job.
+                        {t('powered.leadBefore')}{' '}
+                        <em className="serif text-[var(--accent-text)]">{t('powered.leadEm')}</em>{' '}
+                        {t('powered.leadAfter')}
                     </p>
 
                     <p className="mt-5 max-w-[42ch] text-[length:var(--small-font-size)] leading-relaxed text-[var(--text-muted)]">
-                        We stay model-agnostic on purpose. As the field moves, so does the engine —
-                        you keep the same upload-in, reel-out workflow while the parts underneath
-                        only get sharper.
+                        {t('powered.body')}
                     </p>
 
                     <div className="mt-9 flex items-center gap-4 border-t border-[var(--line)] pt-5 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--text-faint)] tabular-nums">
                         <span>35°41′N · 139°41′E</span>
                         <span className="h-px flex-1 bg-[var(--line)]" />
-                        <span>Vol.01</span>
+                        <span>{t('powered.vol')}</span>
                     </div>
                 </motion.div>
 
@@ -142,9 +142,9 @@ export const PoweredSection = () => (
                     whileInView="show"
                     viewport={viewport}
                 >
-                    {pills.map(({ glyph, label, coord }, i) => (
+                    {pills.map(({ glyph, coord }, i) => (
                         <motion.li
-                            key={label}
+                            key={coord}
                             variants={reveal}
                             transition={{ duration: 0.6, ease }}
                             className={cn(
@@ -166,7 +166,7 @@ export const PoweredSection = () => (
 
                             <div>
                                 <h3 className="text-[length:var(--h3-font-size)] font-bold leading-tight tracking-tight text-[var(--text)]">
-                                    {label}
+                                    {t(`powered.pills.${i}.label`)}
                                 </h3>
                                 <div className="mt-3 flex items-center gap-2">
                                     <span className="h-px w-6 bg-[var(--accent)]" />
@@ -186,17 +186,17 @@ export const PoweredSection = () => (
                 transition={{ duration: 0.6 }}
             >
                 <p className="max-w-[52ch] text-[length:var(--small-font-size)] leading-relaxed text-[var(--text-muted)]">
-                    <em className="serif text-[var(--text)]">No model lock-in.</em> The names under the
-                    hood will change — the result on screen only gets better.
+                    <em className="serif text-[var(--text)]">{t('powered.outroEm')}</em>{' '}
+                    {t('powered.outroAfter')}
                 </p>
 
                 <div className="flex shrink-0 items-center gap-5">
                     <span className="inline-flex items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--surface)] px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--text-faint)]">
                         <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
-                        Model-agnostic
+                        {t('powered.modelAgnostic')}
                     </span>
                     <Button variant="ghost" size="sm">
-                        Join the beta
+                        {t('powered.joinBeta')}
                     </Button>
                 </div>
             </motion.div>

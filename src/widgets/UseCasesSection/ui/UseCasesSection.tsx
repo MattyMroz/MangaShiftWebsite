@@ -13,43 +13,18 @@ import { MetaLabel } from '@/shared/ui/MetaLabel/MetaLabel';
 import { FloatingLabel } from '@/shared/ui/FloatingLabel/FloatingLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
+import { t } from '@/shared/i18n';
 
 const modes = [
-    {
-        id: 'readers',
-        label: 'Readers',
-        eyebrow: 'Watch the chapter',
-        title: 'A calmer way to follow the story.',
-        text: 'Narration, readable captions and panel-led motion turn a chapter into a format that works on a commute, on a TV or when reading feels tiring.',
-        image: assetPath('/images/inspiration/work-1.png'),
-        notes: ['Hands-free playback', 'Original panel order', 'Captions included'],
-        code: 'MODE 01 / VIEW',
-    },
-    {
-        id: 'creators',
-        label: 'Creators',
-        eyebrow: 'Publish more formats',
-        title: 'Move from finished pages to a finished cut.',
-        text: 'Use the artwork you already made. MangaShift prepares narration, camera motion and timing, then returns a video ready for review and publishing.',
-        image: assetPath('/images/inspiration/work-2.png'),
-        notes: ['No editing timeline', 'Horizontal and vertical', 'Fast iteration'],
-        code: 'MODE 02 / MAKE',
-    },
-    {
-        id: 'publishers',
-        label: 'Publishers',
-        eyebrow: 'Open the catalogue',
-        title: 'Give existing stories a new screen.',
-        text: 'Adapt selected titles into watchable previews and narrated episodes without rebuilding the production workflow for every chapter.',
-        image: assetPath('/images/inspiration/testimonial.png'),
-        notes: ['Repeatable pipeline', 'New distribution formats', 'Beta collaboration'],
-        code: 'MODE 03 / SCALE',
-    },
+    { id: 'readers', image: assetPath('/images/inspiration/work-1.png'), noteCount: 3 },
+    { id: 'creators', image: assetPath('/images/inspiration/work-2.png'), noteCount: 3 },
+    { id: 'publishers', image: assetPath('/images/inspiration/testimonial.png'), noteCount: 3 },
 ] as const;
 
 export const UseCasesSection = () => {
     const [activeId, setActiveId] = useState<(typeof modes)[number]['id']>('readers');
-    const active = modes.find((mode) => mode.id === activeId) ?? modes[0];
+    const activeIndex = Math.max(0, modes.findIndex((mode) => mode.id === activeId));
+    const active = modes[activeIndex];
 
     const scrollToBeta = (event: React.MouseEvent<HTMLAnchorElement>) => {
         if (smoothScrollTo('#beta')) event.preventDefault();
@@ -69,21 +44,21 @@ export const UseCasesSection = () => {
                         viewport={{ once: true, margin: '-80px' }}
                         transition={{ duration: 0.7 }}
                     >
-                        <MetaLabel>One engine, different stories</MetaLabel>
+                        <MetaLabel>{t('usecases.metaLabel')}</MetaLabel>
                         <h2 className="display mt-7 max-w-[12ch] text-[clamp(4rem,5.8vw,7rem)]">
-                            Built around the way you want to{' '}
-                            <em className="text-[var(--accent-text)]">use</em> manga.
+                            {t('usecases.headingBefore')}{' '}
+                            <em className="text-[var(--accent-text)]">{t('usecases.headingEm')}</em>{' '}
+                            {t('usecases.headingAfter')}
                         </h2>
                     </motion.div>
                     <p className="max-w-[43ch] text-[1.6rem] leading-[1.7] text-[var(--text-muted)] lg:col-span-5 lg:justify-self-end">
-                        Choose a point of view. The active panel slides into place and shows how the
-                        same pipeline changes for readers, creators and publishing teams.
+                        {t('usecases.intro')}
                     </p>
                 </div>
 
                 <div className="mt-14 rounded-[2.4rem] border border-[var(--line-strong)] bg-[var(--bg)] p-3 shadow-[var(--shadow-md)] md:p-5">
                     <TabPill
-                        tabs={modes.map((mode) => ({ id: mode.id, label: mode.label }))}
+                        tabs={modes.map((mode, index) => ({ id: mode.id, label: t(`usecases.modes.${index}.label`) }))}
                         active={active.id}
                         onChange={(id) => setActiveId(id as (typeof modes)[number]['id'])}
                         layoutId="usecase-active-pill"
@@ -117,12 +92,12 @@ export const UseCasesSection = () => {
 
                             <div className="pointer-events-none absolute inset-5 rounded-[1.2rem] border border-[var(--text)]/25" />
                             <FloatingLabel position="tl" tone="accent" className="tracking-[0.18em]">
-                                {active.code}
+                                {t(`usecases.modes.${activeIndex}.code`)}
                             </FloatingLabel>
                             <div className="absolute bottom-8 right-8 flex items-end gap-3">
                                 <div className="dot-grid h-12 w-16 opacity-40" />
                                 <FloatingLabel position="br" tone="glass" className="static text-[0.85rem]">
-                                    {active.label}
+                                    {t(`usecases.modes.${activeIndex}.label`)}
                                 </FloatingLabel>
                             </div>
                         </div>
@@ -136,24 +111,24 @@ export const UseCasesSection = () => {
                                     exit={{ opacity: 0, y: -12 }}
                                     transition={{ duration: 0.35 }}
                                 >
-                                    <p className="section-kicker">{active.eyebrow}</p>
+                                    <p className="section-kicker">{t(`usecases.modes.${activeIndex}.eyebrow`)}</p>
                                     <h3 className="mt-7 max-w-[12ch] text-[clamp(3.2rem,4vw,5rem)] font-extrabold leading-[1.02] tracking-[-0.04em] text-[var(--text)]">
-                                        {active.title}
+                                        {t(`usecases.modes.${activeIndex}.title`)}
                                     </h3>
                                     <p className="mt-6 max-w-[46ch] text-[1.55rem] leading-[1.72] text-[var(--text-muted)]">
-                                        {active.text}
+                                        {t(`usecases.modes.${activeIndex}.text`)}
                                     </p>
 
                                     <ul className="mt-9 border-t border-[var(--line-strong)]">
-                                        {active.notes.map((note, index) => (
+                                        {Array.from({ length: active.noteCount }).map((_, index) => (
                                             <li
-                                                key={note}
+                                                key={index}
                                                 className="flex items-center gap-4 border-b border-[var(--line)] py-4 text-[1.4rem] text-[var(--text)]"
                                             >
                                                 <span className="font-mono text-[0.95rem] text-[var(--accent-text)]">
                                                     0{index + 1}
                                                 </span>
-                                                {note}
+                                                {t(`usecases.modes.${activeIndex}.notes.${index}`)}
                                             </li>
                                         ))}
                                     </ul>
@@ -162,7 +137,7 @@ export const UseCasesSection = () => {
 
                             <Link href="#beta" onClick={scrollToBeta} className="mt-auto pt-10">
                                 <Button variant="primary" size="md">
-                                    Join the beta
+                                    {t('usecases.joinBeta')}
                                     <span aria-hidden="true">↗</span>
                                 </Button>
                             </Link>

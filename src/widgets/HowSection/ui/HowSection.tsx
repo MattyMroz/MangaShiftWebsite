@@ -8,36 +8,13 @@ import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { MetaLabel } from '@/shared/ui/MetaLabel/MetaLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
+import { t } from '@/shared/i18n';
 
 const steps = [
-    {
-        number: '01',
-        title: 'Upload',
-        eyebrow: 'Source',
-        text: 'Add a page, chapter or vertical webtoon. MangaShift accepts the artwork as it is.',
-        image: assetPath('/images/inspiration/method-1.png'),
-    },
-    {
-        number: '02',
-        title: 'Understand',
-        eyebrow: 'Vision',
-        text: 'The pipeline finds panels, reading direction, speech bubbles and scene changes.',
-        image: assetPath('/images/inspiration/method-2.png'),
-    },
-    {
-        number: '03',
-        title: 'Direct',
-        eyebrow: 'Voice + motion',
-        text: 'Dialogue gets a cast, narration gets timing, and each panel receives a camera move.',
-        image: assetPath('/images/inspiration/method-3.png'),
-    },
-    {
-        number: '04',
-        title: 'Render',
-        eyebrow: 'Output',
-        text: 'Video, audio and subtitles are composed into a finished file ready to publish.',
-        image: assetPath('/images/inspiration/method-4.png'),
-    },
+    { number: '01', image: assetPath('/images/inspiration/method-1.png') },
+    { number: '02', image: assetPath('/images/inspiration/method-2.png') },
+    { number: '03', image: assetPath('/images/inspiration/method-3.png') },
+    { number: '04', image: assetPath('/images/inspiration/method-4.png') },
 ] as const;
 
 export const HowSection = () => (
@@ -54,10 +31,10 @@ export const HowSection = () => (
                     viewport={{ once: true, margin: '-80px' }}
                     transition={{ duration: 0.7 }}
                 >
-                    <MetaLabel>One clear pipeline</MetaLabel>
+                    <MetaLabel>{t('how.eyebrow')}</MetaLabel>
                     <h2 className="display mt-7 max-w-[12ch] text-[clamp(4rem,5.8vw,7rem)]">
-                        From silent page to narrated{' '}
-                        <em className="text-[var(--accent-text)]">scene</em>.
+                        {t('how.title')}{' '}
+                        <em className="text-[var(--accent-text)]">{t('how.titleEmphasis')}</em>.
                     </h2>
                 </motion.div>
                 <motion.p
@@ -67,8 +44,7 @@ export const HowSection = () => (
                     viewport={{ once: true, margin: '-80px' }}
                     transition={{ duration: 0.7, delay: 0.1 }}
                 >
-                    Four stages replace the usual editing timeline. The illustration stays central;
-                    each step adds one clear layer to the final sequence.
+                    {t('how.lead')}
                 </motion.p>
             </div>
 
@@ -96,7 +72,7 @@ export const HowSection = () => (
                                 className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
                             />
                             <FloatingLabel className="left-4 top-4">
-                                {step.eyebrow}
+                                {t(`how.steps.${index}.eyebrow`)}
                             </FloatingLabel>
                         </div>
 
@@ -110,10 +86,10 @@ export const HowSection = () => (
                                 </span>
                             </div>
                             <h3 className="mt-7 text-[2.3rem] font-bold tracking-tight text-[var(--text)]">
-                                {step.title}
+                                {t(`how.steps.${index}.title`)}
                             </h3>
                             <p className="mt-3 text-[1.4rem] leading-[1.65] text-[var(--text-muted)]">
-                                {step.text}
+                                {t(`how.steps.${index}.text`)}
                             </p>
                         </div>
                     </motion.li>

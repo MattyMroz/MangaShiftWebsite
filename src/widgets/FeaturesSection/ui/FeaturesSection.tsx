@@ -7,6 +7,7 @@ import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { MetaLabel } from '@/shared/ui/MetaLabel/MetaLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
+import { t } from '@/shared/i18n';
 
 type IconProps = { className?: string };
 
@@ -40,38 +41,10 @@ const ExportIcon = ({ className }: IconProps) => (
 );
 
 const features = [
-    {
-        number: '01',
-        title: 'Narration that follows the scene',
-        text: 'The script is built from panel order and dialogue context, so the voice follows the page instead of reading a text dump.',
-        meta: 'Script · panel order',
-        Icon: WaveIcon,
-        large: true,
-    },
-    {
-        number: '02',
-        title: 'Panel-aware camera',
-        text: 'Framing respects manga and manhwa layouts, including right-to-left reading.',
-        meta: 'Camera · RTL aware',
-        Icon: GridIcon,
-        large: false,
-    },
-    {
-        number: '03',
-        title: 'Captions included',
-        text: 'Speech, narration and subtitles stay synchronized with the final cut.',
-        meta: 'Subtitles · in sync',
-        Icon: CaptionIcon,
-        large: false,
-    },
-    {
-        number: '04',
-        title: 'One finished export',
-        text: 'Get a video file for horizontal or vertical publishing without rebuilding the edit.',
-        meta: 'Output · one file',
-        Icon: ExportIcon,
-        large: false,
-    },
+    { number: '01', Icon: WaveIcon, large: true },
+    { number: '02', Icon: GridIcon, large: false },
+    { number: '03', Icon: CaptionIcon, large: false },
+    { number: '04', Icon: ExportIcon, large: false },
 ] as const;
 
 export const FeaturesSection = () => (
@@ -88,20 +61,19 @@ export const FeaturesSection = () => (
                     viewport={{ once: true, margin: '-80px' }}
                     transition={{ duration: 0.7 }}
                 >
-                    <MetaLabel>Built for the page</MetaLabel>
+                    <MetaLabel>{t('features.eyebrow')}</MetaLabel>
                     <h2 className="display mt-7 max-w-[13ch] text-[clamp(4rem,5.8vw,7rem)]">
-                        The production work, without the production{' '}
-                        <em className="text-[var(--accent-text)]">mess</em>.
+                        {t('features.title')}{' '}
+                        <em className="text-[var(--accent-text)]">{t('features.titleEmphasis')}</em>.
                     </h2>
                 </motion.div>
                 <p className="max-w-[42ch] text-[1.6rem] leading-[1.7] text-[var(--text-muted)] lg:col-span-4">
-                    Each feature exists to shorten the path from finished artwork to a watchable,
-                    narrated format.
+                    {t('features.lead')}
                 </p>
             </div>
 
             <div className="mt-16 grid gap-4 lg:grid-cols-12">
-                {features.map(({ number, title, text, meta, Icon, large }, index) => (
+                {features.map(({ number, Icon, large }, index) => (
                     <motion.article
                         key={number}
                         className={
@@ -133,7 +105,7 @@ export const FeaturesSection = () => (
 
                         <div className="relative flex items-start justify-between">
                             <span className={large ? 'font-mono text-[1rem] uppercase tracking-[0.2em] text-white/55' : 'font-mono text-[1rem] uppercase tracking-[0.2em] text-[var(--text-faint)]'}>
-                                Capability {number}
+                                {t('features.capabilityLabel')} {number}
                             </span>
                             <Icon className={large ? 'h-12 w-12 text-[var(--accent)]' : 'h-10 w-10 text-[var(--accent-text)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-rotate-6'} />
                         </div>
@@ -153,15 +125,15 @@ export const FeaturesSection = () => (
 
                         <div className={large ? 'relative mt-8 max-w-[52rem]' : 'relative mt-10'}>
                             <h3 className={large ? 'text-[clamp(3rem,4vw,5rem)] font-bold leading-[1.02] tracking-tight' : 'text-[2.2rem] font-bold leading-tight tracking-tight text-[var(--text)]'}>
-                                {title}
+                                {t(`features.items.${index}.title`)}
                             </h3>
                             <p className={large ? 'mt-5 max-w-[48ch] text-[1.6rem] leading-[1.7] text-white/65' : 'mt-4 max-w-[44ch] text-[1.4rem] leading-[1.65] text-[var(--text-muted)]'}>
-                                {text}
+                                {t(`features.items.${index}.text`)}
                             </p>
                             {!large && (
                                 <div className="mt-6 flex items-center gap-3 border-t border-[var(--line)] pt-4 font-mono text-[0.9rem] uppercase tracking-[0.16em] text-[var(--text-faint)]">
                                     <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
-                                    {meta}
+                                    {t(`features.items.${index}.meta`)}
                                 </div>
                             )}
                         </div>

@@ -1,36 +1,10 @@
 'use client';
 
 import { Container } from '@/shared/ui/Container/Container';
+import { t } from '@/shared/i18n';
 
-const rowTop = [
-    'Panel detection',
-    'Reading-order analysis',
-    'AI narration',
-    'Character voices',
-    'Subtitles',
-    'Video export',
-    'Speech bubble parsing',
-    'Frame interpolation',
-    'Color grading',
-    'Auto chapters',
-    'Voice cloning',
-    'Lip-sync timing',
-] as const;
-
-const rowBottom = [
-    'OCR',
-    'Translation',
-    'Text-to-speech',
-    'Scene pacing',
-    'Sound design',
-    'Auto-cut',
-    'Motion tracking',
-    'Depth parallax',
-    'Ambient score',
-    'Subtitle styling',
-    'Export presets',
-    'Batch render',
-] as const;
+const rowTop = Array.from({ length: 12 }, (_, i) => t(`tickerbar.rowTop.${i}`));
+const rowBottom = Array.from({ length: 12 }, (_, i) => t(`tickerbar.rowBottom.${i}`));
 
 const GROUP_REPEAT = 3;
 
@@ -67,8 +41,8 @@ export const TickerSection = () => (
                     <span className="wire-pulse" />
                 </span>
                 <span className="wire-title">
-                    <b>Building now</b>
-                    <span>Open · 12 modules · 3 in beta</span>
+                    <b>{t('tickerbar.buildingNow')}</b>
+                    <span>{t('tickerbar.status')}</span>
                 </span>
             </div>
 
