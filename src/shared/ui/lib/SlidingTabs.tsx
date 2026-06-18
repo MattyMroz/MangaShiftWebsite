@@ -25,12 +25,18 @@ interface SlidingTabsListProps
   extends ComponentProps<typeof TabsPrimitive.List>,
     VariantProps<typeof tabsListVariants> {
   hoverBg?: string
+  activeBg?: string
+  activeBorder?: string
+  activeGlow?: boolean
 }
 
 function SlidingTabsList({
   className,
   variant = 'default',
   hoverBg = 'var(--overlay-hover)',
+  activeBg,
+  activeBorder,
+  activeGlow = true,
   children,
   ...props
 }: SlidingTabsListProps) {
@@ -136,10 +142,12 @@ function SlidingTabsList({
         className={cn(
           'absolute rounded-md pointer-events-none z-0',
           isDefault
-            ? 'bg-[var(--accent)] border border-[var(--accent-bright)] neon-glow-sm'
-            : 'bg-[var(--accent-subtle)] neon-glow-xs'
+            ? cn('bg-[var(--accent)] border border-[var(--accent-bright)]', activeGlow && 'neon-glow-sm')
+            : cn('bg-[var(--accent-subtle)]', activeGlow && 'neon-glow-xs')
         )}
         style={{
+          background: activeBg,
+          border: activeBorder,
           transition:
             'left var(--motion-slide) var(--ease-standard), width var(--motion-slide) var(--ease-standard), top var(--motion-slide) var(--ease-standard), height var(--motion-slide) var(--ease-standard), opacity var(--motion-base) var(--ease-out)',
           opacity: 0,

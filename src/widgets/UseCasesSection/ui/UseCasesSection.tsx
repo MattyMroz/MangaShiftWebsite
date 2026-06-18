@@ -67,12 +67,15 @@ export const UseCasesSection = () => {
                             aria-label="MangaShift audiences"
                             className="!grid !h-auto !w-full gap-1 rounded-[2rem] border border-[var(--line)] bg-[var(--surface)] p-1.5 sm:grid-cols-3 sm:rounded-full"
                             hoverBg="var(--surface-2)"
+                            activeBg="var(--text)"
+                            activeBorder="1px solid var(--text)"
+                            activeGlow={false}
                         >
                             {modes.map((mode, index) => (
                                 <SlidingTabsTrigger
                                     key={mode.id}
                                     value={mode.id}
-                                    className="min-h-12 rounded-full px-5 py-3 text-center font-mono text-[1.05rem] uppercase tracking-[0.18em] data-[state=active]:text-[var(--accent-fg)]"
+                                    className="min-h-12 rounded-full px-5 py-3 text-center font-mono text-[1.05rem] uppercase tracking-[0.18em] data-[state=active]:text-[var(--bg)]"
                                 >
                                     {t(`usecases.modes.${index}.label`)}
                                 </SlidingTabsTrigger>
