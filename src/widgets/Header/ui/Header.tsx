@@ -119,7 +119,7 @@ export const Header = () => {
                         </div>
                         <Button
                             variant="accent"
-                            size="pill"
+                            size="pill-sm"
                             onClick={joinBeta}
                             className="hidden sm:inline-flex"
                         >
