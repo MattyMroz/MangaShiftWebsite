@@ -72,6 +72,8 @@ export const UseCasesSection = () => {
                             activeGlow={false}
                             hoverPillClassName="rounded-full"
                             activePillClassName="rounded-full"
+                            hoverRadius="9999px"
+                            activeRadius="9999px"
                         >
                             {modes.map((mode, index) => (
                                 <SlidingTabsTrigger

@@ -7,7 +7,7 @@ import { Slot } from 'radix-ui'
 import { cn } from '@/lib/utils'
 
 const buttonVariants = cva(
-  "inline-flex shrink-0 items-center justify-center gap-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-[var(--motion-base)] outline-none btn-press focus-visible:ring-[3px] focus-visible:ring-[var(--accent-glow)]/30 disabled:pointer-events-none disabled:opacity-40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-5",
+  "inline-flex shrink-0 items-center justify-center gap-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-[var(--motion-base)] outline-none btn-press [--button-icon-size:1.1em] focus-visible:ring-[3px] focus-visible:ring-[var(--accent-glow)]/30 disabled:pointer-events-none disabled:opacity-40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-[var(--button-icon-size)]",
   {
     variants: {
       variant: {
@@ -28,20 +28,20 @@ const buttonVariants = cva(
         link: 'text-primary underline-offset-4 hover:underline',
       },
       size: {
-        default: 'h-8 px-3 py-1.5 has-[>svg]:pl-2.5 has-[>svg]:gap-1.5',
-        xs: "h-6 gap-1 rounded-md px-2 text-xs has-[>svg]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
-        sm: "h-7 gap-1.5 rounded-md px-2.5 text-xs has-[>svg]:pl-2",
-        lg: "h-9 px-5 has-[>svg]:pl-3.5 has-[>svg]:gap-1.5",
-        pill: "h-9 rounded-full px-5 has-[>svg]:pl-3.5 has-[>svg]:gap-1.5",
-        'pill-sm': "h-7 gap-1.5 rounded-full px-3 text-xs has-[>svg]:pl-2",
-        landing: "h-auto rounded-[var(--radius)] px-6 py-3 text-[length:var(--normal-font-size)] tracking-tight [&_svg:not([class*='size-'])]:size-[1.15em]",
-        'landing-sm': "h-auto rounded-[var(--radius)] px-4 py-2 text-[length:var(--small-font-size)] tracking-tight [&_svg:not([class*='size-'])]:size-[1.15em]",
-        'landing-pill': "h-auto rounded-full px-8 py-3.5 text-[length:var(--h3-font-size)] tracking-tight md:px-10 md:py-4 [&_svg:not([class*='size-'])]:size-[1.1em]",
-        'landing-pill-sm': "h-auto rounded-full px-6 py-2.5 text-[length:var(--small-font-size)] tracking-tight [&_svg:not([class*='size-'])]:size-[1.15em]",
-        icon: 'size-8',
-        'icon-xs': "size-6 rounded-md [&_svg:not([class*='size-'])]:size-3",
-        'icon-sm': "size-7 rounded-md [&_svg:not([class*='size-'])]:size-3.5",
-        'icon-lg': "size-9 [&_svg:not([class*='size-'])]:size-5",
+        default: 'h-8 px-3 py-1.5 [--button-icon-size:1rem] has-[>svg]:pl-2.5 has-[>svg]:gap-1.5',
+        xs: "h-6 gap-1 rounded-md px-2 text-xs [--button-icon-size:0.75rem] has-[>svg]:pl-1.5",
+        sm: "h-7 gap-1.5 rounded-md px-2.5 text-xs [--button-icon-size:0.875rem] has-[>svg]:pl-2",
+        lg: "h-9 px-5 [--button-icon-size:1rem] has-[>svg]:pl-3.5 has-[>svg]:gap-1.5",
+        pill: "h-9 rounded-full px-5 [--button-icon-size:1rem] has-[>svg]:pl-3.5 has-[>svg]:gap-1.5",
+        'pill-sm': "h-7 gap-1.5 rounded-full px-3 text-xs [--button-icon-size:0.875rem] has-[>svg]:pl-2",
+        landing: "h-auto rounded-[var(--radius)] px-6 py-3 text-[length:var(--normal-font-size)] tracking-tight [--button-icon-size:1.15em]",
+        'landing-sm': "h-auto rounded-[var(--radius)] px-4 py-2 text-[length:var(--small-font-size)] tracking-tight [--button-icon-size:1.15em]",
+        'landing-pill': "h-auto rounded-full px-8 py-3.5 text-[length:var(--h3-font-size)] tracking-tight [--button-icon-size:1.12em] md:px-10 md:py-4",
+        'landing-pill-sm': "h-auto rounded-full px-6 py-2.5 text-[length:var(--small-font-size)] tracking-tight [--button-icon-size:1.15em]",
+        icon: 'size-8 [--button-icon-size:1rem]',
+        'icon-xs': "size-6 rounded-md [--button-icon-size:0.75rem]",
+        'icon-sm': "size-7 rounded-md [--button-icon-size:0.875rem]",
+        'icon-lg': "size-9 [--button-icon-size:1.25rem]",
       },
     },
     defaultVariants: {
