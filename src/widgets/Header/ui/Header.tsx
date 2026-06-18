@@ -118,8 +118,8 @@ export const Header = () => {
                             <LanguageSwitcher />
                         </div>
                         <Button
-                            variant="hero"
-                            size="md"
+                            variant="accent"
+                            size="pill"
                             onClick={joinBeta}
                             className="hidden sm:inline-flex"
                         >
@@ -160,7 +160,7 @@ export const Header = () => {
                             ))}
                         </ul>
                         <div className="mt-10 flex justify-center">
-                            <Button variant="hero" size="md" onClick={joinBeta}>
+                            <Button variant="accent" size="pill" onClick={joinBeta}>
                                 {t('nav.beta')}
                             </Button>
                         </div>

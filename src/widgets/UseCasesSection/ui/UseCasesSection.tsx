@@ -136,7 +136,7 @@ export const UseCasesSection = () => {
                             </AnimatePresence>
 
                             <Link href="#beta" onClick={scrollToBeta} className="mt-auto pt-10">
-                                <Button variant="primary" size="md">
+                                <Button variant="primary" size="pill">
                                     {t('usecases.joinBeta')}
                                     <span aria-hidden="true">↗</span>
                                 </Button>

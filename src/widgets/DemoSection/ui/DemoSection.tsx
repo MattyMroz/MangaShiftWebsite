@@ -78,7 +78,7 @@ export const DemoSection = () => {
                             </dl>
 
                             <Link href="#beta" onClick={scrollToBeta} className="mt-9 inline-flex">
-                                <Button variant="hero" size="md">
+                                <Button variant="accent" size="pill">
                                     {t('demo.cta')}
                                     <span aria-hidden="true">↗</span>
                                 </Button>

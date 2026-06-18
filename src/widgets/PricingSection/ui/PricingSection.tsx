@@ -255,14 +255,14 @@ export const PricingSection = () => {
                                     <div className="mt-8 border-t border-[var(--line)] pt-6">
                                         {isLive ? (
                                             <Link href="#beta" onClick={handleScrollLink} className="contents">
-                                                <Button variant="primary" size="md" className="w-full">
+                                                <Button variant="primary" size="pill" className="w-full">
                                                     {t(`pricing.plans.${index}.cta`)}
                                                 </Button>
                                             </Link>
                                         ) : (
                                             <Button
                                                 variant="outline"
-                                                size="md"
+                                                size="pill"
                                                 disabled
                                                 aria-disabled="true"
                                                 className="w-full"

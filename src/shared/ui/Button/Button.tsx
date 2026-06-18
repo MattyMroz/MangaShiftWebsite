@@ -6,7 +6,7 @@ import { Slot } from 'radix-ui';
 import { cn } from '@/shared/lib/utils/cn';
 
 const buttonVariants = cva(
-    "group relative inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full font-medium tracking-tight outline-none btn-press transition-[color,background-color,border-color,box-shadow] duration-[var(--motion-base)] disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)] [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-[1.2em]",
+    "group relative inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius)] font-medium tracking-tight outline-none btn-press transition-[color,background-color,border-color,box-shadow] duration-[var(--motion-base)] disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)] [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-[1.2em]",
     {
         variants: {
             variant: {
@@ -23,7 +23,7 @@ const buttonVariants = cva(
                 sm: 'px-4 py-2 text-[length:var(--small-font-size)]',
                 default: 'px-6 py-3 text-[length:var(--normal-font-size)]',
                 lg: 'px-8 py-3.5 md:px-10 md:py-4 text-[length:var(--h3-font-size)]',
-                pill: 'px-8 py-3.5 md:px-10 md:py-4 text-[length:var(--h3-font-size)]',
+                pill: 'rounded-full px-8 py-3.5 md:px-10 md:py-4 text-[length:var(--h3-font-size)]',
                 icon: 'size-11',
                 'icon-sm': 'size-9',
                 'icon-lg': 'size-12',
