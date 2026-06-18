@@ -12,7 +12,7 @@ interface TabPillProps {
     tabs: readonly Tab[];
     active: string;
     onChange: (id: string) => void;
-    /** Unikalny id animacji slidera (gdy >1 TabPill na stronie). */
+
     layoutId?: string;
     'aria-label'?: string;
     className?: string;

@@ -32,6 +32,7 @@ function Combobox({
   disabled,
 }: ComboboxProps) {
   const [open, setOpen] = React.useState(false)
+  const listId = React.useId()
 
   const selected = options.find((o) => o.value === value)
 
@@ -40,7 +41,9 @@ function Combobox({
       <PopoverTrigger asChild>
         <button
           role="combobox"
+          aria-controls={listId}
           aria-expanded={open}
+          aria-haspopup="listbox"
           disabled={disabled}
           className={cn(
             'inline-flex h-8 w-[200px] items-center justify-between gap-2 rounded-lg border border-[var(--btn-border)] bg-[var(--btn-bg)] px-3 text-sm font-normal transition-colors hover:bg-[var(--btn-hover)]',
@@ -56,7 +59,7 @@ function Combobox({
       <PopoverContent className="w-[200px] p-0" align="start">
         <Command>
           <CommandInput placeholder={searchPlaceholder} />
-          <CommandList>
+          <CommandList id={listId}>
             <CommandEmpty>{emptyMessage}</CommandEmpty>
             <CommandGroup>
               {options.map((option) => (

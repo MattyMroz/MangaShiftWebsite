@@ -47,7 +47,7 @@ function TabsList({
   const listRef = React.useRef<HTMLDivElement>(null)
   const indicatorRef = React.useRef<HTMLDivElement>(null)
 
-  // Slide indicator to active trigger
+
   const updateIndicator = React.useCallback(() => {
     if (!listRef.current || !indicatorRef.current) return
     const active = listRef.current.querySelector<HTMLElement>(
@@ -73,7 +73,6 @@ function TabsList({
     if (!listRef.current) return
     updateIndicator()
 
-    // Recalculate indicator on active-state changes
     const mo = new MutationObserver(updateIndicator)
     mo.observe(listRef.current, {
       attributes: true,
@@ -81,7 +80,6 @@ function TabsList({
       subtree: true,
     })
 
-    // Recalculate on layout shifts (e.g. font-family change resizing triggers)
     const ro = new ResizeObserver(updateIndicator)
     for (const child of listRef.current.children) {
       if (child instanceof HTMLElement && child !== indicatorRef.current) {

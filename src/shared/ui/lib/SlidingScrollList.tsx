@@ -24,21 +24,16 @@ export interface SlidingScrollListProps {
   showScrollbar?: boolean
   captureWheel?: boolean
   suppressHoverOnActive?: boolean
-  /**
-   * Matches `data-sliding-key="<activeKey>"` on an item element. When set, an
-   * additional sliding pill (accent color) is rendered behind the active item
-   * and animates to match its rect.
-   */
+
   activeKey?: string | null
   activeBg?: string
-  /** Optional CSS border applied to the sliding active pill (slides with it). */
+
   activeBorder?: string
-  /** Live pixel offset added to the active pill transform (e.g. while a drag is in progress). */
+
   activeOffset?: { x: number; y: number }
-  /** When true, the active pill repositions instantly (no transition). Useful during drag. */
+
   activeInstant?: boolean
-  /** When true, the active pill is lifted above sibling items (still below an
-   * item that explicitly raises its own z-index, e.g. the one being dragged). */
+
   activeOnTop?: boolean
 }
 
@@ -71,18 +66,18 @@ export function SlidingScrollList({
   const pressStartRef = useRef(0)
   const releaseTimerRef = useRef<number | null>(null)
   const [activeRect, setActiveRect] = useState<SlidingPillRect | null>(null)
-  // Bumped when global design tokens (radius, font) change, so cached pill
-  // border-radius from getComputedStyle gets re-measured.
+
+
   const [tokenRev, setTokenRev] = useState(0)
   useEffect(() => {
     const onTokens = () => setTokenRev((n) => n + 1)
     window.addEventListener('theme:tokens-changed', onTokens)
     return () => window.removeEventListener('theme:tokens-changed', onTokens)
   }, [])
-  // First-appearance suppression: the very first paint of a pill at its
-  // target transform must not animate from translate(0,0) (top-left corner).
-  // We render with no transition initially, then restore the transition
-  // imperatively in a rAF inside an effect.
+
+
+
+
   const activePillRef = useRef<HTMLDivElement | null>(null)
   const activePillMountedRef = useRef(false)
   const hoverPillRef = useRef<HTMLDivElement | null>(null)
@@ -98,8 +93,8 @@ export function SlidingScrollList({
     }
   }
 
-  // Press is released after the same minimum hold as the global btn-press
-  // handler, so the pill and the pressed item scale back in sync.
+
+
   const releasePress = useCallback(() => {
     const minMs = readMotionToken('--motion-slide', 150)
     const remaining = Math.max(0, minMs - (Date.now() - pressStartRef.current))
@@ -126,9 +121,9 @@ export function SlidingScrollList({
     }
   }, [releasePress])
 
-  // Hide the hover pill when it would otherwise overlap the active pill — e.g.
-  // when the user clicks a thumb and the new active key matches the
-  // last-hovered item.
+
+
+
   useEffect(() => {
     if (!suppressHoverOnActive) return
     if (!activeKey) return
@@ -138,7 +133,7 @@ export function SlidingScrollList({
     }
   }, [activeKey, suppressHoverOnActive])
 
-  const updateFade = () => {
+  const updateFade = useCallback(() => {
     const v = viewportRef.current
     if (!v) return
     const scrollPosition = orientation === 'horizontal' ? v.scrollLeft : v.scrollTop
@@ -150,14 +145,14 @@ export function SlidingScrollList({
     setFadeState((current) =>
       current.top === top && current.bottom === bottom ? current : { top, bottom },
     )
-  }
+  }, [fade, orientation])
 
   useEffect(() => {
     updateFade()
     window.addEventListener('resize', updateFade)
     return () => window.removeEventListener('resize', updateFade)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fade, children])
+
+  }, [children, updateFade])
 
   useEffect(() => {
     const v = viewportRef.current
@@ -167,8 +162,8 @@ export function SlidingScrollList({
     const inner = v.firstElementChild
     if (inner) ro.observe(inner)
     return () => ro.disconnect()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+
+  }, [updateFade])
 
   useEffect(() => {
     const inner = innerRef.current
@@ -177,7 +172,7 @@ export function SlidingScrollList({
     const showFor = (item: HTMLElement) => {
       lastItemRef.current = item
       const itemKey = item.getAttribute('data-sliding-key')
-      // Suppress hover on the active item (it would overlap the active pill).
+
       if (suppressHoverOnActive && activeKey && itemKey && itemKey === activeKey) {
         setHoverVisible(false)
         return
@@ -207,8 +202,8 @@ export function SlidingScrollList({
 
     const onLeave = () => hide()
 
-    // Pill shrinks with items that opt into press feedback (.btn-press);
-    // plain items (e.g. text inputs) keep the pill at full size.
+
+
     const onDown = (event: PointerEvent) => {
       const item = (event.target as HTMLElement | null)?.closest(itemSelector) as HTMLElement | null
       if (!item || !inner.contains(item) || !item.classList.contains('btn-press')) return
@@ -280,7 +275,7 @@ export function SlidingScrollList({
     }
   }, [hoverVisible, hoverTarget, children, tokenRev])
 
-  // Track active item rect by [data-sliding-key].
+
   useLayoutEffect(() => {
     const inner = innerRef.current
     if (!inner || !activeKey) {
@@ -306,10 +301,10 @@ export function SlidingScrollList({
     return () => ro.disconnect()
   }, [activeKey, orientation, children, tokenRev])
 
-  // Restore the active pill transition on the next frame after it first
-  // mounts with a real rect, so subsequent rect changes animate but the
-  // initial appearance doesn't slide in from (0,0). Also re-applies the
-  // transition when leaving instant mode (drag end).
+
+
+
+
   useEffect(() => {
     const el = activePillRef.current
     if (!activeRect || !el) {
@@ -330,9 +325,9 @@ export function SlidingScrollList({
     apply()
   }, [activeRect, activeInstant])
 
-  // Same trick for the hover pill: first time it becomes visible at a real
-  // rect (hoverVisible flips to true with non-zero size), suppress the
-  // transition; restore it on the next frame.
+
+
+
   useEffect(() => {
     const el = hoverPillRef.current
     if (!el) return
@@ -351,7 +346,7 @@ export function SlidingScrollList({
     return () => cancelAnimationFrame(raf)
   }, [hoverVisible, hoverRect])
 
-  function handleWheel(event: globalThis.WheelEvent) {
+  const handleWheel = useCallback((event: globalThis.WheelEvent) => {
     const viewport = viewportRef.current
     if (!viewport) return
     const delta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY
@@ -367,11 +362,11 @@ export function SlidingScrollList({
     }
     updateFade()
     event.preventDefault()
-  }
+  }, [orientation, updateFade])
 
-  // React attaches wheel listeners as passive, which makes preventDefault
-  // a no-op (and logs a warning). Attach the listener imperatively with
-  // { passive: false } so horizontal-scroll redirection actually works.
+
+
+
   useEffect(() => {
     if (!captureWheel) return
     const viewport = viewportRef.current
@@ -380,8 +375,8 @@ export function SlidingScrollList({
     return () => {
       viewport.removeEventListener('wheel', handleWheel)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [captureWheel, orientation])
+
+  }, [captureWheel, handleWheel])
 
   const fadeMaskClass = orientation === 'horizontal'
     ? cn(
@@ -458,9 +453,6 @@ export function SlidingScrollList({
                 background: activeBg,
                 border: activeBorder,
                 borderRadius: activeRect.radius,
-                // First paint: no transition (set imperatively in the rAF
-                // inside the mount effect). Drag uses activeInstant to also
-                // disable transitions.
                 transition: activeInstant ? 'none' : undefined,
               }}
             />
@@ -481,8 +473,6 @@ export function SlidingScrollList({
                 borderRadius: hoverRect.radius,
                 opacity: hoverVisible ? (hoverPressed ? 0.82 : 1) : 0,
                 transformOrigin: 'center',
-                // Transition is applied imperatively in the effect below so the
-                // first appearance does not animate transform from (0,0).
               }}
             />
           )}

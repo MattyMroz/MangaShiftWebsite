@@ -40,6 +40,7 @@ export function SlidingCombobox({
   disabled,
 }: SlidingComboboxProps) {
   const [open, setOpen] = React.useState(false)
+  const listId = React.useId()
 
   const selected = options.find((o) => o.value === value)
 
@@ -48,7 +49,9 @@ export function SlidingCombobox({
       <PopoverTrigger asChild>
         <button
           role="combobox"
+          aria-controls={listId}
           aria-expanded={open}
+          aria-haspopup="listbox"
           disabled={disabled}
           className={cn(
             'inline-flex h-8 w-[200px] items-center justify-between gap-2 rounded-lg border border-[var(--btn-border)] bg-[var(--btn-bg)] px-3 text-sm font-normal transition-colors hover:bg-[var(--btn-hover)]',
@@ -64,7 +67,7 @@ export function SlidingCombobox({
       <PopoverContent className="w-[200px] p-0" align="start">
         <SlidingCommand>
           <SlidingCommandInput placeholder={searchPlaceholder} />
-          <SlidingCommandList>
+          <SlidingCommandList id={listId}>
             <SlidingCommandEmpty>{emptyMessage}</SlidingCommandEmpty>
             <SlidingCommandGroup>
               {options.map((option) => (

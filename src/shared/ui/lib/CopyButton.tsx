@@ -2,10 +2,10 @@ import { useState, useCallback } from 'react'
 import { Copy, Check } from 'lucide-react'
 import { Button } from '@/shared/ui/lib/Button'
 
-// ---------------------------------------------------------------------------
-// CopyButton — Clipboard copy with visual feedback (icon swap)
-// Used in: DashOutputPanel, any text output area
-// ---------------------------------------------------------------------------
+
+
+
+
 
 interface CopyButtonProps {
   text: string
@@ -28,7 +28,7 @@ export function CopyButton({ text, className }: CopyButtonProps) {
       className={className}
       onClick={handleCopy}
       disabled={!text}
-      aria-label={copied ? 'Skopiowano' : 'Kopiuj do schowka'}
+      aria-label={copied ? 'Copied' : 'Copy to clipboard'}
     >
       {copied ? <Check size={14} /> : <Copy size={14} />}
     </Button>

@@ -2,7 +2,7 @@ import React from 'react';
 import { cn } from '@/shared/lib/utils/cn';
 
 interface MetaLabelProps extends React.ComponentProps<'p'> {
-    /** `kicker` = linia + tekst (sekcje); `eyebrow` = sam mono-tekst. */
+
     variant?: 'kicker' | 'eyebrow';
 }
 

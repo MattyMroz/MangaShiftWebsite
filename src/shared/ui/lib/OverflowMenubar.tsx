@@ -1,4 +1,4 @@
-/** Horizontal menubar that collapses overflowing sections into a "More" menu. */
+
 import { MoreHorizontal } from 'lucide-react'
 import { useLayoutEffect, useRef, useState } from 'react'
 

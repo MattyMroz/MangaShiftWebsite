@@ -7,18 +7,18 @@ import { Button } from '@/shared/ui/lib/Button'
 import { useBackendHealth, type BackendPhase } from '@/hooks/useBackendHealth'
 import { cn } from '@/lib/utils'
 
-// ---------------------------------------------------------------------------
-// SplashScreen — 3-phase boot UI
-// ---------------------------------------------------------------------------
-//
-// What the user actually sees while waiting:
-//   1. Booting backend     — Tauri spawns the bundled uv.exe + uvicorn process
-//   2. Waiting for API     — frontend pings /health/live until FastAPI replies
-//   3. Loading runtime     — Python loads model catalog, detects GPU, primes deps
-//
-// Each phase shows: state icon · plain-English label · percent (when known).
-// Hides itself ~700 ms after `phase === 'ready'`. Failure renders a Retry CTA.
-// ---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
 
 const PHASE_ORDER: BackendPhase[] = ['spawning', 'healthz', 'ready-check']
 
@@ -70,7 +70,7 @@ export function SplashScreen() {
       )}
     >
       <div className="flex w-full max-w-md flex-col items-center gap-8 px-8">
-        {/* Icon + glow */}
+
         <div className="relative">
           <AppIcon size={72} className="relative z-10" />
           <div
@@ -87,7 +87,7 @@ export function SplashScreen() {
           />
         </div>
 
-        {/* Title */}
+
         <div className="text-2xl font-semibold tracking-wide text-foreground">
           Manga<span className="neon-text text-[var(--accent-bright)]">Shift</span>
         </div>
@@ -102,7 +102,7 @@ export function SplashScreen() {
   )
 }
 
-// ---------------------------------------------------------------------------
+
 
 function PhaseList({
   activePhase,

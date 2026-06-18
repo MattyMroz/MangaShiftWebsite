@@ -30,13 +30,13 @@ export default function LoginPage() {
                 aria-hidden
                 className="absolute left-[var(--section-padding-x-mobile)] top-1/2 hidden -translate-y-1/2 font-mono text-[10.5px] uppercase tracking-[0.32em] text-[var(--text-faint)] [writing-mode:vertical-rl] lg:block"
             >
-                MangaShift — Account access
+                MangaShift - Account access
             </span>
             <span
                 aria-hidden
                 className="absolute right-[var(--section-padding-x-mobile)] top-1/2 hidden -translate-y-1/2 rotate-180 font-mono text-[10.5px] uppercase tracking-[0.32em] text-[var(--text-faint)] [writing-mode:vertical-rl] lg:block"
             >
-                51.1079° N · 17.0385° E
+                51.1079 N - 17.0385 E
             </span>
 
             <motion.div
@@ -52,7 +52,7 @@ export default function LoginPage() {
                     <em className="serif shrink-0 text-[1.5em] leading-none tracking-normal text-[var(--accent-text)]">
                         0
                     </em>
-                    <span className="truncate font-mono">Account · Sign in</span>
+                    <span className="truncate font-mono">Account - Sign in</span>
                     <span className="shrink-0 font-mono tabular-nums">000 / 008</span>
                 </div>
 
@@ -62,11 +62,11 @@ export default function LoginPage() {
                     </span>
                     <div className="mt-5 flex items-center gap-4">
                         <span className="h-px w-8 bg-[var(--accent)]" />
-                        <span className="eyebrow">Nº 00 · Account</span>
+                        <span className="eyebrow">No. 00 - Account</span>
                         <span className="h-px w-8 bg-[var(--accent)]" />
                     </div>
                     <p className="mt-5 max-w-[30ch] text-[length:var(--small-font-size)] leading-relaxed text-[var(--text-muted)]">
-                        Sign in to your studio. The dashboard ships with the beta — your seat is on the way.
+                        Sign in to your studio. The dashboard ships with the beta - your seat is on the way.
                     </p>
                 </div>
 
@@ -98,7 +98,7 @@ export default function LoginPage() {
                             type="password"
                             name="password"
                             autoComplete="current-password"
-                            placeholder="••••••••"
+                            placeholder="********"
                             aria-label="Password"
                         />
                     </Field>
@@ -114,7 +114,7 @@ export default function LoginPage() {
                         aria-live="polite"
                     >
                         {notice
-                            ? 'Accounts are coming soon — join the beta to get yours first.'
+                            ? 'Accounts are coming soon - join the beta to get yours first.'
                             : 'Authentication opens with the public beta.'}
                     </p>
                 </form>
@@ -130,13 +130,13 @@ export default function LoginPage() {
                         href="/"
                         className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-[var(--text-faint)] transition-colors hover:text-[var(--text)]"
                     >
-                        ← Back to home
+                        Back to home
                     </Link>
                 </div>
 
                 <div className="mt-8 flex items-center justify-between gap-3 border-t border-[var(--line)] pt-4 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--text-faint)]">
-                    <span>Wrocław · PL</span>
-                    <span className="tabular-nums">Rev. 0.1 — 2026</span>
+                    <span>Wroclaw, Poland</span>
+                    <span className="tabular-nums">Rev. 0.1 - 2026</span>
                 </div>
             </motion.div>
         </section>

@@ -3,12 +3,12 @@ import { Tooltip as TooltipPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
 
-// ─── Tooltip zoom ───────────────────────────────────────────────────
-// Tooltip = rectangle (content) + diamond (arrow).
-// Scaling via font-size on <html> — rem-based values (font-size,
-// padding, arrow size) scale automatically. Radix portals
-// inherit font-size from <html>. No zoom/scale hacks.
-// ─────────────────────────────────────────────────────────────────────
+
+
+
+
+
+
 
 function TooltipProvider({
   delayDuration = 0,
@@ -37,9 +37,9 @@ function TooltipTrigger({
     <TooltipPrimitive.Trigger
       data-slot="tooltip-trigger"
       onFocus={(e) => {
-        // Block tooltip from opening via programmatic/mouse focus
-        // (e.g. Tauri drag region shifts focus to nearest focusable element)
-        // Only keyboard focus (:focus-visible via Tab) should open tooltips
+
+
+
         if (!e.currentTarget.matches(':focus-visible')) {
           e.preventDefault()
         }

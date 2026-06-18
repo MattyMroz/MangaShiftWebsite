@@ -1,9 +1,9 @@
 import { cn } from '@/lib/utils'
 
-// ---------------------------------------------------------------------------
-// EmptyState — Fallback gdy lista jest pusta
-// Standard: 5 instancji w OcrPage, TtsPage, ProfilesPage
-// ---------------------------------------------------------------------------
+
+
+
+
 
 const paddingMap = {
   sm: 'py-2',

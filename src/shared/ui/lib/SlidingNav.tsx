@@ -1,4 +1,4 @@
-/** Reusable sliding-pill navigation (horizontal or vertical). Items behave like buttons. */
+
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import { readMotionToken } from '@/lib/motion'
 import { cn } from '@/lib/utils'
@@ -22,7 +22,7 @@ interface SlidingNavProps {
   hoverBg?: string
   activeBg?: string
   activeBorder?: string
-  /** Show 3px sliding accent bar (vertical only). */
+
   accentBar?: boolean
   accentBarSide?: 'start' | 'end'
   accentBarColor?: string

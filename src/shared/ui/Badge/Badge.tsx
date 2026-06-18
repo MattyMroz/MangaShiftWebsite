@@ -5,7 +5,7 @@ type BadgeVariant = 'pill' | 'outline' | 'accent';
 
 interface BadgeProps extends React.HTMLAttributes<HTMLElement> {
     variant?: BadgeVariant;
-    /** Element do wyrenderowania (np. `li` w liście). Domyślnie `span`. */
+
     as?: 'span' | 'li' | 'div';
 }
 

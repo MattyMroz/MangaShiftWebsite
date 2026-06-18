@@ -3,10 +3,10 @@ import { Eye, EyeOff } from 'lucide-react'
 import { Button } from '@/shared/ui/lib/Button'
 import { Input } from '@/shared/ui/lib/Input'
 
-// ---------------------------------------------------------------------------
-// ApiKeyInput — Password input with show/hide toggle + save button
-// Used in: ElevenLabsTab, OpenRouterCard
-// ---------------------------------------------------------------------------
+
+
+
+
 
 interface ApiKeyInputProps {
   placeholder?: string
@@ -17,7 +17,7 @@ interface ApiKeyInputProps {
 export function ApiKeyInput({
   placeholder = 'sk-...',
   onSave,
-  saveLabel = 'Zapisz',
+  saveLabel = 'Save',
 }: ApiKeyInputProps) {
   const [value, setValue] = useState('')
   const [showKey, setShowKey] = useState(false)

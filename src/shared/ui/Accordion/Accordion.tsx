@@ -10,10 +10,10 @@ export interface AccordionItem {
 
 interface AccordionProps {
     items: readonly AccordionItem[];
-    /** Indeks otwartego elementu; `-1` = wszystkie zamknięte. */
+
     openIndex: number;
     onToggle: (index: number) => void;
-    /** Prefiks id dla aria-controls (gdy >1 accordion na stronie). */
+
     idPrefix?: string;
     className?: string;
 }
