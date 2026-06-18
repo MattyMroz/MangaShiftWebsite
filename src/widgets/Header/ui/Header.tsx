@@ -152,7 +152,7 @@ export const Header = () => {
                                     <Link
                                         href={link.href}
                                         onClick={nav}
-                                        className="text-[2.6rem] font-bold text-[var(--text)] transition-colors duration-200 hover:text-[var(--accent)]"
+                                        className="font-[family-name:var(--font-mono)] text-[1.8rem] font-medium uppercase tracking-[0.14em] text-[var(--text)] transition-colors duration-200 hover:text-[var(--accent)]"
                                     >
                                         {link.name}
                                     </Link>

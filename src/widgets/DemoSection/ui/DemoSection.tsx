@@ -40,16 +40,15 @@ export const DemoSection = () => {
             <Container>
                 <motion.div
                     data-scroll-target
-                    className="on-dark relative overflow-hidden rounded-[2.4rem] bg-[#121214] px-6 py-8 text-[#f1ede5] shadow-[var(--shadow-lg)] md:px-10 md:py-12 lg:px-14"
+                    className="on-dark relative overflow-y-clip rounded-[2.4rem] bg-[#121214] px-6 py-8 text-[#f1ede5] shadow-[var(--shadow-lg)] md:px-10 md:py-12 lg:px-14"
                     initial={false}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-80px' }}
                     transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                 >
-                    <span
-                        aria-hidden="true"
-                        className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[var(--accent)] opacity-15 blur-3xl"
-                    />
+                    <span aria-hidden="true" className="absolute inset-0 overflow-hidden rounded-[2.4rem]">
+                        <span className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[var(--accent)] opacity-15 blur-3xl" />
+                    </span>
 
                     <EditorialRule index="VII." page="007 / 008" className="border-white/15 text-white/45">
                         Demo output
