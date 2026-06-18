@@ -3,9 +3,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Button } from '@/shared/ui/Button/Button';
-import { Input } from '@/shared/ui/Input/Input';
-import { Field } from '@/shared/ui/Field/Field';
+import { Button } from '@/shared/ui/lib/Button';
+import { Input } from '@/shared/ui/lib/Input';
+import { Label } from '@/shared/ui/lib/Label';
+
+const landingInputClass = 'h-auto rounded-full border-[var(--line)] bg-[var(--surface)] px-8 py-4 text-[length:var(--normal-font-size)] text-[var(--text)] placeholder:text-[var(--text-faint)] hover:bg-[var(--surface)] focus-visible:border-[var(--accent)] focus-visible:ring-[var(--accent)]/15';
 
 const Corners = () => (
     <>
@@ -71,39 +73,44 @@ export default function LoginPage() {
                 </div>
 
                 <form onSubmit={handleSubmit} className="mt-10 flex flex-col gap-5">
-                    <Field label="Email" labelClassName="text-[10.5px]">
+                    <div className="flex flex-col gap-2">
+                        <Label className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-[var(--text-faint)]">
+                            Email
+                        </Label>
                         <Input
                             type="email"
                             name="email"
                             autoComplete="email"
                             placeholder="you@studio.com"
                             aria-label="Email address"
+                            className={landingInputClass}
                         />
-                    </Field>
+                    </div>
 
-                    <Field
-                        label="Password"
-                        labelClassName="text-[10.5px]"
-                        action={
-                            <button
+                    <div className="flex flex-col gap-2">
+                        <Label className="flex items-baseline justify-between gap-3 font-mono text-[10.5px] uppercase tracking-[0.18em] text-[var(--text-faint)]">
+                            <span>Password</span>
+                            <Button
                                 type="button"
+                                variant="link"
+                                size="xs"
                                 onClick={() => setNotice(true)}
-                                className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-[var(--accent-text)] transition-opacity hover:opacity-80"
+                                className="h-auto p-0 font-mono text-[10.5px] uppercase tracking-[0.18em] text-[var(--accent-text)]"
                             >
                                 Forgot?
-                            </button>
-                        }
-                    >
+                            </Button>
+                        </Label>
                         <Input
                             type="password"
                             name="password"
                             autoComplete="current-password"
                             placeholder="********"
                             aria-label="Password"
+                            className={landingInputClass}
                         />
-                    </Field>
+                    </div>
 
-                    <Button type="submit" variant="accent" size="pill" className="mt-2 w-full">
+                    <Button type="submit" variant="accent" size="landing-pill" className="mt-2 w-full">
                         Sign in
                     </Button>
 

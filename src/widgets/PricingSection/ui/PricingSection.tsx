@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion, type Variants } from 'framer-motion';
-import { Button } from '@/shared/ui/Button/Button';
+import { Button } from '@/shared/ui/lib/Button';
 import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
 import { LiveDot } from '@/shared/ui/LiveDot/LiveDot';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
@@ -254,15 +254,15 @@ export const PricingSection = () => {
 
                                     <div className="mt-8 border-t border-[var(--line)] pt-6">
                                         {isLive ? (
-                                            <Link href="#beta" onClick={handleScrollLink} className="contents">
-                                                <Button variant="primary" size="pill" className="w-full">
+                                            <Button asChild variant="primary" size="landing-pill" className="w-full">
+                                                <Link href="#beta" onClick={handleScrollLink}>
                                                     {t(`pricing.plans.${index}.cta`)}
-                                                </Button>
-                                            </Link>
+                                                </Link>
+                                            </Button>
                                         ) : (
                                             <Button
                                                 variant="outline"
-                                                size="pill"
+                                                size="landing-pill"
                                                 disabled
                                                 aria-disabled="true"
                                                 className="w-full"
