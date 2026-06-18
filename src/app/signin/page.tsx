@@ -103,7 +103,7 @@ export default function LoginPage() {
                         />
                     </Field>
 
-                    <Button type="submit" variant="hero" size="md" className="mt-2 w-full">
+                    <Button type="submit" variant="accent" size="pill" className="mt-2 w-full">
                         Sign in
                     </Button>
 

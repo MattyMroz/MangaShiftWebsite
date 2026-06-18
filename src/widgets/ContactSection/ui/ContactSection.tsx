@@ -128,7 +128,7 @@ export const BetaSection = () => {
                                         placeholder={t('beta.emailPlaceholder')}
                                         className="flex-1"
                                     />
-                                    <Button type="submit" variant="hero" size="lg" disabled={locked} className="self-start sm:self-auto">
+                                    <Button type="submit" variant="accent" size="pill" disabled={locked} className="self-start sm:self-auto">
                                         {status === 'submitting'
                                             ? t('beta.submitting')
                                             : status === 'success'

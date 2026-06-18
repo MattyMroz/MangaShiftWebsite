@@ -84,7 +84,7 @@ export const StatsSection = () => (
                         variants={reveal}
                         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                     >
-                        <Button variant="outline" size="md">
+                        <Button variant="outline" size="pill">
                             {t('stats.joinBeta')}
                         </Button>
                     </motion.div>

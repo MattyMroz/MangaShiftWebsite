@@ -65,13 +65,13 @@ export const Hero = () => {
                             transition={{ duration: 0.7, delay: 0.26 }}
                         >
                             <Link href="#beta" onClick={scrollTo} className="contents">
-                                <Button variant="hero" size="md">
+                                <Button variant="accent" size="pill">
                                     {t('hero.ctaPrimary')}
                                     <span aria-hidden="true">↗</span>
                                 </Button>
                             </Link>
                             <Link href="#demo" onClick={scrollTo} className="contents">
-                                <Button variant="outline" size="md">
+                                <Button variant="outline" size="pill">
                                     {t('hero.ctaSecondary')}
                                     <span aria-hidden="true">↓</span>
                                 </Button>
