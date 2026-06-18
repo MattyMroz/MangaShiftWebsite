@@ -1,6 +1,6 @@
 ---
 name: simple
-description: Wytyczne behawioralne mające na celu ograniczenie typowych błędów programistycznych popełnianych przez LLM. Stosuj podczas pisania, przeglądu lub refaktoryzacji kodu, aby uniknąć nadmiernego komplikowania, wprowadzać chirurgiczne zmiany, ujawniać założenia i definiować weryfikowalne kryteria sukcesu.
+description: Wytyczne behawioralne mające na celu ograniczenie typowych błędów programistycznych popełnianych przez LLM. Stosuj podczas pisania, przeglądu lub refaktoryzacji kodu, aby uniknąć nadmiernego komplikowania, wprowadzać chirurgiczne zmiany, ujawniać założenia, kwestionować wymagania (algorytm 5 kroków) i definiować weryfikowalne kryteria sukcesu.
 ---
 
 # Proste wytyczne
@@ -61,7 +61,17 @@ W przypadku zadań wieloetapowych, przedstaw krótki plan:
 
 Silne kryteria sukcesu pozwalają na samodzielne iterowanie. Słabe kryteria ("spraw, żeby działało") wymagają ciągłych wyjaśnień.
 
-## 5. Pamiętaj podczas implementacji
+## 5. Algorytm 5 kroków Elona Muska (kolejność jest święta)
+
+Zanim coś usprawnisz, przejdź te kroki w tej kolejności. Najczęstszy błąd to robienie ich od tyłu – automatyzowanie i optymalizowanie czegoś, co w ogóle nie powinno istnieć.
+
+1. Spraw, by wymaganie było mniej głupie. Każde wymaganie jest podejrzane – bez względu na to, kto je wymyślił (im mądrzejszy autor, tym groźniej, bo mniej je kwestionujesz). Każdy wymóg musi mieć nazwisko, nie "dział" – pytaj konkretną osobę, która za niego odpowiada. Inaczej okaże się, że wymyślił go na poczekaniu ktoś, kogo już dawno nie ma.
+2. Usuń część lub proces. Domyślnie kasuj, nie asekuruj się "na wszelki wypadek". Jeśli czasem nie musisz dodać czegoś z powrotem, usuwasz za mało – celuj w ~10% przypadków, gdy trzeba cofnąć usunięcie.
+3. Uprość lub zoptymalizuj. Dopiero teraz – nigdy jako pierwszy krok. Nie optymalizuj rzeczy, która nie powinna istnieć.
+4. Poruszasz się zbyt wolno – przyspiesz. Ale nie rób tego, dopóki nie przepracujesz pierwszych trzech kroków!
+5. Automatyzuj. Na samym końcu.
+
+## 6. Pamiętaj podczas implementacji
 
 Krańcowy koszt kompletności w przypadku AI jest bliski zeru. Zrób całość. Zrób to dobrze. Zrób to z testami. Zrób to z dokumentacją. Zrób to tak dobrze, abym był szczerze pod wrażeniem – nie grzecznie usatysfakcjonowany, ale faktycznie pod wrażeniem.
 
