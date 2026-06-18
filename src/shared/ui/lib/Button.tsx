@@ -7,14 +7,14 @@ import { Slot } from 'radix-ui'
 import { cn } from '@/lib/utils'
 
 const buttonVariants = cva(
-  "inline-flex shrink-0 items-center justify-center gap-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-[var(--motion-base)] outline-none btn-press focus-visible:ring-[3px] focus-visible:ring-[var(--accent-glow)]/30 disabled:pointer-events-none disabled:opacity-40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "inline-flex shrink-0 items-center justify-center gap-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-[var(--motion-base)] outline-none btn-press focus-visible:ring-[3px] focus-visible:ring-[var(--accent-glow)]/30 disabled:pointer-events-none disabled:opacity-40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-5",
   {
     variants: {
       variant: {
         default:
           'bg-[var(--btn-bg)] border border-[var(--btn-border)] text-foreground hover:bg-[var(--btn-hover)] hover:text-foreground',
         accent:
-          'bg-[var(--accent)] text-[var(--accent-fg)] border border-[var(--accent-bright)] hover:brightness-110',
+          'bg-[var(--accent)] text-[var(--accent-fg)] border border-transparent hover:brightness-110',
         primary:
           'bg-[var(--foreground)] text-[var(--background)] border border-[var(--foreground)] hover:brightness-110',
         destructive:
