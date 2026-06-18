@@ -30,6 +30,8 @@ interface SlidingTabsListProps
   activeGlow?: boolean
   hoverPillClassName?: string
   activePillClassName?: string
+  hoverRadius?: string
+  activeRadius?: string
 }
 
 function SlidingTabsList({
@@ -41,6 +43,8 @@ function SlidingTabsList({
   activeGlow = true,
   hoverPillClassName,
   activePillClassName,
+  hoverRadius,
+  activeRadius,
   children,
   ...props
 }: SlidingTabsListProps) {
@@ -136,6 +140,7 @@ function SlidingTabsList({
           width: hover.width,
           height: hover.height,
           background: hoverBg,
+          borderRadius: hoverRadius,
           opacity: hover.visible ? 1 : 0,
           transition:
             'left var(--motion-emphasized) var(--ease-emphasized), top var(--motion-emphasized) var(--ease-emphasized), width var(--motion-emphasized) var(--ease-emphasized), height var(--motion-emphasized) var(--ease-emphasized), opacity var(--motion-base) var(--ease-out)',
@@ -153,6 +158,7 @@ function SlidingTabsList({
         style={{
           background: activeBg,
           border: activeBorder,
+          borderRadius: activeRadius,
           transition:
             'left var(--motion-slide) var(--ease-standard), width var(--motion-slide) var(--ease-standard), top var(--motion-slide) var(--ease-standard), height var(--motion-slide) var(--ease-standard), opacity var(--motion-base) var(--ease-out)',
           opacity: 0,
