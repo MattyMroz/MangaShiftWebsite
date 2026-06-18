@@ -1,8 +1,10 @@
 {
   "nav": {
     "about": "About",
-    "how": "How it works",
+    "how": "How",
     "features": "Features",
+    "usecases": "Use cases",
+    "gallery": "Gallery",
     "demo": "Demo",
     "faq": "FAQ",
     "beta": "Join Beta"
