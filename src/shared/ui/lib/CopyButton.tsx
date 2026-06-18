@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 import { Copy, Check } from 'lucide-react'
-import { Button } from '@/shared/ui/Button/Button'
+import { Button } from '@/shared/ui/lib/Button'
 
 // ---------------------------------------------------------------------------
 // CopyButton — Clipboard copy with visual feedback (icon swap)

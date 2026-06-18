@@ -1,6 +1,6 @@
 import { Play } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { Button } from '@/shared/ui/Button/Button'
+import { Button } from '@/shared/ui/lib/Button'
 
 // ---------------------------------------------------------------------------
 // VoiceListItem — Selectable voice row with optional play button

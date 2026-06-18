@@ -1,26 +1,24 @@
-/** Accent color presets (Tailwind 4 oklch palette). Used by the component gallery. */
-
-// ─── Types ───
-
 export interface AccentPreset {
   key: string
   label: string
-  /** shade 500 - main accent */
   main: string
-  /** shade 400 - lighter, highlights */
   bright: string
-  /** shade 700 - darker, depth */
   dim: string
-  /** main with 0.35 alpha (glow/shadow) */
   glow: string
-  /** main with 0.08 alpha (subtle bg tint) */
   subtle: string
 }
 
-// ─── Helpers ───
+function withAlpha(color: string, alpha: number): string {
+  const hex = color.match(/^#([0-9a-f]{6})$/i)
+  if (hex) {
+    const raw = hex[1]
+    const r = Number.parseInt(raw.slice(0, 2), 16)
+    const g = Number.parseInt(raw.slice(2, 4), 16)
+    const b = Number.parseInt(raw.slice(4, 6), 16)
+    return `rgb(${r} ${g} ${b} / ${alpha})`
+  }
 
-function withAlpha(oklch: string, alpha: number): string {
-  return oklch.replace(')', ` / ${alpha})`)
+  return color.replace(')', ` / ${alpha})`)
 }
 
 function preset(
@@ -41,9 +39,8 @@ function preset(
   }
 }
 
-// ─── Accent Presets (Tailwind 4 oklch palette, rainbow order) ───
-
 export const ACCENT_PRESETS: AccentPreset[] = [
+  preset('coral',   'Coral',   '#f0a088',                    '#e87058',                    '#d9624a'),
   preset('red',     'Red',     'oklch(70.4% 0.191 22.216)',  'oklch(63.7% 0.237 25.331)',  'oklch(50.5% 0.213 27.518)'),
   preset('orange',  'Orange',  'oklch(75% 0.183 55.934)',    'oklch(70.5% 0.213 47.604)',  'oklch(55.3% 0.195 38.402)'),
   preset('amber',   'Amber',   'oklch(82.8% 0.189 84.429)',  'oklch(76.9% 0.188 70.08)',   'oklch(55.5% 0.163 48.998)'),
@@ -64,8 +61,6 @@ export const ACCENT_PRESETS: AccentPreset[] = [
   preset('slate',   'Slate',   'oklch(70.4% 0.04 256.788)',  'oklch(55.4% 0.046 257.417)', 'oklch(37.2% 0.044 257.287)'),
   preset('zinc',    'Zinc',    'oklch(70.5% 0.015 286.067)', 'oklch(55.2% 0.016 285.938)', 'oklch(37% 0.013 285.805)'),
 ]
-
-// ─── Contrast accent (auto-switch: dark→white, light→black) ───
 
 export const CONTRAST_KEY = 'contrast'
 
@@ -89,7 +84,6 @@ const CONTRAST_LIGHT: AccentPreset = {
   subtle: 'oklch(23% 0 0 / 0.06)',
 }
 
-/** All presets including contrast. */
 export const ALL_ACCENT_PRESETS: AccentPreset[] = [
   ...ACCENT_PRESETS,
   CONTRAST_DARK,
@@ -107,18 +101,18 @@ function getContrastPreset(): AccentPreset {
   return theme === 'light' ? CONTRAST_LIGHT : CONTRAST_DARK
 }
 
-/**
- * Apply accent color preset to the document root.
- * Sets --accent, --accent-bright, --accent-dim, --accent-glow, --accent-subtle on <html>.
- * For 'contrast' key: auto-switches white/black based on current theme.
- */
 export function applyAccent(key: string): void {
+  if (typeof document === 'undefined') return
+
   let p: AccentPreset
 
   if (key === CONTRAST_KEY) {
     p = getContrastPreset()
   } else {
-    p = ACCENT_PRESETS.find((x) => x.key === key) ?? CONTRAST_DARK
+    p =
+      ACCENT_PRESETS.find((x) => x.key === key) ??
+      ACCENT_PRESETS.find((x) => x.key === DEFAULT_ACCENT) ??
+      CONTRAST_DARK
   }
 
   const fg = getLightness(p.main) > 65 ? 'oklch(15% 0 0)' : 'oklch(100% 0 0)'
@@ -136,4 +130,54 @@ export function applyAccent(key: string): void {
   root.style.setProperty('--primary', p.main)
   root.style.setProperty('--primary-foreground', fg)
   root.style.setProperty('--ring', p.main)
+}
+
+export interface RadiusPreset {
+  key: string
+  label: string
+  value: string
+}
+
+export const RADIUS_PRESETS: RadiusPreset[] = [
+  { key: 'none', label: 'None', value: '0px' },
+  { key: 'sm', label: 'Small', value: '0.375rem' },
+  { key: 'md', label: 'Medium', value: '0.625rem' },
+  { key: 'lg', label: 'Large', value: '0.875rem' },
+  { key: 'xl', label: 'Extra', value: '1.25rem' },
+]
+
+export const DEFAULT_RADIUS = 'xl'
+
+export function applyRadius(key: string): void {
+  if (typeof document === 'undefined') return
+  const p =
+    RADIUS_PRESETS.find((x) => x.key === key) ??
+    RADIUS_PRESETS.find((x) => x.key === DEFAULT_RADIUS)!
+  document.documentElement.style.setProperty('--radius', p.value)
+  window.dispatchEvent(new CustomEvent('theme:tokens-changed'))
+}
+
+export interface FontPreset {
+  key: string
+  label: string
+  value: string
+}
+
+export const FONT_PRESETS: FontPreset[] = [
+  { key: 'inter', label: 'Inter', value: "var(--font-body), 'Inter', 'Segoe UI Variable', 'Segoe UI', system-ui, -apple-system, sans-serif" },
+  { key: 'system', label: 'System', value: "system-ui, -apple-system, 'Segoe UI Variable', 'Segoe UI', sans-serif" },
+  { key: 'segoe', label: 'Segoe UI', value: "'Segoe UI Variable', 'Segoe UI', system-ui, sans-serif" },
+  { key: 'mono', label: 'Mono', value: "var(--font-mono), 'JetBrains Mono', 'Cascadia Code', 'Fira Code', monospace" },
+  { key: 'serif', label: 'Serif', value: "var(--font-serif), Georgia, 'Times New Roman', serif" },
+]
+
+export const DEFAULT_FONT = 'mono'
+
+export function applyFont(key: string): void {
+  if (typeof document === 'undefined') return
+  const p =
+    FONT_PRESETS.find((x) => x.key === key) ??
+    FONT_PRESETS.find((x) => x.key === DEFAULT_FONT)!
+  document.documentElement.style.setProperty('--font-sans', p.value)
+  window.dispatchEvent(new CustomEvent('theme:tokens-changed'))
 }

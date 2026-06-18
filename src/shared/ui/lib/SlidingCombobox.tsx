@@ -33,9 +33,9 @@ export function SlidingCombobox({
   options,
   value,
   onValueChange,
-  placeholder = 'Wybierz...',
-  searchPlaceholder = 'Szukaj...',
-  emptyMessage = 'Nie znaleziono.',
+  placeholder = 'Choose...',
+  searchPlaceholder = 'Search...',
+  emptyMessage = 'No results.',
   className,
   disabled,
 }: SlidingComboboxProps) {

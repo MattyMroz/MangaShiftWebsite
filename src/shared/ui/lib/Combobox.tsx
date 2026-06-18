@@ -1,19 +1,3 @@
-/**
- * Combobox — Command + Popover pattern
- *
- * Reusable searchable dropdown built from existing Command + Popover primitives.
- *
- * Usage:
- *   <Combobox
- *     options={[{ value: 'pl', label: 'Polski' }, { value: 'en', label: 'English' }]}
- *     value={lang}
- *     onValueChange={setLang}
- *     placeholder="Choose language..."
- *     searchPlaceholder="Szukaj..."
- *     emptyMessage="Nie znaleziono."
- *   />
- */
-
 import * as React from 'react'
 import { Check, ChevronsUpDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -41,9 +25,9 @@ function Combobox({
   options,
   value,
   onValueChange,
-  placeholder = 'Wybierz...',
-  searchPlaceholder = 'Szukaj...',
-  emptyMessage = 'Nie znaleziono.',
+  placeholder = 'Choose...',
+  searchPlaceholder = 'Search...',
+  emptyMessage = 'No results.',
   className,
   disabled,
 }: ComboboxProps) {

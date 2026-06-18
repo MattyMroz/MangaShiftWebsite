@@ -4,7 +4,6 @@ import { cn } from '@/shared/lib/utils/cn';
 interface FieldProps {
     label: React.ReactNode;
     htmlFor?: string;
-    /** Akcja po prawej stronie etykiety (np. „Forgot?"). */
     action?: React.ReactNode;
     className?: string;
     labelClassName?: string;

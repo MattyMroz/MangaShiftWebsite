@@ -2,35 +2,24 @@ import type { KeyboardEvent } from 'react'
 import { cn } from '@/lib/utils'
 import { Switch } from '@/shared/ui/lib/Switch'
 import { Badge } from '@/shared/ui/lib/Badge'
-import { Button } from '@/shared/ui/Button/Button'
+import { Button } from '@/shared/ui/lib/Button'
 import { Trash2 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
-
-// ---------------------------------------------------------------------------
-// ListItem — List row element (regions, voices, profiles)
-// Standard: 6 types in OcrPage, TtsPage, DashboardPage, ProfilesPage
-// ---------------------------------------------------------------------------
 
 export interface ListItemProps {
   title: string
   subtitle?: string
-  /** Klikalny/wybieralny element */
   selectable?: boolean
   selected?: boolean
   onClick?: () => void
-  /** Switch po lewej stronie */
   switchProps?: {
     checked: boolean
     onCheckedChange?: (v: boolean) => void
   }
-  /** Badge z tekstem po prawej */
   badge?: string
-  /** Delete button */
   onDelete?: () => void
-  /** Akcja dodatkowa (np. Play) */
   actionIcon?: LucideIcon
   onAction?: () => void
-  /** ARIA label for action button */
   actionLabel?: string
   className?: string
 }
@@ -116,7 +105,7 @@ export function ListItem({
             variant="ghost"
             size="icon-sm"
             className="shrink-0"
-            aria-label={actionLabel ?? 'Akcja'}
+            aria-label={actionLabel ?? 'Action'}
             onClick={(e) => {
               e.stopPropagation()
               onAction()
