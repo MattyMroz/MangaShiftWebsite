@@ -35,6 +35,13 @@ export const smoothScrollTo = (href: string, offset?: number): boolean => {
             top: Math.max(0, offsetPosition),
             behavior: 'smooth'
         });
+
+        if (id === 'beta') {
+            window.setTimeout(() => {
+                const input = document.getElementById('beta-email') as HTMLInputElement | null;
+                input?.focus({ preventScroll: true });
+            }, 700);
+        }
         return true;
     }
 
