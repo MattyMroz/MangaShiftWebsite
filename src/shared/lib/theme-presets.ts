@@ -125,9 +125,15 @@ export function applyAccent(key: string): void {
 
   const root = document.documentElement
   root.style.setProperty('--accent', p.main)
+  root.style.setProperty('--accent-text', p.main)
+  root.style.setProperty('--accent-hover', p.dim)
   root.style.setProperty('--accent-bright', p.bright)
   root.style.setProperty('--accent-dim', p.dim)
   root.style.setProperty('--accent-glow', p.glow)
   root.style.setProperty('--accent-subtle', p.subtle)
+  root.style.setProperty('--accent-border', withAlpha(p.main, 0.25))
   root.style.setProperty('--accent-fg', fg)
+  root.style.setProperty('--primary', p.main)
+  root.style.setProperty('--primary-foreground', fg)
+  root.style.setProperty('--ring', p.main)
 }
