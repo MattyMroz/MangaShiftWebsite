@@ -5,12 +5,7 @@ interface AppIconProps {
   className?: string
 }
 
-/**
- * MangaShift brand icon — two stacked manga pages with text lines.
- *
- * Visual metaphor: source page (back) shifts into translated page (front).
- * Replaces the EchoReader microphone glyph; same gradient tokens.
- */
+
 export function AppIcon({ size = 24, className }: AppIconProps) {
   return (
     <svg
@@ -20,7 +15,7 @@ export function AppIcon({ size = 24, className }: AppIconProps) {
       fill="none"
       className={cn('shrink-0', className)}
     >
-      {/* Back page (source) — slightly offset to suggest a stack */}
+
       <rect
         x="10"
         y="4"
@@ -30,7 +25,7 @@ export function AppIcon({ size = 24, className }: AppIconProps) {
         fill="url(#ms-icon-grad)"
         opacity="0.35"
       />
-      {/* Front page (translated) */}
+
       <rect
         x="5"
         y="7"
@@ -39,13 +34,13 @@ export function AppIcon({ size = 24, className }: AppIconProps) {
         rx="2.5"
         fill="url(#ms-icon-grad)"
       />
-      {/* Page corner fold on the front */}
+
       <path
         d="M18.5 7 L22 7 L22 10.5 Z"
         fill="currentColor"
         opacity="0.18"
       />
-      {/* Text lines knocked out (translated content) */}
+
       <line x1="8.5" y1="13" x2="18" y2="13" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.95" />
       <line x1="8.5" y1="17" x2="19" y2="17" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.95" />
       <line x1="8.5" y1="21" x2="14.5" y2="21" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.95" />

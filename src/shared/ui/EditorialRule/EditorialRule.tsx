@@ -2,11 +2,11 @@ import type { ReactNode } from 'react';
 import { cn } from '@/shared/lib/utils/cn';
 
 interface EditorialRuleProps {
-    /** Lewy znacznik — numer porządkowy sekcji (np. "II."). */
+
     index: string;
-    /** Prawy znacznik — numer strony (np. "002 / 008"). */
+
     page: string;
-    /** Środkowy slot — tytuł lub meta sekcji. */
+
     children: ReactNode;
     className?: string;
 }

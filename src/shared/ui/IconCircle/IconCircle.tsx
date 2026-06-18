@@ -7,7 +7,7 @@ type Size = 'md' | 'lg';
 interface IconCircleProps extends React.ComponentProps<'button'> {
     variant?: Variant;
     size?: Size;
-    /** 'button' (domyślnie) lub 'span' dla wariantu dekoracyjnego w linku/nagłówku. */
+
     as?: 'button' | 'span';
 }
 

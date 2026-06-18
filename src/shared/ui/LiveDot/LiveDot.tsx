@@ -1,10 +1,10 @@
 import { cn } from '@/shared/lib/utils/cn';
 
 interface LiveDotProps {
-    /** `ping` = pulsująca otoczka + statyczny rdzeń; `pulse` = pojedyncza migająca kropka. */
+
     variant?: 'ping' | 'pulse';
     size?: 'sm' | 'md';
-    /** Nadpisuje kolor rdzenia/otoczki (domyślnie `bg-[var(--accent)]`). */
+
     className?: string;
 }
 

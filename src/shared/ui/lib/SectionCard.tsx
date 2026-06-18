@@ -1,10 +1,10 @@
 import { cn } from '@/lib/utils'
 import { neonGlow, useAppStore } from '@/stores/useAppStore'
 
-// ---------------------------------------------------------------------------
-// SectionHeader — Icon box + title + description (reusable header row)
-// Used in: SectionCard (internal), AccordionTrigger headers, etc.
-// ---------------------------------------------------------------------------
+
+
+
+
 
 export function SectionHeader({
   icon: Icon,
@@ -37,9 +37,9 @@ export function SectionHeader({
   )
 }
 
-// ---------------------------------------------------------------------------
-// SectionCard — Card wrapper with optional header, neon glow, accent line
-// ---------------------------------------------------------------------------
+
+
+
 
 interface SectionCardProps {
   icon?: React.ElementType
@@ -47,13 +47,13 @@ interface SectionCardProps {
   description?: string
   children: React.ReactNode
   className?: string
-  /** Animation stagger index (0-based) — adds delay */
+
   stagger?: number
-  /** Show accent top-line gradient */
+
   accentLine?: boolean
-  /** Show neon glow */
+
   glow?: boolean
-  /** Wrap children in divide-y container (for settings-style rows) */
+
   divideChildren?: boolean
 }
 

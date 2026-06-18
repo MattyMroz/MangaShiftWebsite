@@ -3,17 +3,17 @@ import { Label } from '@/shared/ui/lib/Label'
 import { Switch } from '@/shared/ui/lib/Switch'
 import type { LucideIcon } from 'lucide-react'
 
-// ---------------------------------------------------------------------------
-// SettingRow — Label (with optional icon / description) + control on the right
-//
-// Dwa tryby:
-//   1. Switch mode — podaj checked + onCheckedChange (backward compat)
-//   2. Generic mode — podaj children (dowolna kontrolka: Tabs, Button, etc.)
-//
-// Warianty:
-//   padded=true  → px-6 py-[15px] + hover:bg — dla SectionCard divideChildren
-//   padded=false → bare flex — for containers with their own padding (default)
-// ---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
 
 interface SettingRowBase {
   label: string
@@ -21,7 +21,7 @@ interface SettingRowBase {
   description?: string
   className?: string
   disabled?: boolean
-  /** Add px-6 py-[15px] + hover bg — use inside SectionCard divideChildren */
+
   padded?: boolean
 }
 

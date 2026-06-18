@@ -93,8 +93,8 @@ function Carousel({
 
   React.useEffect(() => {
     if (!api) return
-    // queueMicrotask defers setState past the synchronous effect body so we
-    // capture the initial slide state without violating react-hooks/set-state-in-effect.
+
+
     queueMicrotask(() => onSelect(api))
     api.on("reInit", onSelect)
     api.on("select", onSelect)

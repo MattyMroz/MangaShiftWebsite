@@ -42,7 +42,7 @@ export function RoundedScrollList({
     return () => window.removeEventListener('resize', updateFade)
   }, [updateFade, children])
 
-  // Re-measure overflow when content size changes.
+
   useEffect(() => {
     const v = viewportRef.current
     if (!v) return

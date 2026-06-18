@@ -1,4 +1,4 @@
-/** Sliding-pill Select built on Radix Select. Single accent pill follows the highlighted item (mouse + keyboard). */
+
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { CheckIcon, ChevronDownIcon } from 'lucide-react'
 import { Select as SelectPrimitive } from 'radix-ui'
@@ -80,7 +80,7 @@ interface ViewportProps {
   items: SlidingSelectItem[]
 }
 
-/** Viewport with sliding accent pill rendered inside Viewport but absolutely positioned, items stay direct children for Radix item-aligned. */
+
 function SlidingSelectViewport({ items }: ViewportProps) {
   const viewportRef = useRef<HTMLDivElement | null>(null)
   const [pill, setPill] = useState({ x: 0, y: 0, w: 0, h: 0, visible: false, animated: false })
@@ -108,7 +108,7 @@ function SlidingSelectViewport({ items }: ViewportProps) {
         w: target.offsetWidth,
         h: target.offsetHeight,
         visible: true,
-        // first appearance snaps; subsequent highlight changes animate
+
         animated: prev.visible,
       }))
     }
@@ -119,7 +119,7 @@ function SlidingSelectViewport({ items }: ViewportProps) {
       attributeFilter: ['data-highlighted', 'data-state'],
       subtree: true,
     })
-    // initial paint may need a frame for Radix to attach data-state on items
+
     requestAnimationFrame(update)
 
     return () => observer.disconnect()

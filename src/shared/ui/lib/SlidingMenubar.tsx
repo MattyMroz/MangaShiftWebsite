@@ -1,4 +1,4 @@
-/** Sliding-pill Menubar built on Radix Menubar. Triggers and dropdown items get hover/active sliding highlight. */
+
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import { Menubar as MenubarPrimitive } from 'radix-ui'
 
@@ -176,7 +176,7 @@ export function SlidingMenubar({
       ref={rootRef as unknown as React.Ref<HTMLDivElement>}
       className={cn('relative flex h-7 items-center', className)}
     >
-      {/* hover pill */}
+
       <div
         aria-hidden
         className="absolute top-1/2 left-0 h-7 -translate-y-1/2 rounded-md pointer-events-none z-0"
@@ -189,7 +189,7 @@ export function SlidingMenubar({
         }}
       />
 
-      {/* active pill */}
+
       <div
         aria-hidden
         className="absolute top-1/2 left-0 h-7 -translate-y-1/2 rounded-md pointer-events-none z-0"
@@ -271,7 +271,6 @@ interface SlidingMenubarItemsProps {
   className?: string
 }
 
-/** MenubarContent body with a sliding pill that follows the hovered item. Drop into <MenubarContent> in place of plain items. */
 export function SlidingMenubarItems({
   entries,
   hoverBg = 'var(--accent-subtle)',
@@ -280,8 +279,6 @@ export function SlidingMenubarItems({
   const [hoverIdx, setHoverIdx] = useState<number | null>(null)
   const [hoverRect, setHoverRect] = useState({ y: 0, h: 0 })
   const [hoverVisible, setHoverVisible] = useState(false)
-  // Track the open submenu so the pill stays on it after the pointer leaves —
-  // same behaviour as SlidingMenubarSubGroup, so nested submenus animate too.
   const [openIdx, setOpenIdx] = useState<number | null>(null)
 
   const containerRef = useRef<HTMLDivElement | null>(null)
@@ -304,8 +301,6 @@ export function SlidingMenubarItems({
 
   const pillActive = (hoverVisible && hoverIdx !== null) || openIdx !== null
 
-  // Slide the open submenu's content into place when switching between sibling
-  // submenus, matching SlidingMenubarSubGroup so nested levels animate the same.
   const openSubKey =
     openIdx !== null && entries[openIdx]?.kind === 'submenu'
       ? `${(entries[openIdx] as { label: string }).label}-${openIdx}`
@@ -368,9 +363,6 @@ export function SlidingMenubarItems({
           )
         }
         if (entry.kind === 'radio') {
-          // Radio rows manage their own highlight (Radix focus) so the list pill
-          // stays free for item/checkbox/submenu rows. Selecting keeps the menu
-          // open — only the value changes.
           return (
             <MenubarRadioGroup key={`radio-${entry.label}-${idx}`} value={entry.value}>
               {entry.options.map((opt) => (
@@ -496,7 +488,6 @@ interface SlidingMenubarSubGroupProps {
   hoverBg?: string
 }
 
-/** List of MenubarSub items with a single sliding accent pill that follows hover/open. Sub-content uses SlidingMenubarItems. */
 export function SlidingMenubarSubGroup({
   subs,
   hoverBg = 'var(--accent-subtle)',
@@ -519,7 +510,6 @@ export function SlidingMenubarSubGroup({
     setHoverVisible(true)
   }
 
-  /** which idx the pill should sit on; hover wins, falls back to open */
   const pillIdx = hoverVisible && hoverIdx !== null ? hoverIdx : openIdx
   const pillVisible = pillIdx !== null
 

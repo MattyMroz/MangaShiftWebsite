@@ -3,10 +3,10 @@ import { Label } from '@/shared/ui/lib/Label'
 import { Slider } from '@/shared/ui/lib/Slider'
 import type { LucideIcon } from 'lucide-react'
 
-// ---------------------------------------------------------------------------
-// SliderRow — Label + value + Slider
-// Standard: 23 instancje w OcrPage, TtsPage, DashboardPage
-// ---------------------------------------------------------------------------
+
+
+
+
 
 export interface SliderRowProps {
   label: string
@@ -17,7 +17,7 @@ export interface SliderRowProps {
   min: number
   max: number
   step: number
-  /** Format of the displayed value, e.g. (v) => `${v}%` */
+
   formatValue?: (value: number) => string
   className?: string
 }

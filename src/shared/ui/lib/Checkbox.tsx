@@ -16,8 +16,8 @@ function Checkbox({
         "focus-visible:border-[var(--accent)] focus-visible:ring-[3px] focus-visible:ring-[var(--accent-glow)]/30",
         "disabled:cursor-not-allowed disabled:opacity-40",
         "aria-invalid:border-destructive aria-invalid:ring-destructive/20",
-        // Unchecked fill (kept subtle in dark). Listed BEFORE the checked rules
-        // so the accent fill wins; the dark: checked override beats dark:bg.
+
+
         "dark:bg-[var(--btn-bg)]",
         "data-[state=checked]:border-[var(--accent)] data-[state=checked]:bg-[var(--accent)] data-[state=checked]:text-[var(--accent-fg)] dark:data-[state=checked]:bg-[var(--accent)]",
         "data-[state=indeterminate]:border-[var(--accent)] data-[state=indeterminate]:bg-[var(--accent)] data-[state=indeterminate]:text-[var(--accent-fg)] dark:data-[state=indeterminate]:bg-[var(--accent)]",

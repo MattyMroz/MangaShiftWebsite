@@ -233,8 +233,7 @@ function MenubarSubTrigger({
       {...props}
     >
       {children}
-      {/* The chevron implies "opens a submenu" — hide it when disabled so a
-          non-expandable row (e.g. Wave at page scope) does not look clickable. */}
+
       <ChevronRightIcon className="ml-auto h-4 w-4 group-data-[disabled]:hidden" />
     </MenubarPrimitive.SubTrigger>
   )
