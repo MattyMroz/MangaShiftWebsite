@@ -1,0 +1,178 @@
+:root {
+  --bg: #f3efe6;
+  --bg-alpha: rgba(243, 239, 230, 0.9);
+  --surface: #faf7f0;
+  --surface-2: #e8e2d8;
+
+  --text: #191815;
+  --text-muted: #625e56;
+  --text-faint: #898277;
+
+  --accent: #e87058;
+  --accent-hover: #d9624a;
+  --accent-text: #e87058;
+  --accent-fg: #ffffff;
+  --accent-2: #b9903f;
+  --blush: #f0a088;
+  --accent-on-dark: #cf5f48;
+
+  --line: rgba(25, 24, 21, 0.14);
+  --line-strong: rgba(25, 24, 21, 0.32);
+
+  --bg-primary: var(--bg);
+  --bg-secondary: var(--surface);
+  --bg-tertiary: var(--surface-2);
+
+  --text-primary: var(--text);
+  --text-secondary: var(--text-muted);
+  --text-tertiary: var(--text-faint);
+
+  --border-primary: var(--line);
+  --border-secondary: var(--line-strong);
+
+  --shadow-sm: 0 1px 2px rgb(38 31 29 / 0.06);
+  --shadow-md: 0 12px 34px -22px rgb(38 31 29 / 0.34);
+  --shadow-lg: 0 28px 70px -34px rgb(38 31 29 / 0.4);
+
+  --background: #f3efe6;
+  --foreground: #191815;
+  --card: #faf7f0;
+  --card-foreground: #191815;
+  --popover: #faf7f0;
+  --popover-foreground: #191815;
+  --primary: #e87058;
+  --primary-foreground: #ffffff;
+  --secondary: #e8e2d8;
+  --secondary-foreground: #191815;
+  --muted: #e8e2d8;
+  --muted-foreground: #625e56;
+  --accent-foreground: #ffffff;
+  --destructive: #c0492f;
+  --border: rgba(25, 24, 21, 0.14);
+  --input: rgba(25, 24, 21, 0.10);
+  --ring: #e87058;
+
+  --accent-bright: #f0a088;
+  --accent-dim: #d9624a;
+  --accent-glow: rgba(232, 112, 88, 0.35);
+  --accent-subtle: rgba(232, 112, 88, 0.08);
+  --accent-border: rgba(232, 112, 88, 0.25);
+
+  --elevated: #e8e2d8;
+  --btn-bg: rgba(25, 24, 21, 0.05);
+  --btn-border: rgba(25, 24, 21, 0.14);
+  --btn-hover: rgba(25, 24, 21, 0.09);
+  --overlay: rgba(25, 24, 21, 0.05);
+  --overlay-hover: rgba(25, 24, 21, 0.09);
+  --row-bg: rgba(25, 24, 21, 0.04);
+  --row-border: rgba(25, 24, 21, 0.10);
+  --glass-bg: rgba(250, 247, 240, 0.85);
+  --glass-bg-subtle: rgba(250, 247, 240, 0.70);
+  --glass-border: rgba(25, 24, 21, 0.12);
+  --glass-border-subtle: rgba(25, 24, 21, 0.08);
+
+  --section-card-bg: rgba(250, 247, 240, 0.85);
+  --section-card-border: rgba(25, 24, 21, 0.12);
+  --section-card-hover-border: rgba(25, 24, 21, 0.18);
+  --section-card-shadow: 0 1px 8px rgba(38, 31, 29, 0.06);
+  --section-card-bg-nested: #e8e2d8;
+  --section-card-border-nested: rgba(25, 24, 21, 0.14);
+
+  --radius: 0.8rem;
+  --neon: 0;
+
+  --title-font-size: 16rem;
+  --subtitle-font-size: 3rem;
+  --japanese-text-font-size: 1.4rem;
+  --section-title-font-size: 5rem;
+  --section-subtitle-font-size: 2.2rem;
+  --h1-font-size: 3.2rem;
+  --h2-font-size: 2.4rem;
+  --h3-font-size: 1.872rem;
+  --normal-font-size: 1.6rem;
+  --small-font-size: 1.328rem;
+  --tiny-font-size: 1.072rem;
+
+  --text-xs: 1.2rem;
+  --text-sm: 1.4rem;
+  --text-base: 1.6rem;
+  --text-lg: 1.8rem;
+  --text-xl: 2rem;
+  --text-2xl: 2.4rem;
+  --text-3xl: 3rem;
+  --text-4xl: 3.6rem;
+  --text-5xl: 4.8rem;
+
+  --container-width: 120rem;
+  --container-padding: 1.5rem;
+  --section-margin-bottom: 10rem;
+  --section-padding-top: 10rem;
+  --section-padding-bottom: 10rem;
+
+  --section-gap-horizontal: 0;
+  --section-gap-vertical: 8rem;
+
+  --section-padding-x-mobile: 1.5rem;
+  --section-padding-x-tablet: 3rem;
+  --section-padding-x-desktop-sm: 6rem;
+  --section-padding-x-desktop-lg: 6rem;
+
+  --section-padding-y-mobile: 8rem;
+  --section-padding-y-tablet: 10rem;
+  --section-padding-y-desktop-sm: 12rem;
+  --section-padding-y-desktop-lg: 14rem;
+
+  --card-padding-mobile: 2rem;
+  --card-padding-desktop: 3.2rem;
+
+  --card-gap: 2rem;
+
+  --spacing-xs: 0.4rem;
+  --spacing-sm: 0.8rem;
+  --spacing-md: 1.6rem;
+  --spacing-lg: 2.4rem;
+  --spacing-xl: 3.2rem;
+  --spacing-2xl: 4.8rem;
+
+  --radius-sm: 0.4rem;
+  --radius-md: 0.8rem;
+  --radius-lg: 1.2rem;
+  --radius-xl: 1.6rem;
+  --radius-full: 9999px;
+}
+
+@media screen and (max-width: 768px) {
+  :root {
+    --title-font-size: 11.5rem;
+    --subtitle-font-size: 2.3rem;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  :root {
+    --title-font-size: 8rem;
+    --subtitle-font-size: 1.75rem;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  :root {
+    --title-font-size: 7rem;
+    --h1-font-size: 2.4rem;
+    --h2-font-size: 1.8rem;
+    --h3-font-size: 1.5rem;
+    --japanese-text-font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  :root {
+    --title-font-size: 6.5rem;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  :root {
+    --title-font-size: 5.5rem;
+  }
+}
