@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Hamburger } from '@/shared/ui/Hamburger/Hamburger';
@@ -21,6 +22,7 @@ const navLinks = [
 ];
 
 export const Header = () => {
+    const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const [hoveredNav, setHoveredNav] = useState<string | null>(null);
@@ -57,6 +59,8 @@ export const Header = () => {
         if (isOpen) setIsOpen(false);
         smoothScrollTo('#beta');
     };
+
+    if (pathname?.startsWith('/gallery')) return null;
 
     return (
         <>

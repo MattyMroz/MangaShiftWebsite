@@ -1561,7 +1561,7 @@ export default function GalleryPage() {
 
   return (
     <TooltipProvider>
-      <div className="flex h-[calc(100vh-7rem)] gap-4">
+      <div className="flex h-[calc(100vh-3rem)] gap-4">
         {/* ── Left sidebar — scrollable component list ── */}
         <SectionCard
           icon={LayoutGrid}
