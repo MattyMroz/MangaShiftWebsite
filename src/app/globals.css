@@ -164,10 +164,11 @@ html:has(.gallery-root) select {
 }
 
 .gallery-root {
+  --gallery-container-width: 1680px;
   position: relative;
   overflow: hidden;
   min-height: 100vh;
-  padding: 48px 32px 32px;
+  padding: 48px clamp(24px, 4vw, 64px) 32px;
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
@@ -224,7 +225,8 @@ html:has(.gallery-root)[data-neon="full"] .gallery-root::before {
 
 .gallery-appearance {
   margin: 0 auto 30px;
-  max-width: 1776px;
+  width: min(100%, var(--gallery-container-width));
+  max-width: var(--gallery-container-width);
 }
 
 .gallery-appearance__header {
@@ -291,7 +293,8 @@ html:has(.gallery-root)[data-neon="full"] .gallery-root::before {
   display: flex;
   height: calc(100vh - 32px);
   min-height: 720px;
-  max-width: 2028px;
+  width: min(100%, var(--gallery-container-width));
+  max-width: var(--gallery-container-width);
   margin: 0 auto;
   gap: 40px;
 }
