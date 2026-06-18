@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Hamburger } from '@/shared/ui/Hamburger/Hamburger';
 import { LanguageSwitcher } from '@/shared/ui/LanguageSwitcher/LanguageSwitcher';
-import { Button } from '@/shared/ui/Button/Button';
+import { Button } from '@/shared/ui/lib/Button';
 import { Container } from '@/shared/ui/Container/Container';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
 import { t } from '@/shared/i18n';
@@ -123,7 +123,7 @@ export const Header = () => {
                         </div>
                         <Button
                             variant="accent"
-                            size="pill-sm"
+                            size="landing-pill-sm"
                             onClick={joinBeta}
                             className="hidden sm:inline-flex"
                         >
@@ -164,7 +164,7 @@ export const Header = () => {
                             ))}
                         </ul>
                         <div className="mt-10 flex justify-center">
-                            <Button variant="accent" size="pill" onClick={joinBeta}>
+                            <Button variant="accent" size="landing-pill" onClick={joinBeta}>
                                 {t('nav.beta')}
                             </Button>
                         </div>

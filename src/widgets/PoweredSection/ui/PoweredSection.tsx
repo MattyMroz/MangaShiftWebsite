@@ -2,7 +2,7 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { cn } from '@/shared/lib/utils/cn';
-import { Button } from '@/shared/ui/Button/Button';
+import { Button } from '@/shared/ui/lib/Button';
 import { LiveDot } from '@/shared/ui/LiveDot/LiveDot';
 import { t } from '@/shared/i18n';
 
@@ -195,7 +195,7 @@ export const PoweredSection = () => (
                         <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
                         {t('powered.modelAgnostic')}
                     </span>
-                    <Button variant="ghost" size="sm">
+                    <Button variant="ghost" size="landing-sm">
                         {t('powered.joinBeta')}
                     </Button>
                 </div>

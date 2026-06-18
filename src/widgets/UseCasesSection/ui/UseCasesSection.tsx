@@ -4,11 +4,12 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Button } from '@/shared/ui/Button/Button';
+import { ArrowUpRight } from 'lucide-react';
+import { Button } from '@/shared/ui/lib/Button';
 import { Container } from '@/shared/ui/Container/Container';
 import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
-import { TabPill } from '@/shared/ui/TabPill/TabPill';
+import { SlidingTabs, SlidingTabsList, SlidingTabsTrigger } from '@/shared/ui/lib/SlidingTabs';
 import { MetaLabel } from '@/shared/ui/MetaLabel/MetaLabel';
 import { FloatingLabel } from '@/shared/ui/FloatingLabel/FloatingLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
@@ -57,13 +58,27 @@ export const UseCasesSection = () => {
                 </div>
 
                 <div className="mt-14 rounded-[2.4rem] border border-[var(--line-strong)] bg-[var(--bg)] p-3 shadow-[var(--shadow-md)] md:p-5">
-                    <TabPill
-                        tabs={modes.map((mode, index) => ({ id: mode.id, label: t(`usecases.modes.${index}.label`) }))}
-                        active={active.id}
-                        onChange={(id) => setActiveId(id as (typeof modes)[number]['id'])}
-                        layoutId="usecase-active-pill"
-                        aria-label="MangaShift audiences"
-                    />
+                    <SlidingTabs
+                        value={active.id}
+                        onValueChange={(id) => setActiveId(id as (typeof modes)[number]['id'])}
+                        className="block"
+                    >
+                        <SlidingTabsList
+                            aria-label="MangaShift audiences"
+                            className="!grid !h-auto !w-full gap-1 rounded-[2rem] border border-[var(--line)] bg-[var(--surface)] p-1.5 sm:grid-cols-3 sm:rounded-full"
+                            hoverBg="var(--surface-2)"
+                        >
+                            {modes.map((mode, index) => (
+                                <SlidingTabsTrigger
+                                    key={mode.id}
+                                    value={mode.id}
+                                    className="min-h-12 rounded-full px-5 py-3 text-center font-mono text-[1.05rem] uppercase tracking-[0.18em] data-[state=active]:text-[var(--accent-fg)]"
+                                >
+                                    {t(`usecases.modes.${index}.label`)}
+                                </SlidingTabsTrigger>
+                            ))}
+                        </SlidingTabsList>
+                    </SlidingTabs>
 
                     <div
                         id="usecase-panel"
@@ -135,12 +150,12 @@ export const UseCasesSection = () => {
                                 </motion.div>
                             </AnimatePresence>
 
-                            <Link href="#beta" onClick={scrollToBeta} className="mt-auto pt-10">
-                                <Button variant="primary" size="pill">
+                            <Button asChild variant="primary" size="landing-pill" className="mt-auto self-start">
+                                <Link href="#beta" onClick={scrollToBeta}>
                                     {t('usecases.joinBeta')}
-                                    <span aria-hidden="true">↗</span>
-                                </Button>
-                            </Link>
+                                    <ArrowUpRight aria-hidden="true" />
+                                </Link>
+                            </Button>
                         </div>
                     </div>
                 </div>

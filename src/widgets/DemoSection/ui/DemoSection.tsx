@@ -4,10 +4,10 @@ import { useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useMotionValue, useReducedMotion, animate } from 'framer-motion';
-import { Button } from '@/shared/ui/Button/Button';
+import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Button } from '@/shared/ui/lib/Button';
 import { Container } from '@/shared/ui/Container/Container';
 import { FloatingLabel } from '@/shared/ui/FloatingLabel/FloatingLabel';
-import { IconCircle } from '@/shared/ui/IconCircle/IconCircle';
 import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { assetPath } from '@/shared/lib/utils/assetPath';
@@ -77,12 +77,12 @@ export const DemoSection = () => {
                                 ))}
                             </dl>
 
-                            <Link href="#beta" onClick={scrollToBeta} className="mt-9 inline-flex">
-                                <Button variant="accent" size="pill">
+                            <Button asChild variant="accent" size="landing-pill" className="mt-9">
+                                <Link href="#beta" onClick={scrollToBeta}>
                                     {t('demo.cta')}
-                                    <span aria-hidden="true">↗</span>
-                                </Button>
-                            </Link>
+                                    <ArrowUpRight aria-hidden="true" />
+                                </Link>
+                            </Button>
                         </div>
 
                         <div className="relative lg:col-span-8">
@@ -117,26 +117,24 @@ export const DemoSection = () => {
                                 </span>
                             </div>
                             <div className="flex items-center gap-3">
-                                <IconCircle
+                                <Button
                                     variant="outline"
+                                    size="icon-lg"
                                     onClick={() => go(-1)}
                                     aria-label={t('demo.prevFrame')}
-                                    className="border-white/20 text-white/70 hover:border-white/50 hover:text-white"
+                                    className="rounded-full border-white/20 bg-transparent text-white/70 hover:border-white/50 hover:bg-white/10 hover:text-white"
                                 >
-                                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                                        <path d="M15 5l-7 7 7 7" />
-                                    </svg>
-                                </IconCircle>
-                                <IconCircle
+                                    <ChevronLeft aria-hidden="true" />
+                                </Button>
+                                <Button
                                     variant="outline"
+                                    size="icon-lg"
                                     onClick={() => go(1)}
                                     aria-label={t('demo.nextFrame')}
-                                    className="border-white/20 text-white/70 hover:border-white/50 hover:text-white"
+                                    className="rounded-full border-white/20 bg-transparent text-white/70 hover:border-white/50 hover:bg-white/10 hover:text-white"
                                 >
-                                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                                        <path d="M9 5l7 7-7 7" />
-                                    </svg>
-                                </IconCircle>
+                                    <ChevronRight aria-hidden="true" />
+                                </Button>
                             </div>
                         </div>
 
@@ -219,13 +217,15 @@ export const DemoSection = () => {
 
                         <div className="mt-10 flex justify-center gap-2.5">
                             {cards.map((_, i) => (
-                                <button
+                                <Button
                                     key={i}
                                     type="button"
+                                    variant="ghost"
+                                    size="xs"
                                     onClick={() => setActive(i)}
                                     aria-label={`Go to frame ${i + 1}`}
                                     className={cn(
-                                        'h-2 rounded-full transition-all duration-300',
+                                        'h-2 min-w-0 rounded-full p-0 transition-all duration-300',
                                         i === active ? 'w-7 bg-[var(--accent)]' : 'w-2 bg-white/25 hover:bg-white/45',
                                     )}
                                 />

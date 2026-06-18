@@ -2,8 +2,9 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
 import { Container } from '@/shared/ui/Container/Container';
-import { IconCircle } from '@/shared/ui/IconCircle/IconCircle';
+import { Button } from '@/shared/ui/lib/Button';
 import { LiveDot } from '@/shared/ui/LiveDot/LiveDot';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
@@ -59,9 +60,11 @@ export const Footer = () => {
                             className="group mt-7 inline-flex items-center gap-4 text-[1.45rem] font-semibold text-white"
                         >
                             {t('footer.joinBeta')}
-                            <IconCircle as="span" className="transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
-                                ↗
-                            </IconCircle>
+                            <Button asChild variant="accent" size="icon-lg" className="pointer-events-none rounded-full transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
+                                <span>
+                                    <ArrowUpRight aria-hidden="true" />
+                                </span>
+                            </Button>
                         </Link>
                     </div>
                 </div>

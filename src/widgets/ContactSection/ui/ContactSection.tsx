@@ -2,14 +2,14 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/shared/ui/Button/Button';
+import { ArrowUpRight } from 'lucide-react';
+import { Button } from '@/shared/ui/lib/Button';
 import { Container } from '@/shared/ui/Container/Container';
-import { IconCircle } from '@/shared/ui/IconCircle/IconCircle';
 import { SideLabel } from '@/shared/ui/SideLabel/SideLabel';
-import { Input } from '@/shared/ui/Input/Input';
-import { Checkbox } from '@/shared/ui/Checkbox/Checkbox';
-import { Badge } from '@/shared/ui/Badge/Badge';
-import { Field } from '@/shared/ui/Field/Field';
+import { Input } from '@/shared/ui/lib/Input';
+import { Checkbox } from '@/shared/ui/lib/Checkbox';
+import { Badge } from '@/shared/ui/lib/Badge';
+import { Label } from '@/shared/ui/lib/Label';
 import { MetaLabel } from '@/shared/ui/MetaLabel/MetaLabel';
 import { t } from '@/shared/i18n';
 
@@ -17,6 +17,7 @@ const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLScyTs1gTH1k
 const GOOGLE_FORM_EMAIL_ENTRY = 'entry.1654989478';
 const GOOGLE_FORM_CONSENT_ENTRY = 'entry.980875902';
 const GOOGLE_FORM_CONSENT_VALUE = 'Yes, I agree';
+const landingInputClass = 'h-auto rounded-full border-[var(--line)] bg-[var(--surface)] px-8 py-4 text-[length:var(--normal-font-size)] text-[var(--text)] placeholder:text-[var(--text-faint)] hover:bg-[var(--surface)] focus-visible:border-[var(--accent)] focus-visible:ring-[var(--accent)]/15';
 
 type SubmitState = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -77,8 +78,13 @@ export const BetaSection = () => {
 
                         <ul className="mt-9 flex flex-wrap gap-3">
                             {Array.from({ length: 3 }, (_, i) => t(`beta.badges.${i}`)).map((item) => (
-                                <Badge key={item} as="li" variant="outline" className="tracking-[0.14em]">
-                                    {item}
+                                <Badge
+                                    key={item}
+                                    asChild
+                                    variant="outline"
+                                    className="px-4 py-2 font-mono text-[1rem] uppercase tracking-[0.14em] text-[var(--text-muted)]"
+                                >
+                                    <li>{item}</li>
                                 </Badge>
                             ))}
                         </ul>
@@ -100,9 +106,11 @@ export const BetaSection = () => {
                                     {t('beta.listTitle')}
                                 </p>
                             </div>
-                            <IconCircle as="span" size="lg">
-                                ↗
-                            </IconCircle>
+                            <Button asChild variant="accent" size="icon-lg" className="pointer-events-none rounded-full">
+                                <span>
+                                    <ArrowUpRight aria-hidden="true" />
+                                </span>
+                            </Button>
                         </div>
 
                         <form onSubmit={handleSubmit} className="mt-7">
@@ -115,7 +123,13 @@ export const BetaSection = () => {
                                 className="pointer-events-none absolute h-0 w-0 opacity-0"
                             />
 
-                            <Field label={t('beta.emailLabel')} htmlFor="beta-email">
+                            <div className="flex flex-col gap-2">
+                                <Label
+                                    htmlFor="beta-email"
+                                    className="flex items-baseline justify-between gap-3 font-mono text-[1rem] uppercase tracking-[0.18em] text-[var(--text-faint)]"
+                                >
+                                    {t('beta.emailLabel')}
+                                </Label>
                                 <div className="flex flex-col gap-3 sm:flex-row">
                                     <Input
                                         id="beta-email"
@@ -126,9 +140,9 @@ export const BetaSection = () => {
                                         required
                                         disabled={locked}
                                         placeholder={t('beta.emailPlaceholder')}
-                                        className="flex-1"
+                                        className={`flex-1 ${landingInputClass}`}
                                     />
-                                    <Button type="submit" variant="accent" size="pill" disabled={locked} className="self-start sm:self-auto">
+                                    <Button type="submit" variant="accent" size="landing-pill" disabled={locked} className="self-start sm:self-auto">
                                         {status === 'submitting'
                                             ? t('beta.submitting')
                                             : status === 'success'
@@ -136,17 +150,21 @@ export const BetaSection = () => {
                                                 : t('beta.submit')}
                                     </Button>
                                 </div>
-                            </Field>
+                            </div>
 
-                            <Checkbox
-                                className="mt-5"
-                                name="consent"
-                                checked={consent}
-                                onChange={(event) => setConsent(event.target.checked)}
-                                required
-                                disabled={locked}
-                                label={t('beta.consent')}
-                            />
+                            <label className="mt-5 flex cursor-pointer items-center gap-3">
+                                <Checkbox
+                                    name="consent"
+                                    checked={consent}
+                                    onCheckedChange={(checked) => setConsent(checked === true)}
+                                    required
+                                    disabled={locked}
+                                    className="size-6 rounded-[0.8rem] border-[var(--line-strong)] bg-[var(--surface)]"
+                                />
+                                <span className="text-[1.3rem] leading-[1.55] text-[var(--text-muted)]">
+                                    {t('beta.consent')}
+                                </span>
+                            </label>
 
                             <p
                                 className="mt-5 min-h-8 border-t border-[var(--line)] pt-5 text-[1.35rem] text-[var(--text-faint)]"

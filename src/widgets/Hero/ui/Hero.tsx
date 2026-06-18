@@ -3,7 +3,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
-import { Button } from '@/shared/ui/Button/Button';
+import { ArrowDown, ArrowUpRight } from 'lucide-react';
+import { Button } from '@/shared/ui/lib/Button';
 import { Container } from '@/shared/ui/Container/Container';
 import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
 import { assetPath } from '@/shared/lib/utils/assetPath';
@@ -64,18 +65,18 @@ export const Hero = () => {
                             {...reveal}
                             transition={{ duration: 0.7, delay: 0.26 }}
                         >
-                            <Link href="#beta" onClick={scrollTo} className="contents">
-                                <Button variant="accent" size="pill">
+                            <Button asChild variant="accent" size="landing-pill">
+                                <Link href="#beta" onClick={scrollTo}>
                                     {t('hero.ctaPrimary')}
-                                    <span aria-hidden="true">↗</span>
-                                </Button>
-                            </Link>
-                            <Link href="#demo" onClick={scrollTo} className="contents">
-                                <Button variant="outline" size="pill">
+                                    <ArrowUpRight aria-hidden="true" />
+                                </Link>
+                            </Button>
+                            <Button asChild variant="outline" size="landing-pill">
+                                <Link href="#demo" onClick={scrollTo}>
                                     {t('hero.ctaSecondary')}
-                                    <span aria-hidden="true">↓</span>
-                                </Button>
-                            </Link>
+                                    <ArrowDown aria-hidden="true" />
+                                </Link>
+                            </Button>
                         </motion.div>
 
                         <motion.dl

@@ -2,7 +2,7 @@
 
 import { motion, type Variants } from 'framer-motion';
 import { EditorialRule } from '@/shared/ui/EditorialRule/EditorialRule';
-import { Button } from '@/shared/ui/Button/Button';
+import { Button } from '@/shared/ui/lib/Button';
 import { cn } from '@/shared/lib/utils/cn';
 import { t } from '@/shared/i18n';
 
@@ -84,7 +84,7 @@ export const StatsSection = () => (
                         variants={reveal}
                         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                     >
-                        <Button variant="outline" size="pill">
+                        <Button variant="outline" size="landing-pill">
                             {t('stats.joinBeta')}
                         </Button>
                     </motion.div>
