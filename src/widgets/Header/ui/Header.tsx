@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Hamburger } from '@/shared/ui/Hamburger/Hamburger';
@@ -21,8 +21,17 @@ const navLinks = [
     { name: t('nav.faq'), href: '#faq' },
 ];
 
+const pageLinks = [
+    { name: t('pages.nav.features'), href: '/features' },
+    { name: t('pages.nav.pricing'), href: '/pricing' },
+    { name: t('pages.nav.download'), href: '/download' },
+    { name: t('pages.nav.contact'), href: '/contact' },
+    { name: t('pages.nav.legal'), href: '/legal' },
+];
+
 export const Header = () => {
     const pathname = usePathname();
+    const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const [hoveredNav, setHoveredNav] = useState<string | null>(null);
@@ -52,15 +61,21 @@ export const Header = () => {
     const nav = (e: React.MouseEvent<HTMLAnchorElement>) => {
         const href = e.currentTarget.getAttribute('href');
         if (isOpen) setIsOpen(false);
-        if (href && smoothScrollTo(href)) e.preventDefault();
+        if (pathname === '/' && href && smoothScrollTo(href)) e.preventDefault();
     };
 
     const joinBeta = () => {
         if (isOpen) setIsOpen(false);
-        smoothScrollTo('#beta');
+        if (pathname === '/') {
+            smoothScrollTo('#beta');
+        } else {
+            router.push('/#beta');
+        }
     };
 
-    if (pathname?.startsWith('/gallery')) return null;
+    const anchorHref = (href: string) => (!pathname || pathname === '/' ? href : `/${href}`);
+
+    if (pathname?.startsWith('/gallery') || pathname?.startsWith('/signin')) return null;
 
     return (
         <>
@@ -106,7 +121,7 @@ export const Header = () => {
                                         />
                                     )}
                                     <Link
-                                        href={link.href}
+                                        href={anchorHref(link.href)}
                                         onClick={nav}
                                         className="relative z-10 block px-4 py-2 font-[family-name:var(--font-mono)] text-[1.15rem] font-medium uppercase tracking-[0.14em] text-[var(--text-muted)] transition-colors duration-200 hover:text-[var(--text)]"
                                     >
@@ -154,9 +169,27 @@ export const Header = () => {
                                     transition={{ delay: i * 0.05 + 0.05 }}
                                 >
                                     <Link
-                                        href={link.href}
+                                        href={anchorHref(link.href)}
                                         onClick={nav}
                                         className="font-[family-name:var(--font-mono)] text-[1.8rem] font-medium uppercase tracking-[0.14em] text-[var(--text)] transition-colors duration-200 hover:text-[var(--accent)]"
+                                    >
+                                        {link.name}
+                                    </Link>
+                                </motion.li>
+                            ))}
+                        </ul>
+                        <ul className="mt-8 flex flex-col items-center gap-5 border-t border-[var(--line)] pt-8 list-none">
+                            {pageLinks.map((link, i) => (
+                                <motion.li
+                                    key={link.name}
+                                    initial={{ opacity: 0, y: 16 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: (navLinks.length + i) * 0.05 + 0.05 }}
+                                >
+                                    <Link
+                                        href={link.href}
+                                        onClick={() => setIsOpen(false)}
+                                        className="font-[family-name:var(--font-mono)] text-[1.5rem] font-medium uppercase tracking-[0.14em] text-[var(--text-muted)] transition-colors duration-200 hover:text-[var(--accent)]"
                                     >
                                         {link.name}
                                     </Link>

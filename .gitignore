@@ -43,10 +43,9 @@ bun-debug.log*
 
 
 # ── Claude Code ───────────────────────────────────────────────────────────────
-# Lokalne, per-maszyna (ścieżki/uprawnienia) — config i skille SĄ commitowane
+# Cały katalog Claude Code (skille, ustawienia, pamięć) — lokalny, nie do repo
 
-.claude/settings.local.json
-.claude/scheduled_tasks.lock
+.claude/
 
 
 # ── Robocze (brainstorm, scratch) ─────────────────────────────────────────────

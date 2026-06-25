@@ -310,18 +310,19 @@
     "buildingNote": "Building the first beta",
     "sections": {
       "explore": "Explore",
+      "pages": "Pages",
       "product": "Product",
       "connect": "Connect"
     },
     "exploreLinks": [
       "About",
-      "How it works",
+      "How",
       "Features",
-      "For whom",
-      "Visual studies",
+      "Use cases",
+      "Gallery",
       "Demo",
       "FAQ",
-      "Private beta"
+      "Join Beta"
     ],
     "productNotes": [
       { "label": "Status", "value": "Private beta" },
@@ -333,5 +334,119 @@
       "linkedin": "LinkedIn"
     },
     "location": "Wrocław / Poland / Private beta"
+  },
+  "pages": {
+    "nav": {
+      "features": "Features",
+      "pricing": "Pricing",
+      "download": "Download",
+      "contact": "Contact",
+      "legal": "Legal"
+    },
+    "features": {
+      "rule": "MangaShift / capabilities / 2026",
+      "kicker": "What MangaShift does",
+      "page": "F / 11",
+      "titleBefore": "A local studio for comics you",
+      "titleEmphasis": "own",
+      "titleAfter": ".",
+      "lead": "MangaShift is a desktop comic reader and a toolkit of AI features for translating, narrating and adapting material you hold the rights to. Your projects stay on your machine.",
+      "sideLabel": "Capabilities",
+      "items": [
+        { "title": "Local comic reader", "text": "Read your library on Windows with a focused, panel-aware reader. MangaShift is not a content store and ships no comics of its own." },
+        { "title": "OCR & translation", "text": "Extract text and translate it with local models or your own API keys (BYOK). You stay in control of every provider you connect." },
+        { "title": "Text-to-speech", "text": "Turn dialogue and narration into speech for material you are allowed to process, with voices from your configured providers." },
+        { "title": "Frame animation", "text": "Add motion to panels and assemble scenes for legally held material — a path from static page toward a moving adaptation." },
+        { "title": "Audio & video export", "text": "Export audio, video or motion comic when you hold the rights for that use. Results render locally and stay yours." },
+        { "title": "BYOK & local projects", "text": "Bring your own keys for Gemini, OpenAI, Anthropic, ElevenLabs, DeepL and more. Keys live in your system credential store; projects stay on disk." }
+      ],
+      "noteTitle": "What MangaShift is not",
+      "note": "MangaShift does not host your files, does not provide comics, and is not a way around copyright. Importing a comic does not by itself grant the right to adapt, narrate or publish it."
+    },
+    "pricing": {
+      "rule": "MangaShift / pricing / 2026",
+      "kicker": "Plans & pricing",
+      "page": "P / 11",
+      "titleBefore": "Pricing is being",
+      "titleEmphasis": "finalised",
+      "titleAfter": ".",
+      "lead": "MangaShift will offer a Free plan plus paid Monthly and Annual plans with a 7-day card trial. Final prices, currency and billing dates are confirmed at checkout before you pay.",
+      "sideLabel": "Plans",
+      "trialNote": "7 days free, then [[CENA]] per month. Card required. Cancel before the trial ends to avoid the charge.",
+      "draftNote": "Prices below are placeholders. Checkout is not enabled until pricing, operator details and consent checkboxes are final.",
+      "plans": [
+        { "name": "Free", "price": "0", "period": "forever", "desc": "Basic access to MangaShift with feature or usage limits.", "cta": "Get started" },
+        { "name": "Monthly", "price": "[[CENA]]", "period": "per month", "desc": "Fuller access to MangaShift features. Renews automatically. Cancel anytime — access lasts until the end of the paid period.", "cta": "Start 7-day trial" },
+        { "name": "Annual", "price": "[[CENA]]", "period": "per year", "desc": "Fuller access to MangaShift features, billed yearly. Renews automatically unless checkout states otherwise.", "cta": "Start 7-day trial" }
+      ],
+      "byokTitle": "BYOK costs are separate",
+      "byok": "MangaShift's price does not cover the cost of third-party API accounts (OpenAI, Anthropic, Google Gemini, ElevenLabs, OpenRouter, DeepSeek, DeepL). You pay those providers directly under their own terms."
+    },
+    "download": {
+      "rule": "MangaShift / download / 2026",
+      "kicker": "Get the app",
+      "page": "D / 11",
+      "titleBefore": "Download MangaShift for",
+      "titleEmphasis": "Windows",
+      "titleAfter": ".",
+      "lead": "MangaShift ships first as a Windows desktop app via GitHub Releases. A Google account and an internet connection are required at least for sign-in, licensing and updates.",
+      "sideLabel": "Install",
+      "ctaPrimary": "GitHub Releases",
+      "ctaSecondary": "Join the private beta",
+      "availability": "The public installer arrives with the beta. Until then, request access and you'll get the link first.",
+      "reqTitle": "Requirements",
+      "requirements": [
+        { "label": "Operating system", "value": "Windows 10/11 (64-bit)" },
+        { "label": "Account", "value": "Google sign-in" },
+        { "label": "Network", "value": "Online for sign-in, licensing, updates" },
+        { "label": "Version", "value": "[[DO_POTWIERDZENIA: wersja aplikacji]]" }
+      ],
+      "noteTitle": "macOS & Linux",
+      "note": "Support for macOS or Linux may be added later. For now, MangaShift targets Windows."
+    },
+    "contact": {
+      "rule": "MangaShift / contact / 2026",
+      "kicker": "Get in touch",
+      "page": "C / 11",
+      "titleBefore": "Talk to the",
+      "titleEmphasis": "studio",
+      "titleAfter": ".",
+      "lead": "Questions about MangaShift, your account or a legal matter — reach the right inbox below, or use the form. Formal complaints and refunds go by email or the form, not Discord.",
+      "sideLabel": "Support",
+      "formName": "Name",
+      "formEmail": "Email",
+      "formTopic": "Topic",
+      "formMessage": "Message",
+      "formNamePlaceholder": "Your name",
+      "formEmailPlaceholder": "you@studio.com",
+      "formTopicPlaceholder": "What is this about?",
+      "formMessagePlaceholder": "Tell us what you need…",
+      "formSubmit": "Send message",
+      "formNotice": "The contact backend opens with the beta. For now, email us directly at the address above.",
+      "channels": [
+        { "label": "Support", "email": "support@mangashift.com", "desc": "General help, billing, refunds, complaints." },
+        { "label": "Privacy", "email": "privacy@mangashift.com", "desc": "Data requests, GDPR, account deletion." },
+        { "label": "Copyright", "email": "copyright@mangashift.com", "desc": "IP and copyright notices." }
+      ]
+    },
+    "legalHub": {
+      "rule": "MangaShift / legal / 2026",
+      "kicker": "Legal hub",
+      "page": "L / 11",
+      "titleBefore": "Legal",
+      "titleEmphasis": "documents",
+      "titleAfter": ".",
+      "lead": "Drafts of the MangaShift legal documents. They are being finalised with a lawyer and will be published before paid plans launch. Documents are kept in Polish for now and will be translated later.",
+      "sideLabel": "Documents",
+      "draftNote": "These documents are working drafts (V3) and are not yet legally binding.",
+      "links": [
+        { "title": "Regulamin", "desc": "Terms of service", "href": "/legal/terms" },
+        { "title": "Polityka prywatności", "desc": "Privacy policy", "href": "/legal/privacy" },
+        { "title": "Polityka cookies", "desc": "Cookies", "href": "/legal/cookies" },
+        { "title": "Odstąpienie, reklamacje i zwroty", "desc": "Refunds & withdrawal", "href": "/legal/refunds" },
+        { "title": "Zgłoszenia naruszeń IP", "desc": "IP infringement", "href": "/legal/ip" },
+        { "title": "Third-party notices", "desc": "External components", "href": "/legal/third-party-notices" }
+      ]
+    }
   }
 }
