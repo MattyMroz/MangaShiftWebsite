@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { Container } from '@/shared/ui/Container/Container';
@@ -23,10 +24,20 @@ const exploreLinks = [
 
 const productNotes = [0, 1, 2] as const;
 
+const pageLinks = [
+    { href: '/features', label: 'Features' },
+    { href: '/pricing', label: 'Pricing' },
+    { href: '/download', label: 'Download' },
+    { href: '/contact', label: 'Contact' },
+    { href: '/legal', label: 'Legal' },
+] as const;
+
 export const Footer = () => {
+    const pathname = usePathname();
+    const anchorHref = (href: string) => (!pathname || pathname === '/' ? href : `/${href}`);
     const scrollTo = (event: React.MouseEvent<HTMLAnchorElement>) => {
         const href = event.currentTarget.getAttribute('href');
-        if (href && smoothScrollTo(href)) event.preventDefault();
+        if (pathname === '/' && href && smoothScrollTo(href)) event.preventDefault();
     };
 
     return (
@@ -39,7 +50,7 @@ export const Footer = () => {
                             <span className="h-px w-10 bg-current" />
                             {t('footer.eyebrow')}
                         </p>
-                        <h2 className="mt-7 max-w-[11ch] text-[clamp(4.4rem,6.5vw,8.8rem)] font-extrabold leading-[0.96] tracking-[-0.05em]">
+                        <h2 className="mt-7 max-w-[11ch] text-[clamp(4.4rem,6.5vw,8.8rem)] font-extrabold leading-[0.96] tracking-[-0.02em]">
                             {t('footer.headingPre')}{' '}
                             <em className="font-normal text-[var(--accent)]">{t('footer.headingEmphasis')}</em>{t('footer.headingPost')}
                         </h2>
@@ -55,7 +66,7 @@ export const Footer = () => {
                             {t('footer.intro')}
                         </p>
                         <Link
-                            href="#beta"
+                            href={anchorHref('#beta')}
                             onClick={scrollTo}
                             className="group mt-7 inline-flex items-center gap-4 text-[1.45rem] font-semibold text-white"
                         >
@@ -70,11 +81,11 @@ export const Footer = () => {
                 </div>
 
                 <div className="grid gap-12 py-[clamp(5rem,7vw,8rem)] sm:grid-cols-2 lg:grid-cols-12">
-                    <div className="sm:col-span-2 lg:col-span-4">
+                    <div className="sm:col-span-2 lg:col-span-3">
                         <Link
-                            href="#home"
+                            href={anchorHref('#home')}
                             onClick={scrollTo}
-                            className="text-[clamp(3rem,3vw,4.2rem)] font-black tracking-[-0.045em]"
+                            className="text-[clamp(3rem,3vw,4.2rem)] font-black tracking-[-0.02em]"
                         >
                             MangaShift<span className="text-[var(--accent)]">.</span>
                         </Link>
@@ -87,7 +98,7 @@ export const Footer = () => {
                         </div>
                     </div>
 
-                    <nav aria-label="Footer navigation" className="lg:col-span-3">
+                    <nav aria-label="Footer navigation" className="lg:col-span-2">
                         <p className="font-mono text-[1rem] uppercase tracking-[0.2em] text-white/35">
                             {t('footer.sections.explore')}
                         </p>
@@ -95,11 +106,29 @@ export const Footer = () => {
                             {exploreLinks.map((href, index) => (
                                 <li key={href}>
                                     <Link
-                                        href={href}
+                                        href={anchorHref(href)}
                                         onClick={scrollTo}
                                         className="text-[1.4rem] text-white/60 transition-colors duration-200 hover:text-white"
                                     >
                                         {t(`footer.exploreLinks.${index}`)}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
+
+                    <nav aria-label="Pages" className="lg:col-span-2">
+                        <p className="font-mono text-[1rem] uppercase tracking-[0.2em] text-white/35">
+                            {t('footer.sections.pages')}
+                        </p>
+                        <ul className="mt-6 flex flex-col gap-3">
+                            {pageLinks.map((link) => (
+                                <li key={link.href}>
+                                    <Link
+                                        href={link.href}
+                                        className="text-[1.4rem] text-white/60 transition-colors duration-200 hover:text-white"
+                                    >
+                                        {link.label}
                                     </Link>
                                 </li>
                             ))}
@@ -163,10 +192,10 @@ export const Footer = () => {
                     transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
                 >
                     <Link
-                        href="#home"
+                        href={anchorHref('#home')}
                         onClick={scrollTo}
                         aria-label="Back to the top"
-                        className="group block text-center text-[clamp(6.8rem,13.2vw,18rem)] font-black leading-[0.88] tracking-[-0.07em] text-[#f3efe6]"
+                        className="group block text-center text-[clamp(6.8rem,13.2vw,18rem)] font-black leading-[0.88] tracking-[-0.02em] text-[#f3efe6]"
                     >
                         MangaShift
                         <span className="inline-block text-[var(--accent)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-[0.12em] group-hover:scale-110">
