@@ -11,7 +11,7 @@ import { Textarea } from '@/shared/ui/lib/Textarea';
 import { Label } from '@/shared/ui/lib/Label';
 import { t } from '@/shared/i18n';
 
-const channels = [0, 1, 2] as const;
+const channels = [0, 1, 2, 3] as const;
 
 const pillInputClass =
     'h-auto rounded-full border-[var(--line)] bg-[var(--surface)] px-8 py-4 text-[length:var(--normal-font-size)] text-[var(--text)] placeholder:text-[var(--text-faint)] hover:bg-[var(--surface)] focus-visible:border-[var(--accent)] focus-visible:ring-[var(--accent)]/15';
@@ -43,9 +43,9 @@ export default function ContactPage() {
 
         const subject = topic || t('pages.contact.mailtoSubject');
         const body = [message, '', `${name} — ${email}`].join('\n');
-        const support = t('pages.contact.channels.0.email');
+        const primary = t('pages.contact.channels.0.email');
 
-        window.location.href = `mailto:${support}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.location.href = `mailto:${primary}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         setSent(true);
     };
 

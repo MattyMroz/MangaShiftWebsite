@@ -330,6 +330,7 @@
       { "label": "Input", "value": "Manga + manhwa" }
     ],
     "connect": {
+      "email": "hello@mangashift.com",
       "github": "GitHub"
     },
     "location": "Wrocław / Poland / Private beta"
@@ -424,6 +425,7 @@
       "formNotice": "The contact backend opens with the beta. For now, this opens your email app — or write to us directly at the address above.",
       "mailtoSubject": "MangaShift — contact",
       "channels": [
+        { "label": "Hello", "email": "hello@mangashift.com", "desc": "General questions, partnerships, anything else." },
         { "label": "Support", "email": "support@mangashift.com", "desc": "General help, billing, refunds, complaints." },
         { "label": "Privacy", "email": "privacy@mangashift.com", "desc": "Data requests, GDPR, account deletion." },
         { "label": "Copyright", "email": "copyright@mangashift.com", "desc": "IP and copyright notices." }

@@ -160,6 +160,12 @@ export const Footer = () => {
                         </p>
                         <div className="mt-6 flex flex-col items-start gap-3">
                             <a
+                                href={`mailto:${t('footer.connect.email')}`}
+                                className="text-[1.4rem] text-white/60 transition-colors hover:text-white"
+                            >
+                                {t('footer.connect.email')}
+                            </a>
+                            <a
                                 href="https://github.com/MattyMroz/MangaShiftWebsite"
                                 target="_blank"
                                 rel="noreferrer"
