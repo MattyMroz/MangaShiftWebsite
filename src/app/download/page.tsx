@@ -32,7 +32,7 @@ export default function DownloadPage() {
                 <PageShell sideLabel={t('pages.download.sideLabel')}>
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
                         <Button asChild variant="accent" size="landing-pill">
-                            <a href="https://github.com/MattyMroz" target="_blank" rel="noreferrer">
+                            <a href="https://github.com/MattyMroz/MangaShiftWebsite" target="_blank" rel="noreferrer">
                                 {t('pages.download.ctaPrimary')}
                                 <Download aria-hidden="true" />
                             </a>

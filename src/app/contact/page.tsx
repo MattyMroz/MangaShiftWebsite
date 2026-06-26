@@ -35,6 +35,17 @@ export default function ContactPage() {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const data = new FormData(e.currentTarget);
+        const name = String(data.get('name') ?? '').trim();
+        const email = String(data.get('email') ?? '').trim();
+        const topic = String(data.get('topic') ?? '').trim();
+        const message = String(data.get('message') ?? '').trim();
+
+        const subject = topic || t('pages.contact.mailtoSubject');
+        const body = [message, '', `${name} — ${email}`].join('\n');
+        const support = t('pages.contact.channels.0.email');
+
+        window.location.href = `mailto:${support}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         setSent(true);
     };
 

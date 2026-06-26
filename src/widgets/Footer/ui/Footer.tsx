@@ -160,20 +160,12 @@ export const Footer = () => {
                         </p>
                         <div className="mt-6 flex flex-col items-start gap-3">
                             <a
-                                href="https://github.com/MattyMroz"
+                                href="https://github.com/MattyMroz/MangaShiftWebsite"
                                 target="_blank"
                                 rel="noreferrer"
                                 className="text-[1.4rem] text-white/60 transition-colors hover:text-white"
                             >
                                 {t('footer.connect.github')} <span aria-hidden="true">↗</span>
-                            </a>
-                            <a
-                                href="https://www.linkedin.com/in/mattymroz/"
-                                target="_blank"
-                                rel="noreferrer"
-                                className="text-[1.4rem] text-white/60 transition-colors hover:text-white"
-                            >
-                                {t('footer.connect.linkedin')} <span aria-hidden="true">↗</span>
                             </a>
                         </div>
                     </div>
