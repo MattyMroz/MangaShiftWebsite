@@ -20,17 +20,17 @@ export const metadata: Metadata = {
   authors: [{ name: "MangaShift Team" }],
   creator: "MangaShift",
   publisher: "MangaShift",
-  metadataBase: new URL("https://mattymroz.github.io/MangaShiftWebsite"),
+  metadataBase: new URL("https://mangashift.com"),
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://mattymroz.github.io/MangaShiftWebsite",
+    url: "https://mangashift.com",
     siteName: "MangaShift",
     title: "MangaShift - Automatic Manga to Video Generator",
     description: "Transform manga and manhwa into immersive audiovisual experiences with AI-powered technology.",
     images: [
       {
-        url: "/MangaShiftWebsite/images/chainsawman/RezeArc.webp",
+        url: "/images/chainsawman/RezeArc.webp",
         width: 644,
         height: 1024,
         alt: "MangaShift - Chainsaw Man Demo"
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "MangaShift - Automatic Manga to Video Generator",
     description: "Transform manga and manhwa into immersive audiovisual experiences with AI-powered technology.",
-    images: ["/MangaShiftWebsite/images/chainsawman/RezeArc.webp"]
+    images: ["/images/chainsawman/RezeArc.webp"]
   },
   robots: {
     index: true,

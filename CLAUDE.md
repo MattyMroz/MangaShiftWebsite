@@ -33,12 +33,12 @@ gdy pasują do zadania (nadal pod parasolem `simple`):
 ## Co to jest
 
 Landing page projektu **MangaShift** (pipeline: statyczna manga → wideo). Strona statyczna
-hostowana na **GitHub Pages**: <https://mattymroz.github.io/MangaShiftWebsite/>.
+hostowana na **Cloudflare Pages**, domena: <https://mangashift.com>.
 
 ## Stack i komendy (**bun** — nigdy npm/yarn)
 
 Next.js 16 (App Router, Turbopack) · React 19 · TypeScript · Tailwind v4 · framer-motion · gsap · ogl.
-`output: 'export'` → statyczny build do `out/` (bez serwera). `basePath` = `/MangaShiftWebsite` w produkcji.
+`output: 'export'` → statyczny build do `out/` (bez serwera). Domena własna `mangashift.com` → bez `basePath`.
 
 ```bash
 bun install                 # instalacja deps (frozen-lockfile w CI)
@@ -60,11 +60,10 @@ Przed commitem: `type-check` + `lint` + `build` (wszystkie zielone).
 `suminagashi-fjdbyyqi-demo/` to wgrane statyczne demo (nie kod aplikacji) — ignorowane przez ESLint,
 nie jest serwowane przez Pages (workflow publikuje tylko `out/`).
 
-## Deploy (GitHub Pages)
+## Deploy (Cloudflare Pages)
 
-`.github/workflows/deploy.yml`: push na `main` → `setup-bun` → `bun install --frozen-lockfile`
-→ `bun run build` → upload `out/` → `deploy-pages`. GitHub Pages serwuje gotowy statyczny output
-(bun działa tylko na etapie builda w Actions).
+Push na `main` → Cloudflare Pages sam buduje (`bun run build`) i publikuje katalog `out/`
+pod domeną `mangashift.com`. Build i deploy w pełni po stronie Cloudflare (zero GitHub Actions).
 
 ## Git/GitHub (GitHub Flow)
 

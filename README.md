@@ -4,7 +4,7 @@ Strona-wizytówka projektu **MangaShift** — automatycznego generatora audiowiz
 adaptacji mangi (statyczna manga → wideo z narracją, pipeline AI: detekcja → OCR →
 tłumaczenie → TTS → montaż).
 
-🔗 **Live:** <https://mattymroz.github.io/MangaShiftWebsite/>
+🔗 **Live:** <https://mangashift.com>
 
 > Projekt w aktywnym rozwoju — strona służy jako wizytówka i zbiera zapisy na beta-testy.
 
