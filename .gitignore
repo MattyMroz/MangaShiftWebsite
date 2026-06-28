@@ -68,3 +68,19 @@ temp/
 Thumbs.db
 desktop.ini
 .verify/
+
+# ── Design assets (ciężkie obrazki/HTML — backup w ZIP poza repo) ──────────────
+# Inspiracje i referencje (waifu, kolory, open-design) NIE idą do repo:
+# cudze prace + waga. Backup: ../MangaShift-design-assets-backup.zip
+# Dokumentacja tekstowa (.md) zostaje śledzona.
+docs/design/inspiracje/**/*.jpg
+docs/design/inspiracje/**/*.jpeg
+docs/design/inspiracje/**/*.png
+docs/design/inspiracje/**/*.webp
+docs/design/inspiracje/**/*.avif
+docs/design/inspiracje/**/*.gif
+docs/design/inspiracje/**/*.html
+docs/design/inspiracje/**/*.js
+docs/design/komponenty/**/*.jpg
+docs/design/komponenty/**/*.png
+docs/design/komponenty/**/*.webp
