@@ -3,9 +3,9 @@
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/shared/lib/utils/cn";
+import { availableLocales, defaultLocale, LOCALE_STORAGE_KEY } from "@/shared/i18n";
 
-const LOCALE_STORAGE_KEY = "locale";
-const DEFAULT_LOCALE = "en";
+const DEFAULT_LOCALE = defaultLocale;
 
 const subscribeLocale = (onChange: () => void) => {
     window.addEventListener("storage", onChange);
@@ -19,7 +19,9 @@ interface LanguageOption {
     native: string;
 }
 
-const LANGUAGES: LanguageOption[] = [
+// Katalog metadanych — gotowy na przyszłe języki. Wyświetlamy tylko te,
+// dla których realnie istnieje słownik (availableLocales z i18n).
+const LANGUAGE_CATALOG: LanguageOption[] = [
     { code: "en", label: "EN", native: "English" },
     { code: "zh", label: "ZH", native: "Chinese" },
     { code: "hi", label: "HI", native: "Hindi" },
@@ -41,6 +43,10 @@ const LANGUAGES: LanguageOption[] = [
     { code: "th", label: "TH", native: "Thai" },
     { code: "fa", label: "FA", native: "Persian" },
 ];
+
+const LANGUAGES: LanguageOption[] = LANGUAGE_CATALOG.filter((l) =>
+    (availableLocales as string[]).includes(l.code),
+);
 
 export const LanguageSwitcher = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -81,8 +87,11 @@ export const LanguageSwitcher = () => {
         <div ref={rootRef} className="relative">
             <button
                 type="button"
-                onClick={() => setIsOpen((prev) => !prev)}
-                className="group flex items-center gap-2 font-[family-name:var(--font-mono)] text-[1.2rem] uppercase tracking-[0.14em] text-[var(--text-muted)] transition-colors duration-300 hover:text-[var(--text)] cursor-pointer"
+                onClick={() => LANGUAGES.length > 1 && setIsOpen((prev) => !prev)}
+                className={cn(
+                    "group flex items-center gap-2 font-[family-name:var(--font-mono)] text-[1.2rem] uppercase tracking-[0.14em] text-[var(--text-muted)] transition-colors duration-300 hover:text-[var(--text)]",
+                    LANGUAGES.length > 1 ? "cursor-pointer" : "cursor-default",
+                )}
                 aria-haspopup="listbox"
                 aria-expanded={isOpen}
                 aria-label="Select language"
@@ -103,22 +112,24 @@ export const LanguageSwitcher = () => {
                     <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
                 </svg>
                 <span className="font-semibold text-[var(--text)]">{current.label}</span>
-                <motion.svg
-                    width="11"
-                    height="11"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                    animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="opacity-70"
-                >
-                    <path d="m6 9 6 6 6-6" />
-                </motion.svg>
+                {LANGUAGES.length > 1 && (
+                    <motion.svg
+                        width="11"
+                        height="11"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                        animate={{ rotate: isOpen ? 180 : 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="opacity-70"
+                    >
+                        <path d="m6 9 6 6 6-6" />
+                    </motion.svg>
+                )}
             </button>
 
             <AnimatePresence>
@@ -131,7 +142,10 @@ export const LanguageSwitcher = () => {
                         exit={{ opacity: 0, y: -6 }}
                         transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
                         onMouseLeave={() => setHovered(null)}
-                        className="absolute right-0 top-[calc(100%+1.4rem)] z-50 grid grid-cols-[15rem_15rem] gap-x-1.5 gap-y-1 rounded-[1.6rem] border border-[var(--line-strong)] bg-[var(--surface)] p-2.5 shadow-[var(--shadow-lg)] list-none"
+                        className={cn(
+                            "absolute right-0 top-[calc(100%+1.4rem)] z-50 grid gap-x-1.5 gap-y-1 rounded-[1.6rem] border border-[var(--line-strong)] bg-[var(--surface)] p-2.5 shadow-[var(--shadow-lg)] list-none",
+                            LANGUAGES.length > 6 ? "grid-cols-[15rem_15rem]" : "grid-cols-[18rem]",
+                        )}
                     >
                         {LANGUAGES.map((option) => {
                             const isActive = option.code === current.code;
