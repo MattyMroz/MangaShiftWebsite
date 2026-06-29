@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Deck template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- icon sprite - use via <svg class="i"><use href="#i-..."/></svg> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v5"/><circle cx="12" cy="17" r="0.6" fill="currentColor" stroke="none"/><path d="M10.3 4.2 2.8 17.5A2 2 0 0 0 4.5 20.5h15a2 2 0 0 0 1.7-3L13.7 4.2a2 2 0 0 0-3.4 0Z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-trend-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13z"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5z"/><path d="M3 13l9 5 9-5"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></symbol>
+  <symbol id="i-quote" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M9.5 6C6.5 7.2 5 9.6 5 13v5h6v-6H8.2c.1-1.8.9-3 2.6-3.7zM20 6c-3 1.2-4.5 3.6-4.5 7v5h6v-6h-2.8c.1-1.8.9-3 2.6-3.7z"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M19 5l-1.5 1.5M6.5 17.5 5 19"/></symbol>
+</svg>
+
+<div id="deck">
+
+  <!-- ============================================================
+       LAYOUT GALLERY - one <section class="slide"> per position.
+       Only title + subtitle. Position set by classes on <section>:
+         horizontal : layout-full (left) | layout-center | layout-full pull-right
+         vertical   : pos-top | (middle default) | pos-bottom
+       Copy a slide, change classes, fill the title + lead, done.
+       .pageno is auto-filled by the engine (XX / NN).
+       ============================================================ -->
+
+  <!-- top-left -->
+  <section class="slide layout-full pos-top" data-slide-kind="góra-lewo">
+    <div class="watermark">I</div>
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">__</span><span class="idx">I.</span><span><b>Rozdział</b> · góra-lewo</span></div>
+      <div class="right"><span class="chrome-date">____</span><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <h2>Tytuł u góry po <em>lewej</em><span class="dot">.</span></h2>
+        <p class="lead">Podtytuł, jedno krótkie zdanie</p>
+      </div>
+    </div>
+    <div class="slide-foot"><span>opis slajdu albo źródło danych</span></div>
+  </section>
+
+  <!-- top-center -->
+  <section class="slide layout-center pos-top" data-slide-kind="góra-środek">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">__</span><span><b>Układ</b> · góra-środek</span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy center">
+        <h2>Tytuł u góry na <em>środku</em><span class="dot">.</span></h2>
+        <p class="lead">Podtytuł, jedno krótkie zdanie</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- top-right -->
+  <section class="slide layout-full pull-right pos-top" data-slide-kind="góra-prawo">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">__</span><span><b>Układ</b> · góra-prawo</span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <h2>Tytuł u góry po <em>prawej</em><span class="dot">.</span></h2>
+        <p class="lead">Podtytuł, jedno krótkie zdanie</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- middle-left -->
+  <section class="slide layout-full" data-slide-kind="środek-lewo">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">__</span><span><b>Układ</b> · środek-lewo</span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <h2>Tytuł na środku po <em>lewej</em><span class="dot">.</span></h2>
+        <p class="lead">Podtytuł, jedno krótkie zdanie</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- middle-center -->
+  <section class="slide layout-center" data-slide-kind="środek">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">__</span><span><b>Układ</b> · środek</span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy center">
+        <h1>Tytuł na <em>środku</em><span class="dot">.</span></h1>
+        <p class="lead">Podtytuł, jedno krótkie zdanie</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- middle-right -->
+  <section class="slide layout-full pull-right" data-slide-kind="środek-prawo">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">__</span><span><b>Układ</b> · środek-prawo</span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <h2>Tytuł na środku po <em>prawej</em><span class="dot">.</span></h2>
+        <p class="lead">Podtytuł, jedno krótkie zdanie</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- bottom-left -->
+  <section class="slide layout-full pos-bottom" data-slide-kind="dół-lewo">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">__</span><span><b>Układ</b> · dół-lewo</span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <h2>Tytuł na dole po <em>lewej</em><span class="dot">.</span></h2>
+        <p class="lead">Podtytuł, jedno krótkie zdanie</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- bottom-center -->
+  <section class="slide layout-center pos-bottom" data-slide-kind="dół-środek">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">__</span><span><b>Układ</b> · dół-środek</span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy center">
+        <h2>Tytuł na dole na <em>środku</em><span class="dot">.</span></h2>
+        <p class="lead">Podtytuł, jedno krótkie zdanie</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- bottom-right -->
+  <section class="slide layout-full pull-right pos-bottom" data-slide-kind="dół-prawo">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">__</span><span><b>Układ</b> · dół-prawo</span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <h2>Tytuł na dole po <em>prawej</em><span class="dot">.</span></h2>
+        <p class="lead">Podtytuł, jedno krótkie zdanie</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div id="nav" aria-label="nav"></div>
+<div class="deck-progress"><div class="bar"></div></div>
+<button id="theme-btn" aria-label="theme"><svg class="i"><use href="#i-sun"/></svg></button>
+
+<script src="app.js"></script>
+</body>
+</html>
