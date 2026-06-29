@@ -29,6 +29,153 @@
 <div id="deck">
 
   <!-- ============================================================
+       EXAMPLE SLIDES - real content types. Copy, fill, reorder.
+       ============================================================ -->
+
+  <!-- COVER · has all example.md parts:
+       1 name+logo (chrome)  2 tagline (lead)  3 team (in copy)
+       4 event/date/mentor (eyebrow + team line)  5 background visual (watermark) -->
+  <section class="slide layout-full" data-slide-kind="cover">
+    <!-- 5 background visual -->
+    <div class="watermark">01</div>
+    <div class="slide-chrome">
+      <!-- 1 name + logo -->
+      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
+      <div class="right"><span class="chrome-date">HackHorse · 2026</span><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <!-- 4 event / date -->
+        <span class="eyebrow">HackHorse · March 2026</span>
+        <h1>Dating app for <em>horses</em><span class="dot">.</span></h1>
+        <!-- 2 tagline -->
+        <p class="lead">The perfect match for your horse, in seconds</p>
+        <!-- 3 team · 4 mentor -->
+        <p class="meta">Anna Kovač · Marek Dudek · Julia Reyes · Mentor: Dr Voss</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM · pain + one hard number -->
+  <section class="slide layout-left" data-slide-kind="problem">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <span class="eyebrow">The problem</span>
+        <h2>Finding a match takes <em>weeks</em><span class="dot">.</span></h2>
+        <p class="lead">Owners drive across the country, call dozens of stables, and still settle for the wrong pairing</p>
+      </div>
+      <div class="plate-wrap">
+        <div class="bigstat">
+          <span class="val">73<small>%</small></span>
+          <span class="cap">give up before finding a good match</span>
+          <span class="cap muted">Survey of 400 owners, 2025</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTION · one sentence + three benefits -->
+  <section class="slide layout-full pos-top" data-slide-kind="solution">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <span class="eyebrow">The solution</span>
+        <h2>Swipe, match, <em>breed</em><span class="dot">.</span></h2>
+      </div>
+      <div class="grid-3">
+        <div class="tile t-coral"><div class="ic"><svg class="i"><use href="#i-bolt"/></svg></div><strong>Instant matches</strong><span>Paired by breed, age and temperament</span></div>
+        <div class="tile t-amber"><div class="ic"><svg class="i"><use href="#i-target"/></svg></div><strong>Verified owners</strong><span>Every profile checked, no fakes</span></div>
+        <div class="tile t-green"><div class="ic"><svg class="i"><use href="#i-check"/></svg></div><strong>Vet on call</strong><span>Health records in every match</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW · numbered steps -->
+  <section class="slide layout-full pos-top" data-slide-kind="how">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <span class="eyebrow">How it works</span>
+        <h2>Three steps to a <em>match</em><span class="dot">.</span></h2>
+      </div>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><div><strong>Create a profile</strong><span>Add your horse, breed, photos and health records</span></div></div>
+        <div class="step"><span class="n">2</span><div><strong>Swipe nearby</strong><span>Browse verified horses within your range</span></div></div>
+        <div class="step"><span class="n">3</span><div><strong>Match and meet</strong><span>Chat, book a vet check, arrange the date</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS · bar chart with axis + values -->
+  <section class="slide layout-full pos-top" data-slide-kind="results">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <span class="eyebrow">Results</span>
+        <h2>Matches per month, first <em>quarter</em><span class="dot">.</span></h2>
+      </div>
+      <div class="chart-wrap">
+        <div class="y-axis"><span>2k</span><span>1.5k</span><span>1k</span><span>0.5k</span><span>0</span></div>
+        <div class="bars">
+          <div class="bar"><div class="col coral" style="height:24%"><span class="v">480</span></div><span class="lab">Jan</span></div>
+          <div class="bar"><div class="col amber" style="height:51%"><span class="v">1,020</span></div><span class="lab">Feb</span></div>
+          <div class="bar"><div class="col green" style="height:88%"><span class="v">1,760</span></div><span class="lab">Mar</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPI · three metrics -->
+  <section class="slide layout-full" data-slide-kind="kpi">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <span class="eyebrow">Traction</span>
+        <h2>Three numbers that <em>matter</em><span class="dot">.</span></h2>
+      </div>
+      <div class="kpi-row grid-3">
+        <div class="kpi"><span class="val coral">3,260</span><span class="lbl">Matches</span><span class="trend"><svg class="i"><use href="#i-trend-up"/></svg>+88% MoM</span></div>
+        <div class="kpi amber"><span class="val amber">12k</span><span class="lbl">Owners</span><span class="sub">across 9 countries</span></div>
+        <div class="kpi green"><span class="val green">4.8</span><span class="lbl">App rating</span><span class="sub">from 2,100 reviews</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSE · question + CTA, dark -->
+  <section class="slide layout-center" data-slide-kind="close" data-tone="dark">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy center">
+        <span class="eyebrow">Join us</span>
+        <h1>Ready to find your horse a <em>date</em><span class="dot">?</span></h1>
+        <div class="cta-row">
+          <span class="cta-btn">Try horsematch.app</span>
+          <span class="cta-btn cta-ghost">hello@horsematch.app</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
        LAYOUT GALLERY - one <section class="slide"> per position.
        Only title + subtitle. Position set by classes on <section>:
          horizontal : layout-full (left) | layout-center | layout-full pull-right
@@ -38,129 +185,133 @@
        ============================================================ -->
 
   <!-- top-left -->
-  <section class="slide layout-full pos-top" data-slide-kind="góra-lewo">
-    <div class="watermark">I</div>
+  <section class="slide layout-full pos-top" data-slide-kind="top-left">
     <div class="slide-chrome">
-      <div class="left"><span class="mark">__</span><span class="idx">I.</span><span><b>Rozdział</b> · góra-lewo</span></div>
-      <div class="right"><span class="chrome-date">____</span><span class="pageno">01 / 01</span></div>
+      <div class="left"><span class="mark">HM</span><span><b>Layout</b> · top-left</span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
     </div>
     <div class="slide-inner">
       <div class="copy">
-        <h2>Tytuł u góry po <em>lewej</em><span class="dot">.</span></h2>
-        <p class="lead">Podtytuł, jedno krótkie zdanie</p>
+        <h2>Title at the <em>top left</em><span class="dot">.</span></h2>
+        <p class="lead">Subtitle, one short line</p>
       </div>
     </div>
-    <div class="slide-foot"><span>opis slajdu albo źródło danych</span></div>
   </section>
 
   <!-- top-center -->
-  <section class="slide layout-center pos-top" data-slide-kind="góra-środek">
+  <section class="slide layout-center pos-top" data-slide-kind="top-center">
     <div class="slide-chrome">
-      <div class="left"><span class="mark">__</span><span><b>Układ</b> · góra-środek</span></div>
+      <div class="left"><span class="mark">HM</span><span><b>Layout</b> · top-center</span></div>
       <div class="right"><span class="pageno">01 / 01</span></div>
     </div>
     <div class="slide-inner">
       <div class="copy center">
-        <h2>Tytuł u góry na <em>środku</em><span class="dot">.</span></h2>
-        <p class="lead">Podtytuł, jedno krótkie zdanie</p>
+        <h2>Title at the <em>top center</em><span class="dot">.</span></h2>
+        <p class="lead">Subtitle, one short line</p>
       </div>
     </div>
   </section>
 
   <!-- top-right -->
-  <section class="slide layout-full pull-right pos-top" data-slide-kind="góra-prawo">
+  <section class="slide layout-full pull-right pos-top" data-slide-kind="top-right">
     <div class="slide-chrome">
-      <div class="left"><span class="mark">__</span><span><b>Układ</b> · góra-prawo</span></div>
+      <div class="left"><span class="mark">HM</span><span><b>Layout</b> · top-right</span></div>
       <div class="right"><span class="pageno">01 / 01</span></div>
     </div>
     <div class="slide-inner">
       <div class="copy">
-        <h2>Tytuł u góry po <em>prawej</em><span class="dot">.</span></h2>
-        <p class="lead">Podtytuł, jedno krótkie zdanie</p>
+        <h2>Title at the <em>top right</em><span class="dot">.</span></h2>
+        <p class="lead">Subtitle, one short line</p>
       </div>
     </div>
   </section>
 
   <!-- middle-left -->
-  <section class="slide layout-full" data-slide-kind="środek-lewo">
+  <section class="slide layout-full" data-slide-kind="middle-left">
+
     <div class="slide-chrome">
-      <div class="left"><span class="mark">__</span><span><b>Układ</b> · środek-lewo</span></div>
+      <div class="left"><span class="mark">HM</span><span><b>Layout</b> · middle-left</span></div>
       <div class="right"><span class="pageno">01 / 01</span></div>
     </div>
     <div class="slide-inner">
       <div class="copy">
-        <h2>Tytuł na środku po <em>lewej</em><span class="dot">.</span></h2>
-        <p class="lead">Podtytuł, jedno krótkie zdanie</p>
+        <h2>Title at the <em>middle left</em><span class="dot">.</span></h2>
+        <p class="lead">Subtitle, one short line</p>
       </div>
     </div>
   </section>
 
   <!-- middle-center -->
-  <section class="slide layout-center" data-slide-kind="środek">
+  <section class="slide layout-center" data-slide-kind="middle-center">
+
     <div class="slide-chrome">
-      <div class="left"><span class="mark">__</span><span><b>Układ</b> · środek</span></div>
+      <div class="left"><span class="mark">HM</span><span><b>Layout</b> · middle-center</span></div>
       <div class="right"><span class="pageno">01 / 01</span></div>
     </div>
     <div class="slide-inner">
       <div class="copy center">
-        <h1>Tytuł na <em>środku</em><span class="dot">.</span></h1>
-        <p class="lead">Podtytuł, jedno krótkie zdanie</p>
+        <h1>Title in the <em>middle</em><span class="dot">.</span></h1>
+        <p class="lead">Subtitle, one short line</p>
       </div>
     </div>
   </section>
 
   <!-- middle-right -->
-  <section class="slide layout-full pull-right" data-slide-kind="środek-prawo">
+  <section class="slide layout-full pull-right" data-slide-kind="middle-right">
+
     <div class="slide-chrome">
-      <div class="left"><span class="mark">__</span><span><b>Układ</b> · środek-prawo</span></div>
+      <div class="left"><span class="mark">HM</span><span><b>Layout</b> · middle-right</span></div>
       <div class="right"><span class="pageno">01 / 01</span></div>
     </div>
     <div class="slide-inner">
       <div class="copy">
-        <h2>Tytuł na środku po <em>prawej</em><span class="dot">.</span></h2>
-        <p class="lead">Podtytuł, jedno krótkie zdanie</p>
+        <h2>Title at the <em>middle right</em><span class="dot">.</span></h2>
+        <p class="lead">Subtitle, one short line</p>
       </div>
     </div>
   </section>
 
   <!-- bottom-left -->
-  <section class="slide layout-full pos-bottom" data-slide-kind="dół-lewo">
+  <section class="slide layout-full pos-bottom" data-slide-kind="bottom-left">
+
     <div class="slide-chrome">
-      <div class="left"><span class="mark">__</span><span><b>Układ</b> · dół-lewo</span></div>
+      <div class="left"><span class="mark">HM</span><span><b>Layout</b> · bottom-left</span></div>
       <div class="right"><span class="pageno">01 / 01</span></div>
     </div>
     <div class="slide-inner">
       <div class="copy">
-        <h2>Tytuł na dole po <em>lewej</em><span class="dot">.</span></h2>
-        <p class="lead">Podtytuł, jedno krótkie zdanie</p>
+        <h2>Title at the <em>bottom left</em><span class="dot">.</span></h2>
+        <p class="lead">Subtitle, one short line</p>
       </div>
     </div>
   </section>
 
   <!-- bottom-center -->
-  <section class="slide layout-center pos-bottom" data-slide-kind="dół-środek">
+  <section class="slide layout-center pos-bottom" data-slide-kind="bottom-center">
+
     <div class="slide-chrome">
-      <div class="left"><span class="mark">__</span><span><b>Układ</b> · dół-środek</span></div>
+      <div class="left"><span class="mark">HM</span><span><b>Layout</b> · bottom-center</span></div>
       <div class="right"><span class="pageno">01 / 01</span></div>
     </div>
     <div class="slide-inner">
       <div class="copy center">
-        <h2>Tytuł na dole na <em>środku</em><span class="dot">.</span></h2>
-        <p class="lead">Podtytuł, jedno krótkie zdanie</p>
+        <h2>Title at the <em>bottom center</em><span class="dot">.</span></h2>
+        <p class="lead">Subtitle, one short line</p>
       </div>
     </div>
   </section>
 
   <!-- bottom-right -->
-  <section class="slide layout-full pull-right pos-bottom" data-slide-kind="dół-prawo">
+  <section class="slide layout-full pull-right pos-bottom" data-slide-kind="bottom-right">
+
     <div class="slide-chrome">
-      <div class="left"><span class="mark">__</span><span><b>Układ</b> · dół-prawo</span></div>
+      <div class="left"><span class="mark">HM</span><span><b>Layout</b> · bottom-right</span></div>
       <div class="right"><span class="pageno">01 / 01</span></div>
     </div>
     <div class="slide-inner">
       <div class="copy">
-        <h2>Tytuł na dole po <em>prawej</em><span class="dot">.</span></h2>
-        <p class="lead">Podtytuł, jedno krótkie zdanie</p>
+        <h2>Title at the <em>bottom right</em><span class="dot">.</span></h2>
+        <p class="lead">Subtitle, one short line</p>
       </div>
     </div>
   </section>

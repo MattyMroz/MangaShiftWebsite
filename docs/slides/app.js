@@ -44,6 +44,7 @@
       var card = document.createElement("div"); card.className = "ov-card" + (i === idx ? " active" : "");
       var thumb = document.createElement("div"); thumb.className = "ov-thumb";
       var clone = s.cloneNode(true); clone.className = clone.className.replace("active", "") + " clone";
+      var cpn = clone.querySelector(".pageno"); if (cpn) cpn.textContent = pad(i + 1) + " / " + pad(total);
       thumb.appendChild(clone);
       var label = document.createElement("div"); label.className = "ov-label";
       label.innerHTML = "<b>" + pad(i + 1) + "</b><span>" + (s.dataset.slideKind || "") + "</span>";
