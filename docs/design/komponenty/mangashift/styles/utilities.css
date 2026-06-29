@@ -1,0 +1,372 @@
+/* ═══════════════════════════════════════════════════
+   Utility Classes & Platform Layer
+   Merged: utilities + animations + platform
+   All colors via CSS vars from theme-dark/theme-light
+   ═══════════════════════════════════════════════════ */
+
+/* ─── UI Zoom ───────────────────────────────────────
+   Skalowanie UI via font-size na <html>.
+   Wszystkie rem-based wartości (Tailwind spacing, sizing, font)
+   skalują się automatycznie. Portale Radix (Tooltip prostokąt+romb,
+   Select dropdown, Dialog modal) dziedziczą font-size z <html> —
+   brak zoom/scale/transform hacków, brak problemów z pozycjonowaniem.
+   Patrz: useAppStore.ts syncHTMLAttributes().
+   ────────────────────────────────────────────────── */
+
+/* ── Neon Intensity Toggle (data-neon attribute) ── */
+html[data-neon="off"],
+html:not([data-neon]) {
+  --neon: 0;
+}
+html[data-neon="mini"] {
+  --neon: 0.5;
+}
+html[data-neon="full"] {
+  --neon: 1;
+}
+
+/* ── Transparent Root ── */
+html[data-transparent="true"] #root {
+  background: var(--transparent-root-bg);
+}
+
+/* ── Keyframes ── */
+
+@keyframes loading-slide {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(0%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes pulse-neon {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes orb-float-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(80px, -50px) scale(1.15); }
+  50% { transform: translate(-40px, 70px) scale(0.9); }
+  75% { transform: translate(50px, 40px) scale(1.1); }
+}
+@keyframes orb-float-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(-70px, 40px) scale(1.12); }
+  50% { transform: translate(50px, -80px) scale(0.88); }
+  75% { transform: translate(-30px, -40px) scale(1.15); }
+}
+@keyframes orb-float-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(90px, 30px) scale(1.1); }
+  66% { transform: translate(-50px, -60px) scale(0.9); }
+}
+
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Utility Classes ── */
+
+@layer utilities {
+
+  /* ── Neon Glow System — off | mini | full, via html[data-neon] ── */
+  .neon-glow {
+    box-shadow:
+      0 0 10px 2px var(--accent-glow),
+      0 0 30px 4px color-mix(in srgb, var(--accent) 18%, transparent);
+    transition: box-shadow var(--motion-emphasized) var(--ease-out);
+  }
+  .neon-glow-sm {
+    box-shadow:
+      0 0 6px 1px var(--accent-glow),
+      0 0 16px 2px color-mix(in srgb, var(--accent) 12%, transparent);
+    transition: box-shadow var(--motion-emphasized) var(--ease-out);
+  }
+  .neon-glow-xs {
+    box-shadow:
+      0 0 4px 0 color-mix(in srgb, var(--accent) 14%, transparent),
+      0 0 12px 0 color-mix(in srgb, var(--accent) 6%, transparent);
+    transition: box-shadow var(--motion-emphasized) var(--ease-out);
+  }
+
+  html[data-neon="mini"] .neon-glow {
+    box-shadow: 0 0 4px 0 var(--accent-glow);
+  }
+  html[data-neon="mini"] .neon-glow-sm {
+    box-shadow: 0 0 3px 0 color-mix(in srgb, var(--accent) 20%, transparent);
+  }
+  html[data-neon="mini"] .neon-glow-xs {
+    box-shadow: 0 0 2px 0 color-mix(in srgb, var(--accent) 10%, transparent);
+  }
+
+  html[data-neon="off"] .neon-glow,
+  html:not([data-neon]) .neon-glow {
+    box-shadow: none;
+  }
+  html[data-neon="off"] .neon-glow-sm,
+  html:not([data-neon]) .neon-glow-sm {
+    box-shadow: none;
+  }
+  html[data-neon="off"] .neon-glow-xs,
+  html:not([data-neon]) .neon-glow-xs {
+    box-shadow: none;
+  }
+
+  /* Light mode: boost neon (white bg absorbs shadows) */
+  html[data-theme="light"][data-neon="full"] .neon-glow {
+    box-shadow:
+      0 0 18px 4px var(--accent-glow),
+      0 0 50px 8px color-mix(in srgb, var(--accent) 30%, transparent);
+  }
+  html[data-theme="light"][data-neon="full"] .neon-glow-sm {
+    box-shadow:
+      0 0 12px 3px var(--accent-glow),
+      0 0 30px 4px color-mix(in srgb, var(--accent) 22%, transparent);
+  }
+  html[data-theme="light"][data-neon="full"] .neon-glow-xs {
+    box-shadow:
+      0 0 8px 2px color-mix(in srgb, var(--accent) 28%, transparent),
+      0 0 20px 3px color-mix(in srgb, var(--accent) 14%, transparent);
+  }
+  html[data-theme="light"][data-neon="mini"] .neon-glow {
+    box-shadow: 0 0 8px 2px var(--accent-glow);
+  }
+  html[data-theme="light"][data-neon="mini"] .neon-glow-sm {
+    box-shadow: 0 0 5px 1px color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+  html[data-theme="light"][data-neon="mini"] .neon-glow-xs {
+    box-shadow: 0 0 4px 0 color-mix(in srgb, var(--accent) 20%, transparent);
+  }
+
+  /* ── Button Press ──
+     Unified press feedback used app-wide.
+     `data-pressing="true"` is added/removed by the global handler installed in
+     `src/lib/motion.ts` (installGlobalPressFeedback). The handler enforces a
+     minimum hold time equal to --motion-slide so even the fastest click is
+     visible. Keep visual values (scale 0.92 + opacity 0.82) in sync with the
+     SlidingMenubar trigger.
+  */
+  .btn-press {
+    will-change: transform;
+    transition: transform var(--motion-base) var(--ease-out), opacity var(--motion-base) var(--ease-out);
+  }
+  .btn-press[data-pressing="true"] {
+    transform: scale(0.92);
+    opacity: 0.82;
+  }
+
+  /* ── Scrollbar Hide ── */
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* ── Interactive Surfaces ── */
+  .surface-btn {
+    background: var(--btn-bg);
+    border: 1px solid var(--btn-border);
+    transition: background var(--motion-base) var(--ease-out), border-color var(--motion-base) var(--ease-out), color var(--motion-base) var(--ease-out);
+  }
+  .surface-btn:hover {
+    background: var(--btn-hover);
+  }
+
+  .surface-row {
+    background: var(--row-bg);
+    border: 1px solid var(--row-border);
+  }
+
+  .surface-hover:hover {
+    background: var(--overlay-hover);
+  }
+
+  /* ── Neon Text & Border ── */
+  .neon-text {
+    text-shadow:
+      0 0 8px color-mix(in srgb, var(--accent) 60%, transparent),
+      0 0 24px color-mix(in srgb, var(--accent) 25%, transparent);
+    transition: text-shadow var(--motion-emphasized) var(--ease-out);
+  }
+  html[data-neon="mini"] .neon-text {
+    text-shadow: 0 0 4px color-mix(in srgb, var(--accent) 30%, transparent);
+  }
+  html[data-neon="off"] .neon-text,
+  html:not([data-neon]) .neon-text {
+    text-shadow: none;
+  }
+
+  .neon-border {
+    border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+    transition: border-color var(--motion-emphasized) var(--ease-out);
+  }
+  html[data-neon="mini"] .neon-border {
+    border-color: color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  html[data-neon="off"] .neon-border,
+  html:not([data-neon]) .neon-border {
+    border-color: var(--glass-border);
+  }
+
+  /* ── Accent Top Line ── */
+  .accent-top-line {
+    position: relative;
+  }
+  .accent-top-line::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    border-radius: inherit;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--accent) 40%,
+      var(--accent-bright) 50%,
+      var(--accent) 60%,
+      transparent 100%);
+    opacity: calc(0.2 + 0.35 * var(--neon));
+    transition: opacity var(--motion-emphasized) var(--ease-out);
+  }
+
+  /* ── Glass ── */
+  .glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    transition: background var(--motion-emphasized) var(--ease-out), border-color var(--motion-emphasized) var(--ease-out);
+  }
+  .glass-subtle {
+    background: var(--glass-bg-subtle);
+    border: 1px solid var(--glass-border-subtle);
+    transition: background var(--motion-emphasized) var(--ease-out), border-color var(--motion-emphasized) var(--ease-out);
+  }
+  .glass-sidebar {
+    background: var(--sidebar-glass-bg);
+    border: 1px solid var(--glass-border);
+    transition: background var(--motion-emphasized) var(--ease-out), border-color var(--motion-emphasized) var(--ease-out), backdrop-filter var(--motion-emphasized) var(--ease-out);
+  }
+
+  /* Neon full — blur for orb glow-through (color handled by --sidebar-glass-bg override in theme files) */
+  html[data-neon="full"] .glass-sidebar {
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+  }
+
+  /* ── Gradient Text ── */
+  .gradient-text {
+    background: linear-gradient(90deg, var(--accent-bright) 0%, var(--accent) 70%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  html[data-theme="light"] .gradient-text {
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-dim) 70%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── Section Card (colors via --section-card-* vars from theme files) ── */
+  .section-card {
+    background: var(--section-card-bg);
+    border: 1px solid var(--section-card-border);
+    box-shadow: var(--section-card-shadow);
+    transition: background var(--motion-emphasized) var(--ease-out), border-color var(--motion-emphasized) var(--ease-out), box-shadow var(--motion-emphasized) var(--ease-out);
+  }
+  .section-card:hover {
+    border-color: var(--section-card-hover-border);
+  }
+
+  /* Karta w karcie — auto-elevation */
+  .section-card .section-card {
+    background: var(--section-card-bg-nested);
+    border-color: var(--section-card-border-nested);
+  }
+
+  /* shadcn Card/Alert wewnątrz SectionCard — dopasuj do poziomu zagnieżdżenia */
+  .section-card [data-slot="card"],
+  .section-card [data-slot="alert"] {
+    background: var(--section-card-bg-nested);
+    border-color: var(--section-card-border-nested);
+  }
+
+  /* ── Animations ── */
+  .animate-loading-slide {
+    animation: loading-slide 1.8s ease-in-out infinite;
+  }
+  .animate-pulse-neon {
+    animation: pulse-neon 2s ease-in-out infinite;
+  }
+  .animate-fade-in {
+    animation: fade-in var(--motion-slide) var(--ease-out);
+  }
+  .animate-page-enter {
+    animation: page-enter var(--motion-base) var(--ease-emphasized);
+  }
+  .animate-slide-up {
+    animation: slide-up var(--motion-emphasized) var(--ease-emphasized) both;
+  }
+  .animate-scale-in {
+    animation: scale-in var(--motion-slide) var(--ease-emphasized) both;
+  }
+  .animate-slide-down {
+    animation: slide-down var(--motion-slide) var(--ease-out) both;
+  }
+
+  /* Stagger delays for lists/grids — apply on children */
+  .stagger-1 { animation-delay: 50ms; }
+  .stagger-2 { animation-delay: 100ms; }
+  .stagger-3 { animation-delay: 150ms; }
+  .stagger-4 { animation-delay: 200ms; }
+  .stagger-5 { animation-delay: 250ms; }
+  .stagger-6 { animation-delay: 300ms; }
+
+  html[data-window-focused="false"] *:focus,
+  html[data-window-focused="false"] *:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+
+  html[data-window-focused="false"] [data-slot="menubar-trigger"]:focus,
+  html[data-window-focused="false"] [data-slot="menubar-trigger"][data-state="open"],
+  html[data-window-focused="false"] [data-slot="menubar-item"]:focus,
+  html[data-window-focused="false"] [data-slot="context-menu-item"]:focus,
+  html[data-window-focused="false"] [data-slot="dropdown-menu-item"]:focus,
+  html[data-window-focused="false"] [data-slot="select-item"]:focus {
+    background: transparent;
+  }
+
+  .animate-orb-1 {
+    animation: orb-float-1 20s ease-in-out infinite;
+  }
+  .animate-orb-2 {
+    animation: orb-float-2 25s ease-in-out infinite;
+  }
+  .animate-orb-3 {
+    animation: orb-float-3 18s ease-in-out infinite;
+  }
+}
