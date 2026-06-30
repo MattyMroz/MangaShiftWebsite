@@ -36,8 +36,7 @@
        1 nazwa+logo (chrome)  2 tagline (lead)  3 zespol (copy)
        4 wydarzenie/data/opiekun (eyebrow + zespol)  5 wizual w tle (watermark) -->
   <section class="slide layout-full" data-slide-kind="okladka">
-    <!-- 5 wizual w tle -->
-    <div class="watermark">01</div>
+    <!-- watermark "01" usuniety - nie wystepuje na innych slajdach, byl niespojny -->
     <div class="slide-chrome">
       <!-- 1 nazwa + logo -->
       <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
@@ -116,33 +115,13 @@
       </div>
       <div class="plate-wrap">
         <figure class="photo-profile">
-          <img src="../../../public/images/inspiration/about.png" alt="Kadr profilu użytkownika w estetyce aplikacji" />
+          <img src="img/about.png" alt="Kadr profilu użytkownika w estetyce aplikacji" />
           <figcaption>
             <span class="mini-label">Persona 01</span>
             <strong>Anna, hodowczyni</strong>
             <small>6 koni · decyzja raz na sezon · zero miejsca na przypadek</small>
           </figcaption>
         </figure>
-      </div>
-    </div>
-  </section>
-
-  <!-- 05 AGENDA · rama prezentacji -->
-  <section class="slide layout-full pos-top" data-slide-kind="agenda">
-    <div class="slide-chrome">
-      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
-      <div class="right"><span class="pageno">01 / 01</span></div>
-    </div>
-    <div class="slide-inner">
-      <div class="copy">
-        <span class="eyebrow">Plan</span>
-        <h2>Od bólu do działającego <em>mostu</em><span class="dot">.</span></h2>
-      </div>
-      <div class="agenda-grid">
-        <div class="agenda-item"><span>01</span><strong>Problem</strong><small>Dlaczego dziś to trwa tygodniami</small></div>
-        <div class="agenda-item"><span>02</span><strong>Produkt</strong><small>Jak wygląda match i pierwszy kontakt</small></div>
-        <div class="agenda-item"><span>03</span><strong>Dowód</strong><small>Metryki, rynek i walidacja flow</small></div>
-        <div class="agenda-item"><span>04</span><strong>Most</strong><small>Architektura, ryzyka i plan kolejnych kroków</small></div>
       </div>
     </div>
   </section>
@@ -168,7 +147,7 @@
         <div class="phone">
           <div class="phone-shot">
             <div class="ph-card">
-              <div class="ph-img"><img src="../../../public/images/inspiration/method-2.png" alt="Ekran profilu konia w aplikacji" /></div>
+              <div class="ph-img"><img src="img/method-2.png" alt="Ekran profilu konia w aplikacji" /></div>
               <div class="ph-meta"><strong>Luna, arabska</strong><span>4 lata · 8 km od ciebie</span></div>
               <div class="ph-actions"><span class="x">✕</span><span class="heart"><svg class="i"><use href="#i-spark"/></svg></span></div>
             </div>
@@ -215,14 +194,46 @@
       </div>
       <div class="market-panel">
         <div class="area-chart">
-          <svg viewBox="0 0 720 300" role="img" aria-label="Wzrost cyfrowych zapytań hodowlanych od 2023 do 2026">
-            <path class="area-fill" d="M40 246 C150 230 190 206 260 190 C350 170 390 130 470 112 C560 92 610 58 680 40 L680 260 L40 260 Z"/>
-            <path class="area-line" d="M40 246 C150 230 190 206 260 190 C350 170 390 130 470 112 C560 92 610 58 680 40"/>
-            <g class="area-dots">
-              <circle cx="40" cy="246" r="6"/><circle cx="260" cy="190" r="6"/><circle cx="470" cy="112" r="6"/><circle cx="680" cy="40" r="6"/>
+          <!-- single viewBox: axes + line + dots scale together, never misalign.
+               preserveAspectRatio meet keeps proportions (no squish); strokes are
+               non-scaling so thickness stays constant at any size. -->
+          <svg class="area-svg" viewBox="0 0 760 480" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Wzrost cyfrowych zapytań hodowlanych od 2023 do 2026, z 2,9 tys. do 11,5 tys.">
+            <!-- horizontal gridlines at 12 / 8 / 4 tys. -->
+            <g class="area-grid">
+              <line x1="92" y1="36" x2="740" y2="36"/>
+              <line x1="92" y1="157.33" x2="740" y2="157.33"/>
+              <line x1="92" y1="278.67" x2="740" y2="278.67"/>
             </g>
+            <!-- Y axis values (unit is in the axis title), anchored to each gridline -->
+            <g class="area-ylab">
+              <text x="80" y="36">12</text>
+              <text x="80" y="157.33">8</text>
+              <text x="80" y="278.67">4</text>
+              <text x="80" y="400">0</text>
+            </g>
+            <!-- area fill + line; baseline sits exactly on y=400 (the "0" axis) -->
+            <path class="area-fill" d="M92 312.03 C128 299.89 236 265.00 308 239.22 C380 213.44 452 188.67 524 157.33 C596 125.99 704 68.86 740 51.17 L740 400 L92 400 Z"/>
+            <path class="area-line" d="M92 312.03 C128 299.89 236 265.00 308 239.22 C380 213.44 452 188.67 524 157.33 C596 125.99 704 68.86 740 51.17" vector-effect="non-scaling-stroke"/>
+            <!-- axes: Y (left) and X (baseline = zero line) -->
+            <line class="area-axis" x1="92" y1="36" x2="92" y2="400" vector-effect="non-scaling-stroke"/>
+            <line class="area-axis" x1="92" y1="400" x2="740" y2="400" vector-effect="non-scaling-stroke"/>
+            <g class="area-dots">
+              <circle cx="92" cy="312.03" r="7" vector-effect="non-scaling-stroke"/>
+              <circle cx="308" cy="239.22" r="7" vector-effect="non-scaling-stroke"/>
+              <circle cx="524" cy="157.33" r="7" vector-effect="non-scaling-stroke"/>
+              <circle cx="740" cy="51.17" r="7" vector-effect="non-scaling-stroke"/>
+            </g>
+            <!-- X axis years, anchored under each data point -->
+            <g class="area-xlab">
+              <text x="92" y="436">2023</text>
+              <text x="308" y="436">2024</text>
+              <text x="524" y="436">2025</text>
+              <text x="740" y="436" class="now">2026</text>
+            </g>
+            <!-- axis titles -->
+            <text class="area-axis-title" x="34" y="218" transform="rotate(-90 34 218)">Właściciele (tys.)</text>
+            <text class="area-axis-title" x="416" y="472">Rok</text>
           </svg>
-          <div class="area-years"><span>2023</span><span>2024</span><span>2025</span><span>2026</span></div>
         </div>
         <div class="market-stats">
           <div><span class="val">12 tys.</span><span class="lbl">właścicieli w becie</span></div>
@@ -244,6 +255,40 @@
         <span class="quote-glyph"><svg class="i"><use href="#i-quote"/></svg></span>
         <p class="pull">Ogiera dla mojej klaczy znalazłam w <span class="accent">dwa dni</span>, nie dwa miesiące</p>
         <span class="pull-cite">Clara Bergström, hodowczyni</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09b KANALY · wykres kolowy (donut), JEDEN akcent w odcieniach -->
+  <section class="slide layout-left" data-slide-kind="kanały">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <span class="eyebrow">Skąd ruch</span>
+        <h2>Kanały <em>pozyskania</em><span class="dot">.</span></h2>
+        <p class="lead">Ponad połowa to polecenia od&nbsp;innych hodowców</p>
+      </div>
+      <div class="plate-wrap">
+        <div class="donut-wrap">
+          <div class="donut">
+            <svg viewBox="0 0 200 200">
+              <circle cx="100" cy="100" r="80" fill="none" stroke="var(--surface-2)" stroke-width="30" />
+              <circle cx="100" cy="100" r="80" fill="none" stroke="var(--accent)" stroke-width="30" />
+              <circle cx="100" cy="100" r="80" fill="none" stroke="color-mix(in srgb, var(--accent) 62%, var(--surface))" stroke-width="30" stroke-dashoffset="-276" />
+              <circle cx="100" cy="100" r="80" fill="none" stroke="color-mix(in srgb, var(--accent) 34%, var(--surface))" stroke-width="30" stroke-dashoffset="-402" />
+            </svg>
+            <div class="center"><span class="v">55%</span><span class="l">polecenia</span></div>
+          </div>
+          <div class="donut-legend">
+            <div class="di"><span class="sw" style="background:var(--accent)"></span>Polecenia<b>55%</b></div>
+            <div class="di"><span class="sw" style="background:color-mix(in srgb, var(--accent) 62%, var(--surface))"></span>Social media<b>25%</b></div>
+            <div class="di"><span class="sw" style="background:color-mix(in srgb, var(--accent) 34%, var(--surface))"></span>Reklama<b>10%</b></div>
+            <div class="di"><span class="sw" style="background:var(--surface-2)"></span>Pozostałe<b>10%</b></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -332,9 +377,9 @@
         <h2>To nie slajd, to <em>prototyp</em><span class="dot">.</span></h2>
       </div>
       <div class="proof-gallery">
-        <figure><img src="../../../public/images/inspiration/work-1.png" alt="Kadr z prototypu listy profili" /><figcaption><span>01</span><strong>Lista profili</strong><small>kandydaci gotowi do porównania</small></figcaption></figure>
-        <figure><img src="../../../public/images/inspiration/lab-3.png" alt="Kadr z prototypu szczegółów profilu" /><figcaption><span>02</span><strong>Karta konia</strong><small>zdrowie, rasa i dystans w jednym miejscu</small></figcaption></figure>
-        <figure><img src="../../../public/images/inspiration/work-2.png" alt="Kadr z prototypu flow matcha" /><figcaption><span>03</span><strong>Flow matcha</strong><small>decyzja bez przełączania narzędzi</small></figcaption></figure>
+        <figure><img src="img/work-1.png" alt="Kadr z prototypu listy profili" /><figcaption><span>01</span><strong>Lista profili</strong><small>kandydaci gotowi do porównania</small></figcaption></figure>
+        <figure><img src="img/lab-3.png" alt="Kadr z prototypu szczegółów profilu" /><figcaption><span>02</span><strong>Karta konia</strong><small>zdrowie, rasa i dystans w jednym miejscu</small></figcaption></figure>
+        <figure><img src="img/work-2.png" alt="Kadr z prototypu flow matcha" /><figcaption><span>03</span><strong>Flow matcha</strong><small>decyzja bez przełączania narzędzi</small></figcaption></figure>
       </div>
     </div>
   </section>
