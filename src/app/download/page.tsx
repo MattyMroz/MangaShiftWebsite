@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Download, ArrowUpRight } from 'lucide-react';
-import { PageHero } from '@/shared/ui/PageHero/PageHero';
-import { PageShell } from '@/shared/ui/PageShell/PageShell';
-import { Footer } from '@/widgets/Footer/ui/Footer';
-import { Button } from '@/shared/ui/lib/Button';
+import { PageHero } from '@/shared/ui/PageHero/page-hero';
+import { PageShell } from '@/shared/ui/PageShell/page-shell';
+import { Footer } from '@/widgets/Footer/ui/footer';
+import { Button } from '@/shared/ui/lib/button';
 import { t } from '@/shared/i18n';
 
 export const metadata: Metadata = {

@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
-import { PageHero } from '@/shared/ui/PageHero/PageHero';
-import { PageShell } from '@/shared/ui/PageShell/PageShell';
-import { DraftNotice } from '@/shared/ui/DraftNotice/DraftNotice';
-import { LegalSection, LegalP, LegalList, LegalTable } from '@/shared/ui/LegalSection/LegalSection';
-import { Footer } from '@/widgets/Footer/ui/Footer';
+import { PageHero } from '@/shared/ui/PageHero/page-hero';
+import { PageShell } from '@/shared/ui/PageShell/page-shell';
+import { DraftNotice } from '@/shared/ui/DraftNotice/draft-notice';
+import { LegalSection, LegalP, LegalList, LegalTable } from '@/shared/ui/LegalSection/legal-section';
+import { Footer } from '@/widgets/Footer/ui/footer';
 
 export const metadata: Metadata = {
     title: 'Polityka cookies',

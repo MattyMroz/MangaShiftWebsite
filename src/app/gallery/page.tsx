@@ -5,7 +5,7 @@ import { format } from 'date-fns'
 import { Bar, BarChart, XAxis } from 'recharts'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
-import { syncGalleryTheme, useAppStore, neonGlow } from '@/stores/useAppStore'
+import { syncGalleryTheme, useAppStore, neonGlow } from '@/stores/use-app-store'
 import { ALL_ACCENT_PRESETS, CONTRAST_KEY } from '@/shared/lib/theme-presets'
 import {
   AlertTriangle, Bell, Bold, Calendar as CalendarIcon, Check,
@@ -15,33 +15,33 @@ import {
   Table2, Trash2, Type, Underline, User, Volume2, X, Zap,
 } from 'lucide-react'
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/shared/ui/lib/Accordion'
-import { Alert, AlertTitle, AlertDescription } from '@/shared/ui/lib/Alert'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/shared/ui/lib/accordion'
+import { Alert, AlertTitle, AlertDescription } from '@/shared/ui/lib/alert'
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader,
   AlertDialogTitle, AlertDialogTrigger,
-} from '@/shared/ui/lib/AlertDialog'
-import { AppIcon } from '@/shared/ui/lib/AppIcon'
-import { AspectRatio } from '@/shared/ui/lib/AspectRatio'
-import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/lib/Avatar'
-import { Badge } from '@/shared/ui/lib/Badge'
+} from '@/shared/ui/lib/alert-dialog'
+import { AppIcon } from '@/shared/ui/lib/app-icon'
+import { AspectRatio } from '@/shared/ui/lib/aspect-ratio'
+import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/lib/avatar'
+import { Badge } from '@/shared/ui/lib/badge'
 import {
   Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList,
   BreadcrumbPage, BreadcrumbSeparator,
-} from '@/shared/ui/lib/Breadcrumb'
-import { GalleryAppearance } from './GalleryAppearance'
-import { Button } from '@/shared/ui/lib/Button'
-import { ButtonGroup } from '@/shared/ui/lib/ButtonGroup'
-import { Calendar } from '@/shared/ui/lib/Calendar'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/shared/ui/lib/Card'
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/shared/ui/lib/Carousel'
-import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from '@/shared/ui/lib/Chart'
-import { Checkbox } from '@/shared/ui/lib/Checkbox'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/shared/ui/lib/Collapsible'
-import { Combobox } from '@/shared/ui/lib/Combobox'
-import { SlidingCombobox } from '@/shared/ui/lib/SlidingCombobox'
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/shared/ui/lib/Command'
+} from '@/shared/ui/lib/breadcrumb'
+import { GalleryAppearance } from './gallery-appearance'
+import { Button } from '@/shared/ui/lib/button'
+import { ButtonGroup } from '@/shared/ui/lib/button-group'
+import { Calendar } from '@/shared/ui/lib/calendar'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/shared/ui/lib/card'
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/shared/ui/lib/carousel'
+import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from '@/shared/ui/lib/chart'
+import { Checkbox } from '@/shared/ui/lib/checkbox'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/shared/ui/lib/collapsible'
+import { Combobox } from '@/shared/ui/lib/combobox'
+import { SlidingCombobox } from '@/shared/ui/lib/sliding-combobox'
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/shared/ui/lib/command'
 import {
   SlidingCommand,
   SlidingCommandEmpty,
@@ -51,30 +51,30 @@ import {
   SlidingCommandList,
   SlidingCommandSeparator,
   SlidingCommandShortcut,
-} from '@/shared/ui/lib/SlidingCommand'
+} from '@/shared/ui/lib/sliding-command'
 import {
   ContextMenu, ContextMenuContent, ContextMenuItem,
   ContextMenuSeparator, ContextMenuTrigger,
-} from '@/shared/ui/lib/ContextMenu'
+} from '@/shared/ui/lib/context-menu'
 import {
   SlidingContextMenu,
   SlidingContextMenuContent,
   SlidingContextMenuItem,
   SlidingContextMenuSeparator,
   SlidingContextMenuTrigger,
-} from '@/shared/ui/lib/SlidingContextMenu'
+} from '@/shared/ui/lib/sliding-context-menu'
 import {
   Dialog, DialogContent, DialogDescription, DialogFooter,
   DialogHeader, DialogTitle, DialogTrigger,
-} from '@/shared/ui/lib/Dialog'
+} from '@/shared/ui/lib/dialog'
 import {
   Drawer, DrawerClose, DrawerContent, DrawerDescription,
   DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger,
-} from '@/shared/ui/lib/Drawer'
+} from '@/shared/ui/lib/drawer'
 import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem,
   DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger,
-} from '@/shared/ui/lib/DropdownMenu'
+} from '@/shared/ui/lib/dropdown-menu'
 import {
   SlidingDropdownMenu,
   SlidingDropdownMenuContent,
@@ -82,69 +82,69 @@ import {
   SlidingDropdownMenuLabel,
   SlidingDropdownMenuSeparator,
   SlidingDropdownMenuTrigger,
-} from '@/shared/ui/lib/SlidingDropdownMenu'
-import { EmptyState } from '@/shared/ui/lib/EmptyState'
-import { FormField } from '@/shared/ui/lib/FormField'
+} from '@/shared/ui/lib/sliding-dropdown-menu'
+import { EmptyState } from '@/shared/ui/lib/empty-state'
+import { FormField } from '@/shared/ui/lib/form-field'
 import {
   HoverCard, HoverCardContent, HoverCardTrigger,
-} from '@/shared/ui/lib/HoverCard'
-import { Input } from '@/shared/ui/lib/Input'
-import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@/shared/ui/lib/InputOtp'
-import { Kbd, KbdCombo } from '@/shared/ui/lib/Kbd'
-import { Label } from '@/shared/ui/lib/Label'
-import { ListItem } from '@/shared/ui/lib/ListItem'
-import { LoadingBar } from '@/shared/ui/lib/LoadingBar'
+} from '@/shared/ui/lib/hover-card'
+import { Input } from '@/shared/ui/lib/input'
+import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@/shared/ui/lib/input-otp'
+import { Kbd, KbdCombo } from '@/shared/ui/lib/kbd'
+import { Label } from '@/shared/ui/lib/label'
+import { ListItem } from '@/shared/ui/lib/list-item'
+import { LoadingBar } from '@/shared/ui/lib/loading-bar'
 import {
   Menubar, MenubarContent, MenubarItem, MenubarMenu,
   MenubarSeparator, MenubarShortcut, MenubarTrigger,
-} from '@/shared/ui/lib/Menubar'
+} from '@/shared/ui/lib/menubar'
 import {
   NavigationMenu, NavigationMenuContent, NavigationMenuItem,
   NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from '@/shared/ui/lib/NavigationMenu'
-import { PageHeader } from '@/shared/ui/lib/PageHeader'
+} from '@/shared/ui/lib/navigation-menu'
+import { PageHeader } from '@/shared/ui/lib/page-header'
 import {
   Pagination, PaginationContent, PaginationEllipsis, PaginationItem,
   PaginationLink, PaginationNext, PaginationPrevious,
-} from '@/shared/ui/lib/Pagination'
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/ui/lib/Popover'
-import { Progress } from '@/shared/ui/lib/Progress'
-import { RadioGroup, RadioGroupItem } from '@/shared/ui/lib/RadioGroup'
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/shared/ui/lib/Resizable'
-import { ScrollArea } from '@/shared/ui/lib/ScrollArea'
-import { SectionCard } from '@/shared/ui/lib/SectionCard'
-import { SectionContent } from '@/shared/ui/lib/SectionContent'
+} from '@/shared/ui/lib/pagination'
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/ui/lib/popover'
+import { Progress } from '@/shared/ui/lib/progress'
+import { RadioGroup, RadioGroupItem } from '@/shared/ui/lib/radio-group'
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/shared/ui/lib/resizable'
+import { ScrollArea } from '@/shared/ui/lib/scroll-area'
+import { SectionCard } from '@/shared/ui/lib/section-card'
+import { SectionContent } from '@/shared/ui/lib/section-content'
 import {
   SlidingMenubar,
   SlidingMenubarItems,
   type SlidingTriggerDef,
   type SlidingItemEntry,
-} from '@/shared/ui/lib/SlidingMenubar'
-import { SlidingNav, type SlidingNavItem } from '@/shared/ui/lib/SlidingNav'
-import { SlidingScrollList } from '@/shared/ui/lib/SlidingScrollList'
-import { SlidingSelect } from '@/shared/ui/lib/SlidingSelect'
-import { Separator } from '@/shared/ui/lib/Separator'
-import { SettingRow } from '@/shared/ui/lib/SettingRow'
+} from '@/shared/ui/lib/sliding-menubar'
+import { SlidingNav, type SlidingNavItem } from '@/shared/ui/lib/sliding-nav'
+import { SlidingScrollList } from '@/shared/ui/lib/sliding-scroll-list'
+import { SlidingSelect } from '@/shared/ui/lib/sliding-select'
+import { Separator } from '@/shared/ui/lib/separator'
+import { SettingRow } from '@/shared/ui/lib/setting-row'
 import {
   Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger,
-} from '@/shared/ui/lib/Sheet'
-import { Skeleton } from '@/shared/ui/lib/Skeleton'
-import { Slider } from '@/shared/ui/lib/Slider'
-import { SliderRow } from '@/shared/ui/lib/SliderRow'
-import { Spinner } from '@/shared/ui/lib/Spinner'
-import { StatusCard } from '@/shared/ui/lib/StatusCard'
-import { Switch } from '@/shared/ui/lib/Switch'
+} from '@/shared/ui/lib/sheet'
+import { Skeleton } from '@/shared/ui/lib/skeleton'
+import { Slider } from '@/shared/ui/lib/slider'
+import { SliderRow } from '@/shared/ui/lib/slider-row'
+import { Spinner } from '@/shared/ui/lib/spinner'
+import { StatusCard } from '@/shared/ui/lib/status-card'
+import { Switch } from '@/shared/ui/lib/switch'
 import {
   Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow,
-} from '@/shared/ui/lib/Table'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/lib/Tabs'
-import { SlidingTabs, SlidingTabsList, SlidingTabsTrigger, SlidingTabsContent } from '@/shared/ui/lib/SlidingTabs'
-import { Textarea } from '@/shared/ui/lib/Textarea'
-import { Toggle } from '@/shared/ui/lib/Toggle'
-import { ToggleGroup, ToggleGroupItem } from '@/shared/ui/lib/ToggleGroup'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/lib/Tooltip'
-import { Toaster } from '@/shared/ui/lib/Sonner'
+} from '@/shared/ui/lib/table'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/lib/tabs'
+import { SlidingTabs, SlidingTabsList, SlidingTabsTrigger, SlidingTabsContent } from '@/shared/ui/lib/sliding-tabs'
+import { Textarea } from '@/shared/ui/lib/textarea'
+import { Toggle } from '@/shared/ui/lib/toggle'
+import { ToggleGroup, ToggleGroupItem } from '@/shared/ui/lib/toggle-group'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/lib/tooltip'
+import { Toaster } from '@/shared/ui/lib/sonner'
 
 import type { LucideIcon } from 'lucide-react'
 

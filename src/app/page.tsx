@@ -1,14 +1,14 @@
-import { Hero } from "@/widgets/Hero/ui/Hero";
-import { TickerSection } from "@/widgets/TickerSection/ui/TickerSection";
-import { AboutSection } from "@/widgets/AboutSection/ui/AboutSection";
-import { HowSection } from "@/widgets/HowSection/ui/HowSection";
-import { FeaturesSection } from "@/widgets/FeaturesSection/ui/FeaturesSection";
-import { UseCasesSection } from "@/widgets/UseCasesSection/ui/UseCasesSection";
-import { GallerySection } from "@/widgets/GallerySection/ui/GallerySection";
-import { DemoSection } from "@/widgets/DemoSection/ui/DemoSection";
-import { FaqSection } from "@/widgets/FAQSection/ui/FAQSection";
-import { BetaSection } from "@/widgets/ContactSection/ui/ContactSection";
-import { Footer } from "@/widgets/Footer/ui/Footer";
+import { Hero } from "@/widgets/Hero/ui/hero";
+import { TickerSection } from "@/widgets/TickerSection/ui/ticker-section";
+import { AboutSection } from "@/widgets/AboutSection/ui/about-section";
+import { HowSection } from "@/widgets/HowSection/ui/how-section";
+import { FeaturesSection } from "@/widgets/FeaturesSection/ui/features-section";
+import { UseCasesSection } from "@/widgets/UseCasesSection/ui/use-cases-section";
+import { GallerySection } from "@/widgets/GallerySection/ui/gallery-section";
+import { DemoSection } from "@/widgets/DemoSection/ui/demo-section";
+import { FaqSection } from "@/widgets/FAQSection/ui/faq-section";
+import { BetaSection } from "@/widgets/ContactSection/ui/contact-section";
+import { Footer } from "@/widgets/Footer/ui/footer";
 
 export default function Home() {
   return (

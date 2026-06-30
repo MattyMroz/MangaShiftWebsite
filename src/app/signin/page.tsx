@@ -4,10 +4,10 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Button } from '@/shared/ui/lib/Button';
-import { Input } from '@/shared/ui/lib/Input';
-import { Label } from '@/shared/ui/lib/Label';
-import { assetPath } from '@/shared/lib/utils/assetPath';
+import { Button } from '@/shared/ui/lib/button';
+import { Input } from '@/shared/ui/lib/input';
+import { Label } from '@/shared/ui/lib/label';
+import { assetPath } from '@/shared/lib/utils/asset-path';
 
 const landingInputClass =
     'h-auto rounded-full border-[var(--line)] bg-[var(--surface)] px-8 py-4 text-[length:var(--normal-font-size)] text-[var(--text)] placeholder:text-[var(--text-faint)] hover:bg-[var(--surface)] focus-visible:border-[var(--accent)] focus-visible:ring-[var(--accent)]/15';
