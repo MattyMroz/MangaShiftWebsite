@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is([data-theme="dark"] *));
+
+/* ── Design tokens (merged: tokens + shadcn bridge) ── */
+@import "./styles/tokens.css";
+
+/* ── Themes (source of truth for ALL colors) ── */
+@import "./styles/theme-dark.css";
+@import "./styles/theme-light.css";
+
+/* ── Base (resets, scrollbar, cursors, focus) ── */
+@import "./styles/base.css";
+
+/* ── Utilities (merged: utilities + animations + platform) ── */
+@import "./styles/utilities.css";

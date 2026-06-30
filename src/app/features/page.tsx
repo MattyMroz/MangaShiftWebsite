@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import { PageHero } from '@/shared/ui/PageHero/PageHero';
-import { PageShell } from '@/shared/ui/PageShell/PageShell';
-import { Footer } from '@/widgets/Footer/ui/Footer';
+import { PageHero } from '@/shared/ui/page-hero';
+import { PageShell } from '@/shared/ui/page-shell';
+import { Footer } from '@/widgets/footer/ui/footer';
 import { t } from '@/shared/i18n';
 
 export const metadata: Metadata = {

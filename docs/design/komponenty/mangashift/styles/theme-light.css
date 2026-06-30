@@ -1,0 +1,120 @@
+/* ═══════════════════════════════════════════════════
+   Light Theme
+   Overrides dark defaults when html[data-theme="light"]
+
+   Surface hierarchy (4-tier):
+     background → surface/card → elevated/secondary → popover
+     #f8f8fa    → #ffffff      → #f4f4f5            → #ffffff
+   ═══════════════════════════════════════════════════ */
+
+html[data-theme="light"] {
+  /* Accent foreground */
+  --accent-fg: oklch(15% 0 0);
+
+  /* Custom surfaces */
+  --surface: #ffffff;
+  --elevated: #f4f4f5;
+  --dim: #71717a;
+
+  /* Section card */
+  --section-card-bg: rgba(255, 255, 255, 0.85);
+  --section-card-border: rgba(0, 0, 0, 0.10);
+  --section-card-hover-border: rgba(0, 0, 0, 0.16);
+  --section-card-shadow: 0 1px 8px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
+  /* Karta w karcie — automatycznie ciemniejsze tło */
+  --section-card-bg-nested: #f4f4f5;
+  --section-card-border-nested: rgba(0, 0, 0, 0.12);
+
+  /* Scrollbar */
+  --scrollbar-thumb: rgba(128, 128, 128, 0.2);
+  --scrollbar-thumb-hover: rgba(128, 128, 128, 0.4);
+
+  /* Transparent root */
+  --transparent-root-bg: rgba(250, 250, 250, 0.82);
+
+  /* Glass */
+  --glass-bg: rgba(255, 255, 255, 0.92);
+  --glass-bg-subtle: rgba(255, 255, 255, 0.78);
+  --glass-border: rgba(0, 0, 0, 0.12);
+  --glass-border-subtle: rgba(0, 0, 0, 0.08);
+  --sidebar-glass-bg: rgba(244, 244, 245, 0.95);
+
+  /* shadcn semantic tokens */
+  --background: #f8f8fa;
+  --foreground: #09090b;
+  --card: #ffffff;
+  --card-foreground: #09090b;
+  --popover: #ffffff;
+  --popover-foreground: #09090b;
+  --primary: var(--accent);
+  --primary-foreground: #ffffff;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #09090b;
+  --muted: #e4e4e7;
+  --muted-foreground: #71717a;
+  --accent-foreground: var(--accent-fg);
+  --destructive: #dc4848;
+  --destructive-subtle: rgba(220, 72, 72, 0.10);
+  --destructive-border: rgba(220, 72, 72, 0.35);
+  --destructive-glow: rgba(220, 72, 72, 0.35);
+  --border: rgba(0, 0, 0, 0.08);
+  --input: rgba(0, 0, 0, 0.06);
+  --ring: var(--accent);
+
+  /* Charts */
+  --chart-1: var(--accent);
+  --chart-2: oklch(52.7% 0.154 150.069);
+  --chart-3: oklch(55.3% 0.195 38.402);
+  --chart-4: oklch(48.8% 0.243 264.376);
+  --chart-5: oklch(55.5% 0.163 48.998);
+
+  /* Sidebar */
+  --sidebar: #f4f4f5;
+  --sidebar-foreground: #09090b;
+  --sidebar-primary: var(--accent);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e4e4e7;
+  --sidebar-accent-foreground: #09090b;
+  --sidebar-border: rgba(0, 0, 0, 0.08);
+  --sidebar-ring: var(--accent);
+
+  /* Status indicators */
+  --status-success: #059669;
+  --status-success-bg: rgba(16, 185, 129, 0.12);
+  --status-success-border: rgba(16, 185, 129, 0.25);
+  --status-error: #dc2626;
+  --status-error-bg: rgba(239, 68, 68, 0.10);
+  --status-error-border: rgba(239, 68, 68, 0.22);
+
+  /* Interactive surfaces */
+  --overlay: rgba(0, 0, 0, 0.06);
+  --overlay-hover: rgba(0, 0, 0, 0.10);
+  --row-bg: rgba(0, 0, 0, 0.04);
+  --row-border: rgba(0, 0, 0, 0.10);
+  --btn-bg: rgba(0, 0, 0, 0.06);
+  --btn-border: rgba(0, 0, 0, 0.12);
+  --btn-hover: rgba(0, 0, 0, 0.10);
+}
+
+/* ── Light + Neon Full ── */
+html[data-theme="light"][data-neon="full"] {
+  --sidebar-glass-bg: rgba(244, 244, 245, 0.5);
+  --section-card-bg: rgba(255, 255, 255, 0.55);
+}
+
+/* ── Light + Neon Mini ── */
+html[data-theme="light"][data-neon="mini"] {
+  --section-card-bg: rgba(255, 255, 255, 0.70);
+}
+
+/* ── Light + Transparency ── */
+html[data-theme="light"][data-transparent="true"] {
+  --glass-bg: rgba(255, 255, 255, 0.82);
+  --glass-bg-subtle: rgba(255, 255, 255, 0.68);
+  --glass-border: rgba(0, 0, 0, 0.14);
+  --glass-border-subtle: rgba(0, 0, 0, 0.10);
+  --sidebar-glass-bg: rgba(244, 244, 245, 0.88);
+  --section-card-bg: rgba(255, 255, 255, 0.82);
+  --section-card-border: rgba(0, 0, 0, 0.14);
+  --section-card-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+}

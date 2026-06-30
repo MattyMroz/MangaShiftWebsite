@@ -1,11 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { PageHero } from '@/shared/ui/PageHero/PageHero';
-import { PageShell } from '@/shared/ui/PageShell/PageShell';
-import { DraftNotice } from '@/shared/ui/DraftNotice/DraftNotice';
-import { Footer } from '@/widgets/Footer/ui/Footer';
-import { Button } from '@/shared/ui/lib/Button';
+import { PageHero } from '@/shared/ui/page-hero';
+import { PageShell } from '@/shared/ui/page-shell';
+import { DraftNotice } from '@/shared/ui/draft-notice';
+import { Footer } from '@/widgets/footer/ui/footer';
+import { Button } from '@/shared/ui/lib/button';
 import { t } from '@/shared/i18n';
 
 const plans = [0, 1, 2] as const;

@@ -1,0 +1,125 @@
+/* ═══════════════════════════════════════════════════
+   Dark Theme (default)
+   :root defaults — light overrides in theme-light.css
+
+   Surface hierarchy (4-tier):
+     background → surface/card → elevated/secondary → popover
+     #09090b    → #101012      → #1a1a1f            → #222228
+   ═══════════════════════════════════════════════════ */
+
+:root {
+  /* Accent (default: violet, overridden by theme-engine) */
+  --accent: oklch(60.6% 0.25 292.717);
+  --accent-bright: oklch(70.2% 0.183 293.541);
+  --accent-dim: oklch(49.1% 0.27 292.581);
+  --accent-glow: oklch(60.6% 0.25 292.717 / 0.35);
+  --accent-subtle: oklch(60.6% 0.25 292.717 / 0.08);
+  --accent-border: color-mix(in srgb, var(--accent) 25%, transparent);
+  --accent-fg: oklch(100% 0 0);
+
+  /* Base radius */
+  --radius: 0.625rem;
+
+  /* Custom surfaces — 4-tier hierarchy */
+  --surface: #101012;
+  --elevated: #1a1a1f;
+  --dim: #8b8b96;
+
+  /* Section card */
+  --section-card-bg: rgba(20, 20, 24, 0.35);
+  --section-card-border: rgba(255, 255, 255, 0.18);
+  --section-card-hover-border: rgba(255, 255, 255, 0.22);
+  --section-card-shadow: none;
+  /* Karta w karcie — automatycznie jaśniejsze tło */
+  --section-card-bg-nested: rgba(22, 22, 25, 0.55);
+  --section-card-border-nested: rgba(255, 255, 255, 0.12);
+
+  /* Scrollbar */
+  --scrollbar-thumb: rgba(128, 128, 128, 0.15);
+  --scrollbar-thumb-hover: rgba(128, 128, 128, 0.3);
+
+  /* Transparent root */
+  --transparent-root-bg: rgba(9, 9, 11, 0.85);
+
+  /* Glass */
+  --glass-bg: rgba(15, 15, 17, 0.85);
+  --glass-bg-subtle: rgba(15, 15, 17, 0.68);
+  --glass-border: rgba(255, 255, 255, 0.10);
+  --glass-border-subtle: rgba(255, 255, 255, 0.06);
+  --sidebar-glass-bg: rgba(12, 12, 14, 0.92);
+
+  /* shadcn semantic tokens */
+  --background: #09090b;
+  --foreground: #fafafa;
+  --card: #101012;
+  --card-foreground: #fafafa;
+  --popover: var(--section-card-bg);
+  --popover-foreground: #fafafa;
+  --primary: var(--accent);
+  --primary-foreground: #ffffff;
+  --secondary: #1a1a1f;
+  --secondary-foreground: #fafafa;
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+  --accent-foreground: var(--accent-fg);
+  --destructive: #dc4848;
+  --destructive-subtle: rgba(220, 72, 72, 0.12);
+  --destructive-border: rgba(220, 72, 72, 0.35);
+  --destructive-glow: rgba(220, 72, 72, 0.4);
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.10);
+  --ring: var(--accent-bright);
+
+  /* Charts */
+  --chart-1: var(--accent);
+  --chart-2: oklch(72.3% 0.219 149.579);
+  --chart-3: oklch(76.9% 0.188 70.08);
+  --chart-4: oklch(62.3% 0.214 259.815);
+  --chart-5: oklch(70.5% 0.213 47.604);
+
+  /* Sidebar */
+  --sidebar: #101012;
+  --sidebar-foreground: #fafafa;
+  --sidebar-primary: var(--accent);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #1a1a1f;
+  --sidebar-accent-foreground: #fafafa;
+  --sidebar-border: rgba(255, 255, 255, 0.06);
+  --sidebar-ring: var(--accent-bright);
+
+  /* Status indicators */
+  --status-success: #6ee7b7;
+  --status-success-bg: rgba(16, 185, 129, 0.12);
+  --status-success-border: rgba(16, 185, 129, 0.28);
+  --status-error: #fca5a5;
+  --status-error-bg: rgba(239, 68, 68, 0.12);
+  --status-error-border: rgba(239, 68, 68, 0.28);
+
+  /* Interactive surfaces */
+  --overlay: rgba(255, 255, 255, 0.07);
+  --overlay-hover: rgba(255, 255, 255, 0.12);
+  --row-bg: rgba(255, 255, 255, 0.05);
+  --row-border: rgba(255, 255, 255, 0.08);
+  --btn-bg: rgba(255, 255, 255, 0.08);
+  --btn-border: rgba(255, 255, 255, 0.10);
+  --btn-hover: rgba(255, 255, 255, 0.14);
+
+  /* Neon control (fallback; actual value set by data-neon in utilities) */
+  --neon: 1;
+}
+
+/* ── Dark + Neon Full ── */
+html[data-neon="full"] {
+  --sidebar-glass-bg: rgba(12, 12, 14, 0.45);
+}
+
+/* ── Dark + Transparency ── */
+html[data-transparent="true"] {
+  --glass-bg: rgba(15, 15, 17, 0.82);
+  --glass-bg-subtle: rgba(15, 15, 17, 0.68);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-border-subtle: rgba(255, 255, 255, 0.08);
+  --sidebar-glass-bg: rgba(12, 12, 14, 0.88);
+  --section-card-bg: rgba(15, 15, 17, 0.75);
+  --section-card-border: rgba(255, 255, 255, 0.18);
+}

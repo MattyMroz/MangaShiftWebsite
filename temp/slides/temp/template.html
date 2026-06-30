@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Deck template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- icon sprite - use via <svg class="i"><use href="#i-..."/></svg> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v5"/><circle cx="12" cy="17" r="0.6" fill="currentColor" stroke="none"/><path d="M10.3 4.2 2.8 17.5A2 2 0 0 0 4.5 20.5h15a2 2 0 0 0 1.7-3L13.7 4.2a2 2 0 0 0-3.4 0Z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-trend-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13z"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5z"/><path d="M3 13l9 5 9-5"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></symbol>
+  <symbol id="i-quote" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M9.5 6C6.5 7.2 5 9.6 5 13v5h6v-6H8.2c.1-1.8.9-3 2.6-3.7zM20 6c-3 1.2-4.5 3.6-4.5 7v5h6v-6h-2.8c.1-1.8.9-3 2.6-3.7z"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M19 5l-1.5 1.5M6.5 17.5 5 19"/></symbol>
+</svg>
+
+<div id="deck">
+
+  <!-- ============================================================
+       EXAMPLE SLIDES - real content types. Copy, fill, reorder.
+       ============================================================ -->
+
+  <!-- OKLADKA · wszystkie elementy z example.md:
+       1 nazwa+logo (chrome)  2 tagline (lead)  3 zespol (copy)
+       4 wydarzenie/data/opiekun (eyebrow + zespol)  5 wizual w tle (watermark) -->
+  <section class="slide layout-full" data-slide-kind="okladka">
+    <!-- watermark "01" usuniety - nie wystepuje na innych slajdach, byl niespojny -->
+    <div class="slide-chrome">
+      <!-- 1 nazwa + logo -->
+      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
+      <div class="right"><span class="chrome-date">HackHorse · 2026</span><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <!-- 4 wydarzenie / data -->
+        <span class="eyebrow">HackHorse · marzec 2026</span>
+        <h1>Randkowa apka dla <em>koni</em><span class="dot">.</span></h1>
+        <!-- 2 tagline -->
+        <p class="lead">Idealny match dla twojego konia, w kilka sekund</p>
+        <!-- 3 zespol · 4 opiekun -->
+        <p class="meta">Anna Kovač · Marek Dudek · Julia Reyes · opiekun: dr Voss</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM · bol + jedna mocna liczba -->
+  <section class="slide layout-left" data-slide-kind="problem">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <span class="eyebrow">Problem</span>
+        <h2>Znalezienie matcha trwa <em>tygodnie</em><span class="dot">.</span></h2>
+        <p class="lead">Setki telefonów, długie dojazdy, złe dopasowania</p>
+      </div>
+      <div class="plate-wrap">
+        <div class="bigstat">
+          <span class="val">73<small>%</small></span>
+          <span class="cap">właścicieli poddaje się przed znalezieniem dobrego matcha</span>
+          <span class="cap muted">Źródło: badanie hodowców koni, n=400, 2025</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROZWIAZANIE · jedno zdanie + trzy korzysci -->
+  <section class="slide layout-full pos-top" data-slide-kind="rozwiązanie">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <span class="eyebrow">Rozwiązanie</span>
+        <h2>Swipe, match, <em>hodowla</em><span class="dot">.</span></h2>
+      </div>
+      <div class="grid-3">
+        <div class="tile"><div class="ic"><svg class="i"><use href="#i-bolt"/></svg></div><strong>Matche od ręki</strong><span>Dobór wg rasy, wieku i temperamentu</span></div>
+        <div class="tile"><div class="ic"><svg class="i"><use href="#i-target"/></svg></div><strong>Sprawdzeni właściciele</strong><span>Każdy profil zweryfikowany bez fejków</span></div>
+        <div class="tile"><div class="ic"><svg class="i"><use href="#i-check"/></svg></div><strong>Weterynarz pod ręką</strong><span>Karta zdrowia w każdym matchu</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 PERSONA · 2 kolumny: tekst + obraz + potrzeby -->
+  <section class="slide layout-left" data-slide-kind="persona">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <span class="eyebrow">Dla kogo</span>
+        <h2>Jedna decyzja, dużo <em>ryzyka</em><span class="dot">.</span></h2>
+        <p class="lead">Hodowca musi ocenić zdrowie, rodowód, temperament i zaufanie do właściciela zanim ruszy w trasę</p>
+        <ul class="persona-list">
+          <li><span>01</span>Nie chce jechać setek kilometrów bez pewności</li>
+          <li><span>02</span>Potrzebuje dokumentów zanim zacznie rozmowę</li>
+          <li><span>03</span>Chce porównać kilka kandydatów jednym widokiem</li>
+        </ul>
+      </div>
+      <div class="plate-wrap">
+        <figure class="photo-profile">
+          <img src="img/about.png" alt="Kadr profilu użytkownika w estetyce aplikacji" />
+          <figcaption>
+            <span class="mini-label">Persona 01</span>
+            <strong>Anna, hodowczyni</strong>
+            <small>6 koni · decyzja raz na sezon · zero miejsca na przypadek</small>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 DEMO · makieta produktu + opis -->
+  <section class="slide layout-right" data-slide-kind="demo">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <span class="eyebrow">Demo</span>
+        <h2>Swipe i jest <em>match</em><span class="dot">.</span></h2>
+        <p class="lead">Jeden gest decyduje, reszta dzieje się w tle</p>
+        <div class="demo-points">
+          <span><b>01</b> karta zdrowia</span>
+          <span><b>02</b> dystans i rasa</span>
+          <span><b>03</b> bezpieczny czat</span>
+        </div>
+      </div>
+      <div class="plate-wrap">
+        <div class="phone">
+          <div class="phone-shot">
+            <div class="ph-card">
+              <div class="ph-img"><img src="img/method-2.png" alt="Ekran profilu konia w aplikacji" /></div>
+              <div class="ph-meta"><strong>Luna, arabska</strong><span>4 lata · 8 km od ciebie</span></div>
+              <div class="ph-actions"><span class="x">✕</span><span class="heart"><svg class="i"><use href="#i-spark"/></svg></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 WYNIKI · wykres slupkowy z osiami -->
+  <section class="slide layout-full pos-top" data-slide-kind="wyniki">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <span class="eyebrow">Wyniki</span>
+        <h2>Matche miesięcznie, pierwszy <em>kwartał</em><span class="dot">.</span></h2>
+      </div>
+      <div class="chart-wrap">
+        <span class="axis-y-title">Matche</span>
+        <div class="y-axis"><span>2 tys.</span><span>1,5 tys.</span><span>1 tys.</span><span>0,5 tys.</span><span>0</span></div>
+        <div class="bars">
+          <div class="bar"><div class="col" style="height:24%"><span class="v">480</span></div><span class="lab">sty</span></div>
+          <div class="bar"><div class="col" style="height:51%"><span class="v">1 020</span></div><span class="lab">lut</span></div>
+          <div class="bar"><div class="col" style="height:88%"><span class="v">1 760</span></div><span class="lab">mar</span></div>
+        </div>
+        <span class="axis-x-title">Miesiąc, 2026</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 METRYKI · trzy KPI -->
+  <section class="slide layout-full pos-top" data-slide-kind="metryki">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <span class="eyebrow">Rynek</span>
+        <h2>Hodowle wchodzą w <em>mobile</em><span class="dot">.</span></h2>
+      </div>
+      <div class="market-panel">
+        <div class="area-chart">
+          <!-- single viewBox: axes + line + dots scale together, never misalign.
+               preserveAspectRatio meet keeps proportions (no squish); strokes are
+               non-scaling so thickness stays constant at any size. -->
+          <svg class="area-svg" viewBox="0 0 760 480" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Wzrost cyfrowych zapytań hodowlanych od 2023 do 2026, z 2,9 tys. do 11,5 tys.">
+            <!-- horizontal gridlines at 12 / 8 / 4 tys. -->
+            <g class="area-grid">
+              <line x1="92" y1="36" x2="740" y2="36"/>
+              <line x1="92" y1="157.33" x2="740" y2="157.33"/>
+              <line x1="92" y1="278.67" x2="740" y2="278.67"/>
+            </g>
+            <!-- Y axis values (unit is in the axis title), anchored to each gridline -->
+            <g class="area-ylab">
+              <text x="80" y="36">12</text>
+              <text x="80" y="157.33">8</text>
+              <text x="80" y="278.67">4</text>
+              <text x="80" y="400">0</text>
+            </g>
+            <!-- area fill + line; baseline sits exactly on y=400 (the "0" axis) -->
+            <path class="area-fill" d="M92 312.03 C128 299.89 236 265.00 308 239.22 C380 213.44 452 188.67 524 157.33 C596 125.99 704 68.86 740 51.17 L740 400 L92 400 Z"/>
+            <path class="area-line" d="M92 312.03 C128 299.89 236 265.00 308 239.22 C380 213.44 452 188.67 524 157.33 C596 125.99 704 68.86 740 51.17" vector-effect="non-scaling-stroke"/>
+            <!-- axes: Y (left) and X (baseline = zero line) -->
+            <line class="area-axis" x1="92" y1="36" x2="92" y2="400" vector-effect="non-scaling-stroke"/>
+            <line class="area-axis" x1="92" y1="400" x2="740" y2="400" vector-effect="non-scaling-stroke"/>
+            <g class="area-dots">
+              <circle cx="92" cy="312.03" r="7" vector-effect="non-scaling-stroke"/>
+              <circle cx="308" cy="239.22" r="7" vector-effect="non-scaling-stroke"/>
+              <circle cx="524" cy="157.33" r="7" vector-effect="non-scaling-stroke"/>
+              <circle cx="740" cy="51.17" r="7" vector-effect="non-scaling-stroke"/>
+            </g>
+            <!-- X axis years, anchored under each data point -->
+            <g class="area-xlab">
+              <text x="92" y="436">2023</text>
+              <text x="308" y="436">2024</text>
+              <text x="524" y="436">2025</text>
+              <text x="740" y="436" class="now">2026</text>
+            </g>
+            <!-- axis titles -->
+            <text class="area-axis-title" x="34" y="218" transform="rotate(-90 34 218)">Właściciele (tys.)</text>
+            <text class="area-axis-title" x="416" y="472">Rok</text>
+          </svg>
+        </div>
+        <div class="market-stats">
+          <div><span class="val">12 tys.</span><span class="lbl">właścicieli w becie</span></div>
+          <div><span class="val">9</span><span class="lbl">krajów w pierwszym zasięgu</span></div>
+          <div><span class="val">4,8</span><span class="lbl">średnia ocena po testach</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 CYTAT · pelnoekranowy -->
+  <section class="slide layout-center" data-slide-kind="cytat" data-tone="accent">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy center quote-copy">
+        <span class="quote-glyph"><svg class="i"><use href="#i-quote"/></svg></span>
+        <p class="pull">Ogiera dla mojej klaczy znalazłam w <span class="accent">dwa dni</span>, nie dwa miesiące</p>
+        <span class="pull-cite">Clara Bergström, hodowczyni</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09b KANALY · wykres kolowy (donut), JEDEN akcent w odcieniach -->
+  <section class="slide layout-left" data-slide-kind="kanały">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <span class="eyebrow">Skąd ruch</span>
+        <h2>Kanały <em>pozyskania</em><span class="dot">.</span></h2>
+        <p class="lead">Ponad połowa to polecenia od&nbsp;innych hodowców</p>
+      </div>
+      <div class="plate-wrap">
+        <div class="donut-wrap">
+          <div class="donut">
+            <svg viewBox="0 0 200 200">
+              <circle cx="100" cy="100" r="80" fill="none" stroke="var(--surface-2)" stroke-width="30" />
+              <circle cx="100" cy="100" r="80" fill="none" stroke="var(--accent)" stroke-width="30" />
+              <circle cx="100" cy="100" r="80" fill="none" stroke="color-mix(in srgb, var(--accent) 62%, var(--surface))" stroke-width="30" stroke-dashoffset="-276" />
+              <circle cx="100" cy="100" r="80" fill="none" stroke="color-mix(in srgb, var(--accent) 34%, var(--surface))" stroke-width="30" stroke-dashoffset="-402" />
+            </svg>
+            <div class="center"><span class="v">55%</span><span class="l">polecenia</span></div>
+          </div>
+          <div class="donut-legend">
+            <div class="di"><span class="sw" style="background:var(--accent)"></span>Polecenia<b>55%</b></div>
+            <div class="di"><span class="sw" style="background:color-mix(in srgb, var(--accent) 62%, var(--surface))"></span>Social media<b>25%</b></div>
+            <div class="di"><span class="sw" style="background:color-mix(in srgb, var(--accent) 34%, var(--surface))"></span>Reklama<b>10%</b></div>
+            <div class="di"><span class="sw" style="background:var(--surface-2)"></span>Pozostałe<b>10%</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 PRZED / PO · most miedzy starym i nowym procesem -->
+  <section class="slide layout-full pos-top" data-slide-kind="przed-po">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <span class="eyebrow">Przed / po</span>
+        <h2>Co się <em>zmienia</em><span class="dot">.</span></h2>
+      </div>
+      <div class="compare compare-bridge">
+        <div class="col bad">
+          <span class="mini-label">Stary proces</span>
+          <h3><span class="badge-ic"><svg class="i"><use href="#i-alert"/></svg></span>Przed</h3>
+          <ul><li>Tygodnie telefonów i wiadomości</li><li>Dokumenty wysyłane po czasie</li><li>Dojazd zanim pojawi się zaufanie</li></ul>
+        </div>
+        <div class="bridge-pill"><svg class="i"><use href="#i-arrow"/></svg><span>Horse Match</span></div>
+        <div class="col ok">
+          <span class="mini-label">Nowy proces</span>
+          <h3><span class="badge-ic"><svg class="i"><use href="#i-check"/></svg></span>Po</h3>
+          <ul><li>Match w kilka minut</li><li>Karta zdrowia już w profilu</li><li>Najpierw czat, potem jedna dobra wizyta</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 ARCHITEKTURA · przeplyw danych -->
+  <section class="slide layout-full pos-top" data-slide-kind="technologie">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <span class="eyebrow">Pod maską</span>
+        <h2>Prosty przepływ, <em>mniej tarcia</em><span class="dot">.</span></h2>
+      </div>
+      <div class="arch-map">
+        <div class="arch-node"><span>01</span><strong>Profil konia</strong><small>rasa, wiek, zdjęcia, zdrowie</small></div>
+        <div class="arch-arrow"><svg class="i"><use href="#i-arrow"/></svg></div>
+        <div class="arch-node"><span>02</span><strong>Matching</strong><small>filtry, odległość, temperament</small></div>
+        <div class="arch-arrow"><svg class="i"><use href="#i-arrow"/></svg></div>
+        <div class="arch-node"><span>03</span><strong>Weryfikacja</strong><small>właściciel, dokumenty, historia</small></div>
+        <div class="arch-arrow"><svg class="i"><use href="#i-arrow"/></svg></div>
+        <div class="arch-node"><span>04</span><strong>Czat i wizyta</strong><small>kontakt dopiero po matchu</small></div>
+        <div class="arch-stack">
+          <span class="stack-chip">React Native</span><span class="stack-chip">TypeScript</span><span class="stack-chip">Node.js</span><span class="stack-chip">PostgreSQL</span><span class="stack-chip">Python</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 WYZWANIA · problem + decyzja + efekt -->
+  <section class="slide layout-full pos-top" data-slide-kind="wyzwania">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <span class="eyebrow">Napotkane problemy</span>
+        <h2>Co było <em>trudne</em><span class="dot">.</span></h2>
+      </div>
+      <div class="risk-board">
+        <div class="risk-row"><span class="risk-n">01</span><strong>Zimny start</strong><p>Bez profili nie ma swipe, więc zaczęliśmy od jednej stadniny i ręcznego seedowania</p><small>200 pierwszych koni</small></div>
+        <div class="risk-row"><span class="risk-n">02</span><strong>Zaufanie</strong><p>Każdy profil przechodzi weryfikację właściciela i dokumentów przed widocznością</p><small>mniej pustych rozmów</small></div>
+        <div class="risk-row"><span class="risk-n">03</span><strong>Dopasowanie</strong><p>Model nie udaje wyroczni, daje shortlistę i pokazuje powód rekomendacji</p><small>kontrola zostaje u hodowcy</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 DOWOD · obrazy z produktu -->
+  <section class="slide layout-full pos-top" data-slide-kind="osiągnięcia">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <span class="eyebrow">Dowód</span>
+        <h2>To nie slajd, to <em>prototyp</em><span class="dot">.</span></h2>
+      </div>
+      <div class="proof-gallery">
+        <figure><img src="img/work-1.png" alt="Kadr z prototypu listy profili" /><figcaption><span>01</span><strong>Lista profili</strong><small>kandydaci gotowi do porównania</small></figcaption></figure>
+        <figure><img src="img/lab-3.png" alt="Kadr z prototypu szczegółów profilu" /><figcaption><span>02</span><strong>Karta konia</strong><small>zdrowie, rasa i dystans w jednym miejscu</small></figcaption></figure>
+        <figure><img src="img/work-2.png" alt="Kadr z prototypu flow matcha" /><figcaption><span>03</span><strong>Flow matcha</strong><small>decyzja bez przełączania narzędzi</small></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 ROADMAPA · plan jako plansza -->
+  <section class="slide layout-full pos-top" data-slide-kind="roadmapa">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <span class="eyebrow">Roadmapa</span>
+        <h2>Dokąd <em>zmierzamy</em><span class="dot">.</span></h2>
+      </div>
+      <div class="roadmap-board">
+        <div class="road-card now"><span class="when">Teraz</span><strong>Beta w jednej sieci stadnin</strong><p>seed profili, match, karta zdrowia, podstawowy czat</p></div>
+        <div class="road-card"><span class="when">Q2 2026</span><strong>Warstwa zaufania</strong><p>weryfikacja dokumentów, weterynarze, historia kryć</p></div>
+        <div class="road-card"><span class="when">Q3 2026</span><strong>Lepszy dobór</strong><p>uczenie na ocenach matchy i jawne powody rekomendacji</p></div>
+        <div class="road-card"><span class="when">2027</span><strong>Europa</strong><p>lokalne rynki, partnerzy i płatne promowanie profili</p></div>
+        <div class="road-line"><span></span><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 ZESPOL · tabela 4 kolumny -->
+  <section class="slide layout-left" data-slide-kind="zespół">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <span class="eyebrow">Zespół</span>
+        <h2>Kto za co <em>odpowiada</em><span class="dot">.</span></h2>
+        <p class="lead">Trzy osoby, jasny podział, jeden cel</p>
+      </div>
+      <div class="plate-wrap">
+        <div class="team-lines">
+          <div><strong>Anna Kovač</strong><span>Aplikacja mobilna, karta profilu, flow swipe</span></div>
+          <div><strong>Marek Dudek</strong><span>Backend, API profili, weryfikacja właścicieli</span></div>
+          <div><strong>Julia Reyes</strong><span>Matching, ranking kandydatów, metryki dopasowania</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 ZAKONCZENIE · CTA na ciemnym -->
+  <section class="slide layout-center" data-slide-kind="zakończenie" data-tone="dark">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Horse Match</b></span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy center">
+        <span class="eyebrow">Dołącz</span>
+        <h1>Znajdź swojemu koniowi <em>randkę</em><span class="dot">?</span></h1>
+        <div class="cta-row">
+          <span class="cta-btn">horsematch.app</span>
+          <span class="cta-btn cta-ghost">hello@horsematch.app</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       GALERIA UKLADOW - 9 pozycji bloku tytulu. NIE USUWAC.
+       poziom : layout-full (lewo) | layout-center | layout-full pull-right
+       pion   : pos-top | (srodek domyslnie) | pos-bottom
+       ============================================================ -->
+
+  <!-- gora-lewo -->
+  <section class="slide layout-full pos-top" data-slide-kind="góra-lewo">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Układ</b> · góra-lewo</span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <h2>Tytuł <em>lewy górny</em><span class="dot">.</span></h2>
+        <p class="lead">Podtytuł, jedna krótka linia</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- gora-srodek -->
+  <section class="slide layout-center pos-top" data-slide-kind="góra-środek">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Układ</b> · góra-środek</span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy center">
+        <h2>Tytuł <em>górny środkowy</em><span class="dot">.</span></h2>
+        <p class="lead">Podtytuł, jedna krótka linia</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- gora-prawo -->
+  <section class="slide layout-full pull-right pos-top" data-slide-kind="góra-prawo">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Układ</b> · góra-prawo</span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <h2>Tytuł <em>prawy górny</em><span class="dot">.</span></h2>
+        <p class="lead">Podtytuł, jedna krótka linia</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- srodek-lewo -->
+  <section class="slide layout-full" data-slide-kind="środek-lewo">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Układ</b> · środek-lewo</span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <h2>Tytuł <em>lewy środkowy</em><span class="dot">.</span></h2>
+        <p class="lead">Podtytuł, jedna krótka linia</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- srodek-srodek -->
+  <section class="slide layout-center" data-slide-kind="środek-środek">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Układ</b> · środek-środek</span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy center">
+        <h1>Tytuł na <em>środku</em><span class="dot">.</span></h1>
+        <p class="lead">Podtytuł, jedna krótka linia</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- srodek-prawo -->
+  <section class="slide layout-full pull-right" data-slide-kind="środek-prawo">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Układ</b> · środek-prawo</span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <h2>Tytuł <em>prawy środkowy</em><span class="dot">.</span></h2>
+        <p class="lead">Podtytuł, jedna krótka linia</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- dol-lewo -->
+  <section class="slide layout-full pos-bottom" data-slide-kind="dół-lewo">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Układ</b> · dół-lewo</span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <h2>Tytuł <em>lewy dolny</em><span class="dot">.</span></h2>
+        <p class="lead">Podtytuł, jedna krótka linia</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- dol-srodek -->
+  <section class="slide layout-center pos-bottom" data-slide-kind="dół-środek">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Układ</b> · dół-środek</span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy center">
+        <h2>Tytuł <em>dolny środkowy</em><span class="dot">.</span></h2>
+        <p class="lead">Podtytuł, jedna krótka linia</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- dol-prawo -->
+  <section class="slide layout-full pull-right pos-bottom" data-slide-kind="dół-prawo">
+    <div class="slide-chrome">
+      <div class="left"><span class="mark">HM</span><span><b>Układ</b> · dół-prawo</span></div>
+      <div class="right"><span class="pageno">01 / 01</span></div>
+    </div>
+    <div class="slide-inner">
+      <div class="copy">
+        <h2>Tytuł <em>prawy dolny</em><span class="dot">.</span></h2>
+        <p class="lead">Podtytuł, jedna krótka linia</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div id="nav" aria-label="nav"></div>
+<div class="deck-progress"><div class="bar"></div></div>
+<button id="theme-btn" aria-label="theme"><svg class="i"><use href="#i-sun"/></svg></button>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
-import { PageHero } from '@/shared/ui/PageHero/PageHero';
-import { PageShell } from '@/shared/ui/PageShell/PageShell';
-import { DraftNotice } from '@/shared/ui/DraftNotice/DraftNotice';
-import { LegalSection, LegalP, LegalList } from '@/shared/ui/LegalSection/LegalSection';
-import { Footer } from '@/widgets/Footer/ui/Footer';
+import { PageHero } from '@/shared/ui/page-hero';
+import { PageShell } from '@/shared/ui/page-shell';
+import { DraftNotice } from '@/shared/ui/draft-notice';
+import { LegalSection, LegalP, LegalList } from '@/shared/ui/legal-section';
+import { Footer } from '@/widgets/footer/ui/footer';
 
 export const metadata: Metadata = {
     title: 'Regulamin',

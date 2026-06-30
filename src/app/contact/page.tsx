@@ -2,13 +2,13 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { PageHero } from '@/shared/ui/PageHero/PageHero';
-import { PageShell } from '@/shared/ui/PageShell/PageShell';
-import { Footer } from '@/widgets/Footer/ui/Footer';
-import { Button } from '@/shared/ui/lib/Button';
-import { Input } from '@/shared/ui/lib/Input';
-import { Textarea } from '@/shared/ui/lib/Textarea';
-import { Label } from '@/shared/ui/lib/Label';
+import { PageHero } from '@/shared/ui/page-hero';
+import { PageShell } from '@/shared/ui/page-shell';
+import { Footer } from '@/widgets/footer/ui/footer';
+import { Button } from '@/shared/ui/lib/button';
+import { Input } from '@/shared/ui/lib/input';
+import { Textarea } from '@/shared/ui/lib/textarea';
+import { Label } from '@/shared/ui/lib/label';
 import { t } from '@/shared/i18n';
 
 const channels = [0, 1, 2, 3] as const;
