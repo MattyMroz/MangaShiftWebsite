@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { PageHero } from '@/shared/ui/PageHero/page-hero';
-import { PageShell } from '@/shared/ui/PageShell/page-shell';
-import { Footer } from '@/widgets/Footer/ui/footer';
+import { PageHero } from '@/shared/ui/page-hero';
+import { PageShell } from '@/shared/ui/page-shell';
+import { Footer } from '@/widgets/footer/ui/footer';
 import { Button } from '@/shared/ui/lib/button';
 import { Input } from '@/shared/ui/lib/input';
 import { Textarea } from '@/shared/ui/lib/textarea';

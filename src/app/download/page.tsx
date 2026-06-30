@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Download, ArrowUpRight } from 'lucide-react';
-import { PageHero } from '@/shared/ui/PageHero/page-hero';
-import { PageShell } from '@/shared/ui/PageShell/page-shell';
-import { Footer } from '@/widgets/Footer/ui/footer';
+import { PageHero } from '@/shared/ui/page-hero';
+import { PageShell } from '@/shared/ui/page-shell';
+import { Footer } from '@/widgets/footer/ui/footer';
 import { Button } from '@/shared/ui/lib/button';
 import { t } from '@/shared/i18n';
 

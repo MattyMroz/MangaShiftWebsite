@@ -1,10 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { PageHero } from '@/shared/ui/PageHero/page-hero';
-import { PageShell } from '@/shared/ui/PageShell/page-shell';
-import { DraftNotice } from '@/shared/ui/DraftNotice/draft-notice';
-import { Footer } from '@/widgets/Footer/ui/footer';
+import { PageHero } from '@/shared/ui/page-hero';
+import { PageShell } from '@/shared/ui/page-shell';
+import { DraftNotice } from '@/shared/ui/draft-notice';
+import { Footer } from '@/widgets/footer/ui/footer';
 import { Button } from '@/shared/ui/lib/button';
 import { t } from '@/shared/i18n';
 

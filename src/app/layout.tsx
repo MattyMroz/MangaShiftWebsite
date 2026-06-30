@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Inter_Tight, Playfair_Display, Inter, JetBrains_Mono } from "next/font/google";
-import { Header } from "@/widgets/Header/ui/header";
-import { CursorHalo } from "@/shared/ui/CursorHalo/cursor-halo";
+import { Header } from "@/widgets/header/ui/header";
+import { CursorHalo } from "@/shared/ui/cursor-halo";
 import "./globals.css";
 
 const display = Inter_Tight({ variable: "--font-display", subsets: ["latin"], weight: ["500", "600", "700", "800", "900"] });
